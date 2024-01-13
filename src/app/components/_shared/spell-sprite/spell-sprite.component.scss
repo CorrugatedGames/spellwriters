@@ -1,0 +1,17 @@
+:host {
+  width: var(--sprite-size);
+  height: var(--sprite-size);
+  display: inline-block;
+
+  .image-container {
+    width: var(--sprite-size);
+    height: var(--sprite-size);
+
+    img {
+      width: var(--sprite-size);
+      height: var(--sprite-size);
+
+      object-fit: none;
+    }
+  }
+}
