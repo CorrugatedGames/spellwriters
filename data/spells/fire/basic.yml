@@ -1,0 +1,50 @@
+- name: Ignis
+  description: Basic fire attack.
+  sprite: 0
+
+  element: Fire
+  rarity: Common
+
+  damage: 2
+  speed: 1
+  cost: 1
+  castTime: 0
+  depthMin: 0
+  depthMax: 1
+  pattern: Single
+
+- name: Flamma
+  description: Exploding fire attack.
+  sprite: 1
+
+  element: Fire
+  rarity: Uncommon
+
+  damage: 2
+  speed: 1
+  cost: 2
+  castTime: 0
+  depthMin: 0
+  depthMax: 1
+  pattern: Single
+
+  tags:
+    explodes: 1
+
+- name: Incendia Misteria
+  description: Steamy fire attack.
+  sprite: 2
+
+  element: Fire
+  rarity: Uncommon
+
+  damage: 1
+  speed: 1
+  cost: 4
+  castTime: 1
+  depthMin: 0
+  depthMax: 1
+  pattern: Triple
+
+  tags:
+    steamy: 1

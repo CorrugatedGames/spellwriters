@@ -1,0 +1,19 @@
+- name: Goblin
+  description: A very basic enemy.
+  sprite: 40
+
+  maxHealth: 5
+
+  deck:
+    name: Goblin Starter
+    spells:
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
