@@ -31,6 +31,7 @@ export enum SpellTag {
 
 export interface Spell {
   name: string;
+  id: string;
   description: string;
   sprite: number;
 

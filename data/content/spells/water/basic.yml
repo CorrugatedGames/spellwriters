@@ -1,0 +1,53 @@
+- name: Aqua
+  id: a9594eb2-9bef-4497-be88-07d04b41d070
+  description: Basic water attack.
+  sprite: 80
+
+  element: Water
+  rarity: Common
+
+  damage: 1
+  speed: 2
+  cost: 1
+  castTime: 1
+  depthMin: 0
+  depthMax: 1
+  pattern: Single
+
+- name: Geyser
+  id: a4334820-3a54-4855-9068-520546e943ed
+  description: Defensive water shield.
+  sprite: 81
+
+  element: Water
+  rarity: Uncommon
+
+  damage: 0
+  speed: 0
+  cost: 3
+  castTime: 1
+  depthMin: 1
+  depthMax: 2
+  pattern: Single
+
+  tags:
+    defensive: 2
+
+- name: Rainstorm
+  id: dc05162f-a29f-489f-8d97-f96f431f5d50
+  description: Muddying water attack.
+  sprite: 82
+
+  element: Water
+  rarity: Uncommon
+
+  damage: 3
+  speed: 2
+  cost: 4
+  castTime: 2
+  depthMin: 1
+  depthMax: 2
+  pattern: Single
+
+  tags:
+    muddy: 1

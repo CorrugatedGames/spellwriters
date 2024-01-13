@@ -1,0 +1,50 @@
+- name: Concussa
+  id: 890b0e15-ad9b-4246-a1f6-7a28b7ba71cf
+  description: Basic electric attack.
+  sprite: 63
+
+  element: Electric
+  rarity: Common
+
+  damage: 1
+  speed: 3
+  cost: 1
+  castTime: 2
+  depthMin: 1
+  depthMax: 1
+  pattern: Single
+
+- name: Lightning
+  id: f2d8af51-90aa-4fe1-a348-dfc54352c70d
+  description: Fast electric attack.
+  sprite: 64
+
+  element: Electric
+  rarity: Uncommon
+
+  damage: 1
+  speed: 7
+  cost: 2
+  castTime: 3
+  depthMin: 1
+  depthMax: 1
+  pattern: Single
+
+- name: Surge
+  id: 2bf909e3-1806-4011-ae32-2c43e097362b
+  description: Powerful electric attack.
+  sprite: 65
+
+  element: Electric
+  rarity: Uncommon
+
+  damage: 2
+  speed: 2
+  cost: 4
+  castTime: 2
+  depthMin: 0
+  depthMax: 1
+  pattern: Single
+
+  tags:
+    steamy: 1

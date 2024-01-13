@@ -24,7 +24,7 @@ export class CharacterSpriteComponent {
   }
 
   public get imgUrl(): string {
-    return 'assets/characters/characters.png';
+    return 'assets/spritesheets/characters.png';
   }
 
   @HostBinding('style.--animation-position')

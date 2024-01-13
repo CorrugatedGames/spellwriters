@@ -1,5 +1,6 @@
 export interface Archetype {
   name: string;
+  id: string;
   description: string;
   sprite: number;
 

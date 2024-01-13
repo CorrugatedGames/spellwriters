@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - master
     paths-ignore:
       - '**/*.md'
   pull_request_target:
     branches:
-      - main
+      - master
     types:
       - synchronize
       - opened
@@ -35,6 +35,4 @@ jobs:
 
       - run: npm install
 
-      - run: npm run lint
-
-      - run: npm run build
+      - run: npm run build:all

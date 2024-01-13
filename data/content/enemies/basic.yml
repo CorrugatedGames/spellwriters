@@ -1,0 +1,20 @@
+- name: Goblin
+  id: 34454542-3641-40cb-8227-7c30a9ba884a
+  description: A very basic enemy.
+  sprite: 40
+
+  maxHealth: 5
+
+  deck:
+    name: Goblin Starter
+    spells:
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis
+      - Ignis

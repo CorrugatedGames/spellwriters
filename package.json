@@ -4,7 +4,16 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --watch --configuration development -o --port 9104",
-    "build": "ng build --configuration production"
+    "build": "ng build --configuration production",
+    "build:all": "npm run lint && npm run content && npm run validate && npm run build",
+    "lint": "ng lint",
+    "content": "npm run content:spells && npm run content:characters",
+    "content:characters": "ts-node scripts/build-characters",
+    "content:spells": "ts-node scripts/build-spells",
+    "generate:spritesheets": "ts-node scripts/generate-spritesheets",
+    "validate": "npm run validate:spells && npm run validate:characters",
+    "validate:characters": "ts-node scripts/validate-characters",
+    "validate:spells": "ts-node scripts/validate-spells"
   },
   "private": true,
   "dependencies": {
@@ -26,9 +35,19 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.10",
+    "@angular-eslint/builder": "17.2.0",
+    "@angular-eslint/eslint-plugin": "17.2.0",
+    "@angular-eslint/eslint-plugin-template": "17.2.0",
+    "@angular-eslint/schematics": "17.2.0",
+    "@angular-eslint/template-parser": "17.2.0",
+    "@angular-eslint/utils": "^17.2.0",
     "@angular/cli": "^17.0.10",
     "@angular/compiler-cli": "^17.0.0",
     "@angular/localize": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "6.18.0",
+    "@typescript-eslint/parser": "6.18.0",
+    "eslint": "^8.56.0",
+    "ts-node": "^10.9.2",
     "typescript": "~5.2.2"
   }
 }

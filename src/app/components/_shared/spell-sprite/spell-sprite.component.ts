@@ -9,7 +9,7 @@ export class SpellSpriteComponent {
   @Input({ required: true }) public sprite!: number;
 
   public get imgUrl(): string {
-    return 'assets/spells/spells.png';
+    return 'assets/spritesheets/spells.png';
   }
 
   public get spriteLocation() {
