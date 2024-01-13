@@ -1,0 +1,11 @@
+body {
+  background: url(../assets/bg/splash-dark.png) no-repeat center center/cover;
+
+  &.bright {
+    background: url(../assets/bg/splash.png) no-repeat center center/cover;
+  }
+}
+
+img {
+  user-select: none;
+}

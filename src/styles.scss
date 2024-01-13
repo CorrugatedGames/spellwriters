@@ -1,9 +1,5 @@
+@import './styles/colors';
 @import 'bootstrap/scss/bootstrap';
 
-:root {
-  --sprite-size: 64px;
-}
-
-img {
-  user-select: none;
-}
+@import './styles/css-variables';
+@import './styles/globals';
