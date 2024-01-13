@@ -1,4 +1,7 @@
 body {
+  height: 100vh;
+  width: 100vw;
+
   background: url(../assets/bg/splash-dark.png) no-repeat center center/cover;
 
   &.bright {
