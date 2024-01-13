@@ -18,6 +18,13 @@ const routes: Routes = [
       import('./pages/play/play.module').then((m) => m.PlayModule),
   },
   {
+    path: 'debug/components',
+    loadChildren: () =>
+      import('./pages/debug/components/components.module').then(
+        (m) => m.DebugComponentsModule,
+      ),
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',
