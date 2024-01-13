@@ -8,6 +8,16 @@ const routes: Routes = [
       import('./pages/home/home.module').then((m) => m.HomeModule),
   },
   {
+    path: 'new-run',
+    loadChildren: () =>
+      import('./pages/new-run/new-run.module').then((m) => m.NewRunModule),
+  },
+  {
+    path: 'play',
+    loadChildren: () =>
+      import('./pages/play/play.module').then((m) => m.PlayModule),
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',

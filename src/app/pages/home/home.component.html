@@ -1,3 +1,31 @@
-<sw-spell-sprite [sprite]="10"></sw-spell-sprite>
-<br>
-<sw-character-sprite [sprite]="0"></sw-character-sprite>
+<div class="container">
+  <div class="row">
+    <div class="col-12 main-menu-container">
+      <div class="main-menu">
+        <div class="row action-row mb-3">
+          <div class="col-12">
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-primary" routerLink="/new-run">Play</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row action-row mb-3">
+          <div class="col-12">
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-primary" disabled>Options</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row action-row mb-3">
+          <div class="col-12">
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-primary" disabled>Quit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
