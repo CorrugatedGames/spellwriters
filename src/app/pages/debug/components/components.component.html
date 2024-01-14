@@ -1,3 +1,18 @@
-<sw-character-sprite [sprite]="0"></sw-character-sprite>
-<br>
-<sw-spell-sprite [sprite]="0"></sw-spell-sprite>
+<div class="container">
+
+  <h1>Characters</h1>
+
+  <div class="sprite-container">
+    <div class="sprite" *ngFor="let charId of numCharacters" [title]="charId">
+      <sw-character-sprite [sprite]="charId"></sw-character-sprite>
+    </div>
+  </div>
+
+  <h1>Spells</h1>
+
+  <div class="sprite-container">
+    <div class="sprite" *ngFor="let spellId of numSpells" [title]="spellId">
+      <sw-spell-sprite [sprite]="spellId"></sw-spell-sprite>
+    </div>
+  </div>
+</div>
