@@ -4,12 +4,15 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --watch --configuration development -o --port 9104",
-    "build": "ng build --configuration production",
-    "build:all": "npm run lint && npm run content && npm run validate && npm run build",
+    "build": "npm run lint && npm run generate && npm run content && npm run validate && npm run build:app",
+    "build:app": "ng build --configuration production",
     "lint": "ng lint",
+    "gamedata": "npm run content && npm run generate",
     "content": "npm run content:spells && npm run content:characters",
-    "content:characters": "ts-node scripts/build-characters",
-    "content:spells": "ts-node scripts/build-spells",
+    "content:single": "ts-node scripts/build-content",
+    "content:characters": "npm run content:single -- characters",
+    "content:spells": "npm run content:single -- spells",
+    "generate": "npm run generate:spritesheets",
     "generate:spritesheets": "ts-node scripts/generate-spritesheets",
     "validate": "npm run validate:spells && npm run validate:characters",
     "validate:characters": "ts-node scripts/validate-characters",
@@ -34,7 +37,7 @@
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.2.11",
+    "@angular-devkit/build-angular": "^17.0.10",
     "@angular-eslint/builder": "17.2.0",
     "@angular-eslint/eslint-plugin": "17.2.0",
     "@angular-eslint/eslint-plugin-template": "17.2.0",
@@ -48,7 +51,11 @@
     "@typescript-eslint/parser": "6.18.0",
     "eslint": "^8.56.0",
     "fs-extra": "^11.2.0",
+    "imagemin": "^7.0.1",
+    "imagemin-webp": "^6.1.0",
+    "jimp": "^0.22.10",
     "js-yaml": "^4.1.0",
+    "recursive-readdir": "^2.2.3",
     "ts-node": "^10.9.2",
     "typescript": "~5.2.2"
   }

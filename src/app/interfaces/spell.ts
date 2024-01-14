@@ -2,8 +2,8 @@ export enum SpellRarity {
   Common = 'Common',
   Uncommon = 'Uncommon',
   Rare = 'Rare',
-  Legendary = 'Advanced',
-  Artifact = 'Artifact',
+  Mystical = 'Mystical',
+  Legendary = 'Legendary',
 }
 
 export enum SpellPattern {

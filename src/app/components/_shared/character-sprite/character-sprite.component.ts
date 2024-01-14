@@ -24,12 +24,12 @@ export class CharacterSpriteComponent {
   }
 
   public get imgUrl(): string {
-    return 'assets/spritesheets/characters.png';
+    return 'assets/spritesheets/characters.webp';
   }
 
   @HostBinding('style.--animation-position')
   public get spriteLocation() {
-    const spritesPerRow = 40;
+    const spritesPerRow = 20;
     const spriteSize = 64;
 
     const sprite = this.currentSprite;
