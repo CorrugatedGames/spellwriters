@@ -1,7 +1,7 @@
 - name: Torriy
   id: 89341c54-fbe0-4a8f-90bd-9415d6526d11
   description: An antipodal magus, specializing in both fire and water.
-  sprite: 4
+  sprite: 1
 
   maxHealth: 25
 
@@ -22,7 +22,7 @@
 - name: Kira
   id: d0ff10fa-4c74-41ea-a1df-7e3aa9397a10
   description: A defensive magus who specializes in earth and water.
-  sprite: 20
+  sprite: 0
 
   maxHealth: 25
 
@@ -43,7 +43,7 @@
 - name: Vorn
   id: 55a8a748-0a86-40ab-b555-e0c5f24ecff4
   description: A powerful magus who specializes in electricity and fire.
-  sprite: 36
+  sprite: 128
 
   maxHealth: 25
 

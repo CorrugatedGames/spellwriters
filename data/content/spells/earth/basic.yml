@@ -1,7 +1,7 @@
 - name: Terra
   id: 235853b4-dd3d-40e6-a0e4-2f3048fbc8e1
   description: Basic earth attack.
-  sprite: 100
+  sprite: 18
 
   element: Earth
   rarity: Common
@@ -17,7 +17,7 @@
 - name: Earth Wall
   id: 5346e122-4f6f-409d-9366-758b066869aa
   description: Powerful earth shield.
-  sprite: 101
+  sprite: 16
 
   element: Earth
   rarity: Uncommon
@@ -36,7 +36,7 @@
 - name: Sludge
   id: 579c177e-93ed-413f-85d0-773fa31afd5e
   description: Oily earth attack.
-  sprite: 102
+  sprite: 153
 
   element: Earth
   rarity: Uncommon

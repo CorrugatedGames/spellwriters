@@ -16,7 +16,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development
 
+### Running Code
+
 1. `npm start`
+
+### Creating Content
+
+1. Go to `http://localhost:9104/debug/components` to view all possible components in the game based on the current set of content
 
 ## Building
 
