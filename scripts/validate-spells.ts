@@ -79,7 +79,7 @@ const validate = async () => {
     Object.keys(spell.tags).forEach((tag: string) => {
       const actualTag: SpellTag = tag as SpellTag;
 
-      if (!validTags.includes(tag)) {
+      if (!validTags.includes(actualTag)) {
         throw new Error(`Spell ${spell.id} has invalid tag ${tag}`);
       }
 
