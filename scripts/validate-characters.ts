@@ -1,10 +1,13 @@
-const fs = require('fs-extra');
+import fs from 'fs-extra';
+import { Character, Spell } from '../src/app/interfaces';
 
 const validate = async () => {
-  const characters = fs.readJson('./src/assets/content/characters.json');
-  const spells = fs.readJson('./src/assets/content/spells.json');
+  const characters = fs.readJson('./data/mod/content/characters.json');
+  const spells = fs.readJson(
+    './data/mod/content/spells.json',
+  ) as unknown as Record<string, Spell>;
 
-  Object.values(characters).forEach((character: any) => {
+  Object.values(characters).forEach((character: Character) => {
     if (!character.id) {
       throw new Error(`Character has no id`);
     }

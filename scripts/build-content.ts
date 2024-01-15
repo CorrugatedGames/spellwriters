@@ -1,23 +1,27 @@
-const fs = require('fs-extra');
-const yaml = require('js-yaml');
-const readdir = require('recursive-readdir');
+import fs from 'fs-extra';
+import yaml from 'js-yaml';
+import readdir from 'recursive-readdir';
+import { Character, Spell } from '../src/app/interfaces';
 
 const contentType = process.argv.slice(2)[0];
 
 const allData: Record<string, any> = {};
-const filepath = './src/assets/content';
+const filepath = './data/mod/content';
 const filename = `${contentType}.json`;
 
 const postprocess: Record<string, (items: any[]) => Promise<void>> = {
-  spells: async (items: any[]) => {
+  spells: async (items: Spell[]) => {
     items.forEach((item) => {
+      item.mod = 'default';
+      item.asset = 'spells.webp';
       item.tags ??= {};
     });
   },
-  characters: async (items: any[]) => {
+
+  characters: async (items: Character[]) => {
     const allSpells = await fs.readJson(`${filepath}/spells.json`);
     const spellsByName = Object.values(allSpells).reduce(
-      (acc: Record<string, any>, spell: any) => {
+      (acc: Record<string, Spell>, spell: any) => {
         acc[spell.name] = spell;
         return acc;
       },
@@ -25,6 +29,9 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
     );
 
     items.forEach((item) => {
+      item.mod = 'default';
+      item.asset = 'characters.webp';
+
       item.deck.spells = item.deck.spells.map((spellName: string) => {
         const spell = spellsByName[spellName];
         return spell?.id ?? `INVALID: ${spellName}`;
@@ -35,7 +42,7 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
 
 const save = async () => {
   fs.ensureDirSync(filepath);
-  fs.writeFileSync(`${filepath}/${filename}`, JSON.stringify(allData, null, 2));
+  fs.writeJson(`${filepath}/${filename}`, allData);
 };
 
 const load = async () => {
@@ -44,7 +51,7 @@ const load = async () => {
 
   console.log(`[Build] Loading ${contentType}...`);
   items.forEach((spellFile: string) => {
-    const data = yaml.load(fs.readFileSync(spellFile, 'utf8'));
+    const data = yaml.load(fs.readFileSync(spellFile, 'utf8')) as any[];
 
     data.forEach((item: any & { id: string }) => {
       allItems.push(item);

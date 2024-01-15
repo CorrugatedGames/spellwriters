@@ -33,6 +33,9 @@ export interface Spell {
   name: string;
   id: string;
   description: string;
+
+  mod: string;
+  asset: string;
   sprite: number;
 
   element: SpellElement;
@@ -46,5 +49,5 @@ export interface Spell {
   depthMax: number;
   pattern: SpellPattern;
 
-  tags: Record<SpellTag, number>;
+  tags: Partial<Record<SpellTag, number>>;
 }

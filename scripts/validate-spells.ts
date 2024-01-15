@@ -1,21 +1,21 @@
-const fs = require('fs-extra');
+import fs from 'fs-extra';
+import {
+  Spell,
+  SpellElement,
+  SpellPattern,
+  SpellRarity,
+  SpellTag,
+} from '../src/app/interfaces';
 
-const validRarities = ['Common', 'Uncommon', 'Rare', 'Mystical', 'Legendary'];
-const validPatterns = ['1x1', '2x1', '3x1', '5x1'];
-const validElements = ['Fire', 'Water', 'Earth', 'Electric'];
-const validTags = [
-  'explodes',
-  'dissipates',
-  'steamy',
-  'muddy',
-  'oily',
-  'defensive',
-];
+const validRarities = Object.values(SpellRarity);
+const validPatterns = Object.values(SpellPattern);
+const validElements = Object.values(SpellElement);
+const validTags = Object.values(SpellTag);
 
 const validate = async () => {
-  const spells = fs.readJson('./src/assets/content/spells.json');
+  const spells = fs.readJson('./data/mod/content/spells.json');
 
-  Object.values(spells).forEach((spell: any) => {
+  Object.values(spells).forEach((spell: Spell) => {
     if (!spell.id) {
       throw new Error(`Spell has no id`);
     }
@@ -77,11 +77,13 @@ const validate = async () => {
     }
 
     Object.keys(spell.tags).forEach((tag: string) => {
+      const actualTag: SpellTag = tag as SpellTag;
+
       if (!validTags.includes(tag)) {
         throw new Error(`Spell ${spell.id} has invalid tag ${tag}`);
       }
 
-      if (spell.tags[tag] < 0) {
+      if ((spell.tags[actualTag] ?? 0) < 0) {
         throw new Error(`Spell ${spell.id} has invalid tag value ${tag}`);
       }
     });

@@ -17,6 +17,9 @@ export class CharacterSpriteComponent {
     return this.baseSprite;
   }
 
+  @Input() mod = 'default';
+  @Input() asset = 'characters.webp';
+
   @Input({ required: true })
   public set sprite(value: number) {
     this.baseSprite = value * numFrames;
@@ -24,7 +27,7 @@ export class CharacterSpriteComponent {
   }
 
   public get imgUrl(): string {
-    return 'assets/spritesheets/characters.webp';
+    return `assets/mods/${this.mod}/${this.asset}`;
   }
 
   @HostBinding('style.--animation-position')

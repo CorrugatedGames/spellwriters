@@ -1,7 +1,10 @@
-export interface Archetype {
+export interface Character {
   name: string;
   id: string;
   description: string;
+
+  mod: string;
+  asset: string;
   sprite: number;
 
   maxHealth: number;
@@ -14,7 +17,7 @@ export interface Deck {
   spells: string[];
 }
 
-export interface CombatantArchetype {
+export interface Combatant {
   name: string;
   sprite: number;
 

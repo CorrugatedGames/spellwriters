@@ -6,10 +6,12 @@ import { Component, Input } from '@angular/core';
   styleUrl: './spell-sprite.component.scss',
 })
 export class SpellSpriteComponent {
+  @Input() mod = 'default';
+  @Input() asset = 'spells.webp';
   @Input({ required: true }) public sprite!: number;
 
   public get imgUrl(): string {
-    return 'assets/spritesheets/spells.webp';
+    return `assets/mods/${this.mod}/${this.asset}`;
   }
 
   public get spriteLocation() {

@@ -1,5 +1,9 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
@@ -18,11 +22,9 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    "moduleDetection": "force",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

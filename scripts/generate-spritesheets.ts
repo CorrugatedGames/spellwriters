@@ -1,16 +1,15 @@
-const Jimp = require('jimp');
-const imagemin = require('imagemin');
-const webp = require('imagemin-webp');
-
-const fs = require('fs-extra');
+import fs from 'fs-extra';
+import imagemin from 'imagemin';
+import webp from 'imagemin-webp';
+import Jimp from 'jimp';
 
 const spriteSize = 64;
 const spritesPerRow = 20;
 const spritesheets = ['characters', 'spells'];
 
 const compressImages = async () => {
-  await imagemin([`./src/assets/spritesheets/*.png`], {
-    destination: `./src/assets/spritesheets/`,
+  await imagemin([`./data/mod/spritesheets/*.png`], {
+    destination: `./data/mod/spritesheets/`,
     plugins: [
       webp({
         lossless: true,
@@ -54,14 +53,19 @@ const createSpritesheets = async () => {
 
       await finalImage
         .quality(100)
-        .writeAsync(`./src/assets/spritesheets/${spritegroup}.png`);
+        .writeAsync(`./data/mod/spritesheets/${spritegroup}.png`);
     }),
   );
 };
 
 const generateSpritesheets = async () => {
+  console.log('[Build] Building spritesheets...');
   await createSpritesheets();
+
+  console.log('[Build] Spritesheets built!');
   await compressImages();
+
+  console.log('[Build] Spritesheets compressed!');
 };
 
 generateSpritesheets();
