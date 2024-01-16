@@ -6,6 +6,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContentService } from './services/content.service';
+import { GameStateService } from './services/game-state.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,10 +20,13 @@ import { ContentService } from './services/content.service';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [ContentService],
-      useFactory: (contentService: ContentService) => async () => {
-        await contentService.init();
-      },
+      deps: [ContentService, GameStateService],
+      useFactory:
+        (contentService: ContentService, gameStateService: GameStateService) =>
+        async () => {
+          await contentService.init();
+          await gameStateService.init();
+        },
     },
   ],
   bootstrap: [AppComponent],
