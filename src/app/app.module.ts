@@ -1,6 +1,5 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,12 +9,7 @@ import { GameStateService } from './services/game-state.service';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    NgxWebstorageModule.forRoot(),
-  ],
+  imports: [BrowserModule, AppRoutingModule, NgxWebstorageModule.forRoot()],
   providers: [
     {
       provide: APP_INITIALIZER,

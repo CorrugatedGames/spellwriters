@@ -1,4 +1,9 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  Input,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { interval } from 'rxjs';
 
@@ -8,6 +13,7 @@ const numFrames = 4;
   selector: 'sw-character-sprite',
   templateUrl: './character-sprite.component.html',
   styleUrl: './character-sprite.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterSpriteComponent {
   private baseSprite = 0;

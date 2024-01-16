@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Character, ContentMod, Spell } from '../interfaces';
+import {
+  Character,
+  ContentMod,
+  Spell,
+  SpellElement,
+  SpellStat,
+} from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +37,7 @@ export class ContentService {
     });
   }
 
+  // #region Content Getters
   public allCharacters(): Character[] {
     return Object.values(this._allCharacters);
   }
@@ -46,4 +53,15 @@ export class ContentService {
   public getSpell(id: string): Spell | undefined {
     return this._allSpells[id];
   }
+  // #endregion
+
+  // #region Basic Content Iterators
+  public allElements(): SpellElement[] {
+    return Object.values(SpellElement);
+  }
+
+  public allStats(): SpellStat[] {
+    return Object.values(SpellStat);
+  }
+  // #endregion
 }

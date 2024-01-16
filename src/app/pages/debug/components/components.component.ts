@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ContentService } from '../../../services/content.service';
 
 @Component({
   selector: 'sw-components',
@@ -12,4 +13,6 @@ export class DebugComponentsComponent {
   public numCharacters = Array(130)
     .fill(0)
     .map((_, i) => i);
+
+  constructor(public contentService: ContentService) {}
 }

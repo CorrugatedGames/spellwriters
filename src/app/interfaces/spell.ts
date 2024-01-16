@@ -20,6 +20,15 @@ export enum SpellElement {
   Electric = 'Electric',
 }
 
+export enum SpellStat {
+  Damage = 'damage',
+  Speed = 'speed',
+  Cost = 'cost',
+  CastTime = 'castTime',
+  Depth = 'depth',
+  Pattern = 'pattern',
+}
+
 export enum SpellTag {
   Explodes = 'explodes',
   Dissipates = 'dissipates',

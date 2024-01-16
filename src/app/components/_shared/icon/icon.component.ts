@@ -1,0 +1,13 @@
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'sw-icon',
+  templateUrl: './icon.component.html',
+  styleUrl: './icon.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class IconComponent {
+  @Input({ required: true }) category!: 'element' | 'stat';
+  @Input({ required: true }) name!: string;
+  @Input() size = 24;
+}
