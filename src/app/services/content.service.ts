@@ -23,11 +23,11 @@ export class ContentService {
     this._allMods[mod.name] = mod;
 
     Object.values(mod.characters).forEach((character) => {
-      this._allCharacters[character.name] = character;
+      this._allCharacters[character.id] = character;
     });
 
     Object.values(mod.spells).forEach((spell) => {
-      this._allSpells[spell.name] = spell;
+      this._allSpells[spell.id] = spell;
     });
   }
 
@@ -39,11 +39,11 @@ export class ContentService {
     return Object.values(this._allSpells);
   }
 
-  public getCharacter(id: string): Character {
+  public getCharacter(id: string): Character | undefined {
     return this._allCharacters[id];
   }
 
-  public getSpell(id: string): Spell {
+  public getSpell(id: string): Spell | undefined {
     return this._allSpells[id];
   }
 }

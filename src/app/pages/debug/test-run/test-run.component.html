@@ -1,1 +1,150 @@
-<p>test-run works!</p>
+<div class="container">
+
+  <h1>Choose Your Player</h1>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="sprite-container">
+        <div class="sprite" *ngFor="let character of contentService.allCharacters()"
+          (click)="playerTestCharacterId = character.id" [class.selected]="playerTestCharacterId === character.id">
+          <sw-character-sprite [sprite]="character.sprite"></sw-character-sprite>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div *ngIf="contentService.getCharacter(playerTestCharacterId) as character">
+        <ng-container [ngTemplateOutlet]="characterDebugInfo" [ngTemplateOutletContext]="{ character: character }">
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <h1>Choose Your Opponent</h1>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="sprite-container">
+        <div class="sprite" *ngFor="let character of contentService.allCharacters()"
+          (click)="enemyTestCharacterId = character.id" [class.selected]="enemyTestCharacterId === character.id">
+          <sw-character-sprite [sprite]="character.sprite"></sw-character-sprite>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div *ngIf="contentService.getCharacter(enemyTestCharacterId) as character">
+        <ng-container [ngTemplateOutlet]="characterDebugInfo" [ngTemplateOutletContext]="{ character: character }">
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="row action-row">
+    <div class="col-4"></div>
+    <div class="col-4">
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" (click)="startTestRun()"
+          [disabled]="!playerTestCharacterId || !enemyTestCharacterId">Start Test Run</button>
+      </div>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>
+
+<ng-template #spellInfo let-spell="spell">
+  <strong>{{ spell.name }}</strong>
+  <br>
+  <em>{{ spell.rarity }} {{ spell.element }} spell</em>
+
+  <br>
+  <p>{{ spell.description }}</p>
+
+  <br>
+  <div class="row">
+    <div class="col-6">
+      Damage
+    </div>
+
+    <div class="col-6">
+      {{ spell.damage }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      Speed
+    </div>
+
+    <div class="col-6">
+      {{ spell.speed }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      Mana
+    </div>
+
+    <div class="col-6">
+      {{ spell.cost }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      Cast Time
+    </div>
+
+    <div class="col-6">
+      {{ spell.castTime }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      Depth
+    </div>
+
+    <div class="col-6">
+      {{ spell.depthMin }}-{{ spell.depthMax }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      Pattern
+    </div>
+
+    <div class="col-6">
+      Single
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #characterDebugInfo let-character="character">
+  <div class="character">
+    <div class="row">
+      <div class="col-12 name">{{ character.name }}</div>
+      <div class="col-12 health">{{ character.maxHealth }} HP</div>
+      <div class="col-12 description">{{ character.description }}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 deck">
+        Deck: {{ character.deck.name }}
+      </div>
+
+      <div class="col-12 cards">
+        <div class="spell-row">
+          <div class="spell-container" *ngFor="let spellId of character.deck.spells">
+            <div class="spell" *ngIf="contentService.getSpell(spellId) as spell" [ngbTooltip]="spellInfo"
+              [tooltipContext]="{ spell: spell }">
+              <sw-spell-sprite [sprite]="spell.sprite"></sw-spell-sprite>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

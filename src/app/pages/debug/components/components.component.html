@@ -3,7 +3,7 @@
   <h1>Characters</h1>
 
   <div class="sprite-container">
-    <div class="sprite" *ngFor="let charId of numCharacters" [title]="charId">
+    <div class="sprite" *ngFor="let charId of numCharacters" [ngbTooltip]="'Id: ' + charId">
       <sw-character-sprite [sprite]="charId"></sw-character-sprite>
     </div>
   </div>
@@ -11,7 +11,7 @@
   <h1>Spells</h1>
 
   <div class="sprite-container">
-    <div class="sprite" *ngFor="let spellId of numSpells" [title]="spellId">
+    <div class="sprite" *ngFor="let spellId of numSpells" [ngbTooltip]="'Id: ' + spellId">
       <sw-spell-sprite [sprite]="spellId"></sw-spell-sprite>
     </div>
   </div>

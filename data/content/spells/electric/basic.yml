@@ -1,7 +1,7 @@
 - name: Concussa
   id: 890b0e15-ad9b-4246-a1f6-7a28b7ba71cf
   description: Basic electric attack.
-  sprite: 63
+  sprite: 89
 
   element: Electric
   rarity: Common
@@ -17,7 +17,7 @@
 - name: Lightning
   id: f2d8af51-90aa-4fe1-a348-dfc54352c70d
   description: Fast electric attack.
-  sprite: 64
+  sprite: 88
 
   element: Electric
   rarity: Uncommon
@@ -33,7 +33,7 @@
 - name: Surge
   id: 2bf909e3-1806-4011-ae32-2c43e097362b
   description: Powerful electric attack.
-  sprite: 65
+  sprite: 91
 
   element: Electric
   rarity: Uncommon
