@@ -18,6 +18,13 @@ const routes: Routes = [
       import('./pages/play/play.module').then((m) => m.PlayModule),
   },
   {
+    path: 'debug/test-run',
+    loadChildren: () =>
+      import('./pages/debug/test-run/test-run.module').then(
+        (m) => m.DebugTestRunModule,
+      ),
+  },
+  {
     path: 'debug/components',
     loadChildren: () =>
       import('./pages/debug/components/components.module').then(
