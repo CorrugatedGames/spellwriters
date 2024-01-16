@@ -1,7 +1,7 @@
 - name: Aqua
   id: a9594eb2-9bef-4497-be88-07d04b41d070
   description: Basic water attack.
-  sprite: 80
+  sprite: 76
 
   element: Water
   rarity: Common
@@ -17,7 +17,7 @@
 - name: Geyser
   id: a4334820-3a54-4855-9068-520546e943ed
   description: Defensive water shield.
-  sprite: 81
+  sprite: 77
 
   element: Water
   rarity: Uncommon
@@ -36,7 +36,7 @@
 - name: Rainstorm
   id: dc05162f-a29f-489f-8d97-f96f431f5d50
   description: Muddying water attack.
-  sprite: 82
+  sprite: 179
 
   element: Water
   rarity: Uncommon
