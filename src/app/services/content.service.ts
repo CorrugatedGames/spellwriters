@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SvgIconRegistryService } from 'angular-svg-icon';
 import {
   Character,
   ContentMod,
@@ -16,16 +17,29 @@ export class ContentService {
   private _allCharacters: Record<string, Character> = {};
   private _allSpells: Record<string, Spell> = {};
 
-  constructor() {}
+  constructor(private iconReg: SvgIconRegistryService) {}
 
   async init() {
+    await this.loadSVGs();
+
     const defaultMod = await fetch('assets/mods/default/content.json');
     const defaultModContent = await defaultMod.json();
 
-    this.loadMod(defaultModContent);
+    await this.loadMod(defaultModContent);
   }
 
-  loadMod(mod: ContentMod) {
+  async loadSVGs() {
+    const svgs = [
+      ...Object.values(SpellElement).map((el) => `element-${el}`),
+      ...Object.values(SpellStat).map((el) => `stat-${el}`),
+    ];
+
+    svgs.forEach((svg) =>
+      this.iconReg.loadSvg(`assets/icon/${svg.toLowerCase()}.svg`)?.subscribe(),
+    );
+  }
+
+  async loadMod(mod: ContentMod) {
     this._allMods[mod.name] = mod;
 
     Object.values(mod.characters).forEach((character) => {

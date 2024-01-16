@@ -1,6 +1,6 @@
 - name: Terra
   id: 235853b4-dd3d-40e6-a0e4-2f3048fbc8e1
-  description: Basic earth attack.
+  description: A basic earth attack.
   sprite: 18
 
   element: Earth
@@ -16,7 +16,7 @@
 
 - name: Earth Wall
   id: 5346e122-4f6f-409d-9366-758b066869aa
-  description: Powerful earth shield.
+  description: Put up a wide defensive earth shield to slow down your opponents attacks.
   sprite: 16
 
   element: Earth
@@ -35,7 +35,7 @@
 
 - name: Sludge
   id: 579c177e-93ed-413f-85d0-773fa31afd5e
-  description: Oily earth attack.
+  description: Throw a ball of sludge to enhance your next fire attack.
   sprite: 153
 
   element: Earth
