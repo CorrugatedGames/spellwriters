@@ -19,7 +19,7 @@
       - Incendia Misteria
       - Rainstorm
 
-- name: Einser
+- name: Eineroo
   id: d0ff10fa-4c74-41ea-a1df-7e3aa9397a10
   description: A defensive magus who specializes in earth and water.
   sprite: 0
@@ -40,7 +40,7 @@
       - Geyser
       - Sludge
 
-- name: Dewey
+- name: Dewbert
   id: 55a8a748-0a86-40ab-b555-e0c5f24ecff4
   description: A powerful magus who specializes in electricity and fire.
   sprite: 128

@@ -1,13 +1,36 @@
-import { Injectable } from '@angular/core';
+import { Injectable, effect } from '@angular/core';
+import { LocalStorageService } from 'ngx-webstorage';
+import { gamestate } from '../helpers';
+import { GameState } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameStateService {
-  // TODO: https://angular.io/guide/signals
-  // TODO: create a game state from test-run, set it here, and navigate to /play
+  constructor(private localStorage: LocalStorageService) {
+    effect(() => {
+      this.save(gamestate());
+    });
+  }
 
-  constructor() {}
+  async init() {
+    await this.load();
+  }
 
-  async init() {}
+  startNewCombat(setState: GameState) {
+    gamestate.set(setState);
+  }
+
+  async load() {
+    const state = this.localStorage.retrieve('gamestate');
+    if (state) {
+      gamestate.set(state);
+    }
+  }
+
+  async save(saveState: GameState) {
+    if (!saveState.id) return;
+
+    this.localStorage.store('gamestate', saveState);
+  }
 }

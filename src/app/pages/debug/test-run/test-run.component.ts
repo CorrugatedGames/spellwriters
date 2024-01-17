@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocalStorage } from 'ngx-webstorage';
+import { createFreshGameState } from '../../../helpers';
 import { ContentService } from '../../../services/content.service';
+import { GameStateService } from '../../../services/game-state.service';
 
 @Component({
   selector: 'sw-test-run',
@@ -14,7 +17,35 @@ export class DebugTestRunComponent {
   @LocalStorage()
   public enemyTestCharacterId!: string;
 
-  constructor(public contentService: ContentService) {}
+  constructor(
+    private router: Router,
+    public contentService: ContentService,
+    public gamestateService: GameStateService,
+  ) {}
 
-  startTestRun() {}
+  startTestRun() {
+    const player = this.contentService.getCharacter(this.playerTestCharacterId);
+    const enemy = this.contentService.getCharacter(this.enemyTestCharacterId);
+
+    if (!player) {
+      alert('Please select a player character');
+      return;
+    }
+
+    if (!enemy) {
+      alert('Please select an enemy character');
+      return;
+    }
+
+    const initGamestate = createFreshGameState({
+      enemyCharacter: enemy,
+      playerCharacter: player,
+      fieldWidth: 5,
+      fieldHeight: 5,
+    });
+
+    this.gamestateService.startNewCombat(initGamestate);
+
+    this.router.navigate(['/play']);
+  }
 }

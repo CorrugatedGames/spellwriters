@@ -1,3 +1,5 @@
+import { Character } from './archetype';
+
 export enum FieldEffect {
   Oil = 'oil',
   Mud = 'mud',
@@ -9,6 +11,10 @@ export interface FieldNode {
   containedEffect?: FieldEffect;
 }
 
+export interface PlayableCard {
+  id: string;
+}
+
 export interface ActivePlayer {
   name: string;
   health: number;
@@ -16,14 +22,25 @@ export interface ActivePlayer {
   mana: number;
   maxMana: number;
 
-  hand: string[];
-  deck: string[];
+  hand: PlayableCard[];
+  deck: PlayableCard[];
+  discard: PlayableCard[];
 }
 
 export interface GameState {
+  id: string;
+  currentRound: number;
+
   players: ActivePlayer[];
 
   width: number;
   height: number;
   field: FieldNode[][];
+}
+
+export interface GameStateInitOpts {
+  fieldWidth: number;
+  fieldHeight: number;
+  playerCharacter: Character;
+  enemyCharacter: Character;
 }
