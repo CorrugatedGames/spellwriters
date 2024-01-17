@@ -1,6 +1,7 @@
 .spell-card-container {
   width: 275px;
   height: 400px;
+  transition: transform 0.2s ease-in-out;
 
   &.small {
     transform: scale(0.5);

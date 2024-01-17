@@ -15,6 +15,12 @@
       <sw-spell-card [spell]="contentService.getSpell('5346e122-4f6f-409d-9366-758b066869aa')!"
         [isSmall]="true"></sw-spell-card>
     </div>
+
+    <div class="sprite" [ngbTooltip]="'hover state swap'">
+      <sw-spell-card [spell]="contentService.getSpell('5346e122-4f6f-409d-9366-758b066869aa')!"
+        (mouseenter)="hoverCard = true" (mouseleave)="hoverCard = false" [isSmall]="!hoverCard"
+        [isUpsideDown]="!hoverCard"></sw-spell-card>
+    </div>
   </div>
 
   <h1>Spell Cards</h1>

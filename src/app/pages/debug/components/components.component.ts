@@ -14,5 +14,7 @@ export class DebugComponentsComponent {
     .fill(0)
     .map((_, i) => i);
 
+  public hoverCard = false;
+
   constructor(public contentService: ContentService) {}
 }
