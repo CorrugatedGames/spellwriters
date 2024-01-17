@@ -10,6 +10,8 @@ import { ContentService } from '../../../services/content.service';
 })
 export class SpellCardComponent {
   @Input({ required: true }) public spell!: Spell;
+  @Input() public isUpsideDown = false;
+  @Input() public isSmall = false;
 
   public get spellStatsAndValues(): {
     stat: SpellStat;

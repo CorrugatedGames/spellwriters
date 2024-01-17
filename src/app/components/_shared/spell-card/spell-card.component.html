@@ -1,49 +1,62 @@
-<div class="spell-card" [style.--element-color]="'var(--element-' + spell.element.toLowerCase() + ')'"
-  [style.--rarity-color]="'var(--rarity-' + spell.rarity.toLowerCase() + ')'">
-  <div class="row">
-    <div class="col-12">
-      <div class="title">
-        {{ spell.name }}
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-6 left-side">
-
-      <div class="row">
-        <div class="col-12">
-          <div class="card-art"><sw-spell-sprite [sprite]="spell.sprite"></sw-spell-sprite></div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="col-6 right-side">
-      <div class="row stat-row" *ngFor="let spellStat of spellStatsAndValues">
-        <div class="col-3">
-          <sw-icon-stat [stat]="spellStat.stat"></sw-icon-stat>
-        </div>
-
-        <div class="col-9">
-          {{ spellStat.value }}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <div class="text-container">
-        <div class="description">
-          {{ spell.description }}
-        </div>
-
-        <div class="tags" *ngIf="spellTags.length > 0">
-          <span class="tag badge rounded-pill text-bg-info" *ngFor="let tag of spellTags">{{ tag.name | titlecase }} ({{
-            tag.value }})</span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="spell-card-container" [class.small]="isSmall">
+  <ng-content *ngIf="isUpsideDown; then cardBack else cardFront"></ng-content>
 </div>
+
+<ng-template #cardBack>
+  <div class="spell-card has-back-icon">
+    <sw-icon category="icon" name="spellwriters" [size]="128"></sw-icon>
+  </div>
+</ng-template>
+
+<ng-template #cardFront>
+  <div class="spell-card" [style.--element-color]="'var(--element-' + spell.element.toLowerCase() + ')'"
+    [style.--rarity-color]="'var(--rarity-' + spell.rarity.toLowerCase() + ')'">
+    <div class="row">
+      <div class="col-12">
+        <div class="name">
+          {{ spell.name }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 left-side">
+        <div class="row">
+          <div class="col-12">
+            <div class="card-art">
+              <sw-spell-sprite [sprite]="spell.sprite"></sw-spell-sprite>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 right-side">
+        <div class="row stat-row" *ngFor="let spellStat of spellStatsAndValues">
+          <div class="col-3">
+            <sw-icon-stat [stat]="spellStat.stat"></sw-icon-stat>
+          </div>
+
+          <div class="col-9">
+            {{ spellStat.value }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="text-container">
+          <div class="description">
+            {{ spell.description }}
+          </div>
+
+          <div class="tags" *ngIf="spellTags.length > 0">
+            <span class="tag badge rounded-pill text-bg-info" *ngFor="let tag of spellTags">{{ tag.name | titlecase }}
+              ({{
+              tag.value }})</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
