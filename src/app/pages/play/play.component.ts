@@ -1,7 +1,8 @@
 import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
-import { createBlankGameState, gamestate } from '../../helpers';
+import { createBlankGameState, drawCard, gamestate } from '../../helpers';
 import { GameState } from '../../interfaces';
+import { ContentService } from '../../services/content.service';
 
 @Component({
   selector: 'sw-play',
@@ -9,6 +10,7 @@ import { GameState } from '../../interfaces';
   styleUrl: './play.component.scss',
 })
 export class PlayComponent {
+  public hoveringSpellIndex = -1;
   public gamestate: GameState = createBlankGameState();
 
   public readonly trackState = effect(() => {
@@ -27,9 +29,21 @@ export class PlayComponent {
     return this.gamestate.players[1];
   }
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public contentService: ContentService) {}
 
   public manaArray(n: number): number[] {
     return [...Array(n).keys()];
+  }
+
+  public focusHandCard(index: number) {
+    this.hoveringSpellIndex = index;
+  }
+
+  public unfocusHandCard() {
+    this.hoveringSpellIndex = -1;
+  }
+
+  public drawCard() {
+    drawCard(this.player);
   }
 }

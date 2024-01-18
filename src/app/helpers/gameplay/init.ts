@@ -1,6 +1,7 @@
 import {
   ActivePlayer,
   FieldNode,
+  GamePhase,
   GameState,
   GameStateInitOpts,
 } from '../../interfaces';
@@ -46,6 +47,7 @@ export function createBlankGameState(): GameState {
     id: '',
     currentRound: 0,
     currentTurn: 0,
+    currentPhase: GamePhase.Draw,
 
     players: [createBlankActivePlayer(), createBlankActivePlayer()],
 

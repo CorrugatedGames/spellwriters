@@ -30,10 +30,16 @@ export interface ActivePlayer {
   discard: PlayableCard[];
 }
 
+export enum GamePhase {
+  Draw = 'draw',
+  Spend = 'spend',
+}
+
 export interface GameState {
   id: string;
   currentRound: number;
   currentTurn: number;
+  currentPhase: GamePhase;
 
   players: ActivePlayer[];
 

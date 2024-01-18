@@ -31,8 +31,23 @@
 
   <div class="player-side" [class.current-turn]="gamestate.currentTurn === 0">
 
-    <div class="player-cards">
+    <div class="deck" (click)="drawCard()">
+      <div class="deck-card-container">
+        <div class="deck-card" *ngFor="let deckSize of [0, 1, 2]" [style.--card-index]="deckSize">
+          <sw-spell-card *ngIf="player.deck.length > deckSize" [spell]="contentService.getSpell('')!"
+            [isUpsideDown]="true" [isSmall]="true"></sw-spell-card>
+        </div>
+      </div>
+    </div>
 
+    <div class="hand">
+      <div class="hand-card-container">
+        <div class="hand-card-position" *ngFor="let card of player.hand; let i = index" [style.--card-index]="i"
+          (mouseenter)="focusHandCard(i)" (mouseleave)="unfocusHandCard()">
+          <sw-spell-card class="hand-card" [spell]="contentService.getSpell(card.id)!"
+            [isSmall]="hoveringSpellIndex !== i"></sw-spell-card>
+        </div>
+      </div>
     </div>
 
     <div class="stats">

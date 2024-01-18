@@ -4,6 +4,8 @@
   width: 100vw;
   height: 100vh;
 
+  overflow: hidden;
+
   .opponent-side,
   .player-side {
     height: 96px;
@@ -58,14 +60,84 @@
 .player-side {
   flex: 1;
   margin-top: 8px;
+  position: relative;
+
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-end;
+
+  .deck {
+    position: absolute;
+    bottom: 70px;
+    right: 16px;
+
+    height: 200px;
+    width: 300px;
+
+    .deck-card-container {
+      position: relative;
+      height: 100%;
+      right: 40px;
+      bottom: -60px;
+
+      .deck-card {
+        position: absolute;
+        z-index: calc(10 + var(--card-index));
+        right: 24px;
+        bottom: calc(var(--card-index) * 24px);
+      }
+    }
+  }
+
+  .hand {
+    flex: 1;
+
+    padding: 16px;
+
+    .hand-card-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: flex-start;
+
+      height: 100%;
+      position: relative;
+      max-width: 600px;
+      left: 64px;
+
+      .hand-card-position {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 100%;
+        min-width: 0;
+
+        z-index: calc(10 + var(--card-index));
+        width: var(--spell-card-width-small);
+        height: var(--spell-card-height-small);
+        position: relative;
+
+        cursor: pointer;
+
+        &:hover {
+          z-index: 1000;
+        }
+
+        .hand-card {
+          position: absolute;
+          bottom: -60px;
+          left: -68px;
+        }
+      }
+    }
+  }
 
   .stats {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    justify-content: flex-end;
+
+    width: 500px;
 
     padding: 16px;
 
