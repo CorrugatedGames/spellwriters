@@ -1,3 +1,1 @@
-import { GameState } from '../../interfaces';
-
-export function aiTakeTurn(state: GameState) {}
+export function aiTakeTurn() {}

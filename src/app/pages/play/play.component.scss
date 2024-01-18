@@ -90,6 +90,7 @@
       width: 128px;
       height: 128px;
       border: 2px solid #fff;
+      background-color: #32244c;
     }
   }
 }
@@ -108,10 +109,26 @@
     border-radius: 50%;
     border: 4px solid #2ba3d3;
     background-color: #132c25;
+    background: linear-gradient(45deg, #132c25 0%, #090979 35%, #00d4ff 100%);
     margin: 4px;
 
     &.active {
-      background-color: #ffffff;
+      background: linear-gradient(45deg, #ffffff 0%, #ffffff 35%, #67d8ee 100%);
     }
+  }
+}
+
+.current-turn {
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 10px -3px #aef4af;
+    }
+    to {
+      box-shadow: 0 0 10px 3px #aef4af;
+    }
+  }
+
+  .mana-orb {
+    animation: glow 1s infinite alternate;
   }
 }
