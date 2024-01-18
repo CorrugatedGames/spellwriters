@@ -56,7 +56,11 @@
 }
 
 .player-side {
+  flex: 1;
   margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 
   .stats {
     display: flex;
@@ -72,8 +76,13 @@
 }
 
 .play-grid {
+  --play-grid-size: 96px;
+  --max-play-grid-rows: 9;
+
+  min-height: calc(var(--max-play-grid-rows) * var(--play-grid-size));
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   .grid-row {
     display: flex;
@@ -87,8 +96,8 @@
     }
 
     .grid-space {
-      width: 128px;
-      height: 128px;
+      width: var(--play-grid-size);
+      height: var(--play-grid-size);
       border: 2px solid #fff;
       background-color: #32244c;
     }

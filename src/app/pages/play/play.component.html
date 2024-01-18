@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="play-grid">
+  <div class="play-grid" [style.--play-grid-rows]="gamestate.field[0].length">
     <div class="grid-row" *ngFor="let row of gamestate.field; let index = index"
       [class.secret]="index === 0 || index === gamestate.field.length - 1">
       <div class="grid-space" *ngFor="let col of row; let current = index">

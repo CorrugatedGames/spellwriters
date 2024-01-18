@@ -51,7 +51,7 @@ export function createBlankGameState(): GameState {
 
     width: 0,
     height: 0,
-    field: [],
+    field: [[]],
   };
 }
 
