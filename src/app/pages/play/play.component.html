@@ -31,7 +31,7 @@
 
   <div class="player-side" [class.current-turn]="gamestate.currentTurn === 0">
 
-    <div class="deck" (click)="drawCard()">
+    <div class="deck" (click)="drawCard()" (keyup.enter)="drawCard()" tabindex="0">
       <div class="deck-card-container">
         <div class="deck-card" *ngFor="let deckSize of [0, 1, 2]" [style.--card-index]="deckSize">
           <sw-spell-card *ngIf="player.deck.length > deckSize" [spell]="contentService.getSpell('')!"
