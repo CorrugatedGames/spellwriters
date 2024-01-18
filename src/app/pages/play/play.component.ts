@@ -11,8 +11,6 @@ import { GameState } from '../../interfaces';
 export class PlayComponent {
   public gamestate: GameState = createBlankGameState();
 
-  constructor(private router: Router) {}
-
   public readonly trackState = effect(() => {
     this.gamestate = gamestate();
 
@@ -20,4 +18,18 @@ export class PlayComponent {
       this.router.navigate(['/']);
     }
   });
+
+  public get player() {
+    return this.gamestate.players[0];
+  }
+
+  public get opponent() {
+    return this.gamestate.players[1];
+  }
+
+  constructor(private router: Router) {}
+
+  public manaArray(n: number): number[] {
+    return [...Array(n).keys()];
+  }
 }

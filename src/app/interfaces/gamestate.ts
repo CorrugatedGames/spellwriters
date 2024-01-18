@@ -16,6 +16,9 @@ export interface PlayableCard {
 }
 
 export interface ActivePlayer {
+  id: string;
+  sprite: number;
+
   name: string;
   health: number;
   maxHealth: number;
@@ -30,6 +33,7 @@ export interface ActivePlayer {
 export interface GameState {
   id: string;
   currentRound: number;
+  currentTurn: number;
 
   players: ActivePlayer[];
 

@@ -1,34 +1,51 @@
-{{ gamestate | json }}
+<div class="field">
 
-<div class="container">
-  <div class="row opponent-container">
-    <div class="col-12">
+  <div class="opponent-side">
+    <div class="stats">
+      <div class="health opponent-health">
+        <ngb-progressbar type="health" [value]="opponent.health" [max]="opponent.maxHealth" [animated]="true"
+          height="24px" />
+      </div>
+
+      <div class="mana opponent-mana">
+        @for(mana of manaArray(opponent.maxMana); track mana) {
+        <div class="mana-orb" [class.active]="opponent.mana > mana"></div>
+        }
+      </div>
+    </div>
+
+    <div class="visuals">
       <div class="opponent">
-
+        <sw-character-sprite [sprite]="opponent.sprite"></sw-character-sprite>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-12">
-      <div class="play-grid">
-
+  <div class="play-grid">
+    <div class="grid-row" *ngFor="let row of gamestate.field; let index = index"
+      [class.secret]="index === 0 || index === gamestate.field.length - 1">
+      <div class="grid-space" *ngFor="let col of row; let current = index">
       </div>
     </div>
   </div>
 
-  <div class="row player-container">
-    <div class="col-12">
-      <div class="player">
+  <div class="player-side">
 
-      </div>
+    <div class="player-cards">
+
     </div>
-  </div>
 
-  <div class="row player-cards-container">
-    <div class="col-12">
-      <div class="player-cards">
+    <div class="stats">
+      <div class="health player-health">
+        <ngb-progressbar type="health" [value]="player.health" [max]="player.maxHealth" [animated]="true" height="24px">
+          <strong>{{ player.health }} / {{ player.maxHealth }}</strong>
+        </ngb-progressbar>
+      </div>
 
+      <div class="mana player-mana">
+        @for(mana of manaArray(player.maxMana); track mana) {
+        <div class="mana-orb" [class.active]="player.mana > mana"></div>
+        }
       </div>
     </div>
   </div>

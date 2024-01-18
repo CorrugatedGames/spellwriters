@@ -1,4 +1,9 @@
-import { FieldNode, GameState, GameStateInitOpts } from '../../interfaces';
+import {
+  ActivePlayer,
+  FieldNode,
+  GameState,
+  GameStateInitOpts,
+} from '../../interfaces';
 import { turnCharacterIntoActivePlayer } from './transform';
 
 import { v4 as uuid } from 'uuid';
@@ -19,12 +24,30 @@ export function createBlankField(width: number, height: number): FieldNode[][] {
   return field;
 }
 
+export function createBlankActivePlayer(): ActivePlayer {
+  return {
+    id: '',
+    sprite: 0,
+
+    name: '',
+    health: 0,
+    maxHealth: 0,
+    mana: 0,
+    maxMana: 0,
+
+    hand: [],
+    deck: [],
+    discard: [],
+  };
+}
+
 export function createBlankGameState(): GameState {
   return {
     id: '',
     currentRound: 0,
+    currentTurn: 0,
 
-    players: [],
+    players: [createBlankActivePlayer(), createBlankActivePlayer()],
 
     width: 0,
     height: 0,
@@ -36,8 +59,8 @@ export function createFreshGameState(opts: GameStateInitOpts): GameState {
   const id = uuid();
 
   return {
+    ...createBlankGameState(),
     id,
-    currentRound: 0,
 
     players: [
       turnCharacterIntoActivePlayer(id, opts.playerCharacter),

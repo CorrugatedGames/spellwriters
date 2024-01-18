@@ -14,6 +14,8 @@ export function turnCharacterIntoActivePlayer(
   );
 
   const player: ActivePlayer = {
+    id: character.id,
+    sprite: character.sprite,
     name: character.name,
     health: character.maxHealth,
     maxHealth: character.maxHealth,
