@@ -1,5 +1,6 @@
 import { GamePhase, TurnOrder } from '../../interfaces';
 import { gamestate } from './signal';
+import { gainMana } from './stats';
 
 export function nextPhase() {
   const state = gamestate();
@@ -28,6 +29,8 @@ export function nextPhase() {
       if (state.currentTurn === TurnOrder.Player) {
         newRound = state.currentRound + 1;
       }
+
+      gainMana(state.players[newTurn], 1);
 
       break;
   }
