@@ -70,12 +70,6 @@
     position: absolute;
     bottom: 100px;
     right: 144px;
-
-    height: calc(
-      calc(24px * clamp(0, calc(var(--cards-in-deck) - 1), 2)) +
-        var(--spell-card-height-small)
-    );
-    width: var(--spell-card-width-small);
   }
 
   .hand {

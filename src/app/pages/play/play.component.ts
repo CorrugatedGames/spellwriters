@@ -22,7 +22,6 @@ export class PlayComponent {
   public readonly trackState = effect(() => {
     this.gamestate = gamestate();
     this.gamephase = stateMachineMapFromGameState(this.gamestate);
-    console.log(this.gamephase);
 
     if (!this.gamestate.id) {
       this.router.navigate(['/']);

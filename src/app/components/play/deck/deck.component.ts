@@ -36,6 +36,14 @@ import { ContentService } from '../../../services/content.service';
       &.glowing {
         animation: glow 1s infinite alternate;
       }
+      
+      display: block;
+      position: relative;
+      height: calc(
+        calc(24px * clamp(0, calc(var(--cards-in-deck) - 1), 2)) +
+          var(--spell-card-height-small)
+      );
+      width: var(--spell-card-width-small);
     }
 
     .deck-card-container {
@@ -56,12 +64,19 @@ import { ContentService } from '../../../services/content.service';
 })
 export class DeckComponent {
   @Input({ required: true }) public deck: PlayableCard[] = [];
-
-  @HostBinding('class.glowing')
-  @Input()
-  public glowing = false;
+  @Input() public glowing = false;
 
   @Output() public drawCard = new EventEmitter<void>();
+
+  @HostBinding('class.glowing')
+  public get isGlowing(): boolean {
+    return this.deck.length === 0 ? false : this.glowing;
+  }
+
+  @HostBinding('style.--cards-in-deck')
+  public get cardsInDeck(): number {
+    return this.deck.length;
+  }
 
   constructor(public contentService: ContentService) {}
 }

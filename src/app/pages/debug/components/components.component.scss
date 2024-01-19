@@ -13,5 +13,9 @@ h1 {
 
   .sprite {
     margin: 4px;
+
+    &.health-sprite {
+      min-width: 200px;
+    }
   }
 }

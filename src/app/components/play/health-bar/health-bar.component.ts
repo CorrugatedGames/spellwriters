@@ -10,10 +10,20 @@ import { Component, Input } from '@angular/core';
       [animated]="true"
       height="24px"
     >
-      <strong *ngIf="showHealth">{{ health }} / {{ maxHealth }}</strong>
+      <strong class="health-text" *ngIf="showHealth && health < 3">
+        {{ health }}
+      </strong>
+
+      <strong class="health-text" *ngIf="showHealth && health >= 3">
+        {{ health }} / {{ maxHealth }}
+      </strong>
     </ngb-progressbar>
   `,
-  styles: ``,
+  styles: `
+  .health-text {
+    align-self: center;
+  }
+  `,
 })
 export class HealthBarComponent {
   @Input({ required: true }) public health!: number;

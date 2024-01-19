@@ -1,5 +1,87 @@
 <div class="container-fluid">
 
+  <h1>Decks</h1>
+
+  <div class="sprite-container">
+    <div class="sprite">
+      <sw-deck [deck]="[{ id: '' }, { id: '' }, { id: '' }]"></sw-deck>
+    </div>
+
+    <div class="sprite">
+      <sw-deck [deck]="[{ id: '' }, { id: '' }]"></sw-deck>
+    </div>
+
+    <div class="sprite">
+      <sw-deck [deck]="[{ id: '' }]"></sw-deck>
+    </div>
+
+    <div class="sprite">
+      <sw-deck [deck]="[]"></sw-deck>
+    </div>
+
+    <div class="sprite">
+      <sw-deck [deck]="[{ id: '' }, { id: '' }, { id: '' }]" [glowing]="true"></sw-deck>
+    </div>
+
+    <div class="sprite">
+      <sw-deck [deck]="[{ id: '' }, { id: '' }]" [glowing]="true"></sw-deck>
+    </div>
+
+    <div class="sprite">
+      <sw-deck [deck]="[{ id: '' }]" [glowing]="true"></sw-deck>
+    </div>
+
+    <div class="sprite">
+      <sw-deck [deck]="[]" [glowing]="true"></sw-deck>
+    </div>
+  </div>
+
+  <h1>Hand</h1>
+
+  <div class="sprite-container">
+    <div class="sprite">
+      <sw-hand
+        [hand]="[{ id: '95ddca50-58dc-44c6-8c0c-9cc08b492920' }, { id: '95ddca50-58dc-44c6-8c0c-9cc08b492920' }, { id: '95ddca50-58dc-44c6-8c0c-9cc08b492920' }]"></sw-hand>
+    </div>
+  </div>
+
+
+  <h1>Health Bars</h1>
+
+  <div class="sprite-container">
+    <div class="sprite health-sprite">
+      <sw-health-bar [health]="10" [maxHealth]="10" [showHealth]="true"></sw-health-bar>
+    </div>
+
+    <div class="sprite health-sprite">
+      <sw-health-bar [health]="5" [maxHealth]="10" [showHealth]="false"></sw-health-bar>
+    </div>
+
+    <div class="sprite health-sprite">
+      <sw-health-bar [health]="0" [maxHealth]="10" [showHealth]="true"></sw-health-bar>
+    </div>
+
+    <div class="sprite health-sprite">
+      <sw-health-bar [health]="1" [maxHealth]="10" [showHealth]="true"></sw-health-bar>
+    </div>
+  </div>
+
+  <h1>Mana Bars</h1>
+
+  <div class="sprite-container">
+    <div class="sprite">
+      <sw-mana-bar [mana]="0" [maxMana]="10"></sw-mana-bar>
+    </div>
+
+    <div class="sprite">
+      <sw-mana-bar [mana]="4" [maxMana]="10"></sw-mana-bar>
+    </div>
+
+    <div class="sprite" [ngbTooltip]="'glowing = true'">
+      <sw-mana-bar [mana]="7" [maxMana]="10" [glowing]="true"></sw-mana-bar>
+    </div>
+  </div>
+
   <h1>Spell Card States</h1>
 
   <div class="sprite-container">
