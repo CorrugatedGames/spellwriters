@@ -4,9 +4,9 @@ import { gamestate } from './signal';
 export function nextPhase() {
   const state = gamestate();
 
-  let newPhase: GamePhase;
-  let newTurn: TurnOrder;
-  let newRound: number;
+  let newPhase: GamePhase = state.currentPhase;
+  let newTurn: TurnOrder = state.currentTurn;
+  let newRound: number = state.currentRound;
 
   switch (state.currentPhase) {
     case GamePhase.Draw:

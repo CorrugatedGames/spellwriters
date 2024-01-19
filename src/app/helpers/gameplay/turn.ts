@@ -32,12 +32,9 @@ export function drawCard(character: ActivePlayer): void {
   if (card) {
     character.hand.push(card);
   }
+}
 
-  gamestate.update((state) => {
-    state.players[state.currentTurn] = character;
-    console.log(state);
-    return state;
-  });
-
+export function drawCardAndPassPhase(character: ActivePlayer): void {
+  drawCard(character);
   nextPhase();
 }

@@ -3,11 +3,10 @@ import { Router } from '@angular/router';
 import {
   createBlankGameState,
   createBlankStateMachineMap,
-  drawCard,
+  drawCardAndPassPhase,
   gamestate,
   stateMachineMapFromGameState,
 } from '../../helpers';
-import { aiAttemptAction } from '../../helpers/gameplay/ai';
 import {
   CurrentPhase,
   GameState,
@@ -29,7 +28,7 @@ export class PlayComponent {
     this.gamestate = gamestate();
     this.gamephase = stateMachineMapFromGameState(this.gamestate);
 
-    aiAttemptAction();
+    // TODO: this throws an error aiAttemptAction();
 
     if (!this.gamestate.id) {
       this.router.navigate(['/']);
@@ -47,7 +46,7 @@ export class PlayComponent {
   constructor(private router: Router, public contentService: ContentService) {}
 
   public drawCard() {
-    drawCard(this.player);
+    drawCardAndPassPhase(this.player);
   }
 
   public selectCard($event: { card: PlayableCard; i: number }) {

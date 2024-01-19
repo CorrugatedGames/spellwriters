@@ -37,7 +37,7 @@
         [showHealth]="true"></sw-health-bar>
 
       <sw-mana-bar class="player-mana" [mana]="player.mana" [maxMana]="player.maxMana"
-        [glowing]="gamephase.PlayerSpend"></sw-mana-bar>
+        [glowing]="gamephase.PlayerSpend && player.mana > 0"></sw-mana-bar>
     </div>
   </div>
 </div>

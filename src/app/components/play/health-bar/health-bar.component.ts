@@ -22,6 +22,7 @@ import { Component, Input } from '@angular/core';
   styles: `
   .health-text {
     align-self: center;
+    user-select: none;
   }
   `,
 })
