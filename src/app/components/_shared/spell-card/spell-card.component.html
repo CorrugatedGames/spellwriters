@@ -1,4 +1,5 @@
-<div class="spell-card-container" [class.small]="isSmall">
+<div class="spell-card-container" [style.--element-color]="'var(--element-' + spellElement + ')'"
+  [style.--rarity-color]="'var(--rarity-' + spellRarity + ')'" [class.small]="isSmall">
   <ng-content *ngIf="isUpsideDown; then cardBack else cardFront"></ng-content>
 </div>
 
@@ -11,8 +12,7 @@
 </ng-template>
 
 <ng-template #cardFront>
-  <div class="spell-card" [style.--element-color]="'var(--element-' + spell.element.toLowerCase() + ')'"
-    [style.--rarity-color]="'var(--rarity-' + spell.rarity.toLowerCase() + ')'">
+  <div class="spell-card">
     <div class="spell-card-internals">
       <div class="row">
         <div class="col-12">

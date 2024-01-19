@@ -13,6 +13,14 @@ export class SpellCardComponent {
   @Input() public isUpsideDown = false;
   @Input() public isSmall = false;
 
+  public get spellElement() {
+    return this.spell?.element.toLowerCase();
+  }
+
+  public get spellRarity() {
+    return this.spell?.rarity.toLowerCase();
+  }
+
   public get spellStatsAndValues(): {
     stat: SpellStat;
     value: string | number;
