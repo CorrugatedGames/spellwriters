@@ -4,10 +4,11 @@ import {
   GamePhase,
   GameState,
   GameStateInitOpts,
+  TurnOrder,
 } from '../../interfaces';
+import { saveGamestate } from './signal';
 import { turnCharacterIntoActivePlayer } from './transform';
-
-import { v4 as uuid } from 'uuid';
+import { getId } from './uuid';
 
 export function createBlankField(width: number, height: number): FieldNode[][] {
   const field: FieldNode[][] = [];
@@ -46,7 +47,7 @@ export function createBlankGameState(): GameState {
   return {
     id: '',
     currentRound: 0,
-    currentTurn: 0,
+    currentTurn: TurnOrder.Player,
     currentPhase: GamePhase.Draw,
 
     players: [createBlankActivePlayer(), createBlankActivePlayer()],
@@ -57,20 +58,32 @@ export function createBlankGameState(): GameState {
   };
 }
 
-export function createFreshGameState(opts: GameStateInitOpts): GameState {
-  const id = uuid();
-
+export function createFreshGameState(
+  id: string,
+  opts: GameStateInitOpts,
+): GameState {
   return {
     ...createBlankGameState(),
     id,
 
     players: [
-      turnCharacterIntoActivePlayer(id, opts.playerCharacter),
-      turnCharacterIntoActivePlayer(id, opts.enemyCharacter),
+      turnCharacterIntoActivePlayer(opts.playerCharacter),
+      turnCharacterIntoActivePlayer(opts.enemyCharacter),
     ],
 
     width: opts.fieldWidth,
     height: opts.fieldHeight + 2,
     field: createBlankField(opts.fieldWidth, opts.fieldHeight + 2),
   };
+}
+
+export function startCombat(opts: GameStateInitOpts) {
+  const id = getId();
+
+  const blankState = createBlankGameState();
+  blankState.id = id;
+  saveGamestate(blankState);
+
+  const freshState = createFreshGameState(id, opts);
+  saveGamestate(freshState);
 }

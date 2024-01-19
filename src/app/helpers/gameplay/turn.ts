@@ -1,14 +1,25 @@
-import { ActivePlayer, GameState } from '../../interfaces';
-import { rng } from './rng';
+import { ActivePlayer, GamePhase } from '../../interfaces';
+import { nextPhase } from './meta';
+import { seededrng } from './rng';
+import { gamestate } from './signal';
 
-export function shuffleDeck(id: string, character: ActivePlayer): void {
-  const prng = rng(id);
+export function shuffleDeck(character: ActivePlayer): void {
+  const prng = seededrng();
 
   character.deck.sort(() => prng() - 0.5);
 }
 
+export function reshuffleDeck(character: ActivePlayer): void {
+  character.deck.push(...character.discard);
+  character.discard = [];
+
+  shuffleDeck(character);
+}
+
 export function canDrawCard(character: ActivePlayer): boolean {
-  return character.deck.length > 0;
+  const state = gamestate();
+
+  return state.currentPhase === GamePhase.Draw && character.deck.length > 0;
 }
 
 export function drawCard(character: ActivePlayer): void {
@@ -21,12 +32,12 @@ export function drawCard(character: ActivePlayer): void {
   if (card) {
     character.hand.push(card);
   }
-}
 
-export function takeTurn(state: GameState) {
-  state.currentTurn += 1;
-  if (state.currentTurn >= state.players.length) {
-    state.currentTurn = 0;
-    state.currentRound += 1;
-  }
+  gamestate.update((state) => {
+    state.players[state.currentTurn] = character;
+    console.log(state);
+    return state;
+  });
+
+  nextPhase();
 }

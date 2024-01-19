@@ -7,7 +7,13 @@ import {
   gamestate,
   stateMachineMapFromGameState,
 } from '../../helpers';
-import { CurrentPhase, GameState, PlayableCard } from '../../interfaces';
+import { aiAttemptAction } from '../../helpers/gameplay/ai';
+import {
+  CurrentPhase,
+  GameState,
+  PlayableCard,
+  TurnOrder,
+} from '../../interfaces';
 import { ContentService } from '../../services/content.service';
 
 @Component({
@@ -23,17 +29,19 @@ export class PlayComponent {
     this.gamestate = gamestate();
     this.gamephase = stateMachineMapFromGameState(this.gamestate);
 
+    aiAttemptAction();
+
     if (!this.gamestate.id) {
       this.router.navigate(['/']);
     }
   });
 
   public get player() {
-    return this.gamestate.players[0];
+    return this.gamestate.players[TurnOrder.Player];
   }
 
   public get opponent() {
-    return this.gamestate.players[1];
+    return this.gamestate.players[TurnOrder.Opponent];
   }
 
   constructor(private router: Router, public contentService: ContentService) {}
@@ -45,4 +53,6 @@ export class PlayComponent {
   public selectCard($event: { card: PlayableCard; i: number }) {
     console.log($event);
   }
+
+  nextTurn() {}
 }

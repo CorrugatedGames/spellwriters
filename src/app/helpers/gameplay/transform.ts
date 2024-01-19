@@ -6,6 +6,7 @@ import {
   GamePlayer,
   GameState,
   PlayableCard,
+  TurnOrder,
 } from '../../interfaces';
 import { drawCard, shuffleDeck } from './turn';
 
@@ -22,7 +23,8 @@ export function createBlankStateMachineMap(): CurrentPhase {
 }
 
 export function stateMachineMapFromGameState(state: GameState): CurrentPhase {
-  const playerHalf = state.currentTurn === 0 ? 'Player' : 'Opponent';
+  const playerHalf =
+    state.currentTurn === TurnOrder.Player ? 'Player' : 'Opponent';
   const phase = state.currentPhase;
 
   const keys: CurrentPhase = createBlankStateMachineMap();
@@ -38,7 +40,6 @@ export function turnCardIntoPlayableCard(id: string): PlayableCard {
 }
 
 export function turnCharacterIntoActivePlayer(
-  gameId: string,
   character: Character,
 ): ActivePlayer {
   const deck = character.deck.spells.map((card) =>
@@ -58,7 +59,7 @@ export function turnCharacterIntoActivePlayer(
     discard: [],
   };
 
-  shuffleDeck(gameId, player);
+  shuffleDeck(player);
 
   for (let i = 0; i < 3; i++) {
     drawCard(player);

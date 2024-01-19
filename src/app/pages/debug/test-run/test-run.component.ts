@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorage } from 'ngx-webstorage';
-import { createFreshGameState } from '../../../helpers';
+import { startCombat } from '../../../helpers';
 import { ContentService } from '../../../services/content.service';
 import { GameStateService } from '../../../services/game-state.service';
 
@@ -37,14 +37,12 @@ export class DebugTestRunComponent {
       return;
     }
 
-    const initGamestate = createFreshGameState({
+    startCombat({
       enemyCharacter: enemy,
       playerCharacter: player,
       fieldWidth: 5,
       fieldHeight: 5,
     });
-
-    this.gamestateService.startNewCombat(initGamestate);
 
     this.router.navigate(['/play']);
   }

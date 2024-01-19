@@ -43,10 +43,15 @@ export enum GamePhase {
 
 export type CurrentPhase = Record<`${GamePlayer}${GamePhase}`, boolean>;
 
+export enum TurnOrder {
+  Player = 0,
+  Opponent = 1,
+}
+
 export interface GameState {
   id: string;
   currentRound: number;
-  currentTurn: number;
+  currentTurn: TurnOrder;
   currentPhase: GamePhase;
 
   players: ActivePlayer[];

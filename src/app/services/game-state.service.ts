@@ -1,6 +1,6 @@
 import { Injectable, effect } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { gamestate } from '../helpers';
+import { gamestate, saveGamestate } from '../helpers';
 import { GameState } from '../interfaces';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { GameState } from '../interfaces';
 export class GameStateService {
   constructor(private localStorage: LocalStorageService) {
     effect(() => {
+      console.log('[State Update]', gamestate());
       this.save(gamestate());
     });
   }
@@ -17,14 +18,10 @@ export class GameStateService {
     await this.load();
   }
 
-  startNewCombat(setState: GameState) {
-    gamestate.set(setState);
-  }
-
   async load() {
     const state = this.localStorage.retrieve('gamestate');
     if (state) {
-      gamestate.set(state);
+      saveGamestate(state);
     }
   }
 

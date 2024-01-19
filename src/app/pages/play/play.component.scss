@@ -66,6 +66,12 @@
   flex-direction: row;
   justify-content: flex-end;
 
+  .pass {
+    position: absolute;
+    bottom: 100px;
+    right: 24px;
+  }
+
   .deck {
     position: absolute;
     bottom: 100px;

@@ -35,6 +35,10 @@ import { ContentService } from '../../../services/content.service';
     :host {
       &.glowing {
         animation: glow 1s infinite alternate;
+
+        .deck-card-container {
+          cursor: pointer;
+        }
       }
       
       display: block;
@@ -47,7 +51,7 @@ import { ContentService } from '../../../services/content.service';
     }
 
     .deck-card-container {
-      cursor: pointer;
+      cursor: not-allowed;
 
       .deck-card {
         pointer-events: none;
