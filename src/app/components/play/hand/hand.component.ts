@@ -13,6 +13,8 @@ import { ContentService } from '../../../services/content.service';
         (mouseenter)="focusHandCard(i)"
         (mouseleave)="unfocusHandCard()"
         (click)="selectCard.emit({ card, i })"
+        (keyup.enter)="selectCard.emit({ card, i })"
+        [tabindex]="i"
       >
         <sw-spell-card
           class="hand-card"
