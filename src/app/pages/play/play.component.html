@@ -26,7 +26,8 @@
 
   <div class="player-side">
 
-    <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck" [glowing]="gamephase.PlayerDraw"></sw-deck>
+    <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck"
+      [glowing]="gamephase.PlayerDraw && player.deck.length > 0" [style.--cards-in-deck]="player.deck.length"></sw-deck>
 
     <sw-hand class="hand" (selectCard)="selectCard($event)" [hand]="player.hand"></sw-hand>
 
