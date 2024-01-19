@@ -1,11 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PlayableCard } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
 @Component({
   selector: 'sw-deck',
   template: `
-    <div class="deck-card-container">
+    <div
+      class="deck-card-container"
+      (click)="drawCard.next()"
+      (keyup.enter)="drawCard.next()"
+      tabindex="0"
+    >
       <div
         class="deck-card"
         *ngFor="let deckSize of [0, 1, 2]"
@@ -39,6 +44,7 @@ import { ContentService } from '../../../services/content.service';
 })
 export class DeckComponent {
   @Input({ required: true }) public deck: PlayableCard[] = [];
+  @Output() public drawCard = new EventEmitter<void>();
 
   constructor(public contentService: ContentService) {}
 }

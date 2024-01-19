@@ -48,7 +48,7 @@
     .opponent {
       position: absolute;
       top: 64px;
-      right: 128px;
+      right: 176px;
 
       sw-character-sprite {
         transform: scale(4);
@@ -81,42 +81,6 @@
     flex: 1;
 
     padding: 16px;
-
-    .hand-card-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-content: flex-start;
-
-      height: 100%;
-      position: relative;
-      max-width: 600px;
-      left: 64px;
-
-      .hand-card-position {
-        display: flex;
-        flex-direction: row;
-        flex: 1 1 100%;
-        min-width: 0;
-
-        z-index: calc(10 + var(--card-index));
-        width: var(--spell-card-width-small);
-        height: var(--spell-card-height-small);
-        position: relative;
-
-        cursor: pointer;
-
-        &:hover {
-          z-index: 1000;
-        }
-
-        .hand-card {
-          position: absolute;
-          bottom: -60px;
-          left: -68px;
-        }
-      }
-    }
   }
 
   .stats {

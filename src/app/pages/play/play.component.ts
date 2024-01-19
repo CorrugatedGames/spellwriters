@@ -1,7 +1,7 @@
 import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import { createBlankGameState, drawCard, gamestate } from '../../helpers';
-import { GameState } from '../../interfaces';
+import { GameState, PlayableCard } from '../../interfaces';
 import { ContentService } from '../../services/content.service';
 
 @Component({
@@ -10,7 +10,6 @@ import { ContentService } from '../../services/content.service';
   styleUrl: './play.component.scss',
 })
 export class PlayComponent {
-  public hoveringSpellIndex = -1;
   public gamestate: GameState = createBlankGameState();
 
   public readonly trackState = effect(() => {
@@ -39,15 +38,11 @@ export class PlayComponent {
 
   constructor(private router: Router, public contentService: ContentService) {}
 
-  public focusHandCard(index: number) {
-    this.hoveringSpellIndex = index;
-  }
-
-  public unfocusHandCard() {
-    this.hoveringSpellIndex = -1;
-  }
-
   public drawCard() {
     drawCard(this.player);
+  }
+
+  public selectCard($event: { card: PlayableCard; i: number }) {
+    console.log($event);
   }
 }

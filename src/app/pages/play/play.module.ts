@@ -8,6 +8,7 @@ import { ManaBarComponent } from '../../components/play/mana-bar/mana-bar.compon
 import { SharedModule } from '../../shared.module';
 import { PlayRoutingModule } from './play-routing.module';
 import { PlayComponent } from './play.component';
+import { HandComponent } from '../../components/play/hand/hand.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { PlayComponent } from './play.component';
     ManaBarComponent,
     HealthBarComponent,
     DeckComponent,
+    HandComponent,
   ],
   imports: [
     CommonModule,

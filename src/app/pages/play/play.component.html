@@ -26,17 +26,9 @@
 
   <div class="player-side">
 
-    <sw-deck class="deck" (click)="drawCard()" (keyup.enter)="drawCard()" tabindex="0" [deck]="player.deck"></sw-deck>
+    <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck"></sw-deck>
 
-    <div class="hand">
-      <div class="hand-card-container">
-        <div class="hand-card-position" *ngFor="let card of player.hand; let i = index" [style.--card-index]="i"
-          (mouseenter)="focusHandCard(i)" (mouseleave)="unfocusHandCard()">
-          <sw-spell-card class="hand-card" [spell]="contentService.getSpell(card.id)!"
-            [isSmall]="hoveringSpellIndex !== i"></sw-spell-card>
-        </div>
-      </div>
-    </div>
+    <sw-hand class="hand" (selectCard)="selectCard($event)" [hand]="player.hand"></sw-hand>
 
     <div class="stats">
       <sw-health-bar class="health player-health" [health]="player.health" [maxHealth]="player.maxHealth"
