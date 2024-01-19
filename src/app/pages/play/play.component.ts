@@ -25,15 +25,19 @@ export class PlayComponent {
     return this.gamestate.players[0];
   }
 
+  public get playerTurn() {
+    return this.gamestate.currentTurn === 0;
+  }
+
   public get opponent() {
     return this.gamestate.players[1];
   }
 
-  constructor(private router: Router, public contentService: ContentService) {}
-
-  public manaArray(n: number): number[] {
-    return [...Array(n).keys()];
+  public get opponentTurn() {
+    return this.gamestate.currentTurn === 1;
   }
+
+  constructor(private router: Router, public contentService: ContentService) {}
 
   public focusHandCard(index: number) {
     this.hoveringSpellIndex = index;

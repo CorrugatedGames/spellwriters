@@ -68,25 +68,13 @@
 
   .deck {
     position: absolute;
-    bottom: 70px;
-    right: 16px;
+    bottom: 100px;
+    right: 144px;
 
-    height: 200px;
-    width: 300px;
+    height: var(--spell-card-height-small);
+    width: var(--spell-card-width-small);
 
-    .deck-card-container {
-      position: relative;
-      height: 100%;
-      right: 40px;
-      bottom: -60px;
-
-      .deck-card {
-        position: absolute;
-        z-index: calc(10 + var(--card-index));
-        right: 24px;
-        bottom: calc(var(--card-index) * 24px);
-      }
-    }
+    outline: 1px solid #ccc;
   }
 
   .hand {
@@ -178,38 +166,4 @@
 
 .health {
   width: 392px;
-}
-
-.mana {
-  display: flex;
-  flex-direction: row;
-
-  .mana-orb {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 4px solid #2ba3d3;
-    background-color: #132c25;
-    background: linear-gradient(45deg, #132c25 0%, #090979 35%, #00d4ff 100%);
-    margin: 4px;
-
-    &.active {
-      background: linear-gradient(45deg, #ffffff 0%, #ffffff 35%, #67d8ee 100%);
-    }
-  }
-}
-
-.current-turn {
-  @keyframes glow {
-    from {
-      box-shadow: 0 0 10px -3px #aef4af;
-    }
-    to {
-      box-shadow: 0 0 10px 3px #aef4af;
-    }
-  }
-
-  .mana-orb {
-    animation: glow 1s infinite alternate;
-  }
 }

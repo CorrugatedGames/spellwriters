@@ -1,17 +1,12 @@
 <div class="field">
 
-  <div class="opponent-side" [class.current-turn]="gamestate.currentTurn === 1">
+  <div class="opponent-side">
     <div class="stats">
-      <div class="health opponent-health">
-        <ngb-progressbar type="health" [value]="opponent.health" [max]="opponent.maxHealth" [animated]="true"
-          height="24px" />
-      </div>
+      <sw-health-bar class="health opponent-health" [health]="opponent.health"
+        [maxHealth]="opponent.maxHealth"></sw-health-bar>
 
-      <div class="mana opponent-mana">
-        @for(mana of manaArray(opponent.maxMana); track mana) {
-        <div class="mana-orb" [class.active]="opponent.mana > mana"></div>
-        }
-      </div>
+      <sw-mana-bar class="opponent-mana" [mana]="opponent.mana" [maxMana]="opponent.maxMana"
+        [glowing]="opponentTurn"></sw-mana-bar>
     </div>
 
     <div class="visuals">
@@ -29,16 +24,9 @@
     </div>
   </div>
 
-  <div class="player-side" [class.current-turn]="gamestate.currentTurn === 0">
+  <div class="player-side">
 
-    <div class="deck" (click)="drawCard()" (keyup.enter)="drawCard()" tabindex="0">
-      <div class="deck-card-container">
-        <div class="deck-card" *ngFor="let deckSize of [0, 1, 2]" [style.--card-index]="deckSize">
-          <sw-spell-card *ngIf="player.deck.length > deckSize" [spell]="contentService.getSpell('')!"
-            [isUpsideDown]="true" [isSmall]="true"></sw-spell-card>
-        </div>
-      </div>
-    </div>
+    <sw-deck class="deck" (click)="drawCard()" (keyup.enter)="drawCard()" tabindex="0" [deck]="player.deck"></sw-deck>
 
     <div class="hand">
       <div class="hand-card-container">
@@ -51,17 +39,11 @@
     </div>
 
     <div class="stats">
-      <div class="health player-health">
-        <ngb-progressbar type="health" [value]="player.health" [max]="player.maxHealth" [animated]="true" height="24px">
-          <strong>{{ player.health }} / {{ player.maxHealth }}</strong>
-        </ngb-progressbar>
-      </div>
+      <sw-health-bar class="health player-health" [health]="player.health" [maxHealth]="player.maxHealth"
+        [showHealth]="true"></sw-health-bar>
 
-      <div class="mana player-mana">
-        @for(mana of manaArray(player.maxMana); track mana) {
-        <div class="mana-orb" [class.active]="player.mana > mana"></div>
-        }
-      </div>
+      <sw-mana-bar class="player-mana" [mana]="player.mana" [maxMana]="player.maxMana"
+        [glowing]="playerTurn"></sw-mana-bar>
     </div>
   </div>
 </div>
