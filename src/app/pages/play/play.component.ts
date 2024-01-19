@@ -4,6 +4,7 @@ import {
   createBlankGameState,
   createBlankStateMachineMap,
   drawCardAndPassPhase,
+  endTurnAndPassPhase,
   gamestate,
   stateMachineMapFromGameState,
 } from '../../helpers';
@@ -28,8 +29,6 @@ export class PlayComponent {
     this.gamestate = gamestate();
     this.gamephase = stateMachineMapFromGameState(this.gamestate);
 
-    // TODO: this throws an error aiAttemptAction();
-
     if (!this.gamestate.id) {
       this.router.navigate(['/']);
     }
@@ -53,5 +52,7 @@ export class PlayComponent {
     console.log($event);
   }
 
-  nextTurn() {}
+  nextTurn() {
+    endTurnAndPassPhase();
+  }
 }

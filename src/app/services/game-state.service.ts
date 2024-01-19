@@ -1,33 +1,57 @@
 import { Injectable, effect } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { gamestate, saveGamestate } from '../helpers';
-import { GameState } from '../interfaces';
+import { interval } from 'rxjs';
+import {
+  aiAttemptAction,
+  createBlankGameState,
+  gamestate,
+  nextPhase,
+  saveGamestate,
+} from '../helpers';
+import { GamePhase, GameState, TurnOrder } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameStateService {
+  private state: GameState = createBlankGameState();
+
   constructor(private localStorage: LocalStorageService) {
     effect(() => {
-      console.log('[State Update]', gamestate());
-      this.save(gamestate());
+      this.state = gamestate();
+      console.log('[State Update]', this.state);
+      this.save(this.state);
     });
   }
 
   async init() {
-    await this.load();
+    this.load();
+    this.loop();
   }
 
-  async load() {
+  load() {
     const state = this.localStorage.retrieve('gamestate');
     if (state) {
       saveGamestate(state);
     }
   }
 
-  async save(saveState: GameState) {
+  save(saveState: GameState) {
     if (!saveState.id) return;
 
     this.localStorage.store('gamestate', saveState);
+  }
+
+  loop() {
+    interval(1000).subscribe(() => {
+      if (this.state.currentPhase === GamePhase.End) {
+        nextPhase();
+        return;
+      }
+
+      if (this.state.currentTurn === TurnOrder.Opponent) {
+        aiAttemptAction();
+      }
+    });
   }
 }

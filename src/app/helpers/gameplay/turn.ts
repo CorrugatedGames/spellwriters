@@ -38,3 +38,7 @@ export function drawCardAndPassPhase(character: ActivePlayer): void {
   drawCard(character);
   nextPhase();
 }
+
+export function endTurnAndPassPhase(): void {
+  nextPhase();
+}
