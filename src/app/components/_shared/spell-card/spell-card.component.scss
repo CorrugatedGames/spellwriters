@@ -7,8 +7,8 @@
   height: var(--spell-card-height);
 
   transition: transform 0.2s ease-in-out;
-  color: #fff;
-  background-color: #133042;
+  color: var(--spell-card-foreground);
+  background-color: var(--spell-card-background);
 
   border-width: 4px;
   border-style: solid;
@@ -39,7 +39,7 @@
       padding: 4px;
       padding-left: 12px;
 
-      color: #001522;
+      color: var(--spell-card-foreground);
       background-color: var(--element-color);
     }
 

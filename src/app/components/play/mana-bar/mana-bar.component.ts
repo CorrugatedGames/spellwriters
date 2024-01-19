@@ -26,7 +26,7 @@ import { Component, Input } from '@angular/core';
         background-color: #132c25;
         position: relative;
         z-index: 1;
-        background: linear-gradient(45deg, #132c25 0%, #090979 35%, #00d4ff 100%);
+        background: var(--mana-color-inactive);
         margin: 4px;
 
         &::before {
@@ -37,7 +37,7 @@ import { Component, Input } from '@angular/core';
           bottom: 0;
           left: 0;
           border-radius: 50%;
-          background: linear-gradient(45deg, #ffffff 0%, #ffffff 35%, #67d8ee 100%);
+          background: var(--mana-color-active);
           z-index: -1;
           transition: opacity 0.5s linear;
           opacity: 0;

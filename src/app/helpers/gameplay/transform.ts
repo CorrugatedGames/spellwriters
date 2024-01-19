@@ -22,16 +22,28 @@ export function createBlankStateMachineMap(): CurrentPhase {
   return keys as CurrentPhase;
 }
 
-export function stateMachineMapFromGameState(state: GameState): CurrentPhase {
-  const playerHalf =
-    state.currentTurn === TurnOrder.Player ? 'Player' : 'Opponent';
-  const phase = state.currentPhase;
+export function phaseObjectFromGameState(state: GameState): {
+  turn: string;
+  phase: GamePhase;
+} {
+  return {
+    turn: state.currentTurn === TurnOrder.Player ? 'Player' : 'Opponent',
+    phase: state.currentPhase,
+  };
+}
 
-  const keys: CurrentPhase = createBlankStateMachineMap();
+export function phaseNameFromGameState(state: GameState): string {
+  const { turn, phase } = phaseObjectFromGameState(state);
+
+  return `${turn} ${phase}`;
+}
+
+export function stateMachineMapFromGameState(state: GameState): CurrentPhase {
+  const { turn, phase } = phaseObjectFromGameState(state);
 
   return {
-    ...keys,
-    [`${playerHalf}${phase}`]: true,
+    ...createBlankStateMachineMap(),
+    [`${turn}${phase}`]: true,
   };
 }
 

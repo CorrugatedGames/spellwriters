@@ -18,3 +18,17 @@ img {
   font-family: 'TitleText', sans-serif;
   letter-spacing: 1px;
 }
+
+.container-fluid {
+  overflow-x: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+.hidden-animate {
+  opacity: 0;
+
+  transition: opacity 0.2s ease-in-out;
+}

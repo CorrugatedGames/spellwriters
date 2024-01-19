@@ -14,11 +14,11 @@ export class SpellCardComponent {
   @Input() public isSmall = false;
 
   public get spellElement() {
-    return this.spell?.element.toLowerCase();
+    return this.isUpsideDown ? '' : this.spell?.element.toLowerCase();
   }
 
   public get spellRarity() {
-    return this.spell?.rarity.toLowerCase();
+    return this.isUpsideDown ? '' : this.spell?.rarity.toLowerCase();
   }
 
   public get spellStatsAndValues(): {

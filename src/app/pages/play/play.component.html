@@ -1,12 +1,15 @@
 <div class="field">
 
+  <sw-phase-banner class="phase-banner" [class.hidden-animate]="!phaseBannerString()"
+    [text]="phaseBannerString()"></sw-phase-banner>
+
   <div class="opponent-side">
     <div class="stats">
       <sw-health-bar class="health opponent-health" [health]="opponent.health"
         [maxHealth]="opponent.maxHealth"></sw-health-bar>
 
       <sw-mana-bar class="opponent-mana" [mana]="opponent.mana" [maxMana]="opponent.maxMana"
-        [glowing]="gamephase.OpponentSpend"></sw-mana-bar>
+        [glowing]="gamephase.OpponentTurn"></sw-mana-bar>
     </div>
 
     <div class="visuals">
@@ -27,8 +30,8 @@
   <div class="player-side">
     <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck" [glowing]="gamephase.PlayerDraw"></sw-deck>
 
-    <sw-nextturn *ngIf="gamephase.PlayerSpend" class="pass" (click)="nextTurn()"
-      [glowing]="gamephase.PlayerSpend"></sw-nextturn>
+    <sw-nextturn *ngIf="gamephase.PlayerTurn" class="pass" (click)="nextTurn()"
+      [glowing]="gamephase.PlayerTurn"></sw-nextturn>
 
     <sw-hand class="hand" (selectCard)="selectCard($event)" [hand]="player.hand"></sw-hand>
 
@@ -37,7 +40,7 @@
         [showHealth]="true"></sw-health-bar>
 
       <sw-mana-bar class="player-mana" [mana]="player.mana" [maxMana]="player.maxMana"
-        [glowing]="gamephase.PlayerSpend && player.mana > 0"></sw-mana-bar>
+        [glowing]="gamephase.PlayerTurn && player.mana > 0"></sw-mana-bar>
     </div>
   </div>
 </div>

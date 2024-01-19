@@ -19,3 +19,15 @@ h1 {
     }
   }
 }
+
+.banner-container {
+  position: relative;
+  height: 200px;
+
+  .banner {
+    position: absolute;
+    left: -15px;
+    width: 100vw;
+    height: 100%;
+  }
+}

@@ -6,6 +6,7 @@ import {
   drawCardAndPassPhase,
   endTurnAndPassPhase,
   gamestate,
+  phaseBannerString,
   stateMachineMapFromGameState,
 } from '../../helpers';
 import {
@@ -24,6 +25,8 @@ import { ContentService } from '../../services/content.service';
 export class PlayComponent {
   public gamestate: GameState = createBlankGameState();
   public gamephase: CurrentPhase = createBlankStateMachineMap();
+
+  public readonly phaseBannerString = phaseBannerString.asReadonly();
 
   public readonly trackState = effect(() => {
     this.gamestate = gamestate();

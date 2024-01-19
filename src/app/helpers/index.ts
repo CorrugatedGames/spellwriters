@@ -7,3 +7,4 @@ export * from './gameplay/stats';
 export * from './gameplay/transform';
 export * from './gameplay/turn';
 export * from './gameplay/uuid';
+export * from './gameplay/vfx';

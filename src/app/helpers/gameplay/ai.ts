@@ -12,7 +12,7 @@ export function aiAttemptAction() {
       aiDrawPhase();
       break;
 
-    case GamePhase.Spend:
+    case GamePhase.Turn:
       aiSpendPhase();
       break;
 

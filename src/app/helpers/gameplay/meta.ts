@@ -11,10 +11,10 @@ export function nextPhase() {
 
   switch (state.currentPhase) {
     case GamePhase.Draw:
-      newPhase = GamePhase.Spend;
+      newPhase = GamePhase.Turn;
       break;
 
-    case GamePhase.Spend:
+    case GamePhase.Turn:
       newPhase = GamePhase.End;
       break;
 

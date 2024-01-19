@@ -132,3 +132,13 @@
 .health {
   width: 392px;
 }
+
+.phase-banner {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  width: 100vw;
+  height: 96px;
+
+  z-index: 10000;
+}

@@ -1,5 +1,11 @@
 <div class="container-fluid">
 
+  <h1>Phase Banners</h1>
+
+  <div class="banner-container">
+    <sw-phase-banner class="banner" [text]="'Player Draw'"></sw-phase-banner>
+  </div>
+
   <h1>Decks</h1>
 
   <div class="sprite-container">
@@ -119,7 +125,7 @@
 
   <div class="sprite-container">
     @for(element of contentService.allElements(); track element) {
-    <div class="sprite" *ngFor="let element of contentService.allElements()" [ngbTooltip]="'Element: ' + element">
+    <div class="sprite" [ngbTooltip]="'Element: ' + element">
       <sw-icon-element [element]="element" [size]="48"></sw-icon-element>
     </div>
     }
@@ -129,7 +135,7 @@
 
   <div class="sprite-container">
     @for(stat of contentService.allStats(); track stat) {
-    <div class="sprite" *ngFor="let stat of contentService.allStats()" [ngbTooltip]="'Stat: ' + stat">
+    <div class="sprite" [ngbTooltip]="'Stat: ' + stat">
       <sw-icon-stat [stat]="stat" [size]="48"></sw-icon-stat>
     </div>
     }

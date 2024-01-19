@@ -27,4 +27,22 @@
   --spell-card-height: 400px;
   --spell-card-width-small: calc(var(--spell-card-width) / 2);
   --spell-card-height-small: calc(var(--spell-card-height) / 2);
+  --spell-card-background: #133042;
+  --spell-card-foreground: #fff;
+
+  --mana-color-inactive: linear-gradient(
+    45deg,
+    #132c25 0%,
+    #090979 35%,
+    #00d4ff 100%
+  );
+  --mana-color-active: linear-gradient(
+    45deg,
+    #ffffff 0%,
+    #ffffff 35%,
+    #67d8ee 100%
+  );
+
+  --phase-banner-background: var(--bs-primary);
+  --phase-banner-foreground: var(--bs-light);
 }

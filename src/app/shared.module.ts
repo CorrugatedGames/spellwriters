@@ -18,6 +18,7 @@ import { HandComponent } from './components/play/hand/hand.component';
 import { HealthBarComponent } from './components/play/health-bar/health-bar.component';
 import { ManaBarComponent } from './components/play/mana-bar/mana-bar.component';
 import { NextTurnComponent } from './components/play/nextturn/nextturn.component';
+import { PhaseBannerComponent } from './components/play/phase-banner/phase-banner.component';
 
 const components = [
   CharacterSpriteComponent,
@@ -31,6 +32,7 @@ const components = [
   DeckComponent,
   HandComponent,
   NextTurnComponent,
+  PhaseBannerComponent,
 ];
 
 @NgModule({

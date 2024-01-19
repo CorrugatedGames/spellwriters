@@ -6,6 +6,8 @@ import {
   createBlankGameState,
   gamestate,
   nextPhase,
+  phaseBannerString,
+  phaseNameFromGameState,
   saveGamestate,
 } from '../helpers';
 import { GamePhase, GameState, TurnOrder } from '../interfaces';
@@ -15,6 +17,8 @@ import { GamePhase, GameState, TurnOrder } from '../interfaces';
 })
 export class GameStateService {
   private state: GameState = createBlankGameState();
+  private previousPhase = '';
+  private currentPhaseDisplay = '';
 
   constructor(private localStorage: LocalStorageService) {
     effect(() => {
@@ -44,6 +48,16 @@ export class GameStateService {
 
   loop() {
     interval(1000).subscribe(() => {
+      const currentPhase = phaseNameFromGameState(this.state);
+      if (currentPhase !== this.previousPhase) {
+        this.previousPhase = currentPhase;
+        this.currentPhaseDisplay = currentPhase;
+      } else {
+        this.currentPhaseDisplay = '';
+      }
+
+      phaseBannerString.set(this.currentPhaseDisplay);
+
       if (this.state.currentPhase === GamePhase.End) {
         nextPhase();
         return;

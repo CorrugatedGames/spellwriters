@@ -37,7 +37,7 @@ export enum GamePlayer {
 
 export enum GamePhase {
   Draw = 'Draw',
-  Spend = 'Spend',
+  Turn = 'Turn',
   End = 'End',
 }
 
