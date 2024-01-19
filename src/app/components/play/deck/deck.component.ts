@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  Output,
+} from '@angular/core';
 import { PlayableCard } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -26,6 +32,12 @@ import { ContentService } from '../../../services/content.service';
     </div>
   `,
   styles: `
+    :host {
+      &.glowing {
+        animation: glow 1s infinite alternate;
+      }
+    }
+
     .deck-card-container {
       cursor: pointer;
 
@@ -44,6 +56,11 @@ import { ContentService } from '../../../services/content.service';
 })
 export class DeckComponent {
   @Input({ required: true }) public deck: PlayableCard[] = [];
+
+  @HostBinding('class.glowing')
+  @Input()
+  public glowing = false;
+
   @Output() public drawCard = new EventEmitter<void>();
 
   constructor(public contentService: ContentService) {}

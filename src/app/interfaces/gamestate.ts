@@ -30,10 +30,18 @@ export interface ActivePlayer {
   discard: PlayableCard[];
 }
 
-export enum GamePhase {
-  Draw = 'draw',
-  Spend = 'spend',
+export enum GamePlayer {
+  Player = 'Player',
+  Opponent = 'Opponent',
 }
+
+export enum GamePhase {
+  Draw = 'Draw',
+  Spend = 'Spend',
+  End = 'End',
+}
+
+export type CurrentPhase = Record<`${GamePlayer}${GamePhase}`, boolean>;
 
 export interface GameState {
   id: string;

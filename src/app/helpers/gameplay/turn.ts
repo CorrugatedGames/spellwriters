@@ -1,4 +1,4 @@
-import { ActivePlayer } from '../../interfaces';
+import { ActivePlayer, GameState } from '../../interfaces';
 import { rng } from './rng';
 
 export function shuffleDeck(id: string, character: ActivePlayer): void {
@@ -20,5 +20,13 @@ export function drawCard(character: ActivePlayer): void {
 
   if (card) {
     character.hand.push(card);
+  }
+}
+
+export function takeTurn(state: GameState) {
+  state.currentTurn += 1;
+  if (state.currentTurn >= state.players.length) {
+    state.currentTurn = 0;
+    state.currentRound += 1;
   }
 }

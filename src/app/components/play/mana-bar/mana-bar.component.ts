@@ -32,8 +32,7 @@ import { Component, Input } from '@angular/core';
         }
 
         &.glowing {
-          
-      animation: glow 1s infinite alternate;
+          animation: glow 1s infinite alternate;
         }
       }
     }

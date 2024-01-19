@@ -71,10 +71,8 @@
     bottom: 100px;
     right: 144px;
 
-    height: var(--spell-card-height-small);
+    height: calc(48px + var(--spell-card-height-small));
     width: var(--spell-card-width-small);
-
-    outline: 1px solid #ccc;
   }
 
   .hand {

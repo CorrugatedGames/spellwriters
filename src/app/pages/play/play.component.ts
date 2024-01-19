@@ -1,7 +1,13 @@
 import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
-import { createBlankGameState, drawCard, gamestate } from '../../helpers';
-import { GameState, PlayableCard } from '../../interfaces';
+import {
+  createBlankGameState,
+  createBlankStateMachineMap,
+  drawCard,
+  gamestate,
+  stateMachineMapFromGameState,
+} from '../../helpers';
+import { CurrentPhase, GameState, PlayableCard } from '../../interfaces';
 import { ContentService } from '../../services/content.service';
 
 @Component({
@@ -11,9 +17,12 @@ import { ContentService } from '../../services/content.service';
 })
 export class PlayComponent {
   public gamestate: GameState = createBlankGameState();
+  public gamephase: CurrentPhase = createBlankStateMachineMap();
 
   public readonly trackState = effect(() => {
     this.gamestate = gamestate();
+    this.gamephase = stateMachineMapFromGameState(this.gamestate);
+    console.log(this.gamephase);
 
     if (!this.gamestate.id) {
       this.router.navigate(['/']);
@@ -24,16 +33,8 @@ export class PlayComponent {
     return this.gamestate.players[0];
   }
 
-  public get playerTurn() {
-    return this.gamestate.currentTurn === 0;
-  }
-
   public get opponent() {
     return this.gamestate.players[1];
-  }
-
-  public get opponentTurn() {
-    return this.gamestate.currentTurn === 1;
   }
 
   constructor(private router: Router, public contentService: ContentService) {}
