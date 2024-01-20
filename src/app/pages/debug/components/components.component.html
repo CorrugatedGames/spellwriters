@@ -26,19 +26,19 @@
     </div>
 
     <div class="sprite">
-      <sw-deck [deck]="[{ id: '' }, { id: '' }, { id: '' }]" [glowing]="true"></sw-deck>
+      <sw-deck [deck]="[{ id: '' }, { id: '' }, { id: '' }]" [isGlowing]="true"></sw-deck>
     </div>
 
     <div class="sprite">
-      <sw-deck [deck]="[{ id: '' }, { id: '' }]" [glowing]="true"></sw-deck>
+      <sw-deck [deck]="[{ id: '' }, { id: '' }]" [isGlowing]="true"></sw-deck>
     </div>
 
     <div class="sprite">
-      <sw-deck [deck]="[{ id: '' }]" [glowing]="true"></sw-deck>
+      <sw-deck [deck]="[{ id: '' }]" [isGlowing]="true"></sw-deck>
     </div>
 
     <div class="sprite">
-      <sw-deck [deck]="[]" [glowing]="true"></sw-deck>
+      <sw-deck [deck]="[]" [isGlowing]="true"></sw-deck>
     </div>
   </div>
 
@@ -83,30 +83,25 @@
       <sw-mana-bar [mana]="4" [maxMana]="10"></sw-mana-bar>
     </div>
 
-    <div class="sprite" [ngbTooltip]="'glowing = true'">
-      <sw-mana-bar [mana]="7" [maxMana]="10" [glowing]="true"></sw-mana-bar>
+    <div class="sprite" [ngbTooltip]="'isGlowing = true'">
+      <sw-mana-bar [mana]="7" [maxMana]="10" [isGlowing]="true"></sw-mana-bar>
     </div>
   </div>
 
   <h1>Spell Card States</h1>
 
   <div class="sprite-container">
-    <div class="sprite" [ngbTooltip]="'isUpsideDown = true; glowing = true'">
-      <sw-spell-card [spell]="contentService.getSpell('')!" [isUpsideDown]="true" [glowing]="true"></sw-spell-card>
+    <div class="sprite" [ngbTooltip]="'isUpsideDown = true; isGlowing = true'">
+      <sw-spell-card [spell]="contentService.getSpell('')!" [isUpsideDown]="true" [isGlowing]="true"></sw-spell-card>
     </div>
 
     <div class="sprite" [ngbTooltip]="'isUpsideDown = true; isSmall = true'">
       <sw-spell-card [spell]="contentService.getSpell('')!" [isUpsideDown]="true" [isSmall]="true"></sw-spell-card>
     </div>
 
-    <div class="sprite" [ngbTooltip]="'isSmall = true'">
-      <sw-spell-card [spell]="contentService.getSpell('5346e122-4f6f-409d-9366-758b066869aa')!"
-        [isSmall]="true"></sw-spell-card>
-    </div>
-
-    <div class="sprite" [ngbTooltip]="'isSmall = true; glowing = true'">
+    <div class="sprite" [ngbTooltip]="'isSmall = true; isGlowing = true'">
       <sw-spell-card [spell]="contentService.getSpell('5346e122-4f6f-409d-9366-758b066869aa')!" [isSmall]="true"
-        [glowing]="true"></sw-spell-card>
+        [isGlowing]="true"></sw-spell-card>
     </div>
 
     <div class="sprite" [ngbTooltip]="'hover state swap'">

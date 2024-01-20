@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
       <div
         class="mana-orb"
         [class.active]="mana > manaIdx"
-        [class.glowing]="mana > manaIdx && glowing"
+        [class.glowing]="mana > manaIdx && isGlowing"
       ></div>
       }
     </div>
@@ -57,7 +57,7 @@ import { Component, Input } from '@angular/core';
 export class ManaBarComponent {
   @Input({ required: true }) public mana!: number;
   @Input({ required: true }) public maxMana!: number;
-  @Input() glowing = false;
+  @Input() isGlowing = false;
 
   public manaArray(n: number): number[] {
     return [...Array(n).keys()];

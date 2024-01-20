@@ -21,7 +21,7 @@ import { ContentService } from '../../../services/content.service';
           [class.selected]="selectedCard?.index === index"
           [spell]="contentService.getSpell(card.id)!"
           [isSmall]="hoveringSpellIndex !== index"
-          [glowing]="selectedCard?.index === index"
+          [isGlowing]="selectedCard?.index === index"
         ></sw-spell-card>
       </div>
     </div>

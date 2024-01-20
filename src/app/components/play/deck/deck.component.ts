@@ -68,13 +68,13 @@ import { ContentService } from '../../../services/content.service';
 })
 export class DeckComponent {
   @Input({ required: true }) public deck: PlayableCard[] = [];
-  @Input() public glowing = false;
+  @Input() public isGlowing = false;
 
   @Output() public drawCard = new EventEmitter<void>();
 
   @HostBinding('class.glowing')
   public get shouldGlow(): boolean {
-    return this.deck.length === 0 ? false : this.glowing;
+    return this.deck.length === 0 ? false : this.isGlowing;
   }
 
   @HostBinding('style.--cards-in-deck')

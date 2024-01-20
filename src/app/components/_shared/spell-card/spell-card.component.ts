@@ -12,7 +12,7 @@ export class SpellCardComponent {
   @Input({ required: true }) public spell!: Spell;
   @Input() public isUpsideDown = false;
   @Input() public isSmall = false;
-  @Input() public glowing = false;
+  @Input() public isGlowing = false;
 
   public get spellElement() {
     return this.isUpsideDown ? '' : this.spell?.element.toLowerCase();

@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'sw-nextturn',
   template: `
-    <div class="icon-container" [class.glowing]="glowing">
+    <div class="icon-container" [class.glowing]="isGlowing">
       <sw-icon category="play" name="nextturn" [size]="48"></sw-icon>
     </div>
   `,
@@ -29,5 +29,5 @@ import { Component, Input } from '@angular/core';
   `,
 })
 export class NextTurnComponent {
-  @Input() glowing = false;
+  @Input() isGlowing = false;
 }
