@@ -88,6 +88,26 @@
     </div>
   </div>
 
+  <h1>Next Turn Indicators</h1>
+
+  <div class="sprite-container">
+    <div class="sprite">
+      <sw-nextturn></sw-nextturn>
+    </div>
+
+    <div class="sprite" [ngbTooltip]="'isGlowing = true'">
+      <sw-nextturn [isGlowing]="true"></sw-nextturn>
+    </div>
+
+    <div class="sprite" [ngbTooltip]="'isDisabled = true'">
+      <sw-nextturn [isDisabled]="true"></sw-nextturn>
+    </div>
+
+    <div class="sprite" [ngbTooltip]="'isGlowing = true; isDisabled = true'">
+      <sw-nextturn [isGlowing]="true" [isDisabled]="true"></sw-nextturn>
+    </div>
+  </div>
+
   <h1>Spell Card States</h1>
 
   <div class="sprite-container">
