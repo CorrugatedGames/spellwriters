@@ -1,9 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'sw-nextturn',
   template: `
-    <div class="icon-container" [class.glowing]="isGlowing">
+    <div
+      class="icon-container"
+      [class.disabled]="isDisabled"
+      [class.glowing]="isGlowing && !isDisabled"
+      (click)="doNextTurn()"
+      (keyup.enter)="doNextTurn()"
+      tabindex="0"
+    >
       <sw-icon category="play" name="nextturn" [size]="48"></sw-icon>
     </div>
   `,
@@ -25,9 +32,21 @@ import { Component, Input } from '@angular/core';
     &.glowing {
       animation: glow 1s infinite alternate;
     }
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
   `,
 })
 export class NextTurnComponent {
+  @Input() isDisabled = false;
   @Input() isGlowing = false;
+  @Output() nextTurn = new EventEmitter<void>();
+
+  doNextTurn() {
+    if (this.isDisabled) return;
+    this.nextTurn.emit();
+  }
 }

@@ -30,7 +30,7 @@
   <div class="player-side">
     <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck" [isGlowing]="gamephase.PlayerDraw"></sw-deck>
 
-    <sw-nextturn *ngIf="gamephase.PlayerTurn" class="pass" (click)="nextTurn()"
+    <sw-nextturn *ngIf="gamephase.PlayerTurn" class="pass" (nextTurn)="nextTurn()" [isDisabled]="!!activeCardData"
       [isGlowing]="gamephase.PlayerTurn"></sw-nextturn>
 
     <sw-hand class="hand" (selectCard)="selectCard($event)" [hand]="player.hand"
