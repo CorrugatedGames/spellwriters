@@ -91,8 +91,8 @@
   <h1>Spell Card States</h1>
 
   <div class="sprite-container">
-    <div class="sprite" [ngbTooltip]="'isUpsideDown = true'">
-      <sw-spell-card [spell]="contentService.getSpell('')!" [isUpsideDown]="true"></sw-spell-card>
+    <div class="sprite" [ngbTooltip]="'isUpsideDown = true; glowing = true'">
+      <sw-spell-card [spell]="contentService.getSpell('')!" [isUpsideDown]="true" [glowing]="true"></sw-spell-card>
     </div>
 
     <div class="sprite" [ngbTooltip]="'isUpsideDown = true; isSmall = true'">
@@ -102,6 +102,11 @@
     <div class="sprite" [ngbTooltip]="'isSmall = true'">
       <sw-spell-card [spell]="contentService.getSpell('5346e122-4f6f-409d-9366-758b066869aa')!"
         [isSmall]="true"></sw-spell-card>
+    </div>
+
+    <div class="sprite" [ngbTooltip]="'isSmall = true; glowing = true'">
+      <sw-spell-card [spell]="contentService.getSpell('5346e122-4f6f-409d-9366-758b066869aa')!" [isSmall]="true"
+        [glowing]="true"></sw-spell-card>
     </div>
 
     <div class="sprite" [ngbTooltip]="'hover state swap'">

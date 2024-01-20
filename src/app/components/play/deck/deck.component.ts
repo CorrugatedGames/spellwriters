@@ -73,7 +73,7 @@ export class DeckComponent {
   @Output() public drawCard = new EventEmitter<void>();
 
   @HostBinding('class.glowing')
-  public get isGlowing(): boolean {
+  public get shouldGlow(): boolean {
     return this.deck.length === 0 ? false : this.glowing;
   }
 

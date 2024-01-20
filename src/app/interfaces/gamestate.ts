@@ -67,3 +67,8 @@ export interface GameStateInitOpts {
   playerCharacter: Character;
   enemyCharacter: Character;
 }
+
+export interface SelectedCard {
+  card: PlayableCard;
+  index: number;
+}

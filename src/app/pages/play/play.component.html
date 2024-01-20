@@ -33,14 +33,18 @@
     <sw-nextturn *ngIf="gamephase.PlayerTurn" class="pass" (click)="nextTurn()"
       [glowing]="gamephase.PlayerTurn"></sw-nextturn>
 
-    <sw-hand class="hand" (selectCard)="selectCard($event)" [hand]="player.hand"></sw-hand>
+    <sw-hand class="hand" (selectCard)="selectCard($event)" [hand]="player.hand"
+      [selectedCard]="activeCardData"></sw-hand>
+
+    <sw-spell-card *ngIf="contentService.getSpell(activeCardData?.card?.id ?? '') as spell" class="selected-card"
+      [spell]="spell" [glowing]="true" (contextmenu)="selectCard(undefined); $event.preventDefault()"></sw-spell-card>
 
     <div class="stats">
       <sw-health-bar class="health player-health" [health]="player.health" [maxHealth]="player.maxHealth"
         [showHealth]="true"></sw-health-bar>
 
       <sw-mana-bar class="player-mana" [mana]="player.mana" [maxMana]="player.maxMana"
-        [glowing]="gamephase.PlayerTurn && player.mana > 0"></sw-mana-bar>
+        [glowing]="gamephase.PlayerTurn && !activeCardData"></sw-mana-bar>
     </div>
   </div>
 </div>

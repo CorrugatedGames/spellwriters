@@ -17,6 +17,10 @@
 
   pointer-events: all;
 
+  &.glowing {
+    animation: glow 1s infinite alternate;
+  }
+
   &.small {
     transform: scale(0.5);
   }

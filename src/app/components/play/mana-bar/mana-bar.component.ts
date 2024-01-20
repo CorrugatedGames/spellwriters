@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
       <div
         class="mana-orb"
         [class.active]="mana > manaIdx"
-        [class.glowing]="glowing"
+        [class.glowing]="mana > manaIdx && glowing"
       ></div>
       }
     </div>

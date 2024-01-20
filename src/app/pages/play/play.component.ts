@@ -12,7 +12,7 @@ import {
 import {
   CurrentPhase,
   GameState,
-  PlayableCard,
+  SelectedCard,
   TurnOrder,
 } from '../../interfaces';
 import { ContentService } from '../../services/content.service';
@@ -25,6 +25,8 @@ import { ContentService } from '../../services/content.service';
 export class PlayComponent {
   public gamestate: GameState = createBlankGameState();
   public gamephase: CurrentPhase = createBlankStateMachineMap();
+
+  public activeCardData?: SelectedCard;
 
   public readonly phaseBannerString = phaseBannerString.asReadonly();
 
@@ -51,8 +53,9 @@ export class PlayComponent {
     drawCardAndPassPhase(this.player);
   }
 
-  public selectCard($event: { card: PlayableCard; i: number }) {
-    console.log($event);
+  public selectCard($event: SelectedCard | undefined) {
+    if (!this.gamephase.PlayerTurn) return;
+    this.activeCardData = $event;
   }
 
   nextTurn() {

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PlayableCard } from '../../../interfaces';
+import { PlayableCard, SelectedCard } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
 @Component({
@@ -8,18 +8,20 @@ import { ContentService } from '../../../services/content.service';
     <div class="hand-card-container">
       <div
         class="hand-card-position"
-        *ngFor="let card of hand; let i = index"
-        [style.--card-index]="i"
-        (mouseenter)="focusHandCard(i)"
+        *ngFor="let card of hand; let index = index"
+        [style.--card-index]="index"
+        (mouseenter)="focusHandCard(index)"
         (mouseleave)="unfocusHandCard()"
-        (click)="selectCard.emit({ card, i })"
-        (keyup.enter)="selectCard.emit({ card, i })"
-        [tabindex]="i"
+        (click)="selectCard.emit({ card, index })"
+        (keyup.enter)="selectCard.emit({ card, index })"
+        [tabindex]="index"
       >
         <sw-spell-card
           class="hand-card"
+          [class.selected]="selectedCard?.index === index"
           [spell]="contentService.getSpell(card.id)!"
-          [isSmall]="hoveringSpellIndex !== i"
+          [isSmall]="hoveringSpellIndex !== index"
+          [glowing]="selectedCard?.index === index"
         ></sw-spell-card>
       </div>
     </div>
@@ -42,7 +44,6 @@ import { ContentService } from '../../../services/content.service';
         flex: 1 1 100%;
         min-width: 0;
 
-        z-index: calc(10 + var(--card-index));
         width: var(--spell-card-width-small);
         height: var(--spell-card-height-small);
         position: relative;
@@ -57,6 +58,12 @@ import { ContentService } from '../../../services/content.service';
           position: absolute;
           bottom: -60px;
           left: -68px;
+
+          z-index: calc(10 + var(--card-index));
+
+          &.selected {
+            z-index: 100;
+          }
         }
       }
     }
@@ -64,10 +71,8 @@ import { ContentService } from '../../../services/content.service';
 })
 export class HandComponent {
   @Input({ required: true }) public hand: PlayableCard[] = [];
-  @Output() public selectCard = new EventEmitter<{
-    card: PlayableCard;
-    i: number;
-  }>();
+  @Input() public selectedCard?: SelectedCard;
+  @Output() public selectCard = new EventEmitter<SelectedCard>();
 
   public hoveringSpellIndex = -1;
 

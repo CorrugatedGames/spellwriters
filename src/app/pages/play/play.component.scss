@@ -84,6 +84,12 @@
     padding: 16px;
   }
 
+  .selected-card {
+    position: absolute;
+    bottom: 388px;
+    right: 72px;
+  }
+
   .stats {
     display: flex;
     flex-direction: column;
