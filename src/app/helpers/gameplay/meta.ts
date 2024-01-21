@@ -30,7 +30,7 @@ export function nextPhase() {
         newRound = state.currentRound + 1;
       }
 
-      gainMana(state.players[newTurn], 1);
+      gainMana(state.players[newTurn], state.currentRound + 1);
 
       break;
   }
