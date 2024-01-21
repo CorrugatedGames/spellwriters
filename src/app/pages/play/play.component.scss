@@ -141,6 +141,13 @@
       height: var(--play-grid-size);
       border: 2px solid #fff;
       background-color: #32244c;
+      color: #fff;
+
+      &.glowing {
+        animation: glow 1s infinite alternate;
+        cursor: pointer;
+        z-index: 50;
+      }
     }
   }
 }

@@ -1,14 +1,18 @@
 import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  chooseTargetableTilesForCard,
   createBlankGameState,
   createBlankStateMachineMap,
   drawCardAndPassPhase,
   endTurnAndPassPhase,
   gamestate,
   ingameErrorMessage,
+  loseCardInHand,
   phaseBannerString,
+  setFieldSpell,
   setIngameErrorMessage,
+  spendMana,
   stateMachineMapFromGameState,
 } from '../../helpers';
 import {
@@ -30,6 +34,9 @@ export class PlayComponent {
   public gamephase: CurrentPhase = createBlankStateMachineMap();
 
   public activeCardData?: SelectedCard;
+  public selectableTiles:
+    | Record<number, Record<number, boolean | undefined> | undefined>
+    | undefined;
 
   public readonly phaseBannerString = phaseBannerString.asReadonly();
   public readonly errorMessageString = ingameErrorMessage.asReadonly();
@@ -80,6 +87,38 @@ export class PlayComponent {
     }
 
     this.activeCardData = $event;
+
+    this.selectableTiles = chooseTargetableTilesForCard(
+      this.gamestate.field,
+      this.gamestate.currentTurn,
+      card,
+    );
+  }
+
+  public canSelectTile(y: number, x: number) {
+    if (!this.selectableTiles) return false;
+
+    return this.selectableTiles[y]?.[x] ?? false;
+  }
+
+  public selectTile(y: number, x: number) {
+    if (!this.activeCardData) return;
+    if (!this.canSelectTile(y, x)) return;
+
+    const spell = this.contentService.getSpell(this.activeCardData.card.id);
+    if (!spell) return;
+
+    if (spell.cost > this.player.mana) {
+      setIngameErrorMessage(`Not enough mana to cast ${spell.name}!`);
+      return;
+    }
+
+    setFieldSpell(this.gamestate.field, x, y, spell);
+    loseCardInHand(this.player, this.activeCardData.index);
+    spendMana(this.player, spell.cost);
+
+    this.selectCard(undefined);
+    this.selectableTiles = undefined;
   }
 
   nextTurn() {

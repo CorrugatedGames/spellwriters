@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { SvgIconRegistryService } from 'angular-svg-icon';
 import {
+  characterData,
+  getCharacterById,
+  getSpellById,
+  modData,
+  spellData,
+} from '../helpers';
+import {
   Character,
   ContentMod,
   Spell,
@@ -12,11 +19,6 @@ import {
   providedIn: 'root',
 })
 export class ContentService {
-  private _allMods: Record<string, ContentMod> = {};
-
-  private _allCharacters: Record<string, Character> = {};
-  private _allSpells: Record<string, Spell> = {};
-
   constructor(private iconReg: SvgIconRegistryService) {}
 
   async init() {
@@ -40,32 +42,49 @@ export class ContentService {
   }
 
   async loadMod(mod: ContentMod) {
-    this._allMods[mod.name] = mod;
-
-    Object.values(mod.characters).forEach((character) => {
-      this._allCharacters[character.id] = character;
+    modData.update((existingHash) => {
+      return {
+        ...existingHash,
+        [mod.name]: mod,
+      };
     });
 
-    Object.values(mod.spells).forEach((spell) => {
-      this._allSpells[spell.id] = spell;
+    characterData.update((existingHash) => {
+      return {
+        ...existingHash,
+        ...Object.values(mod.characters).reduce(
+          (acc, character) => ({ ...acc, [character.id]: character }),
+          {},
+        ),
+      };
+    });
+
+    spellData.update((existingHash) => {
+      return {
+        ...existingHash,
+        ...Object.values(mod.spells).reduce(
+          (acc, spell) => ({ ...acc, [spell.id]: spell }),
+          {},
+        ),
+      };
     });
   }
 
   // #region Content Getters
   public allCharacters(): Character[] {
-    return Object.values(this._allCharacters);
+    return Object.values(characterData());
   }
 
   public allSpells(): Spell[] {
-    return Object.values(this._allSpells);
+    return Object.values(spellData());
   }
 
   public getCharacter(id: string): Character | undefined {
-    return this._allCharacters[id];
+    return getCharacterById(id);
   }
 
   public getSpell(id: string): Spell | undefined {
-    return this._allSpells[id];
+    return getSpellById(id);
   }
   // #endregion
 

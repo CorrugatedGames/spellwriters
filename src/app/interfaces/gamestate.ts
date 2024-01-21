@@ -1,4 +1,5 @@
 import { Character } from './archetype';
+import { Spell } from './spell';
 
 export enum FieldEffect {
   Oil = 'oil',
@@ -7,7 +8,7 @@ export enum FieldEffect {
 }
 
 export interface FieldNode {
-  containedSpell?: string;
+  containedSpell?: Spell;
   containedEffect?: FieldEffect;
 }
 
