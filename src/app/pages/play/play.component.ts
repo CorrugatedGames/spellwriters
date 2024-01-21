@@ -1,27 +1,21 @@
 import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  addSpellCast,
-  castSpell,
   chooseTargetableTilesForCard,
   createBlankGameState,
   createBlankStateMachineMap,
   drawCardAndPassPhase,
   endTurnAndPassPhase,
   gamestate,
-  getId,
+  handleEntireSpellcastSequence,
   ingameErrorMessage,
-  loseCardInHand,
   manaCostForSpell,
   phaseBannerString,
-  setFieldSpell,
   setIngameErrorMessage,
-  spendMana,
   stateMachineMapFromGameState,
 } from '../../helpers';
 import {
   CurrentPhase,
-  FieldSpell,
   GameState,
   SelectedCard,
   Spell,
@@ -118,17 +112,16 @@ export class PlayComponent {
       return;
     }
 
-    const newlyCastSpell: FieldSpell = {
-      ...spell,
-      caster: TurnOrder.Player,
-      castId: getId(),
-    };
-
-    castSpell(this.gamestate.spellQueue, newlyCastSpell);
-    setFieldSpell(this.gamestate.field, x, y, newlyCastSpell);
-    loseCardInHand(this.player, this.activeCardData.index);
-    spendMana(this.player, manaCostForSpell(this.player, spell));
-    addSpellCast(this.player);
+    handleEntireSpellcastSequence({
+      character: this.player,
+      spellData: spell,
+      spellQueue: this.gamestate.spellQueue,
+      x,
+      y,
+      field: this.gamestate.field,
+      castIndex: this.activeCardData.index,
+      turnOrder: this.gamestate.currentTurn,
+    });
 
     this.selectCard(undefined);
     this.selectableTiles = undefined;

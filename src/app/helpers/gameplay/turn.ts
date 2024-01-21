@@ -1,7 +1,18 @@
-import { ActivePlayer, GamePhase } from '../../interfaces';
+import {
+  ActivePlayer,
+  FieldNode,
+  FieldSpell,
+  GamePhase,
+  Spell,
+  TurnOrder,
+} from '../../interfaces';
+import { castSpell, setFieldSpell } from './field';
+import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
 import { seededrng } from './rng';
 import { gamestate } from './signal';
+import { manaCostForSpell, spendMana } from './stats';
+import { getId } from './uuid';
 
 export function shuffleDeck(character: ActivePlayer): void {
   const prng = seededrng();
@@ -45,4 +56,39 @@ export function endTurnAndPassPhase(): void {
 
 export function addSpellCast(character: ActivePlayer): void {
   character.spellsCastThisTurn++;
+}
+
+export function handleEntireSpellcastSequence(props: {
+  character: ActivePlayer;
+  spellData: Spell;
+  spellQueue: string[];
+  x: number;
+  y: number;
+  field: FieldNode[][];
+  castIndex: number;
+  turnOrder: TurnOrder;
+}): void {
+  const {
+    character,
+    spellData,
+    spellQueue,
+    x,
+    y,
+    field,
+    castIndex,
+    turnOrder,
+  } = props;
+
+  const newlyCastSpell: FieldSpell = {
+    ...spellData,
+    caster: turnOrder,
+    castId: getId(),
+  };
+
+  castSpell(spellQueue, newlyCastSpell);
+  setFieldSpell(field, x, y, newlyCastSpell);
+
+  loseCardInHand(character, castIndex);
+  spendMana(character, manaCostForSpell(character, spellData));
+  addSpellCast(character);
 }
