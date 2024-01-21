@@ -1,3 +1,5 @@
+import { TurnOrder } from './gamestate';
+
 export enum SpellRarity {
   Common = 'Common',
   Uncommon = 'Uncommon',
@@ -59,4 +61,9 @@ export interface Spell {
   pattern: SpellPattern;
 
   tags: Partial<Record<SpellTag, number>>;
+}
+
+export interface FieldSpell extends Spell {
+  caster: TurnOrder;
+  castId: string;
 }

@@ -20,10 +20,15 @@
   </div>
 
   <div class="play-grid" [style.--play-grid-rows]="gamestate.field[0].length">
+
     <div class="grid-row" *ngFor="let row of gamestate.field; let gridRow = index"
-      [class.secret]="gridRow === 0 || gridRow === gamestate.field.length - 1">
+      [class.secret]="isSecretPlayerTile(gridRow) || isSecretOpponentTile(gridRow)"
+      [class.secret-opponent]="isSecretOpponentTile(gridRow)" [class.secret-player]="isSecretPlayerTile(gridRow)">
+
       <div class="grid-space" [class.glowing]="canSelectTile(gridRow, gridCol)" (click)="selectTile(gridRow, gridCol)"
         (keyup.enter)="selectTile(gridRow, gridCol)" tabindex="0" *ngFor="let col of row; let gridCol = index">
+
+        <sw-field-spell *ngIf="col.containedSpell" [spell]="col.containedSpell"></sw-field-spell>
       </div>
     </div>
   </div>

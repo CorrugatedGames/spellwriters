@@ -131,8 +131,16 @@
     justify-content: center;
 
     &.secret {
-      .grid-space {
-        border-color: #f00;
+      &.secret-player {
+        .grid-space {
+          border-color: var(--field-secret-player);
+        }
+      }
+
+      &.secret-opponent {
+        .grid-space {
+          border-color: var(--field-secret-opponent);
+        }
       }
     }
 

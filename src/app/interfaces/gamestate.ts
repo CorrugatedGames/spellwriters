@@ -1,5 +1,5 @@
 import { Character } from './archetype';
-import { Spell } from './spell';
+import { FieldSpell } from './spell';
 
 export enum FieldEffect {
   Oil = 'oil',
@@ -8,7 +8,7 @@ export enum FieldEffect {
 }
 
 export interface FieldNode {
-  containedSpell?: Spell;
+  containedSpell?: FieldSpell;
   containedEffect?: FieldEffect;
 }
 
@@ -60,6 +60,8 @@ export interface GameState {
   width: number;
   height: number;
   field: FieldNode[][];
+
+  spellQueue: string[];
 }
 
 export interface GameStateInitOpts {

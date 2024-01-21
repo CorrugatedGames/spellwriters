@@ -1,12 +1,14 @@
 import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  castSpell,
   chooseTargetableTilesForCard,
   createBlankGameState,
   createBlankStateMachineMap,
   drawCardAndPassPhase,
   endTurnAndPassPhase,
   gamestate,
+  getId,
   ingameErrorMessage,
   loseCardInHand,
   phaseBannerString,
@@ -17,6 +19,7 @@ import {
 } from '../../helpers';
 import {
   CurrentPhase,
+  FieldSpell,
   GameState,
   SelectedCard,
   Spell,
@@ -113,7 +116,14 @@ export class PlayComponent {
       return;
     }
 
-    setFieldSpell(this.gamestate.field, x, y, spell);
+    const newlyCastSpell: FieldSpell = {
+      ...spell,
+      caster: TurnOrder.Player,
+      castId: getId(),
+    };
+
+    castSpell(this.gamestate.spellQueue, newlyCastSpell);
+    setFieldSpell(this.gamestate.field, x, y, newlyCastSpell);
     loseCardInHand(this.player, this.activeCardData.index);
     spendMana(this.player, spell.cost);
 
@@ -123,5 +133,13 @@ export class PlayComponent {
 
   nextTurn() {
     endTurnAndPassPhase();
+  }
+
+  isSecretPlayerTile(y: number) {
+    return y === this.gamestate.field.length - 1;
+  }
+
+  isSecretOpponentTile(y: number) {
+    return y === 0;
   }
 }

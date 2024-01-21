@@ -15,6 +15,7 @@ import { SpellCardComponent } from './components/_shared/spell-card/spell-card.c
 import { SpellSpriteComponent } from './components/_shared/spell-sprite/spell-sprite.component';
 import { DeckComponent } from './components/play/deck/deck.component';
 import { ErrorBannerComponent } from './components/play/error-banner/error-banner.component';
+import { FieldSpellComponent } from './components/play/field-spell/field-spell.component';
 import { HandComponent } from './components/play/hand/hand.component';
 import { HealthBarComponent } from './components/play/health-bar/health-bar.component';
 import { ManaBarComponent } from './components/play/mana-bar/mana-bar.component';
@@ -35,6 +36,7 @@ const components = [
   NextTurnComponent,
   PhaseBannerComponent,
   ErrorBannerComponent,
+  FieldSpellComponent,
 ];
 
 @NgModule({

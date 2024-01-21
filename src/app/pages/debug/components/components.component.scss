@@ -17,6 +17,12 @@ h1 {
     &.health-sprite {
       min-width: 200px;
     }
+
+    &.fieldspell-sprite {
+      width: 96px;
+      height: 96px;
+      border: 1px solid #000;
+    }
   }
 }
 

@@ -1,5 +1,13 @@
 <div class="container-fluid">
 
+  <h1>Field Spell Examples</h1>
+
+  <div class="sprite-container">
+    <div class="sprite fieldspell-sprite" *ngFor="let spell of fieldSpells">
+      <sw-field-spell [spell]="spell"></sw-field-spell>
+    </div>
+  </div>
+
   <h1>Phase Banners</h1>
 
   <div class="banner-container">

@@ -23,6 +23,12 @@
 
   --play-nextturn: #fff;
 
+  --color-player: #3893c7;
+  --color-opponent: #bb3d3d;
+
+  --field-secret-player: var(--color-player);
+  --field-secret-opponent: var(--color-opponent);
+
   --spell-card-width: 275px;
   --spell-card-height: 400px;
   --spell-card-width-small: calc(var(--spell-card-width) / 2);
