@@ -40,16 +40,15 @@
     <sw-hand class="hand" (selectCard)="selectCard($event)" (unselectCard)="selectCard(undefined)" [hand]="player.hand"
       [selectedCard]="activeCardData"></sw-hand>
 
-    <sw-spell-card *ngIf="contentService.getSpell(activeCardData?.card?.id ?? '') as spell" class="selected-card"
-      [spell]="spell" [isGlowing]="true" (contextmenu)="selectCard(undefined); $event.preventDefault()"></sw-spell-card>
+    <sw-spell-card *ngIf="activeSpell" class="selected-card" [spell]="activeSpell" [isGlowing]="true"
+      (contextmenu)="selectCard(undefined); $event.preventDefault()"></sw-spell-card>
 
     <div class="stats">
       <sw-health-bar class="health player-health" [health]="player.health" [maxHealth]="player.maxHealth"
         [showHealth]="true"></sw-health-bar>
 
       <sw-mana-bar class="player-mana" [mana]="player.mana" [maxMana]="player.maxMana"
-        [isGlowing]="gamephase.PlayerTurn && !activeCardData"
-        [spending]="contentService.getSpell(activeCardData?.card?.id ?? '')?.cost ?? 0"></sw-mana-bar>
+        [isGlowing]="gamephase.PlayerTurn && !activeCardData" [spending]="activeSpell?.cost ?? 0"></sw-mana-bar>
     </div>
   </div>
 </div>

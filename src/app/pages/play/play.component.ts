@@ -15,6 +15,7 @@ import {
   CurrentPhase,
   GameState,
   SelectedCard,
+  Spell,
   TurnOrder,
 } from '../../interfaces';
 import { ContentService } from '../../services/content.service';
@@ -48,6 +49,12 @@ export class PlayComponent {
 
   public get opponent() {
     return this.gamestate.players[TurnOrder.Opponent];
+  }
+
+  public get activeSpell(): Spell | undefined {
+    if (!this.activeCardData) return undefined;
+
+    return this.contentService.getSpell(this.activeCardData.card.id);
   }
 
   constructor(private router: Router, public contentService: ContentService) {}
