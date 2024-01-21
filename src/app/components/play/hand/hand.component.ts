@@ -17,14 +17,19 @@ import { ContentService } from '../../../services/content.service';
         (keyup.enter)="selectCard.emit({ card, index })"
         [tabindex]="index"
       >
-        <sw-spell-card
-          class="hand-card"
-          [class.selected]="selectedCard?.index === index"
-          [spell]="contentService.getSpell(card.id)!"
-          [isSmall]="hoveringSpellIndex !== index"
-          [isGlowing]="selectedCard?.index === index"
-          [extraCost]="extraCost"
-        ></sw-spell-card>
+        <ng-container *ngIf="contentService.getSpell(card.id) as spell">
+          <sw-spell-card
+            class="hand-card"
+            [class.selected]="selectedCard?.index === index"
+            [spell]="spell"
+            [isSmall]="hoveringSpellIndex !== index"
+            [isGlowing]="
+              selectedCard?.index === index ||
+              spell.cost + extraCost <= highlightCastableCardCost
+            "
+            [extraCost]="extraCost"
+          ></sw-spell-card>
+        </ng-container>
       </div>
     </div>
   `,
@@ -75,6 +80,7 @@ export class HandComponent {
   @Input({ required: true }) public hand: PlayableCard[] = [];
   @Input() public selectedCard?: SelectedCard;
   @Input() public extraCost = 0;
+  @Input() public highlightCastableCardCost = 0;
   @Output() public selectCard = new EventEmitter<SelectedCard>();
   @Output() public unselectCard = new EventEmitter<SelectedCard>();
 
