@@ -7,8 +7,9 @@ import { Component, Input } from '@angular/core';
       @for(manaIdx of manaArray(maxMana); track manaIdx) {
       <div
         class="mana-orb"
-        [class.active]="mana > manaIdx"
-        [class.glowing]="mana > manaIdx && isGlowing"
+        [class.active]="shouldBeActive(manaIdx)"
+        [class.glowing]="shouldBeGlowing(manaIdx)"
+        [class.spending]="shouldBeSpending(manaIdx)"
       ></div>
       }
     </div>
@@ -47,6 +48,10 @@ import { Component, Input } from '@angular/core';
           opacity: 1;
         }
 
+        &.spending::before {
+          background: var(--mana-color-spending);
+        }
+
         &.glowing {
           animation: glow 1s infinite alternate;
         }
@@ -58,8 +63,27 @@ export class ManaBarComponent {
   @Input({ required: true }) public mana!: number;
   @Input({ required: true }) public maxMana!: number;
   @Input() isGlowing = false;
+  @Input() spending = 0;
 
   public manaArray(n: number): number[] {
     return [...Array(n).keys()];
+  }
+
+  shouldBeActive(manaIdx: number) {
+    return this.mana > manaIdx;
+  }
+
+  shouldBeGlowing(manaIdx: number) {
+    return (
+      (this.isGlowing && this.mana > manaIdx) || this.shouldBeSpending(manaIdx)
+    );
+  }
+
+  shouldBeSpending(manaIdx: number) {
+    return (
+      this.spending > 0 &&
+      this.shouldBeActive(manaIdx) &&
+      manaIdx >= this.mana - this.spending
+    );
   }
 }

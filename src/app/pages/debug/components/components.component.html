@@ -6,6 +6,12 @@
     <sw-phase-banner class="banner" [text]="'Player Draw'"></sw-phase-banner>
   </div>
 
+  <h1>Error Banners</h1>
+
+  <div class="sprite-container">
+    <sw-error-banner [text]="'You do not have enough mana to do that!'"></sw-error-banner>
+  </div>
+
   <h1>Decks</h1>
 
   <div class="sprite-container">
@@ -79,8 +85,8 @@
       <sw-mana-bar [mana]="0" [maxMana]="10"></sw-mana-bar>
     </div>
 
-    <div class="sprite">
-      <sw-mana-bar [mana]="4" [maxMana]="10"></sw-mana-bar>
+    <div class="sprite" [ngbTooltip]="'spending = 3'">
+      <sw-mana-bar [mana]="4" [maxMana]="10" [spending]="3"></sw-mana-bar>
     </div>
 
     <div class="sprite" [ngbTooltip]="'isGlowing = true'">

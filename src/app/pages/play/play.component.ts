@@ -6,7 +6,9 @@ import {
   drawCardAndPassPhase,
   endTurnAndPassPhase,
   gamestate,
+  ingameErrorMessage,
   phaseBannerString,
+  setIngameErrorMessage,
   stateMachineMapFromGameState,
 } from '../../helpers';
 import {
@@ -29,6 +31,7 @@ export class PlayComponent {
   public activeCardData?: SelectedCard;
 
   public readonly phaseBannerString = phaseBannerString.asReadonly();
+  public readonly errorMessageString = ingameErrorMessage.asReadonly();
 
   public readonly trackState = effect(() => {
     this.gamestate = gamestate();
@@ -55,6 +58,20 @@ export class PlayComponent {
 
   public selectCard($event: SelectedCard | undefined) {
     if (!this.gamephase.PlayerTurn) return;
+
+    if (!$event) {
+      this.activeCardData = undefined;
+      return;
+    }
+
+    const card = this.contentService.getSpell($event.card.id);
+    if (!card) return;
+
+    if (card.cost > this.player.mana) {
+      setIngameErrorMessage(`Not enough mana to cast ${card.name}!`);
+      return;
+    }
+
     this.activeCardData = $event;
   }
 

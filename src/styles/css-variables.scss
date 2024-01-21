@@ -42,6 +42,12 @@
     #ffffff 35%,
     #67d8ee 100%
   );
+  --mana-color-spending: linear-gradient(
+    45deg,
+    #ffffff 0%,
+    #32cb19 35%,
+    #67d8ee 100%
+  );
 
   --phase-banner-background: var(--bs-primary);
   --phase-banner-foreground: var(--bs-light);

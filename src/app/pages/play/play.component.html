@@ -28,12 +28,16 @@
   </div>
 
   <div class="player-side">
+    <div class="error-banner-container">
+      <sw-error-banner class="error-banner" [text]="errorMessageString()"></sw-error-banner>
+    </div>
+
     <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck" [isGlowing]="gamephase.PlayerDraw"></sw-deck>
 
     <sw-nextturn *ngIf="gamephase.PlayerTurn" class="pass" (nextTurn)="nextTurn()" [isDisabled]="!!activeCardData"
       [isGlowing]="gamephase.PlayerTurn"></sw-nextturn>
 
-    <sw-hand class="hand" (selectCard)="selectCard($event)" [hand]="player.hand"
+    <sw-hand class="hand" (selectCard)="selectCard($event)" (unselectCard)="selectCard(undefined)" [hand]="player.hand"
       [selectedCard]="activeCardData"></sw-hand>
 
     <sw-spell-card *ngIf="contentService.getSpell(activeCardData?.card?.id ?? '') as spell" class="selected-card"
@@ -44,7 +48,8 @@
         [showHealth]="true"></sw-health-bar>
 
       <sw-mana-bar class="player-mana" [mana]="player.mana" [maxMana]="player.maxMana"
-        [isGlowing]="gamephase.PlayerTurn && !activeCardData"></sw-mana-bar>
+        [isGlowing]="gamephase.PlayerTurn && !activeCardData"
+        [spending]="contentService.getSpell(activeCardData?.card?.id ?? '')?.cost ?? 0"></sw-mana-bar>
     </div>
   </div>
 </div>

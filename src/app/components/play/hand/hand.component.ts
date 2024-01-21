@@ -12,6 +12,7 @@ import { ContentService } from '../../../services/content.service';
         [style.--card-index]="index"
         (mouseenter)="focusHandCard(index)"
         (mouseleave)="unfocusHandCard()"
+        (contextmenu)="unselectCardFromHand(index); $event.preventDefault()"
         (click)="selectCard.emit({ card, index })"
         (keyup.enter)="selectCard.emit({ card, index })"
         [tabindex]="index"
@@ -73,6 +74,7 @@ export class HandComponent {
   @Input({ required: true }) public hand: PlayableCard[] = [];
   @Input() public selectedCard?: SelectedCard;
   @Output() public selectCard = new EventEmitter<SelectedCard>();
+  @Output() public unselectCard = new EventEmitter<SelectedCard>();
 
   public hoveringSpellIndex = -1;
 
@@ -84,5 +86,10 @@ export class HandComponent {
 
   public unfocusHandCard() {
     this.hoveringSpellIndex = -1;
+  }
+
+  public unselectCardFromHand(index: number) {
+    if (this.selectedCard?.index !== index) return;
+    this.unselectCard.emit();
   }
 }

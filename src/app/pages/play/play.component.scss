@@ -84,6 +84,16 @@
     padding: 16px;
   }
 
+  .error-banner-container {
+    position: absolute;
+    z-index: 10000;
+    width: 100%;
+    bottom: 16px;
+
+    display: flex;
+    justify-content: center;
+  }
+
   .selected-card {
     position: absolute;
     bottom: 388px;

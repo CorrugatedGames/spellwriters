@@ -1,4 +1,5 @@
 export * from './gameplay/ai';
+export * from './gameplay/error';
 export * from './gameplay/init';
 export * from './gameplay/meta';
 export * from './gameplay/rng';
