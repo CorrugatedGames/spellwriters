@@ -42,3 +42,7 @@ export function drawCardAndPassPhase(character: ActivePlayer): void {
 export function endTurnAndPassPhase(): void {
   nextPhase();
 }
+
+export function addSpellCast(character: ActivePlayer): void {
+  character.spellsCastThisTurn++;
+}

@@ -29,6 +29,8 @@ export interface ActivePlayer {
   hand: PlayableCard[];
   deck: PlayableCard[];
   discard: PlayableCard[];
+
+  spellsCastThisTurn: number;
 }
 
 export enum GamePlayer {

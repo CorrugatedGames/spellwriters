@@ -1,6 +1,7 @@
 import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  addSpellCast,
   castSpell,
   chooseTargetableTilesForCard,
   createBlankGameState,
@@ -11,6 +12,7 @@ import {
   getId,
   ingameErrorMessage,
   loseCardInHand,
+  manaCostForSpell,
   phaseBannerString,
   setFieldSpell,
   setIngameErrorMessage,
@@ -84,7 +86,7 @@ export class PlayComponent {
     const card = this.contentService.getSpell($event.card.id);
     if (!card) return;
 
-    if (card.cost > this.player.mana) {
+    if (manaCostForSpell(this.player, card) > this.player.mana) {
       setIngameErrorMessage(`Not enough mana to cast ${card.name}!`);
       return;
     }
@@ -125,7 +127,8 @@ export class PlayComponent {
     castSpell(this.gamestate.spellQueue, newlyCastSpell);
     setFieldSpell(this.gamestate.field, x, y, newlyCastSpell);
     loseCardInHand(this.player, this.activeCardData.index);
-    spendMana(this.player, spell.cost);
+    spendMana(this.player, manaCostForSpell(this.player, spell));
+    addSpellCast(this.player);
 
     this.selectCard(undefined);
     this.selectableTiles = undefined;

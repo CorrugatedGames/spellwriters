@@ -40,6 +40,8 @@ export function createBlankActivePlayer(): ActivePlayer {
     hand: [],
     deck: [],
     discard: [],
+
+    spellsCastThisTurn: 0,
   };
 }
 

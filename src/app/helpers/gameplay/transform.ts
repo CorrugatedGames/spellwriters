@@ -69,6 +69,7 @@ export function turnCharacterIntoActivePlayer(
     hand: [],
     deck,
     discard: [],
+    spellsCastThisTurn: 0,
   };
 
   shuffleDeck(player);

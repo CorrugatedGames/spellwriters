@@ -23,6 +23,7 @@ import { ContentService } from '../../../services/content.service';
           [spell]="contentService.getSpell(card.id)!"
           [isSmall]="hoveringSpellIndex !== index"
           [isGlowing]="selectedCard?.index === index"
+          [extraCost]="extraCost"
         ></sw-spell-card>
       </div>
     </div>
@@ -73,6 +74,7 @@ import { ContentService } from '../../../services/content.service';
 export class HandComponent {
   @Input({ required: true }) public hand: PlayableCard[] = [];
   @Input() public selectedCard?: SelectedCard;
+  @Input() public extraCost = 0;
   @Output() public selectCard = new EventEmitter<SelectedCard>();
   @Output() public unselectCard = new EventEmitter<SelectedCard>();
 

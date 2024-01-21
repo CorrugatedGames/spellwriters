@@ -44,7 +44,7 @@
       [isGlowing]="gamephase.PlayerTurn"></sw-nextturn>
 
     <sw-hand class="hand" (selectCard)="selectCard($event)" (unselectCard)="selectCard(undefined)" [hand]="player.hand"
-      [selectedCard]="activeCardData"></sw-hand>
+      [selectedCard]="activeCardData" [extraCost]="player.spellsCastThisTurn"></sw-hand>
 
     <sw-spell-card *ngIf="activeSpell" class="selected-card" [spell]="activeSpell" [isGlowing]="true"
       (contextmenu)="selectCard(undefined); $event.preventDefault()"></sw-spell-card>

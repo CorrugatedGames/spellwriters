@@ -31,6 +31,7 @@ export function nextPhase() {
       }
 
       gainMana(state.players[newTurn], state.currentRound + 1);
+      state.players[newTurn].spellsCastThisTurn = 0;
 
       break;
   }

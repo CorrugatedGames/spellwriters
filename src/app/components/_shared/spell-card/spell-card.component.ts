@@ -13,6 +13,7 @@ export class SpellCardComponent {
   @Input() public isUpsideDown = false;
   @Input() public isSmall = false;
   @Input() public isGlowing = false;
+  @Input() public extraCost = 0;
 
   public get spellElement() {
     return this.isUpsideDown ? '' : this.spell?.element.toLowerCase();
@@ -33,7 +34,7 @@ export class SpellCardComponent {
       },
       {
         stat: SpellStat.Cost,
-        value: this.spell.cost,
+        value: this.spell.cost + this.extraCost,
       },
       {
         stat: SpellStat.CastTime,
