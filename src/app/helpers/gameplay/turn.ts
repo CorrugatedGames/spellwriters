@@ -46,6 +46,8 @@ export function drawCard(character: ActivePlayer): void {
 }
 
 export function drawCardAndPassPhase(character: ActivePlayer): void {
+  if (!canDrawCard(character)) return;
+
   drawCard(character);
   nextPhase();
 }

@@ -4,8 +4,10 @@ import { interval } from 'rxjs';
 import {
   aiAttemptAction,
   createBlankGameState,
+  declareVictory,
   gamestate,
   handleEndOfTurnSpellActions,
+  hasAnyoneWon,
   nextPhase,
   phaseBannerString,
   phaseNameFromGameState,
@@ -18,6 +20,7 @@ import { GamePhase, GameState, TurnOrder } from '../interfaces';
 })
 export class GameStateService {
   private state: GameState = createBlankGameState();
+  private previousPhaseRaw!: GamePhase;
   private previousPhase = '';
   private currentPhaseDisplay = '';
   private movingSpells = false;
@@ -52,15 +55,29 @@ export class GameStateService {
     interval(1000).subscribe(async () => {
       const currentPhase = phaseNameFromGameState(this.state);
       if (currentPhase !== this.previousPhase) {
+        this.previousPhaseRaw = this.state.currentPhase;
         this.previousPhase = currentPhase;
         this.currentPhaseDisplay = currentPhase;
       } else {
         this.currentPhaseDisplay = '';
       }
 
-      phaseBannerString.set(this.currentPhaseDisplay);
-
       const currentPlayer = this.state.players[this.state.currentTurn];
+
+      if (this.state.currentPhase === GamePhase.Victory) {
+        phaseBannerString.set(currentPhase);
+        return;
+      }
+
+      if (
+        hasAnyoneWon(this.state.players) &&
+        this.previousPhaseRaw !== GamePhase.Victory
+      ) {
+        declareVictory(this.state);
+        return;
+      }
+
+      phaseBannerString.set(this.currentPhaseDisplay);
 
       if (
         this.state.currentPhase === GamePhase.Draw &&

@@ -87,8 +87,6 @@ export function moveSpellForwardOneStep(
     ...nextTile,
     containedSpell: spell,
   };
-
-  console.log('move', spell);
 }
 
 export function lowerSpellTimer(field: FieldNode[][], spell: FieldSpell): void {
