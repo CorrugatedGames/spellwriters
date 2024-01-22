@@ -1,13 +1,22 @@
-import { GamePhase, TurnOrder } from '../../interfaces';
+import { ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
 import { gamestate } from './signal';
 import { gainMana } from './stats';
+import { reshuffleDeck } from './turn';
 
-export function nextPhase() {
+/*
+ * This function is marked async, but it doesn't actually do anything asynchronous.
+ * The entire purpose is to wait for moveAllSpellsForward() which may have delays in it
+ * for the animations.
+ *
+ * In general, game logic, at this time, is not asynchronous nor should it be.
+ */
+export async function nextPhase(): Promise<void> {
   const state = gamestate();
 
   let newPhase: GamePhase = state.currentPhase;
   let newTurn: TurnOrder = state.currentTurn;
   let newRound: number = state.currentRound;
+  let newPlayer: ActivePlayer;
 
   switch (state.currentPhase) {
     case GamePhase.Draw:
@@ -15,6 +24,10 @@ export function nextPhase() {
       break;
 
     case GamePhase.Turn:
+      newPhase = GamePhase.SpellMove;
+      break;
+
+    case GamePhase.SpellMove:
       newPhase = GamePhase.End;
       break;
 
@@ -30,8 +43,14 @@ export function nextPhase() {
         newRound = state.currentRound + 1;
       }
 
-      gainMana(state.players[newTurn], state.currentRound + 1);
-      state.players[newTurn].spellsCastThisTurn = 0;
+      newPlayer = state.players[newTurn];
+
+      if (newPlayer.deck.length === 0) {
+        reshuffleDeck(newPlayer);
+      }
+
+      gainMana(newPlayer, state.currentRound + 1);
+      newPlayer.spellsCastThisTurn = 0;
 
       break;
   }

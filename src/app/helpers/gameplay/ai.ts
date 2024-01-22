@@ -2,7 +2,7 @@ import { GamePhase, TurnOrder } from '../../interfaces';
 import { nextPhase } from './meta';
 import { gamestate } from './signal';
 
-export function aiAttemptAction() {
+export function aiAttemptAction(): void {
   const state = gamestate();
 
   if (state.currentTurn === TurnOrder.Player) return;
@@ -22,17 +22,17 @@ export function aiAttemptAction() {
   }
 }
 
-export function aiDrawPhase() {
+export function aiDrawPhase(): void {
   // skip draw
   nextPhase();
 }
 
-export function aiSpendPhase() {
+export function aiSpendPhase(): void {
   // skip spend
   nextPhase();
 }
 
-export function aiEndPhase() {
+export function aiEndPhase(): void {
   // skip end
   nextPhase();
 }

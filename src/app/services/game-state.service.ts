@@ -5,6 +5,7 @@ import {
   aiAttemptAction,
   createBlankGameState,
   gamestate,
+  handleEndOfTurnSpellActions,
   nextPhase,
   phaseBannerString,
   phaseNameFromGameState,
@@ -19,6 +20,7 @@ export class GameStateService {
   private state: GameState = createBlankGameState();
   private previousPhase = '';
   private currentPhaseDisplay = '';
+  private movingSpells = false;
 
   constructor(private localStorage: LocalStorageService) {
     effect(() => {
@@ -47,7 +49,7 @@ export class GameStateService {
   }
 
   loop() {
-    interval(1000).subscribe(() => {
+    interval(1000).subscribe(async () => {
       const currentPhase = phaseNameFromGameState(this.state);
       if (currentPhase !== this.previousPhase) {
         this.previousPhase = currentPhase;
@@ -57,6 +59,27 @@ export class GameStateService {
       }
 
       phaseBannerString.set(this.currentPhaseDisplay);
+
+      const currentPlayer = this.state.players[this.state.currentTurn];
+
+      if (
+        this.state.currentPhase === GamePhase.Draw &&
+        currentPlayer.deck.length === 0
+      ) {
+        nextPhase();
+        return;
+      }
+
+      if (
+        this.state.currentPhase === GamePhase.SpellMove &&
+        !this.movingSpells
+      ) {
+        this.movingSpells = true;
+        await handleEndOfTurnSpellActions(this.state);
+        this.movingSpells = false;
+        nextPhase();
+        return;
+      }
 
       if (this.state.currentPhase === GamePhase.End) {
         nextPhase();

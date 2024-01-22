@@ -6,6 +6,6 @@ export const gamestate: WritableSignal<GameState> = signal(
   createBlankGameState(),
 );
 
-export function saveGamestate(state: GameState) {
+export function saveGamestate(state: GameState): void {
   gamestate.set(state);
 }

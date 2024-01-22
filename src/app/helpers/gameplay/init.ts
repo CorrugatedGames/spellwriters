@@ -81,7 +81,7 @@ export function createFreshGameState(
   };
 }
 
-export function startCombat(opts: GameStateInitOpts) {
+export function startCombat(opts: GameStateInitOpts): void {
   const id = getId();
 
   const blankState = createBlankGameState();

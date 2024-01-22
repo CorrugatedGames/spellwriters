@@ -6,7 +6,7 @@ import {
   Spell,
   TurnOrder,
 } from '../../interfaces';
-import { castSpell, setFieldSpell } from './field';
+import { addSpellToCastQueue, setFieldSpell } from './field';
 import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
 import { seededrng } from './rng';
@@ -85,7 +85,7 @@ export function handleEntireSpellcastSequence(props: {
     castId: getId(),
   };
 
-  castSpell(spellQueue, newlyCastSpell);
+  addSpellToCastQueue(spellQueue, newlyCastSpell);
   setFieldSpell(field, x, y, newlyCastSpell);
 
   loseCardInHand(character, castIndex);

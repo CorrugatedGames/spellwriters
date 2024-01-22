@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
 
-export function getId() {
+export function getId(): string {
   return uuid();
 }

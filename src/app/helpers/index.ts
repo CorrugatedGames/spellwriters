@@ -8,6 +8,7 @@ export * from './gameplay/rng';
 export * from './gameplay/signal';
 export * from './gameplay/stats';
 export * from './gameplay/targetting';
+export * from './gameplay/time';
 export * from './gameplay/transform';
 export * from './gameplay/turn';
 export * from './gameplay/uuid';

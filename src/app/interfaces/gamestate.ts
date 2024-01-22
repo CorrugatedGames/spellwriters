@@ -41,7 +41,9 @@ export enum GamePlayer {
 export enum GamePhase {
   Draw = 'Draw',
   Turn = 'Turn',
+  SpellMove = 'SpellMove',
   End = 'End',
+  Victory = 'Victory',
 }
 
 export type CurrentPhase = Record<`${GamePlayer}${GamePhase}`, boolean>;
