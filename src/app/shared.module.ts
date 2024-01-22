@@ -21,8 +21,11 @@ import { HealthBarComponent } from './components/play/health-bar/health-bar.comp
 import { ManaBarComponent } from './components/play/mana-bar/mana-bar.component';
 import { NextTurnComponent } from './components/play/nextturn/nextturn.component';
 import { PhaseBannerComponent } from './components/play/phase-banner/phase-banner.component';
+import { HoverClassDirective } from './directives/_shared/hover-class.directive';
 
 const components = [
+  HoverClassDirective,
+
   CharacterSpriteComponent,
   SpellSpriteComponent,
   SpellCardComponent,

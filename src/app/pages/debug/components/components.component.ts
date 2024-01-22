@@ -43,5 +43,26 @@ export class DebugComponentsComponent {
     },
   ];
 
+  public bannerActions = [
+    {
+      text: 'Action 1',
+      action: () => {
+        alert('clicked action 1');
+      },
+    },
+    {
+      text: 'Action 2',
+      action: () => {
+        alert('clicked action 2');
+      },
+    },
+    {
+      text: 'Action 3',
+      action: () => {
+        alert('clicked action 3');
+      },
+    },
+  ];
+
   constructor(public contentService: ContentService) {}
 }

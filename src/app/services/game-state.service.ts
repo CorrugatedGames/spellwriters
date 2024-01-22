@@ -6,6 +6,7 @@ import {
   createBlankGameState,
   declareVictory,
   gamestate,
+  gamestateInitOptions,
   handleEndOfTurnSpellActions,
   hasAnyoneWon,
   nextPhase,
@@ -31,6 +32,13 @@ export class GameStateService {
       console.log('[State Update]', this.state);
       this.save(this.state);
     });
+
+    effect(() => {
+      const initOpts = gamestateInitOptions();
+      if (initOpts) {
+        this.localStorage.store('initopts', initOpts);
+      }
+    });
   }
 
   async init() {
@@ -42,6 +50,11 @@ export class GameStateService {
     const state = this.localStorage.retrieve('gamestate');
     if (state) {
       saveGamestate(state);
+    }
+
+    const initOpts = this.localStorage.retrieve('initopts');
+    if (initOpts) {
+      gamestateInitOptions.set(initOpts);
     }
   }
 

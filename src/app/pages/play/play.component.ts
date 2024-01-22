@@ -7,16 +7,21 @@ import {
   drawCardAndPassPhase,
   endTurnAndPassPhase,
   gamestate,
+  gamestateInitOptions,
   handleEntireSpellcastSequence,
   ingameErrorMessage,
   manaCostForSpell,
   phaseBannerString,
+  resetGamestate,
   setIngameErrorMessage,
+  startCombat,
   stateMachineMapFromGameState,
 } from '../../helpers';
 import {
   CurrentPhase,
+  GamePhase,
   GameState,
+  GameStateInitOpts,
   SelectedCard,
   Spell,
   TurnOrder,
@@ -37,12 +42,20 @@ export class PlayComponent {
     | Record<number, Record<number, boolean | undefined> | undefined>
     | undefined;
 
+  public victoryActions: Array<{ text: string; action: () => void }> = [];
+
   public readonly phaseBannerString = phaseBannerString.asReadonly();
   public readonly errorMessageString = ingameErrorMessage.asReadonly();
 
   public readonly trackState = effect(() => {
     this.gamestate = gamestate();
     this.gamephase = stateMachineMapFromGameState(this.gamestate);
+
+    if (this.gamestate.currentPhase === GamePhase.Victory) {
+      this.createVictoryActions();
+    } else {
+      this.victoryActions = [];
+    }
 
     if (!this.gamestate.id) {
       this.router.navigate(['/']);
@@ -137,5 +150,41 @@ export class PlayComponent {
 
   isSecretOpponentTile(y: number) {
     return y === 0;
+  }
+
+  createVictoryActions() {
+    this.victoryActions = [
+      {
+        text: 'Start Over',
+        action: () => {
+          resetGamestate();
+
+          const oldOpts = gamestateInitOptions();
+          if (!oldOpts) {
+            this.router.navigate(['/new-run']);
+            return;
+          }
+
+          phaseBannerString.set('');
+          startCombat(oldOpts as GameStateInitOpts);
+          this.router.navigate(['/play']);
+          return;
+        },
+      },
+      {
+        text: 'New Run',
+        action: () => {
+          resetGamestate();
+          this.router.navigate(['/new-run']);
+        },
+      },
+      {
+        text: 'Main Menu',
+        action: () => {
+          resetGamestate();
+          this.router.navigate(['/']);
+        },
+      },
+    ];
   }
 }

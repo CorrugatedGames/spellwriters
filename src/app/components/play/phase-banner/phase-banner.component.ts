@@ -4,7 +4,21 @@ import { Component, Input } from '@angular/core';
   selector: 'sw-phase-banner',
   template: `
     <div class="banner">
-      {{ text }}
+      <div class="banner-text">
+        {{ text }}
+      </div>
+
+      <!-- TODO: buttons, outline, hover effect filled -->
+      <div class="banner-actions">
+        <button
+          class="btn banner-action"
+          [swHoverClass]="'hovering'"
+          *ngFor="let action of actions"
+          (click)="action.action()"
+        >
+          {{ action.text }}
+        </button>
+      </div>
     </div>
   `,
   styles: `
@@ -21,24 +35,44 @@ import { Component, Input } from '@angular/core';
 
     user-select: none;
 
-    font-family: FancyText, sans-serif;
-    font-size: 3rem;
-    color: var(--phase-banner-foreground);
-    letter-spacing: 2px;
-    font-weight: bold;
-
     z-index: 10000;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     background: var(--phase-banner-background);
     border-top: 2px solid var(--phase-banner-foreground);
     border-bottom: 2px solid var(--phase-banner-foreground);
+
+    .banner-text {
+      font-family: FancyText, sans-serif;
+      font-size: 3rem;
+      color: var(--phase-banner-foreground);
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    .banner-actions {
+      .banner-action {
+        color: var(--phase-banner-action-background);
+        border-color: var(--phase-banner-action-background);
+
+        &.hovering {
+          background: var(--phase-banner-action-background);
+          color: var(--phase-banner-action-foreground);
+        }
+
+        &:not(:first-child) {
+          margin-left: 1rem;
+        }
+      }
+    }
   }
   `,
 })
 export class PhaseBannerComponent {
   @Input({ required: true }) public text = '';
+  @Input() public actions: Array<{ text: string; action: () => void }> = [];
 }

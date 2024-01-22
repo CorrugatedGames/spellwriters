@@ -28,7 +28,7 @@ h1 {
 
 .banner-container {
   position: relative;
-  height: 200px;
+  min-height: 128px;
 
   .banner {
     position: absolute;

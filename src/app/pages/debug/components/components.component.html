@@ -13,6 +13,17 @@
   <div class="banner-container">
     <sw-phase-banner class="banner" [text]="'Player Draw'"></sw-phase-banner>
   </div>
+  <div class="banner-container">
+    <sw-phase-banner class="banner" [text]="'Player Victory'" [actions]="[bannerActions[0]]"></sw-phase-banner>
+  </div>
+  <div class="banner-container">
+    <sw-phase-banner class="banner" [text]="'Opponent Victory'"
+      [actions]="[bannerActions[0], bannerActions[1]]"></sw-phase-banner>
+  </div>
+  <div class="banner-container">
+    <sw-phase-banner class="banner" [text]="'Lots of actions and more text'"
+      [actions]="[bannerActions[0], bannerActions[1], bannerActions[2]]"></sw-phase-banner>
+  </div>
 
   <h1>Error Banners</h1>
 
