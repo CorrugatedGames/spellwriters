@@ -10,6 +10,12 @@ body {
   overflow: hidden;
 }
 
+.root-container {
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+}
+
 img {
   user-select: none;
 }
