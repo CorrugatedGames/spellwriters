@@ -42,6 +42,8 @@ export function createBlankActivePlayer(): ActivePlayer {
     discard: [],
 
     spellsCastThisTurn: 0,
+
+    behaviors: { random: 1 },
   };
 }
 

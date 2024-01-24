@@ -10,6 +10,8 @@ export interface Character {
   maxHealth: number;
 
   deck: Deck;
+
+  behaviors: Record<string, number>;
 }
 
 export interface Deck {

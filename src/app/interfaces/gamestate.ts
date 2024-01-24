@@ -1,4 +1,4 @@
-import { Character } from './archetype';
+import { Character } from './character';
 import { FieldSpell } from './spell';
 
 export enum FieldEffect {
@@ -31,6 +31,8 @@ export interface ActivePlayer {
   discard: PlayableCard[];
 
   spellsCastThisTurn: number;
+
+  behaviors: Record<string, number>;
 }
 
 export enum GamePlayer {

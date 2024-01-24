@@ -70,6 +70,7 @@ export function turnCharacterIntoActivePlayer(
     deck,
     discard: [],
     spellsCastThisTurn: 0,
+    behaviors: character.behaviors,
   };
 
   shuffleDeck(player);

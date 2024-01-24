@@ -1,11 +1,13 @@
-import { FieldNode, PlayableCard, TurnOrder } from '../../interfaces';
+import { PlayableCard, TurnOrder } from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
+import { gamestate } from './signal';
 
-export function chooseTargetableTilesForCard(
-  field: FieldNode[][],
+export function getTargetableTilesForCard(
   turn: TurnOrder,
   card: PlayableCard,
 ): Record<number, Record<number, boolean>> {
+  const { field } = gamestate();
+
   const spellData = getSpellById(card.id);
   if (!spellData) return {};
 
@@ -37,4 +39,21 @@ export function chooseTargetableTilesForCard(
   });
 
   return targetableTiles;
+}
+
+export function getListOfTargetableTilesForCard(
+  card: PlayableCard,
+): Array<{ x: number; y: number }> {
+  const targetableTiles = getTargetableTilesForCard(TurnOrder.Opponent, card);
+
+  const tiles: Array<{ x: number; y: number }> = [];
+
+  Object.keys(targetableTiles).forEach((y) => {
+    Object.keys(targetableTiles[+y]).forEach((x) => {
+      if (!targetableTiles[+y][+x]) return;
+      tiles.push({ x: +x, y: +y });
+    });
+  });
+
+  return tiles;
 }

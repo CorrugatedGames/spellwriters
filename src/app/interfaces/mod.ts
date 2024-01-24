@@ -1,4 +1,4 @@
-import { Character } from './archetype';
+import { Character } from './character';
 import { Spell } from './spell';
 
 export interface ContentMod {

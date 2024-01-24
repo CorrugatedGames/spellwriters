@@ -1,13 +1,13 @@
 import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  chooseTargetableTilesForCard,
   createBlankGameState,
   createBlankStateMachineMap,
   drawCardAndPassPhase,
   endTurnAndPassPhase,
   gamestate,
   gamestateInitOptions,
+  getTargetableTilesForCard,
   handleEntireSpellcastSequence,
   ingameErrorMessage,
   manaCostForSpell,
@@ -100,8 +100,7 @@ export class PlayComponent {
 
     this.activeCardData = $event;
 
-    this.selectableTiles = chooseTargetableTilesForCard(
-      this.gamestate.field,
+    this.selectableTiles = getTargetableTilesForCard(
       this.gamestate.currentTurn,
       card,
     );
@@ -127,13 +126,11 @@ export class PlayComponent {
 
     handleEntireSpellcastSequence({
       character: this.player,
-      spellData: spell,
       spellQueue: this.gamestate.spellQueue,
       x,
       y,
-      field: this.gamestate.field,
-      castIndex: this.activeCardData.index,
       turnOrder: this.gamestate.currentTurn,
+      card: this.activeCardData.card,
     });
 
     this.selectCard(undefined);

@@ -1,11 +1,11 @@
 import {
   ActivePlayer,
-  FieldNode,
   FieldSpell,
   GamePhase,
-  Spell,
+  PlayableCard,
   TurnOrder,
 } from '../../interfaces';
+import { getSpellById } from '../lookup/spells';
 import { addSpellToCastQueue, setFieldSpell } from './field';
 import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
@@ -62,24 +62,18 @@ export function addSpellCast(character: ActivePlayer): void {
 
 export function handleEntireSpellcastSequence(props: {
   character: ActivePlayer;
-  spellData: Spell;
   spellQueue: string[];
   x: number;
   y: number;
-  field: FieldNode[][];
-  castIndex: number;
+  card: PlayableCard;
   turnOrder: TurnOrder;
 }): void {
-  const {
-    character,
-    spellData,
-    spellQueue,
-    x,
-    y,
-    field,
-    castIndex,
-    turnOrder,
-  } = props;
+  const { field } = gamestate();
+
+  const { character, spellQueue, x, y, card, turnOrder } = props;
+
+  const spellData = getSpellById(card.id);
+  if (!spellData) return;
 
   const newlyCastSpell: FieldSpell = {
     ...spellData,
@@ -90,7 +84,7 @@ export function handleEntireSpellcastSequence(props: {
   addSpellToCastQueue(spellQueue, newlyCastSpell);
   setFieldSpell(field, x, y, newlyCastSpell);
 
-  loseCardInHand(character, castIndex);
+  loseCardInHand(character, card);
   spendMana(character, manaCostForSpell(character, spellData));
   addSpellCast(character);
 }
