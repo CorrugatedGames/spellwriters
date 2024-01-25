@@ -15,10 +15,18 @@ const validTags = Object.values(SpellTag);
 const validate = async () => {
   const spells = fs.readJson('./data/mod/content/spells.json');
 
+  const allIds: Record<string, boolean> = {};
+
   Object.values(spells).forEach((spell: Spell) => {
     if (!spell.id) {
       throw new Error(`Spell has no id`);
     }
+
+    if (allIds[spell.id]) {
+      throw new Error(`Duplicate spell id ${spell.id}`);
+    }
+
+    allIds[spell.id] = true;
 
     if (!spell.name) {
       throw new Error(`Spell ${spell.id} has no name`);

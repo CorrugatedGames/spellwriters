@@ -1,12 +1,12 @@
-- name: Goblin
+- name: Fire Goblin
   id: 34454542-3641-40cb-8227-7c30a9ba884a
-  description: A very basic enemy.
+  description: A very basic enemy that only uses Ignis.
   sprite: 34
 
   maxHealth: 5
 
   deck:
-    name: Goblin Starter
+    name: Fire Goblin Starter
     spells:
       - Ignis
       - Ignis
@@ -18,6 +18,54 @@
       - Ignis
       - Ignis
       - Ignis
+
+  behaviors:
+    random: 1
+
+- name: Water Goblin
+  id: e9b4d547-20b7-436d-aad4-26ed1ee2f651
+  description: A very basic enemy that only uses Aqua.
+  sprite: 34
+
+  maxHealth: 5
+
+  deck:
+    name: Water Goblin Starter
+    spells:
+      - Aqua
+      - Aqua
+      - Aqua
+      - Aqua
+      - Aqua
+      - Aqua
+      - Aqua
+      - Aqua
+      - Aqua
+      - Aqua
+
+  behaviors:
+    random: 1
+
+- name: Earth Goblin
+  id: e42c9012-a689-4f37-9af0-b8040961049f
+  description: A very basic enemy that only uses Terra.
+  sprite: 34
+
+  maxHealth: 5
+
+  deck:
+    name: Earth Goblin Starter
+    spells:
+      - Terra
+      - Terra
+      - Terra
+      - Terra
+      - Terra
+      - Terra
+      - Terra
+      - Terra
+      - Terra
+      - Terra
 
   behaviors:
     random: 1

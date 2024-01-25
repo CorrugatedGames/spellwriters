@@ -163,11 +163,24 @@
         border: 2px solid #fff;
         background-color: #32244c;
         color: #fff;
+        position: relative;
 
         &.glowing {
           animation: glow 1s infinite alternate;
           cursor: pointer;
           z-index: 50;
+        }
+
+        .grid-item {
+          position: absolute;
+
+          &.effect {
+            z-index: 9;
+          }
+
+          &.spell {
+            z-index: 10;
+          }
         }
       }
     }

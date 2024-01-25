@@ -1,6 +1,18 @@
-import { FieldNode, FieldSpell, GameState, TurnOrder } from '../../interfaces';
+import {
+  ElementalCollision,
+  FieldNode,
+  FieldSpell,
+  GameState,
+  SpellEffect,
+  TurnOrder,
+} from '../../interfaces';
 import { loseHealth } from './stats';
 import { delay } from './time';
+
+import * as ElementalCollisions from './collisions';
+import { gamestate } from './signal';
+const AllElementalCollisions: Record<SpellEffect, ElementalCollision> =
+  ElementalCollisions;
 
 export function setFieldSpell(
   field: FieldNode[][],
@@ -9,7 +21,20 @@ export function setFieldSpell(
   spell: FieldSpell,
 ): void {
   field[y][x] = {
+    ...field[y][x],
     containedSpell: spell,
+  };
+}
+
+export function setFieldEffect(
+  field: FieldNode[][],
+  x: number,
+  y: number,
+  effect: SpellEffect,
+): void {
+  field[y][x] = {
+    ...field[y][x],
+    containedEffect: { effect },
   };
 }
 
@@ -17,10 +42,8 @@ export function addSpellToCastQueue(queue: string[], spell: FieldSpell): void {
   queue.push(spell.castId);
 }
 
-export function findSpellOnField(
-  field: FieldNode[][],
-  spellId: string,
-): FieldSpell | undefined {
+export function findSpellOnField(spellId: string): FieldSpell | undefined {
+  const { field } = gamestate();
   for (const row of field) {
     for (const node of row) {
       if (node.containedSpell?.castId === spellId) {
@@ -33,9 +56,9 @@ export function findSpellOnField(
 }
 
 export function findSpellPositionOnField(
-  field: FieldNode[][],
   spellId: string,
 ): { x: number; y: number } | undefined {
+  const { field } = gamestate();
   for (const [y, row] of field.entries()) {
     for (const [x, node] of row.entries()) {
       if (node.containedSpell?.castId === spellId) {
@@ -52,11 +75,12 @@ export function moveSpellForwardOneStep(
   spell: FieldSpell,
 ): void {
   const field = state.field;
-  const position = findSpellPositionOnField(field, spell.castId);
+  const position = findSpellPositionOnField(spell.castId);
   if (!position) return;
 
   const yDelta = spell.caster === TurnOrder.Player ? -1 : 1;
   const nextY = position.y + yDelta;
+  const nextX = position.x;
 
   // get our current tile
   const currentTile = field[position.y][position.x];
@@ -78,15 +102,50 @@ export function moveSpellForwardOneStep(
     return;
   }
 
+  let shouldMoveToNextTile = true;
+
   if (nextTile.containedSpell) {
-    console.log('collision!');
-    return;
+    const containedSpell = nextTile.containedSpell;
+
+    Object.keys(AllElementalCollisions).forEach((key) => {
+      const collision = AllElementalCollisions[key as SpellEffect];
+      if (collision.hasCollisionReaction(spell, containedSpell)) {
+        collision.collide(state, spell, containedSpell);
+
+        if (collision.collisionWinner(spell, containedSpell) !== spell) {
+          shouldMoveToNextTile = false;
+        }
+      }
+    });
   }
 
-  field[nextY][position.x] = {
-    ...nextTile,
-    containedSpell: spell,
-  };
+  if (shouldMoveToNextTile) {
+    // do effects for our current spell leaving
+    if (currentTile.containedEffect) {
+      const containedEffect = currentTile.containedEffect;
+
+      const collisionEffect = AllElementalCollisions[containedEffect.effect];
+      if (collisionEffect) {
+        collisionEffect.onSpellExit(state, spell);
+      }
+    }
+
+    // move our spell
+    field[nextY][nextX] = {
+      ...nextTile,
+      containedSpell: spell,
+    };
+
+    // do effects for our next spell entering
+    if (nextTile.containedEffect) {
+      const containedEffect = nextTile.containedEffect;
+
+      const collisionEffect = AllElementalCollisions[containedEffect.effect];
+      if (collisionEffect) {
+        collisionEffect.onSpellEnter(state, spell);
+      }
+    }
+  }
 }
 
 export function lowerSpellTimer(field: FieldNode[][], spell: FieldSpell): void {
@@ -104,7 +163,7 @@ export async function handleEndOfTurnSpellActions(
     ...queue.map(async (spellId: string, i) => {
       await delay(200 * i);
 
-      const spell = findSpellOnField(state.field, spellId);
+      const spell = findSpellOnField(spellId);
       if (!spell) return;
 
       if (spell.castTime > 0) {

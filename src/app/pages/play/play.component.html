@@ -29,7 +29,11 @@
         <div class="grid-space" [class.glowing]="canSelectTile(gridRow, gridCol)" (click)="selectTile(gridRow, gridCol)"
           (keyup.enter)="selectTile(gridRow, gridCol)" tabindex="0" *ngFor="let col of row; let gridCol = index">
 
-          <sw-field-spell *ngIf="col.containedSpell" [spell]="col.containedSpell"></sw-field-spell>
+          <sw-field-spell class="grid-item spell" *ngIf="col.containedSpell"
+            [spell]="col.containedSpell"></sw-field-spell>
+
+          <sw-field-effect class="grid-item effect" *ngIf="col.containedEffect"
+            [effect]="col.containedEffect"></sw-field-effect>
         </div>
       </div>
     </div>

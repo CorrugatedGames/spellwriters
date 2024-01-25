@@ -62,7 +62,14 @@ const load = async () => {
   await postprocess[contentType]?.(allItems);
 
   console.log(`[Build] Processed ${contentType}!`);
+
+  const allIds: Record<string, boolean> = {};
   allItems.forEach((item: any) => {
+    if (allIds[item.id]) {
+      throw new Error(`Duplicate ${contentType} id ${item.id} (${item.name})`);
+    }
+
+    allIds[item.id] = true;
     allData[item.id] = item;
   });
 

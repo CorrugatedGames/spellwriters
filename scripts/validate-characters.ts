@@ -7,10 +7,18 @@ const validate = async () => {
     './data/mod/content/spells.json',
   ) as unknown as Record<string, Spell>;
 
+  const allIds: Record<string, boolean> = {};
+
   Object.values(characters).forEach((character: Character) => {
     if (!character.id) {
       throw new Error(`Character has no id`);
     }
+
+    if (allIds[character.id]) {
+      throw new Error(`Duplicate character id ${character.id}`);
+    }
+
+    allIds[character.id] = true;
 
     if (!character.name) {
       throw new Error(`Character ${character.id} has no name`);

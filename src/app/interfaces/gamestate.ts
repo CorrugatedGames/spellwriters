@@ -1,10 +1,14 @@
 import { Character } from './character';
 import { FieldSpell } from './spell';
 
-export enum FieldEffect {
+export enum SpellEffect {
   Oil = 'oil',
   Mud = 'mud',
   Steam = 'steam',
+}
+
+export interface FieldEffect {
+  effect: SpellEffect;
 }
 
 export interface FieldNode {
