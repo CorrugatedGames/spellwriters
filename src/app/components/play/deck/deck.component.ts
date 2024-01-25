@@ -2,8 +2,8 @@ import {
   Component,
   EventEmitter,
   HostBinding,
-  Input,
   Output,
+  input,
 } from '@angular/core';
 import { PlayableCard } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
@@ -23,7 +23,7 @@ import { ContentService } from '../../../services/content.service';
         [style.--card-index]="deckSize"
       >
         <sw-spell-card
-          *ngIf="deck.length > deckSize"
+          *ngIf="deck().length > deckSize"
           [spell]="contentService.getSpell('')!"
           [isUpsideDown]="true"
           [isSmall]="true"
@@ -67,19 +67,19 @@ import { ContentService } from '../../../services/content.service';
   `,
 })
 export class DeckComponent {
-  @Input({ required: true }) public deck: PlayableCard[] = [];
-  @Input() public isGlowing = false;
+  public deck = input.required<PlayableCard[]>();
+  public isGlowing = input<boolean>(false);
 
   @Output() public drawCard = new EventEmitter<void>();
 
   @HostBinding('class.glowing')
   public get shouldGlow(): boolean {
-    return this.deck.length === 0 ? false : this.isGlowing;
+    return this.deck().length === 0 ? false : this.isGlowing();
   }
 
   @HostBinding('style.--cards-in-deck')
   public get cardsInDeck(): number {
-    return this.deck.length;
+    return this.deck().length;
   }
 
   constructor(public contentService: ContentService) {}

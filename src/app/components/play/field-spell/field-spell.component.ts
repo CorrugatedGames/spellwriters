@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FieldSpell } from '../../../interfaces';
 
 @Component({
@@ -7,12 +7,13 @@ import { FieldSpell } from '../../../interfaces';
     <div
       class="field-spell"
       [class.casting]="isCasting"
-      [class.origin-player]="spell.caster === 0"
-      [class.origin-opponent]="spell.caster === 1"
+      [class.origin-player]="spellData.caster === 0"
+      [class.origin-opponent]="spellData.caster === 1"
+      *ngIf="spell() as spellData"
     >
       <sw-spell-sprite
         class="background sprite"
-        [sprite]="spell.sprite"
+        [sprite]="spellData.sprite"
       ></sw-spell-sprite>
 
       <div class="info-container">
@@ -23,13 +24,7 @@ import { FieldSpell } from '../../../interfaces';
             <div class="background spinner-border"></div>
 
             <span class="stat-badge badge rounded-pill">
-              {{ spell.castTime }}
-            </span>
-          </div>
-
-          <div *ngIf="!isCasting" class="stat speed">
-            <span class="stat-badge badge rounded-pill">
-              {{ spell.speed }}
+              {{ spellData.castTime }}
             </span>
           </div>
 
@@ -42,7 +37,13 @@ import { FieldSpell } from '../../../interfaces';
             ></sw-icon>
 
             <span class="stat-badge badge rounded-pill">
-              {{ spell.damage }}
+              {{ spellData.damage }}
+            </span>
+          </div>
+
+          <div *ngIf="!isCasting" class="stat speed">
+            <span class="stat-badge badge rounded-pill">
+              {{ spellData.speed }}
             </span>
           </div>
         </div>
@@ -165,9 +166,9 @@ import { FieldSpell } from '../../../interfaces';
   `,
 })
 export class FieldSpellComponent {
-  @Input({ required: true }) public spell!: FieldSpell;
+  public spell = input.required<FieldSpell>();
 
   public get isCasting() {
-    return this.spell.castTime > 0;
+    return this.spell().castTime > 0;
   }
 }

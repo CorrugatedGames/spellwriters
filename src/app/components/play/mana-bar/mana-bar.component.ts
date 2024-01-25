@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'sw-mana-bar',
   template: `
     <div class="mana">
-      @for(manaIdx of manaArray(maxMana); track manaIdx) {
+      @for(manaIdx of manaArray(maxMana()); track manaIdx) {
       <div
         class="mana-orb"
         [class.active]="shouldBeActive(manaIdx)"
@@ -60,30 +60,31 @@ import { Component, Input } from '@angular/core';
   `,
 })
 export class ManaBarComponent {
-  @Input({ required: true }) public mana!: number;
-  @Input({ required: true }) public maxMana!: number;
-  @Input() isGlowing = false;
-  @Input() spending = 0;
+  public mana = input.required<number>();
+  public maxMana = input.required<number>();
+  public isGlowing = input<boolean>(false);
+  public spending = input<number>(0);
 
   public manaArray(n: number): number[] {
     return [...Array(n).keys()];
   }
 
   shouldBeActive(manaIdx: number) {
-    return this.mana > manaIdx;
+    return this.mana() > manaIdx;
   }
 
   shouldBeGlowing(manaIdx: number) {
     return (
-      (this.isGlowing && this.mana > manaIdx) || this.shouldBeSpending(manaIdx)
+      (this.isGlowing() && this.mana() > manaIdx) ||
+      this.shouldBeSpending(manaIdx)
     );
   }
 
   shouldBeSpending(manaIdx: number) {
     return (
-      this.spending > 0 &&
+      this.spending() > 0 &&
       this.shouldBeActive(manaIdx) &&
-      manaIdx >= this.mana - this.spending
+      manaIdx >= this.mana() - this.spending()
     );
   }
 }

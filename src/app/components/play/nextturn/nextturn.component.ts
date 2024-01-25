@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output, input } from '@angular/core';
 
 @Component({
   selector: 'sw-nextturn',
   template: `
     <div
       class="icon-container"
-      [class.disabled]="isDisabled"
-      [class.glowing]="isGlowing && !isDisabled"
+      [class.disabled]="isDisabled()"
+      [class.glowing]="isGlowing() && !isDisabled()"
       (click)="doNextTurn()"
       (keyup.enter)="doNextTurn()"
       tabindex="0"
@@ -41,12 +41,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   `,
 })
 export class NextTurnComponent {
-  @Input() isDisabled = false;
-  @Input() isGlowing = false;
+  isDisabled = input<boolean>(false);
+  isGlowing = input<boolean>(false);
   @Output() nextTurn = new EventEmitter<void>();
 
   doNextTurn() {
-    if (this.isDisabled) return;
+    if (this.isDisabled()) return;
     this.nextTurn.emit();
   }
 }

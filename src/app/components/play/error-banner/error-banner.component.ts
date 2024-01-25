@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'sw-error-banner',
   template: `
-    <span class="badge text-bg-danger">{{ text }}</span>
+    <span class="badge text-bg-danger">{{ text() }}</span>
   `,
   styles: `
     .badge {
@@ -12,5 +12,5 @@ import { Component, Input } from '@angular/core';
   `,
 })
 export class ErrorBannerComponent {
-  @Input({ required: true }) text!: string;
+  public text = input.required<string>();
 }

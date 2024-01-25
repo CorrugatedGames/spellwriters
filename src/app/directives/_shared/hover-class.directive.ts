@@ -1,10 +1,10 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, input } from '@angular/core';
 
 @Directive({
   selector: '[swHoverClass]',
 })
 export class HoverClassDirective {
-  @Input() swHoverClass!: string;
+  public swHoverClass = input<string>('');
 
   constructor(public elementRef: ElementRef) {}
 

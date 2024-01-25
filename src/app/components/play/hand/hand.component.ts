@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output, input } from '@angular/core';
 import { PlayableCard, SelectedCard } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -8,7 +8,7 @@ import { ContentService } from '../../../services/content.service';
     <div class="hand-card-container">
       <div
         class="hand-card-position"
-        *ngFor="let card of hand; let index = index"
+        *ngFor="let card of hand(); let index = index"
         [style.--card-index]="index"
         (mouseenter)="focusHandCard(index)"
         (mouseleave)="unfocusHandCard()"
@@ -20,14 +20,14 @@ import { ContentService } from '../../../services/content.service';
         <ng-container *ngIf="contentService.getSpell(card.id) as spell">
           <sw-spell-card
             class="hand-card"
-            [class.selected]="selectedCard?.index === index"
+            [class.selected]="selectedCard()?.index === index"
             [spell]="spell"
             [isSmall]="hoveringSpellIndex !== index"
             [isGlowing]="
-              selectedCard?.index === index ||
-              spell.cost + extraCost <= highlightCastableCardCost
+              selectedCard()?.index === index ||
+              spell.cost + extraCost() <= highlightCastableCardCost()
             "
-            [extraCost]="extraCost"
+            [extraCost]="extraCost()"
           ></sw-spell-card>
         </ng-container>
       </div>
@@ -77,10 +77,11 @@ import { ContentService } from '../../../services/content.service';
   `,
 })
 export class HandComponent {
-  @Input({ required: true }) public hand: PlayableCard[] = [];
-  @Input() public selectedCard?: SelectedCard;
-  @Input() public extraCost = 0;
-  @Input() public highlightCastableCardCost = 0;
+  public hand = input.required<PlayableCard[]>();
+  public selectedCard = input<SelectedCard>();
+  public extraCost = input<number>(0);
+  public highlightCastableCardCost = input<number>(0);
+
   @Output() public selectCard = new EventEmitter<SelectedCard>();
   @Output() public unselectCard = new EventEmitter<SelectedCard>();
 
@@ -97,7 +98,7 @@ export class HandComponent {
   }
 
   public unselectCardFromHand(index: number) {
-    if (this.selectedCard?.index !== index) return;
+    if (this.selectedCard()?.index !== index) return;
     this.unselectCard.emit();
   }
 }

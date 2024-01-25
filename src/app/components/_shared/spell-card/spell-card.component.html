@@ -1,6 +1,6 @@
 <div class="spell-card-container" [style.--element-color]="'var(--element-' + spellElement + ')'"
-  [style.--rarity-color]="'var(--rarity-' + spellRarity + ')'" [class.small]="isSmall" [class.glowing]="isGlowing">
-  <ng-content *ngIf="isUpsideDown; then cardBack else cardFront"></ng-content>
+  [style.--rarity-color]="'var(--rarity-' + spellRarity + ')'" [class.small]="isSmall()" [class.glowing]="isGlowing()">
+  <ng-content *ngIf="isUpsideDown(); then cardBack else cardFront"></ng-content>
 </div>
 
 <ng-template #cardBack>
@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="name">
-            {{ spell.name }}
+            {{ spell().name }}
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
           <div class="row">
             <div class="col-12">
               <div class="card-art">
-                <sw-spell-sprite [sprite]="spell.sprite"></sw-spell-sprite>
+                <sw-spell-sprite [sprite]="spell().sprite"></sw-spell-sprite>
               </div>
             </div>
           </div>
@@ -50,7 +50,7 @@
         <div class="col-12">
           <div class="text-container">
             <div class="description">
-              {{ spell.description }}
+              {{ spell().description }}
             </div>
 
             <div class="tags" *ngIf="spellTags.length > 0">

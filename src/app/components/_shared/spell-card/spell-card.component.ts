@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Spell, SpellStat, SpellTag } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -9,18 +9,18 @@ import { ContentService } from '../../../services/content.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpellCardComponent {
-  @Input({ required: true }) public spell!: Spell;
-  @Input() public isUpsideDown = false;
-  @Input() public isSmall = false;
-  @Input() public isGlowing = false;
-  @Input() public extraCost = 0;
+  public spell = input.required<Spell>();
+  public isUpsideDown = input<boolean>(false);
+  public isSmall = input<boolean>(false);
+  public isGlowing = input<boolean>(false);
+  public extraCost = input<number>(0);
 
   public get spellElement() {
-    return this.isUpsideDown ? '' : this.spell?.element.toLowerCase();
+    return this.isUpsideDown() ? '' : this.spell()?.element.toLowerCase();
   }
 
   public get spellRarity() {
-    return this.isUpsideDown ? '' : this.spell?.rarity.toLowerCase();
+    return this.isUpsideDown() ? '' : this.spell()?.rarity.toLowerCase();
   }
 
   public get spellStatsAndValues(): {
@@ -30,35 +30,35 @@ export class SpellCardComponent {
     return [
       {
         stat: SpellStat.Damage,
-        value: this.spell.damage,
+        value: this.spell().damage,
       },
       {
         stat: SpellStat.Cost,
-        value: this.spell.cost + this.extraCost,
+        value: this.spell().cost + this.extraCost(),
       },
       {
         stat: SpellStat.CastTime,
-        value: this.spell.castTime,
+        value: this.spell().castTime,
       },
       {
         stat: SpellStat.Speed,
-        value: this.spell.speed,
+        value: this.spell().speed,
       },
       {
         stat: SpellStat.Depth,
-        value: `${this.spell.depthMin}-${this.spell.depthMax}`,
+        value: `${this.spell().depthMin}-${this.spell().depthMax}`,
       },
       {
         stat: SpellStat.Pattern,
-        value: this.spell.pattern,
+        value: this.spell().pattern,
       },
     ];
   }
 
   public get spellTags(): { name: SpellTag; value: number }[] {
-    return (Object.keys(this.spell.tags) as SpellTag[]).map((name) => ({
+    return (Object.keys(this.spell().tags) as SpellTag[]).map((name) => ({
       name,
-      value: this.spell.tags[name] ?? 0,
+      value: this.spell().tags[name] ?? 0,
     }));
   }
 

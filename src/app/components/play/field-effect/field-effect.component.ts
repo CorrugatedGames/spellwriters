@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FieldEffect } from '../../../interfaces';
 
 @Component({
@@ -6,7 +6,7 @@ import { FieldEffect } from '../../../interfaces';
   template: `
     <sw-icon
       category="field-effect"
-      [name]="effect.effect"
+      [name]="effect().effect"
       [size]="64"
     ></sw-icon>
   `,
@@ -21,5 +21,5 @@ import { FieldEffect } from '../../../interfaces';
   `,
 })
 export class FieldEffectComponent {
-  @Input({ required: true }) public effect!: FieldEffect;
+  public effect = input.required<FieldEffect>();
 }

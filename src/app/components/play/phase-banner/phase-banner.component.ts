@@ -1,19 +1,18 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'sw-phase-banner',
   template: `
     <div class="banner">
       <div class="banner-text">
-        {{ text }}
+        {{ text() }}
       </div>
 
-      <!-- TODO: buttons, outline, hover effect filled -->
       <div class="banner-actions">
         <button
           class="btn banner-action"
           [swHoverClass]="'hovering'"
-          *ngFor="let action of actions"
+          *ngFor="let action of actions()"
           (click)="action.action()"
         >
           {{ action.text }}
@@ -73,6 +72,6 @@ import { Component, Input } from '@angular/core';
   `,
 })
 export class PhaseBannerComponent {
-  @Input({ required: true }) public text = '';
-  @Input() public actions: Array<{ text: string; action: () => void }> = [];
+  public text = input.required<string>();
+  public actions = input<Array<{ text: string; action: () => void }>>([]);
 }
