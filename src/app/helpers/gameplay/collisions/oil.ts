@@ -40,9 +40,13 @@ function collisionWinner(
   return defaultCollisionWinner(collider, collidee);
 }
 
-function onSpellEnter(gamestate: GameState, spell: FieldSpell): void {}
+function onSpellEnter(gamestate: GameState, spell: FieldSpell): void {
+  console.log('oil enter', { spell });
+}
 
-function onSpellExit(gamestate: GameState, spell: FieldSpell): void {}
+function onSpellExit(gamestate: GameState, spell: FieldSpell): void {
+  console.log('oil exit', { spell });
+}
 
 export const oil: ElementalCollision = {
   hasCollisionReaction,
