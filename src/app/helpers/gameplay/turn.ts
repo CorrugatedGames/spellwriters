@@ -84,6 +84,7 @@ export function handleEntireSpellcastSequence(props: {
     x,
     y,
   );
+
   for (let y = 0; y < field.length; y++) {
     for (let x = 0; x < field[y].length; x++) {
       if (!targetTiles[y]?.[x]) continue;
