@@ -29,7 +29,11 @@ function collide(
 ): void {
   if (!defaultShouldFieldEffectBeCreated(collider, collidee)) return;
 
-  const { x, y } = findSpellPositionOnField(collidee.castId)!;
+  const pos = findSpellPositionOnField(collidee.castId);
+  if (!pos) return;
+
+  const { x, y } = pos;
+
   setFieldEffect(gamestate.field, x, y, SpellEffect.Mud);
 }
 

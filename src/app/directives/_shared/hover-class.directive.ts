@@ -9,10 +9,10 @@ export class HoverClassDirective {
   constructor(public elementRef: ElementRef) {}
 
   @HostListener('mouseenter') onMouseEnter() {
-    this.elementRef.nativeElement.classList.add(this.swHoverClass);
+    this.elementRef.nativeElement.classList.add(this.swHoverClass());
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    this.elementRef.nativeElement.classList.remove(this.swHoverClass);
+    this.elementRef.nativeElement.classList.remove(this.swHoverClass());
   }
 }

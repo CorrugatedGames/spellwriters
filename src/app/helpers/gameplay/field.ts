@@ -11,6 +11,10 @@ import { delay } from './time';
 
 import * as ElementalCollisions from './collisions';
 import { gamestate } from './signal';
+import {
+  defaultCollisionDamageReduction,
+  defaultCollisionSpellRemoval,
+} from './spell';
 const AllElementalCollisions: Record<SpellEffect, ElementalCollision> =
   ElementalCollisions;
 
@@ -70,6 +74,23 @@ export function findSpellPositionOnField(
   return undefined;
 }
 
+export function removeSpellFromField(spellId: string): void {
+  const { field, spellQueue } = gamestate();
+
+  const index = spellQueue.indexOf(spellId);
+  if (index !== -1) {
+    spellQueue.splice(index, 1);
+  }
+
+  for (const row of field) {
+    for (const node of row) {
+      if (node.containedSpell?.castId === spellId) {
+        node.containedSpell = undefined;
+      }
+    }
+  }
+}
+
 export function moveSpellForwardOneStep(
   state: GameState,
   spell: FieldSpell,
@@ -107,6 +128,8 @@ export function moveSpellForwardOneStep(
   if (nextTile.containedSpell) {
     const containedSpell = nextTile.containedSpell;
 
+    defaultCollisionDamageReduction(spell, containedSpell);
+
     Object.keys(AllElementalCollisions).forEach((key) => {
       const collision = AllElementalCollisions[key as SpellEffect];
       if (collision.hasCollisionReaction(spell, containedSpell)) {
@@ -117,6 +140,8 @@ export function moveSpellForwardOneStep(
         }
       }
     });
+
+    defaultCollisionSpellRemoval(spell, containedSpell);
   }
 
   if (shouldMoveToNextTile) {

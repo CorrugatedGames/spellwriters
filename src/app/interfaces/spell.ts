@@ -37,7 +37,6 @@ export enum SpellTag {
   Steamy = 'steamy',
   Muddy = 'muddy',
   Oily = 'oily',
-  Defensive = 'defensive',
 }
 
 export interface Spell {

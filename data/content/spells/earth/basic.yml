@@ -22,16 +22,13 @@
   element: Earth
   rarity: Uncommon
 
-  damage: 0
+  damage: 3
   speed: 0
   cost: 2
   castTime: 0
   depthMin: 1
   depthMax: 1
   pattern: Double
-
-  tags:
-    defensive: 3
 
 - name: Sludge
   id: 579c177e-93ed-413f-85d0-773fa31afd5e
