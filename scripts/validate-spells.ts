@@ -13,11 +13,13 @@ const validElements = Object.values(SpellElement);
 const validTags = Object.values(SpellTag);
 
 const validate = async () => {
-  const spells = fs.readJson('./data/mod/content/spells.json');
+  const spells = await fs.readJson('./data/mod/content/spells.json');
 
   const allIds: Record<string, boolean> = {};
 
-  Object.values(spells).forEach((spell: Spell) => {
+  Object.values(spells).forEach((spellData: unknown) => {
+    const spell = spellData as Spell;
+
     if (!spell.id) {
       throw new Error(`Spell has no id`);
     }
@@ -33,55 +35,65 @@ const validate = async () => {
     }
 
     if (!spell.description) {
-      throw new Error(`Spell ${spell.id} has no description`);
+      throw new Error(`Spell ${spell.name} has no description`);
     }
 
     if (spell.sprite < 0) {
-      throw new Error(`Spell ${spell.id} has invalid sprite`);
+      throw new Error(`Spell ${spell.name} has invalid sprite ${spell.sprite}`);
     }
 
     if (!validRarities.includes(spell.rarity)) {
-      throw new Error(`Spell ${spell.id} has invalid rarity`);
+      throw new Error(`Spell ${spell.name} has invalid rarity ${spell.rarity}`);
     }
 
     if (!validPatterns.includes(spell.pattern)) {
-      throw new Error(`Spell ${spell.id} has invalid pattern`);
+      throw new Error(
+        `Spell ${spell.name} has invalid pattern ${spell.pattern}`,
+      );
     }
 
     if (!validElements.includes(spell.element)) {
-      throw new Error(`Spell ${spell.id} has invalid element`);
+      throw new Error(
+        `Spell ${spell.name} has invalid element ${spell.element}`,
+      );
     }
 
     if (spell.damage < 0) {
-      throw new Error(`Spell ${spell.id} has invalid damage`);
+      throw new Error(`Spell ${spell.name} has invalid damage ${spell.damage}`);
     }
 
     if (spell.speed < 0) {
-      throw new Error(`Spell ${spell.id} has invalid speed`);
+      throw new Error(`Spell ${spell.name} has invalid speed ${spell.speed}`);
     }
 
     if (spell.cost < 0) {
-      throw new Error(`Spell ${spell.id} has invalid cost`);
+      throw new Error(`Spell ${spell.name} has invalid cost ${spell.cost}`);
     }
 
     if (spell.castTime < 0) {
-      throw new Error(`Spell ${spell.id} has invalid cast time`);
+      throw new Error(
+        `Spell ${spell.name} has invalid cast time ${spell.castTime}`,
+      );
     }
 
     if (spell.depthMin < 0) {
-      throw new Error(`Spell ${spell.id} has invalid min depth`);
+      throw new Error(
+        `Spell ${spell.name} has invalid min depth ${spell.depthMin}`,
+      );
     }
 
     if (spell.depthMax < 0) {
-      throw new Error(`Spell ${spell.id} has invalid max depth`);
+      throw new Error(
+        `Spell ${spell.name} has invalid max depth ${spell.depthMax}`,
+      );
     }
 
     if (spell.depthMin > spell.depthMax) {
-      throw new Error(`Spell ${spell.id} has invalid depth range`);
+      throw new Error(`Spell ${spell.name} has invalid depth range`);
     }
 
     if (!spell.tags) {
-      throw new Error(`Spell ${spell.id} has no tags`);
+      throw new Error(`Spell ${spell.name} has no tags`);
     }
 
     Object.keys(spell.tags).forEach((tag: string) => {

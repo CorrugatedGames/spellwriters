@@ -12,7 +12,7 @@
   castTime: 0
   depthMin: 0
   depthMax: 1
-  pattern: Single
+  pattern: 1x1
 
 - name: Flamma
   id: 4afa0224-24b8-47de-b210-54c57c25bbeb
@@ -28,7 +28,7 @@
   castTime: 0
   depthMin: 0
   depthMax: 1
-  pattern: Single
+  pattern: 1x1
 
   tags:
     explodes: 1
@@ -47,7 +47,7 @@
   castTime: 1
   depthMin: 0
   depthMax: 1
-  pattern: Triple
+  pattern: 3x1
 
   tags:
     steamy: 1

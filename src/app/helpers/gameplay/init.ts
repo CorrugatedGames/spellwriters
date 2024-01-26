@@ -10,6 +10,25 @@ import { saveGamestate } from './signal';
 import { turnCharacterIntoActivePlayer } from './transform';
 import { getId } from './uuid';
 
+export function createBlankFieldRecord(
+  width: number,
+  height: number,
+): Record<number, Record<number, unknown>> {
+  const field: Record<number, Record<number, unknown>> = {};
+
+  for (let y = 0; y < height; y++) {
+    const row: Record<number, unknown> = {};
+
+    for (let x = 0; x < width; x++) {
+      row[x] = undefined;
+    }
+
+    field[y] = row;
+  }
+
+  return field;
+}
+
 export function createBlankField(width: number, height: number): FieldNode[][] {
   const field: FieldNode[][] = [];
 

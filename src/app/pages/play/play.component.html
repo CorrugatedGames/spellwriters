@@ -27,7 +27,11 @@
         [class.secret-opponent]="isSecretOpponentTile(gridRow)" [class.secret-player]="isSecretPlayerTile(gridRow)">
 
         <div class="grid-space" [class.glowing]="canSelectTile(gridRow, gridCol)" (click)="selectTile(gridRow, gridCol)"
-          (keyup.enter)="selectTile(gridRow, gridCol)" tabindex="0" *ngFor="let col of row; let gridCol = index">
+          (keyup.enter)="selectTile(gridRow, gridCol)" (mouseenter)="showTargettableSpacesForTile(gridRow, gridCol)"
+          (mouseleave)="resetTargettableSpaces()" tabindex="0" *ngFor="let col of row; let gridCol = index">
+
+          <sw-spell-sprite class="grid-item cast-sprite" *ngIf="activeCardData && targetTiles[gridRow]?.[gridCol]"
+            [sprite]="targetTiles[gridRow][gridCol].sprite"></sw-spell-sprite>
 
           <sw-field-spell class="grid-item spell" *ngIf="col.containedSpell"
             [spell]="col.containedSpell"></sw-field-spell>

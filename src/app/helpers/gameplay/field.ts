@@ -3,13 +3,16 @@ import {
   FieldNode,
   FieldSpell,
   GameState,
+  Spell,
   SpellEffect,
+  SpellPattern,
   TurnOrder,
 } from '../../interfaces';
 import { loseHealth } from './stats';
 import { delay } from './time';
 
 import * as ElementalCollisions from './collisions';
+import { createBlankFieldRecord } from './init';
 import { gamestate } from './signal';
 import {
   defaultCollisionDamageReduction,
@@ -72,6 +75,70 @@ export function findSpellPositionOnField(
   }
 
   return undefined;
+}
+
+export function getSpaceFromField(
+  field: FieldNode[][],
+  x: number,
+  y: number,
+): FieldNode | undefined {
+  return field[y]?.[x];
+}
+
+export function isFieldSpaceEmpty(
+  field: FieldNode[][],
+  x: number,
+  y: number,
+): boolean {
+  const node = getSpaceFromField(field, x, y);
+  if (!node) return false;
+
+  return !node.containedSpell && !node.containedEffect;
+}
+
+export function getTargettableSpacesForSpellAroundPosition(
+  spell: Spell,
+  x: number,
+  y: number,
+): Record<number, Record<number, Spell>> {
+  const { field, width, height } = gamestate();
+  const blankField = createBlankFieldRecord(width, height);
+
+  const setInTargetField = (x: number, y: number) => {
+    if (!isFieldSpaceEmpty(field, x, y)) return;
+
+    blankField[y][x] = spell;
+  };
+
+  switch (spell.pattern) {
+    case SpellPattern.Single: {
+      setInTargetField(x, y);
+      break;
+    }
+
+    case SpellPattern.Double: {
+      setInTargetField(x + 1, y);
+      break;
+    }
+
+    case SpellPattern.Triple: {
+      setInTargetField(x - 1, y);
+      setInTargetField(x, y);
+      setInTargetField(x + 1, y);
+      break;
+    }
+
+    case SpellPattern.Wide: {
+      setInTargetField(x - 2, y);
+      setInTargetField(x - 1, y);
+      setInTargetField(x, y);
+      setInTargetField(x + 1, y);
+      setInTargetField(x + 2, y);
+      break;
+    }
+  }
+
+  return blankField as Record<number, Record<number, Spell>>;
 }
 
 export function removeSpellFromField(spellId: string): void {

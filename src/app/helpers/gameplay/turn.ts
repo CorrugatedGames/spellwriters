@@ -6,7 +6,11 @@ import {
   TurnOrder,
 } from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
-import { addSpellToCastQueue, setFieldSpell } from './field';
+import {
+  addSpellToCastQueue,
+  getTargettableSpacesForSpellAroundPosition,
+  setFieldSpell,
+} from './field';
 import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
 import { seededrng } from './rng';
@@ -75,14 +79,25 @@ export function handleEntireSpellcastSequence(props: {
   const spellData = getSpellById(card.id);
   if (!spellData) return;
 
-  const newlyCastSpell: FieldSpell = {
-    ...spellData,
-    caster: turnOrder,
-    castId: getId(),
-  };
+  const targetTiles = getTargettableSpacesForSpellAroundPosition(
+    spellData,
+    x,
+    y,
+  );
+  for (let y = 0; y < field.length; y++) {
+    for (let x = 0; x < field[y].length; x++) {
+      if (!targetTiles[y]?.[x]) continue;
 
-  addSpellToCastQueue(spellQueue, newlyCastSpell);
-  setFieldSpell(field, x, y, newlyCastSpell);
+      const newlyCastSpell: FieldSpell = {
+        ...spellData,
+        caster: turnOrder,
+        castId: getId(),
+      };
+
+      addSpellToCastQueue(spellQueue, newlyCastSpell);
+      setFieldSpell(field, x, y, newlyCastSpell);
+    }
+  }
 
   loseCardInHand(character, card);
   spendMana(character, manaCostForSpell(character, spellData));

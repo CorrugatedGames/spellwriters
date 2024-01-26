@@ -8,8 +8,10 @@ import {
   gamestate,
   gamestateInitOptions,
   getTargetableTilesForCard,
+  getTargettableSpacesForSpellAroundPosition,
   handleEntireSpellcastSequence,
   ingameErrorMessage,
+  isFieldSpaceEmpty,
   manaCostForSpell,
   phaseBannerString,
   resetGamestate,
@@ -41,6 +43,8 @@ export class PlayComponent {
   public selectableTiles:
     | Record<number, Record<number, boolean | undefined> | undefined>
     | undefined;
+
+  public targetTiles: Record<number, Record<number, Spell>> = {};
 
   public victoryActions: Array<{ text: string; action: () => void }> = [];
 
@@ -106,8 +110,23 @@ export class PlayComponent {
     );
   }
 
+  public resetTargettableSpaces(): void {
+    this.targetTiles = {};
+  }
+
+  public showTargettableSpacesForTile(y: number, x: number): void {
+    if (!this.activeCardData) return;
+
+    const spell = this.contentService.getSpell(this.activeCardData.card.id);
+    if (!spell) return;
+
+    this.targetTiles = getTargettableSpacesForSpellAroundPosition(spell, x, y);
+    console.log(this.targetTiles);
+  }
+
   public canSelectTile(y: number, x: number) {
     if (!this.selectableTiles) return false;
+    if (!isFieldSpaceEmpty(this.gamestate.field, x, y)) return false;
 
     return this.selectableTiles[y]?.[x] ?? false;
   }
@@ -135,6 +154,7 @@ export class PlayComponent {
 
     this.selectCard(undefined);
     this.selectableTiles = undefined;
+    this.resetTargettableSpaces();
   }
 
   nextTurn() {

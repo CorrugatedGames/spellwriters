@@ -12,7 +12,7 @@
   castTime: 1
   depthMin: 0
   depthMax: 1
-  pattern: Single
+  pattern: 1x1
 
 - name: Geyser
   id: a4334820-3a54-4855-9068-520546e943ed
@@ -22,16 +22,13 @@
   element: Water
   rarity: Uncommon
 
-  damage: 0
+  damage: 2
   speed: 0
   cost: 3
   castTime: 1
   depthMin: 1
   depthMax: 2
-  pattern: Single
-
-  tags:
-    defensive: 2
+  pattern: 1x1
 
 - name: Rainstorm
   id: dc05162f-a29f-489f-8d97-f96f431f5d50
@@ -47,7 +44,7 @@
   castTime: 2
   depthMin: 1
   depthMax: 2
-  pattern: Single
+  pattern: 1x1
 
   tags:
     muddy: 1

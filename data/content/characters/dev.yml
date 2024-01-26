@@ -1,0 +1,25 @@
+- name: Spoodles
+  id: 245f341c-c180-488e-be5a-e25010ee2056
+  description: An obtainer of everything.
+  sprite: 127
+
+  maxHealth: 25
+
+  deck:
+    name: Dev Starter
+    spells:
+      - Ignis
+      - Flamma
+      - Incendia Misteria
+      - Terra
+      - Earth Wall
+      - Sludge
+      - Concussa
+      - Lightning
+      - Surge
+      - Aqua
+      - Geyser
+      - Rainstorm
+
+  behaviors:
+    random: 1
