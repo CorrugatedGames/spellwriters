@@ -63,6 +63,8 @@ export enum TurnOrder {
 
 export interface GameState {
   id: string;
+  rng: number;
+
   currentRound: number;
   currentTurn: TurnOrder;
   currentPhase: GamePhase;

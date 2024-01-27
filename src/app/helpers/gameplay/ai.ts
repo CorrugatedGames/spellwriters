@@ -20,7 +20,7 @@ export function getAIOpts(): AIOpts {
 
   return {
     gamestate: state,
-    prng: seededrng(),
+    rng: seededrng(),
     playableCards: playableCardsInHand({
       player: state.players[TurnOrder.Opponent],
     }),

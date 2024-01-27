@@ -75,6 +75,7 @@ export function createBlankActivePlayer(): ActivePlayer {
 export function createBlankGameState(): GameState {
   return {
     id: '',
+    rng: 0,
     currentRound: 0,
     currentTurn: TurnOrder.Player,
     currentPhase: GamePhase.Draw,

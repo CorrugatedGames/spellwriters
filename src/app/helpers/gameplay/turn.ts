@@ -19,9 +19,9 @@ import { gamestate } from './signal';
 import { manaCostForSpell, spendMana } from './stats';
 
 export function shuffleDeck(character: ActivePlayer): void {
-  const prng = seededrng();
+  const rng = seededrng();
 
-  character.deck.sort(() => prng() - 0.5);
+  character.deck.sort(() => rng() - 0.5);
 }
 
 export function reshuffleDeck(character: ActivePlayer): void {

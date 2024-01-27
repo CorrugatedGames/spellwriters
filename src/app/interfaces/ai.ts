@@ -8,6 +8,6 @@ export interface AIPattern {
 
 export interface AIOpts {
   gamestate: GameState;
-  prng: PRNG;
+  rng: PRNG;
   playableCards: PlayableCard[];
 }

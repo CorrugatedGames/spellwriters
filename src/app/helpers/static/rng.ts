@@ -7,7 +7,9 @@ export function rng(seed: string): PRNG {
 
 export function seededrng(): PRNG {
   const state = gamestate();
-  return seedrandom(state.id);
+  state.rng++;
+
+  return seedrandom(state.id + state.rng);
 }
 
 export function weighted(choices: Record<string, number>): string {
