@@ -115,14 +115,12 @@ export class PlayComponent {
   }
 
   public showTargettableSpacesForTile(y: number, x: number): void {
-    console.log('hover', { y, x });
     if (!this.activeCardData) return;
 
     const spell = this.contentService.getSpell(this.activeCardData.card.id);
     if (!spell) return;
 
     this.targetTiles = getTargettableSpacesForSpellAroundPosition(spell, x, y);
-    console.log(this.targetTiles);
   }
 
   public canSelectTile(y: number, x: number) {
