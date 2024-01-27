@@ -35,7 +35,6 @@ export function setFieldEffect(
 ): void {
   const { field } = gamestate();
   field[y][x].containedEffect = effect ? { effect } : undefined;
-  console.log('set field effect', { x, y, effect }, field[y][x]);
 }
 
 export function addSpellToCastQueue(queue: string[], spell: FieldSpell): void {
@@ -252,7 +251,9 @@ export async function handleEndOfTurnSpellActions(
 ): Promise<void> {
   await delay(200);
 
-  const queue = state.spellQueue;
+  const queue = state.spellQueue.filter(
+    (spellId) => findSpellOnField(spellId)?.caster === state.currentTurn,
+  );
 
   await Promise.all([
     ...queue.map(async (spellId: string, i) => {
