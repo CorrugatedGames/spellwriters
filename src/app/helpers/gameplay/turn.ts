@@ -100,7 +100,10 @@ export function handleEntireSpellcastSequence(props: {
     }
   }
 
-  loseCardInHand(character, card);
-  spendMana(character, manaCostForSpell(character, spellData));
+  loseCardInHand({ player: character, card });
+  spendMana({
+    character,
+    amount: manaCostForSpell({ character, spell: spellData }),
+  });
   addSpellCast(character);
 }

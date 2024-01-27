@@ -5,7 +5,9 @@ let existingTimer: Subscription | undefined;
 
 export const ingameErrorMessage: WritableSignal<string> = signal('');
 
-export function setIngameErrorMessage(message: string): void {
+export function setIngameErrorMessage(opts: { message: string }): void {
+  const { message } = opts;
+
   ingameErrorMessage.set(message);
 
   existingTimer?.unsubscribe();

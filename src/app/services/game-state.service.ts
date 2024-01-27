@@ -66,7 +66,7 @@ export class GameStateService {
 
   loop() {
     interval(1000).subscribe(async () => {
-      const currentPhase = phaseNameFromGameState(this.state);
+      const currentPhase = phaseNameFromGameState({ state: this.state });
       if (currentPhase !== this.previousPhase) {
         this.previousPhaseRaw = this.state.currentPhase;
         this.previousPhase = currentPhase;
@@ -83,10 +83,10 @@ export class GameStateService {
       }
 
       if (
-        hasAnyoneWon(this.state.players) &&
+        hasAnyoneWon({ players: this.state.players }) &&
         this.previousPhaseRaw !== GamePhase.Victory
       ) {
-        declareVictory(this.state);
+        declareVictory();
         return;
       }
 

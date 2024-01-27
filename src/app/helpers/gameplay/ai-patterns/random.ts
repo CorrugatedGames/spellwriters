@@ -13,7 +13,7 @@ function makeDecision(opts: AIOpts): void {
   const chosen = randomChoice(playableCards);
   if (!chosen) return;
 
-  const validTiles = getListOfTargetableTilesForCard(chosen);
+  const validTiles = getListOfTargetableTilesForCard({ card: chosen });
   const chosenTile = randomChoice(validTiles);
 
   handleEntireSpellcastSequence({

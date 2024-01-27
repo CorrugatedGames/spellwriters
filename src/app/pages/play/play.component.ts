@@ -53,7 +53,7 @@ export class PlayComponent {
 
   public readonly trackState = effect(() => {
     this.gamestate = gamestate();
-    this.gamephase = stateMachineMapFromGameState(this.gamestate);
+    this.gamephase = stateMachineMapFromGameState({ state: this.gamestate });
 
     if (this.gamestate.currentPhase === GamePhase.Victory) {
       this.createVictoryActions();
@@ -94,20 +94,24 @@ export class PlayComponent {
       return;
     }
 
-    const card = this.contentService.getSpell($event.card.id);
-    if (!card) return;
+    const spell = this.contentService.getSpell($event.card.id);
+    if (!spell) return;
 
-    if (manaCostForSpell(this.player, card) > this.player.mana) {
-      setIngameErrorMessage(`Not enough mana to cast ${card.name}!`);
+    if (
+      manaCostForSpell({ character: this.player, spell }) > this.player.mana
+    ) {
+      setIngameErrorMessage({
+        message: `Not enough mana to cast ${spell.name}!`,
+      });
       return;
     }
 
     this.activeCardData = $event;
 
-    this.selectableTiles = getTargetableTilesForCard(
-      this.gamestate.currentTurn,
-      card,
-    );
+    this.selectableTiles = getTargetableTilesForCard({
+      turn: this.gamestate.currentTurn,
+      card: spell,
+    });
   }
 
   public resetTargettableSpaces(): void {
@@ -138,7 +142,9 @@ export class PlayComponent {
     if (!spell) return;
 
     if (spell.cost > this.player.mana) {
-      setIngameErrorMessage(`Not enough mana to cast ${spell.name}!`);
+      setIngameErrorMessage({
+        message: `Not enough mana to cast ${spell.name}!`,
+      });
       return;
     }
 
@@ -182,7 +188,7 @@ export class PlayComponent {
           }
 
           phaseBannerString.set('');
-          startCombat(oldOpts as GameStateInitOpts);
+          startCombat({ gamestateInitOpts: oldOpts as GameStateInitOpts });
           this.router.navigate(['/play']);
           return;
         },

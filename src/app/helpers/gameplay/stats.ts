@@ -1,30 +1,51 @@
 import { ActivePlayer, Spell } from '../../interfaces';
 
-export function gainMana(character: ActivePlayer, amount = 1): void {
+export function gainMana(opts: {
+  character: ActivePlayer;
+  amount: number;
+}): void {
+  const { character, amount } = opts;
+
   character.mana = Math.max(
     0,
-    Math.min(character.mana + amount, character.maxMana),
+    Math.min(character.mana + (amount ?? 1), character.maxMana),
   );
 }
 
-export function spendMana(character: ActivePlayer, amount = 1): void {
-  gainMana(character, -amount);
+export function spendMana(opts: {
+  character: ActivePlayer;
+  amount: number;
+}): void {
+  const { character, amount } = opts;
+
+  gainMana({ character, amount: -amount });
 }
 
-export function manaCostForSpell(
-  character: ActivePlayer,
-  spell: Spell,
-): number {
+export function manaCostForSpell(opts: {
+  character: ActivePlayer;
+  spell: Spell;
+}): number {
+  const { character, spell } = opts;
   return spell.cost + character.spellsCastThisTurn;
 }
 
-export function gainHealth(character: ActivePlayer, amount = 1): void {
+export function gainHealth(opts: {
+  character: ActivePlayer;
+  amount: number;
+}): void {
+  const { character, amount } = opts;
+
   character.health = Math.max(
     0,
-    Math.min(character.health + amount, character.maxHealth),
+    Math.min(character.health + (amount ?? 1), character.maxHealth),
   );
 }
 
-export function loseHealth(character: ActivePlayer, amount = 1): void {
-  gainHealth(character, -amount);
+export function loseHealth(opts: {
+  character: ActivePlayer;
+  amount: number;
+}): void {
+  const { character, amount } = opts;
+
+  gainHealth({ character, amount: -amount });
 }

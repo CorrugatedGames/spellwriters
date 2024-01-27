@@ -1,9 +1,4 @@
-import {
-  ActivePlayer,
-  GamePhase,
-  GameState,
-  TurnOrder,
-} from '../../interfaces';
+import { ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
 import { gamestate } from './signal';
 import { gainMana } from './stats';
 import { reshuffleDeck } from './turn';
@@ -54,7 +49,7 @@ export async function nextPhase(): Promise<void> {
         reshuffleDeck(newPlayer);
       }
 
-      gainMana(newPlayer, state.currentRound + 1);
+      gainMana({ character: newPlayer, amount: state.currentRound + 1 });
       newPlayer.spellsCastThisTurn = 0;
 
       break;
@@ -70,12 +65,16 @@ export async function nextPhase(): Promise<void> {
   });
 }
 
-export function hasAnyoneWon(players: ActivePlayer[]): boolean {
+export function hasAnyoneWon(opts: { players: ActivePlayer[] }): boolean {
+  const { players } = opts;
+
   return players.some((player) => player.health === 0);
 }
 
-export function declareVictory(state: GameState): void {
-  if (!hasAnyoneWon(state.players)) return;
+export function declareVictory(): void {
+  const state = gamestate();
+
+  if (!hasAnyoneWon({ players: state.players })) return;
 
   const playerHealth = state.players[TurnOrder.Player].health;
   const opponentHealth = state.players[TurnOrder.Opponent].health;

@@ -21,7 +21,9 @@ export function getAIOpts(): AIOpts {
   return {
     gamestate: state,
     prng: seededrng(),
-    playableCards: playableCardsInHand(state.players[TurnOrder.Opponent]),
+    playableCards: playableCardsInHand({
+      player: state.players[TurnOrder.Opponent],
+    }),
   };
 }
 
@@ -34,11 +36,11 @@ export function aiAttemptAction(): void {
 
   switch (state.currentPhase) {
     case GamePhase.Draw:
-      aiDrawPhase(aiPlayer);
+      aiDrawPhase({ character: aiPlayer });
       break;
 
     case GamePhase.Turn:
-      aiSpendPhase(aiPlayer);
+      aiSpendPhase({ character: aiPlayer });
       break;
 
     case GamePhase.End:
@@ -47,14 +49,18 @@ export function aiAttemptAction(): void {
   }
 }
 
-export function aiDrawPhase(character: ActivePlayer): void {
+export function aiDrawPhase(opts: { character: ActivePlayer }): void {
+  const { character } = opts;
+
   drawCard(character);
   nextPhase();
 }
 
-export function aiSpendPhase(character: ActivePlayer): void {
+export function aiSpendPhase(opts: { character: ActivePlayer }): void {
+  const { character } = opts;
+
   let numDecisions = 0;
-  while (numDecisions++ < 100 && canPlayCardsInHand(character)) {
+  while (numDecisions++ < 100 && canPlayCardsInHand({ player: character })) {
     try {
       const aiOpts = getAIOpts();
       const applicableBehaviors = Object.keys(character.behaviors).filter((b) =>

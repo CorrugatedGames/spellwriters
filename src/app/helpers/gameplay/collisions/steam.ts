@@ -1,7 +1,11 @@
 import {
+  CollideOpts,
+  CollisionWinnerOpts,
   ElementalCollision,
   FieldSpell,
-  GameState,
+  HasCollisionReactionOpts,
+  OnSpellEnterOpts,
+  OnSpellExitOpts,
   SpellEffect,
   SpellElement,
 } from '../../../interfaces';
@@ -12,10 +16,8 @@ import {
   setSpellDamage,
 } from '../spell';
 
-function hasCollisionReaction(
-  collider: FieldSpell,
-  collidee: FieldSpell,
-): boolean {
+function hasCollisionReaction(opts: HasCollisionReactionOpts): boolean {
+  const { collider, collidee } = opts;
   const elements = [collider.element, collidee.element];
   return (
     elements.includes(SpellElement.Fire) &&
@@ -23,12 +25,10 @@ function hasCollisionReaction(
   );
 }
 
-function collide(
-  gamestate: GameState,
-  collider: FieldSpell,
-  collidee: FieldSpell,
-): void {
-  if (!defaultShouldFieldEffectBeCreated(collider, collidee)) return;
+function collide(opts: CollideOpts): void {
+  const { collider, collidee } = opts;
+
+  if (!defaultShouldFieldEffectBeCreated({ collider, collidee })) return;
 
   const pos = findSpellPositionOnField(collidee.castId);
   if (!pos) return;
@@ -37,19 +37,14 @@ function collide(
   setFieldEffect(x, y, SpellEffect.Steam);
 }
 
-function collisionWinner(
-  collider: FieldSpell,
-  collidee: FieldSpell,
-): FieldSpell | undefined {
-  return defaultCollisionWinner(collider, collidee);
+function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
+  const { collider, collidee } = opts;
+  return defaultCollisionWinner({ collider, collidee });
 }
 
-function onSpellEnter(
-  gamestate: GameState,
-  previousTile: { x: number; y: number },
-  currentTile: { x: number; y: number },
-  spell: FieldSpell,
-): void {
+function onSpellEnter(opts: OnSpellEnterOpts): void {
+  const { currentTile, spell } = opts;
+
   if (spell.element === SpellElement.Fire) {
     setFieldEffect(currentTile.x, currentTile.y, undefined);
   }
@@ -59,17 +54,14 @@ function onSpellEnter(
   }
 
   if (spell.element === SpellElement.Electric) {
-    setSpellDamage(spell, spell.damage + 1);
+    setSpellDamage({ spell, power: spell.damage + 1 });
     setFieldEffect(currentTile.x, currentTile.y, SpellEffect.ChargedSteam);
   }
 }
 
-function onSpellExit(
-  gamestate: GameState,
-  currentTile: { x: number; y: number },
-  nextTile: { x: number; y: number },
-  spell: FieldSpell,
-): void {
+function onSpellExit(opts: OnSpellExitOpts): void {
+  const { nextTile, spell } = opts;
+
   if (spell.element === SpellElement.Water) {
     setFieldEffect(nextTile.x, nextTile.y, SpellEffect.Steam);
   }

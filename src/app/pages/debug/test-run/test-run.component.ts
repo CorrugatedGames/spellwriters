@@ -47,7 +47,7 @@ export class DebugTestRunComponent {
 
     gamestateInitOptions.set(opts);
 
-    startCombat(opts);
+    startCombat({ gamestateInitOpts: opts });
 
     this.router.navigate(['/play']);
   }

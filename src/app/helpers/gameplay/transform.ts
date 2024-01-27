@@ -22,24 +22,29 @@ export function createBlankStateMachineMap(): CurrentPhase {
   return keys as CurrentPhase;
 }
 
-export function phaseObjectFromGameState(state: GameState): {
+export function phaseObjectFromGameState(opts: { state: GameState }): {
   turn: string;
   phase: GamePhase;
 } {
+  const { state } = opts;
   return {
     turn: state.currentTurn === TurnOrder.Player ? 'Player' : 'Opponent',
     phase: state.currentPhase,
   };
 }
 
-export function phaseNameFromGameState(state: GameState): string {
-  const { turn, phase } = phaseObjectFromGameState(state);
+export function phaseNameFromGameState(opts: { state: GameState }): string {
+  const { state } = opts;
+  const { turn, phase } = phaseObjectFromGameState({ state });
 
   return `${turn} ${phase}`;
 }
 
-export function stateMachineMapFromGameState(state: GameState): CurrentPhase {
-  const { turn, phase } = phaseObjectFromGameState(state);
+export function stateMachineMapFromGameState(opts: {
+  state: GameState;
+}): CurrentPhase {
+  const { state } = opts;
+  const { turn, phase } = phaseObjectFromGameState({ state });
 
   return {
     ...createBlankStateMachineMap(),
@@ -47,15 +52,17 @@ export function stateMachineMapFromGameState(state: GameState): CurrentPhase {
   };
 }
 
-export function turnCardIntoPlayableCard(id: string): PlayableCard {
+export function turnCardIntoPlayableCard(opts: { id: string }): PlayableCard {
+  const { id } = opts;
   return { id };
 }
 
-export function turnCharacterIntoActivePlayer(
-  character: Character,
-): ActivePlayer {
-  const deck = character.deck.spells.map((card) =>
-    turnCardIntoPlayableCard(card),
+export function turnCharacterIntoActivePlayer(opts: {
+  character: Character;
+}): ActivePlayer {
+  const { character } = opts;
+  const deck = character.deck.spells.map((id) =>
+    turnCardIntoPlayableCard({ id }),
   );
 
   const player: ActivePlayer = {

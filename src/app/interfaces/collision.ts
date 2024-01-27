@@ -1,31 +1,40 @@
-import { GameState } from './gamestate';
 import { FieldSpell } from './spell';
 
+export interface HasCollisionReactionOpts {
+  collider: FieldSpell;
+  collidee: FieldSpell;
+}
+
+export interface CollideOpts {
+  collider: FieldSpell;
+  collidee: FieldSpell;
+}
+
+export interface CollisionWinnerOpts {
+  collider: FieldSpell;
+  collidee: FieldSpell;
+}
+
+export interface OnSpellEnterOpts {
+  previousTile: { x: number; y: number };
+  currentTile: { x: number; y: number };
+  spell: FieldSpell;
+}
+
+export interface OnSpellExitOpts {
+  currentTile: { x: number; y: number };
+  nextTile: { x: number; y: number };
+  spell: FieldSpell;
+}
+
 export interface ElementalCollision {
-  hasCollisionReaction(collider: FieldSpell, collidee: FieldSpell): boolean;
+  hasCollisionReaction(opts: HasCollisionReactionOpts): boolean;
 
-  collide(
-    gamestate: GameState,
-    collider: FieldSpell,
-    collidee: FieldSpell,
-  ): void;
+  collide(opts: CollideOpts): void;
 
-  collisionWinner(
-    collider: FieldSpell,
-    collidee: FieldSpell,
-  ): FieldSpell | undefined;
+  collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined;
 
-  onSpellEnter(
-    gamestate: GameState,
-    previousTile: { x: number; y: number },
-    currentTile: { x: number; y: number },
-    spell: FieldSpell,
-  ): void;
+  onSpellEnter(opts: OnSpellEnterOpts): void;
 
-  onSpellExit(
-    gamestate: GameState,
-    currentTile: { x: number; y: number },
-    nextTile: { x: number; y: number },
-    spell: FieldSpell,
-  ): void;
+  onSpellExit(opts: OnSpellExitOpts): void;
 }

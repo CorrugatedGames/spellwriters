@@ -2,10 +2,11 @@ import { PlayableCard, TurnOrder } from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
 import { gamestate } from './signal';
 
-export function getTargetableTilesForCard(
-  turn: TurnOrder,
-  card: PlayableCard,
-): Record<number, Record<number, boolean>> {
+export function getTargetableTilesForCard(opts: {
+  turn: TurnOrder;
+  card: PlayableCard;
+}): Record<number, Record<number, boolean>> {
+  const { turn, card } = opts;
   const { field } = gamestate();
 
   const spellData = getSpellById(card.id);
@@ -41,10 +42,15 @@ export function getTargetableTilesForCard(
   return targetableTiles;
 }
 
-export function getListOfTargetableTilesForCard(
-  card: PlayableCard,
-): Array<{ x: number; y: number }> {
-  const targetableTiles = getTargetableTilesForCard(TurnOrder.Opponent, card);
+export function getListOfTargetableTilesForCard(opts: {
+  card: PlayableCard;
+}): Array<{ x: number; y: number }> {
+  const { card } = opts;
+
+  const targetableTiles = getTargetableTilesForCard({
+    turn: TurnOrder.Opponent,
+    card,
+  });
 
   const tiles: Array<{ x: number; y: number }> = [];
 
