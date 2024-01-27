@@ -8,8 +8,8 @@ import {
   SpellPattern,
   TurnOrder,
 } from '../../interfaces';
+import { delay } from '../static/time';
 import { loseHealth } from './stats';
-import { delay } from './time';
 
 import * as ElementalCollisions from './collisions';
 import { createBlankFieldRecord } from './init';

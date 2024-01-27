@@ -6,6 +6,8 @@ import {
   TurnOrder,
 } from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
+import { seededrng } from '../static/rng';
+import { getId } from '../static/uuid';
 import {
   addSpellToCastQueue,
   getTargettableSpacesForSpellAroundPosition,
@@ -13,10 +15,8 @@ import {
 } from './field';
 import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
-import { seededrng } from './rng';
 import { gamestate } from './signal';
 import { manaCostForSpell, spendMana } from './stats';
-import { getId } from './uuid';
 
 export function shuffleDeck(character: ActivePlayer): void {
   const prng = seededrng();

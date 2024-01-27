@@ -1,5 +1,5 @@
 import { AIOpts, AIPattern } from '../../../interfaces';
-import { randomChoice } from '../rng';
+import { randomChoice } from '../../static/rng';
 import { getListOfTargetableTilesForCard } from '../targetting';
 import { handleEntireSpellcastSequence } from '../turn';
 

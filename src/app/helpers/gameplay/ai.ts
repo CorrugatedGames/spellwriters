@@ -9,9 +9,9 @@ import { nextPhase } from './meta';
 import { gamestate } from './signal';
 import { drawCard } from './turn';
 
+import { seededrng, weighted } from '../static/rng';
 import * as Behaviors from './ai-patterns';
 import { canPlayCardsInHand, playableCardsInHand } from './hand';
-import { seededrng, weighted } from './rng';
 
 const AllBehaviors: Record<string, AIPattern> = Behaviors;
 
