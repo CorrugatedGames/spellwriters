@@ -1,6 +1,18 @@
 import { FieldSpell } from '../../interfaces';
 import { removeSpellFromField } from './field';
 
+export function isSpellDead(spell: FieldSpell): boolean {
+  return spell.damage === 0;
+}
+
+export function setSpellDamage(spell: FieldSpell, power: number): void {
+  spell.damage = Math.max(0, power);
+
+  if (spell.damage === 0) {
+    removeSpellFromField(spell.castId);
+  }
+}
+
 export function defaultCollisionWinner(
   collider: FieldSpell,
   collidee: FieldSpell,
@@ -32,19 +44,8 @@ export function defaultCollisionDamageReduction(
   const colliderDamage = collider.castTime > 0 ? 0 : collider.damage;
   const collideeDamage = collidee.castTime > 0 ? 0 : collidee.damage;
 
-  collider.damage = Math.max(0, colliderDamage - collideeDamage);
-  collidee.damage = Math.max(0, collideeDamage - colliderDamage);
-}
+  setSpellDamage(collider, colliderDamage - collideeDamage);
+  setSpellDamage(collidee, collideeDamage - colliderDamage);
 
-export function defaultCollisionSpellRemoval(
-  collider: FieldSpell,
-  collidee: FieldSpell,
-): void {
-  if (collider.damage === 0) {
-    removeSpellFromField(collider.castId);
-  }
-
-  if (collidee.damage === 0) {
-    removeSpellFromField(collidee.castId);
-  }
+  console.log({ collidee, collider, collideeDamage, colliderDamage });
 }

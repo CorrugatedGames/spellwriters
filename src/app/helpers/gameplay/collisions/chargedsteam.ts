@@ -19,7 +19,7 @@ function hasCollisionReaction(
   const elements = [collider.element, collidee.element];
   return (
     elements.includes(SpellElement.Fire) &&
-    elements.includes(SpellElement.Earth)
+    elements.includes(SpellElement.Water)
   );
 }
 
@@ -34,7 +34,7 @@ function collide(
   if (!pos) return;
 
   const { x, y } = pos;
-  setFieldEffect(x, y, SpellEffect.Oil);
+  setFieldEffect(x, y, SpellEffect.Steam);
 }
 
 function collisionWinner(
@@ -50,32 +50,29 @@ function onSpellEnter(
   currentTile: { x: number; y: number },
   spell: FieldSpell,
 ): void {
-  if (spell.element === SpellElement.Earth) {
+  if (spell.element === SpellElement.Fire) {
     setFieldEffect(currentTile.x, currentTile.y, undefined);
   }
 
-  if (spell.element === SpellElement.Fire) {
-    setSpellDamage(spell, spell.damage + 1);
-    setFieldEffect(currentTile.x, currentTile.y, SpellEffect.BurningOil);
-  }
-
   if (spell.element === SpellElement.Electric) {
-    setFieldEffect(currentTile.x, currentTile.y, SpellEffect.BurningOil);
+    setSpellDamage(spell, spell.damage + 1);
   }
-}
 
-function onSpellExit(
-  gamestate: GameState,
-  currentTile: { x: number; y: number },
-  nextTile: { x: number; y: number },
-  spell: FieldSpell,
-): void {
+  if (spell.element === SpellElement.Earth) {
+    setFieldEffect(currentTile.x, currentTile.y, SpellEffect.Mud);
+  }
+
   if (spell.element === SpellElement.Water) {
-    setFieldEffect(nextTile.x, nextTile.y, SpellEffect.Oil);
+    setFieldEffect(currentTile.x, currentTile.y, undefined);
+
+    spell.element = SpellElement.Electric;
+    setSpellDamage(spell, spell.damage + 1);
   }
 }
 
-export const oil: ElementalCollision = {
+function onSpellExit(): void {}
+
+export const chargedsteam: ElementalCollision = {
   hasCollisionReaction,
   collide,
   collisionWinner,

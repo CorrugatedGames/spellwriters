@@ -54,28 +54,18 @@ function onSpellEnter(
     setFieldEffect(currentTile.x, currentTile.y, undefined);
   }
 
+  if (spell.element === SpellElement.Water) {
+    setFieldEffect(currentTile.x, currentTile.y, SpellEffect.Oil);
+  }
+
   if (spell.element === SpellElement.Fire) {
     setSpellDamage(spell, spell.damage + 1);
-    setFieldEffect(currentTile.x, currentTile.y, SpellEffect.BurningOil);
-  }
-
-  if (spell.element === SpellElement.Electric) {
-    setFieldEffect(currentTile.x, currentTile.y, SpellEffect.BurningOil);
   }
 }
 
-function onSpellExit(
-  gamestate: GameState,
-  currentTile: { x: number; y: number },
-  nextTile: { x: number; y: number },
-  spell: FieldSpell,
-): void {
-  if (spell.element === SpellElement.Water) {
-    setFieldEffect(nextTile.x, nextTile.y, SpellEffect.Oil);
-  }
-}
+function onSpellExit(): void {}
 
-export const oil: ElementalCollision = {
+export const burningoil: ElementalCollision = {
   hasCollisionReaction,
   collide,
   collisionWinner,

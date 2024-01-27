@@ -3,8 +3,10 @@ import { FieldSpell } from './spell';
 
 export enum SpellEffect {
   Oil = 'oil',
+  BurningOil = 'burningoil',
   Mud = 'mud',
   Steam = 'steam',
+  ChargedSteam = 'chargedsteam',
 }
 
 export interface FieldEffect {

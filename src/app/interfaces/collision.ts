@@ -15,6 +15,17 @@ export interface ElementalCollision {
     collidee: FieldSpell,
   ): FieldSpell | undefined;
 
-  onSpellEnter(gamestate: GameState, spell: FieldSpell): void;
-  onSpellExit(gamestate: GameState, spell: FieldSpell): void;
+  onSpellEnter(
+    gamestate: GameState,
+    previousTile: { x: number; y: number },
+    currentTile: { x: number; y: number },
+    spell: FieldSpell,
+  ): void;
+
+  onSpellExit(
+    gamestate: GameState,
+    currentTile: { x: number; y: number },
+    nextTile: { x: number; y: number },
+    spell: FieldSpell,
+  ): void;
 }

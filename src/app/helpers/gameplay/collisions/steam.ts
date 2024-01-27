@@ -9,6 +9,7 @@ import { findSpellPositionOnField, setFieldEffect } from '../field';
 import {
   defaultCollisionWinner,
   defaultShouldFieldEffectBeCreated,
+  setSpellDamage,
 } from '../spell';
 
 function hasCollisionReaction(
@@ -33,7 +34,7 @@ function collide(
   if (!pos) return;
 
   const { x, y } = pos;
-  setFieldEffect(gamestate.field, x, y, SpellEffect.Steam);
+  setFieldEffect(x, y, SpellEffect.Steam);
 }
 
 function collisionWinner(
@@ -43,12 +44,35 @@ function collisionWinner(
   return defaultCollisionWinner(collider, collidee);
 }
 
-function onSpellEnter(gamestate: GameState, spell: FieldSpell): void {
-  console.log('steam enter', { spell });
+function onSpellEnter(
+  gamestate: GameState,
+  previousTile: { x: number; y: number },
+  currentTile: { x: number; y: number },
+  spell: FieldSpell,
+): void {
+  if (spell.element === SpellElement.Fire) {
+    setFieldEffect(currentTile.x, currentTile.y, undefined);
+  }
+
+  if (spell.element === SpellElement.Earth) {
+    setFieldEffect(currentTile.x, currentTile.y, SpellEffect.Mud);
+  }
+
+  if (spell.element === SpellElement.Electric) {
+    setSpellDamage(spell, spell.damage + 1);
+    setFieldEffect(currentTile.x, currentTile.y, SpellEffect.ChargedSteam);
+  }
 }
 
-function onSpellExit(gamestate: GameState, spell: FieldSpell): void {
-  console.log('steam exit', { spell });
+function onSpellExit(
+  gamestate: GameState,
+  currentTile: { x: number; y: number },
+  nextTile: { x: number; y: number },
+  spell: FieldSpell,
+): void {
+  if (spell.element === SpellElement.Water) {
+    setFieldEffect(nextTile.x, nextTile.y, SpellEffect.Steam);
+  }
 }
 
 export const steam: ElementalCollision = {

@@ -34,10 +34,10 @@
             *ngIf="activeCardData && canSelectTile(gridRow, gridCol) && targetTiles[gridRow]?.[gridCol]"
             [sprite]="targetTiles[gridRow][gridCol].sprite"></sw-spell-sprite>
 
-          <sw-field-spell class="grid-item spell" *ngIf="col.containedSpell"
-            [spell]="col.containedSpell"></sw-field-spell>
+          <sw-field-spell class="grid-item spell" *ngIf="col.containedSpell" [spell]="col.containedSpell"
+            [effect]="col.containedEffect"></sw-field-spell>
 
-          <sw-field-effect class="grid-item effect" *ngIf="col.containedEffect"
+          <sw-field-effect class="grid-item effect" *ngIf="!col.containedSpell && col.containedEffect"
             [effect]="col.containedEffect"></sw-field-effect>
         </div>
       </div>

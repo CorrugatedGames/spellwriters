@@ -14,35 +14,28 @@ import { delay } from './time';
 import * as ElementalCollisions from './collisions';
 import { createBlankFieldRecord } from './init';
 import { gamestate } from './signal';
-import {
-  defaultCollisionDamageReduction,
-  defaultCollisionSpellRemoval,
-} from './spell';
+import { defaultCollisionDamageReduction, isSpellDead } from './spell';
 const AllElementalCollisions: Record<SpellEffect, ElementalCollision> =
   ElementalCollisions;
 
 export function setFieldSpell(
-  field: FieldNode[][],
   x: number,
   y: number,
-  spell: FieldSpell,
+  spell: FieldSpell | undefined,
 ): void {
-  field[y][x] = {
-    ...field[y][x],
-    containedSpell: spell,
-  };
+  const { field } = gamestate();
+
+  field[y][x].containedSpell = spell;
 }
 
 export function setFieldEffect(
-  field: FieldNode[][],
   x: number,
   y: number,
-  effect: SpellEffect,
+  effect: SpellEffect | undefined,
 ): void {
-  field[y][x] = {
-    ...field[y][x],
-    containedEffect: { effect },
-  };
+  const { field } = gamestate();
+  field[y][x].containedEffect = effect ? { effect } : undefined;
+  console.log('set field effect', { x, y, effect }, field[y][x]);
 }
 
 export function addSpellToCastQueue(queue: string[], spell: FieldSpell): void {
@@ -117,6 +110,7 @@ export function getTargettableSpacesForSpellAroundPosition(
     }
 
     case SpellPattern.Double: {
+      setInTargetField(x, y);
       setInTargetField(x + 1, y);
       break;
     }
@@ -173,10 +167,7 @@ export function moveSpellForwardOneStep(
   // get our current tile
   const currentTile = field[position.y][position.x];
 
-  field[position.y][position.x] = {
-    ...currentTile,
-    containedSpell: undefined,
-  };
+  setFieldSpell(position.x, position.y, undefined);
 
   // check if we have a next tile
   const nextTile = field[nextY]?.[position.x];
@@ -197,6 +188,10 @@ export function moveSpellForwardOneStep(
 
     defaultCollisionDamageReduction(spell, containedSpell);
 
+    if (isSpellDead(spell)) {
+      shouldMoveToNextTile = false;
+    }
+
     Object.keys(AllElementalCollisions).forEach((key) => {
       const collision = AllElementalCollisions[key as SpellEffect];
       if (collision.hasCollisionReaction(spell, containedSpell)) {
@@ -207,8 +202,6 @@ export function moveSpellForwardOneStep(
         }
       }
     });
-
-    defaultCollisionSpellRemoval(spell, containedSpell);
   }
 
   if (shouldMoveToNextTile) {
@@ -218,7 +211,12 @@ export function moveSpellForwardOneStep(
 
       const collisionEffect = AllElementalCollisions[containedEffect.effect];
       if (collisionEffect) {
-        collisionEffect.onSpellExit(state, spell);
+        collisionEffect.onSpellExit(
+          state,
+          { x: position.x, y: position.y },
+          { x: nextX, y: nextY },
+          spell,
+        );
       }
     }
 
@@ -234,7 +232,12 @@ export function moveSpellForwardOneStep(
 
       const collisionEffect = AllElementalCollisions[containedEffect.effect];
       if (collisionEffect) {
-        collisionEffect.onSpellEnter(state, spell);
+        collisionEffect.onSpellEnter(
+          state,
+          { x: position.x, y: position.y },
+          { x: nextX, y: nextY },
+          spell,
+        );
       }
     }
   }

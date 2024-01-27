@@ -96,7 +96,7 @@ export function handleEntireSpellcastSequence(props: {
       };
 
       addSpellToCastQueue(spellQueue, newlyCastSpell);
-      setFieldSpell(field, x, y, newlyCastSpell);
+      setFieldSpell(x, y, newlyCastSpell);
     }
   }
 

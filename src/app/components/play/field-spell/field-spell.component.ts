@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { FieldSpell } from '../../../interfaces';
+import { FieldEffect, FieldSpell } from '../../../interfaces';
 
 @Component({
   selector: 'sw-field-spell',
@@ -17,7 +17,13 @@ import { FieldSpell } from '../../../interfaces';
       ></sw-spell-sprite>
 
       <div class="info-container">
-        <div class="direction"></div>
+        <div class="direction">
+          <sw-field-effect
+            class="effect"
+            *ngIf="effect() as effectData"
+            [effect]="effectData"
+          ></sw-field-effect>
+        </div>
 
         <div class="stats">
           <div *ngIf="isCasting" class="stat cast-time">
@@ -101,6 +107,15 @@ import { FieldSpell } from '../../../interfaces';
 
       .direction {
         height: 50%;
+        width: 100%;
+        position: relative;
+
+        .effect {
+          position: absolute;
+          right: -24px;
+          top: 0;
+          transform: scale(0.5);
+        }
       }
 
       .stats {
@@ -167,6 +182,7 @@ import { FieldSpell } from '../../../interfaces';
 })
 export class FieldSpellComponent {
   public spell = input.required<FieldSpell>();
+  public effect = input<FieldEffect>();
 
   public get isCasting() {
     return this.spell().castTime > 0;
