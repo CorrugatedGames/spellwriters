@@ -115,6 +115,7 @@ export class PlayComponent {
   }
 
   public showTargettableSpacesForTile(y: number, x: number): void {
+    console.log('hover', { y, x });
     if (!this.activeCardData) return;
 
     const spell = this.contentService.getSpell(this.activeCardData.card.id);
@@ -128,7 +129,7 @@ export class PlayComponent {
     if (!this.selectableTiles) return false;
     if (!isFieldSpaceEmpty(this.gamestate.field, x, y)) return false;
 
-    return this.selectableTiles[y]?.[x] ?? false;
+    return this.selectableTiles[y]?.[x];
   }
 
   public selectTile(y: number, x: number) {

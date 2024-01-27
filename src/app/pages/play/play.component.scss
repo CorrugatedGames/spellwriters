@@ -212,6 +212,10 @@
   height: 128px;
 
   z-index: 10000;
+
+  &.hidden-animate {
+    pointer-events: none;
+  }
 }
 
 @media (max-height: 1080px) {

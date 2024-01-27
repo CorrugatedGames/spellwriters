@@ -102,12 +102,12 @@ export function getTargettableSpacesForSpellAroundPosition(
   y: number,
 ): Record<number, Record<number, Spell>> {
   const { field, width, height } = gamestate();
-  const blankField = createBlankFieldRecord(width, height);
+  const targetField = createBlankFieldRecord(width, height);
 
   const setInTargetField = (x: number, y: number) => {
     if (!isFieldSpaceEmpty(field, x, y)) return;
 
-    blankField[y][x] = spell;
+    targetField[y][x] = spell;
   };
 
   switch (spell.pattern) {
@@ -138,7 +138,7 @@ export function getTargettableSpacesForSpellAroundPosition(
     }
   }
 
-  return blankField as Record<number, Record<number, Spell>>;
+  return targetField as Record<number, Record<number, Spell>>;
 }
 
 export function removeSpellFromField(spellId: string): void {

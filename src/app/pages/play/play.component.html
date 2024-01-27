@@ -30,7 +30,8 @@
           (keyup.enter)="selectTile(gridRow, gridCol)" (mouseenter)="showTargettableSpacesForTile(gridRow, gridCol)"
           (mouseleave)="resetTargettableSpaces()" tabindex="0" *ngFor="let col of row; let gridCol = index">
 
-          <sw-spell-sprite class="grid-item cast-sprite" *ngIf="activeCardData && targetTiles[gridRow]?.[gridCol]"
+          <sw-spell-sprite class="grid-item cast-sprite"
+            *ngIf="activeCardData && canSelectTile(gridRow, gridCol) && targetTiles[gridRow]?.[gridCol]"
             [sprite]="targetTiles[gridRow][gridCol].sprite"></sw-spell-sprite>
 
           <sw-field-spell class="grid-item spell" *ngIf="col.containedSpell"
