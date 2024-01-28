@@ -82,10 +82,7 @@ export class GameStateService {
         return;
       }
 
-      if (
-        hasAnyoneWon({ players: this.state.players }) &&
-        this.previousPhaseRaw !== GamePhase.Victory
-      ) {
+      if (hasAnyoneWon() && this.previousPhaseRaw !== GamePhase.Victory) {
         declareVictory();
         return;
       }

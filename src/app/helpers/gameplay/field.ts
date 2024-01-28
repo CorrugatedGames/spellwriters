@@ -12,6 +12,7 @@ import { loseHealth } from './stats';
 
 import * as ElementalCollisions from './collisions';
 import { createBlankFieldRecord } from './init';
+import { hasAnyoneWon } from './meta';
 import { gamestate } from './signal';
 import { defaultCollisionDamageReduction, isSpellDead } from './spell';
 
@@ -277,6 +278,8 @@ export async function handleEndOfTurnSpellActions(): Promise<void> {
   await Promise.all([
     ...queue.map(async (spellId: string, i) => {
       await delay(200 * i);
+
+      if (hasAnyoneWon()) return;
 
       const spell = findSpellOnField({ spellId });
       if (!spell) return;

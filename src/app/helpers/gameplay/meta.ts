@@ -65,8 +65,8 @@ export async function nextPhase(): Promise<void> {
   });
 }
 
-export function hasAnyoneWon(opts: { players: ActivePlayer[] }): boolean {
-  const { players } = opts;
+export function hasAnyoneWon(): boolean {
+  const { players } = gamestate();
 
   return players.some((player) => player.health === 0);
 }
@@ -74,7 +74,7 @@ export function hasAnyoneWon(opts: { players: ActivePlayer[] }): boolean {
 export function declareVictory(): void {
   const state = gamestate();
 
-  if (!hasAnyoneWon({ players: state.players })) return;
+  if (!hasAnyoneWon()) return;
 
   const playerHealth = state.players[TurnOrder.Player].health;
   const opponentHealth = state.players[TurnOrder.Opponent].health;
