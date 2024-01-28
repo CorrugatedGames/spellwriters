@@ -5,7 +5,6 @@ import {
   aiAttemptAction,
   createBlankGameState,
   declareVictory,
-  delay,
   gamestate,
   gamestateInitOptions,
   handleEndOfTurnSpellActions,
@@ -94,7 +93,7 @@ export class GameStateService {
         this.state.currentPhase === GamePhase.Draw &&
         currentPlayer.deck.length === 0
       ) {
-        await delay(1000);
+        // await delay(1000);
         nextPhase();
         return;
       }
@@ -104,23 +103,23 @@ export class GameStateService {
         !this.movingSpells
       ) {
         this.movingSpells = true;
-        await delay(2000);
+        // await delay(2000);
         await handleEndOfTurnSpellActions();
-        await delay(1000);
+        // await delay(1000);
         this.movingSpells = false;
         nextPhase();
         return;
       }
 
       if (this.state.currentPhase === GamePhase.End) {
-        await delay(1000);
+        // await delay(1000);
         nextPhase();
         return;
       }
 
       if (this.state.currentTurn === TurnOrder.Opponent) {
         aiAttemptAction();
-        await delay(1000);
+        // await delay(1000);
       }
     });
   }
