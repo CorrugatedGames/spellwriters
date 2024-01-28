@@ -16,6 +16,7 @@ import {
   phaseBannerString,
   resetGamestate,
   setIngameErrorMessage,
+  setPhaseBannerString,
   startCombat,
   stateMachineMapFromGameState,
 } from '../../helpers';
@@ -183,6 +184,7 @@ export class PlayComponent {
       {
         text: 'Start Over',
         action: () => {
+          setPhaseBannerString({ text: '' });
           resetGamestate();
 
           const oldOpts = gamestateInitOptions();
@@ -191,7 +193,6 @@ export class PlayComponent {
             return;
           }
 
-          phaseBannerString.set('');
           startCombat({ gamestateInitOpts: oldOpts as GameStateInitOpts });
           this.router.navigate(['/play']);
           return;
@@ -200,6 +201,7 @@ export class PlayComponent {
       {
         text: 'New Run',
         action: () => {
+          setPhaseBannerString({ text: '' });
           resetGamestate();
           this.router.navigate(['/new-run']);
         },
@@ -207,6 +209,7 @@ export class PlayComponent {
       {
         text: 'Main Menu',
         action: () => {
+          setPhaseBannerString({ text: '' });
           resetGamestate();
           this.router.navigate(['/']);
         },

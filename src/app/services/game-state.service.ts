@@ -1,18 +1,18 @@
 import { Injectable, effect } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { interval } from 'rxjs';
 import {
+  DEFAULT_DELAY,
   aiAttemptAction,
   createBlankGameState,
   declareVictory,
+  delay,
   gamestate,
   gamestateInitOptions,
   handleEndOfTurnSpellActions,
   hasAnyoneWon,
   nextPhase,
-  phaseBannerString,
-  phaseNameFromGameState,
   saveGamestate,
+  setPhaseBannerString,
 } from '../helpers';
 import { GamePhase, GameState, TurnOrder } from '../interfaces';
 
@@ -21,8 +21,8 @@ import { GamePhase, GameState, TurnOrder } from '../interfaces';
 })
 export class GameStateService {
   private state: GameState = createBlankGameState();
-  private previousPhaseRaw!: GamePhase;
-  private previousPhase = '';
+  private previousPhase!: GamePhase;
+  private previousPhaseText = '';
   private currentPhaseDisplay = '';
   private movingSpells = false;
 
@@ -65,62 +65,64 @@ export class GameStateService {
   }
 
   loop() {
-    interval(1000).subscribe(async () => {
-      const currentPhase = phaseNameFromGameState({ state: this.state });
-      if (currentPhase !== this.previousPhase) {
-        this.previousPhaseRaw = this.state.currentPhase;
-        this.previousPhase = currentPhase;
-        this.currentPhaseDisplay = currentPhase;
-      } else {
-        this.currentPhaseDisplay = '';
-      }
+    const runGameloop = async () => {
+      setTimeout(() => {
+        gameloop();
+      }, 1000);
+    };
 
+    // real gameloop
+    const gameloop = async () => {
       const currentPlayer = this.state.players[this.state.currentTurn];
+      const { currentPhase, currentTurn } = this.state;
 
-      if (this.state.currentPhase === GamePhase.Victory) {
-        phaseBannerString.set(currentPhase);
-        return;
+      this.previousPhase = currentPhase;
+
+      if (currentPhase === GamePhase.Victory) {
+        const message =
+          this.state.currentTurn === TurnOrder.Player
+            ? 'You win!'
+            : 'You lose!';
+        setPhaseBannerString({ text: message, delay: -1 });
+        return runGameloop();
       }
 
-      if (hasAnyoneWon() && this.previousPhaseRaw !== GamePhase.Victory) {
+      if (hasAnyoneWon() && this.previousPhase !== GamePhase.Victory) {
         declareVictory();
-        return;
+        return runGameloop();
       }
 
-      phaseBannerString.set(this.currentPhaseDisplay);
-
-      if (
-        this.state.currentPhase === GamePhase.Draw &&
-        currentPlayer.deck.length === 0
-      ) {
-        // await delay(1000);
-        nextPhase();
-        return;
+      if (currentPhase === GamePhase.Draw && currentPlayer.deck.length === 0) {
+        await nextPhase();
+        return runGameloop();
       }
 
-      if (
-        this.state.currentPhase === GamePhase.SpellMove &&
-        !this.movingSpells
-      ) {
+      if (currentPhase === GamePhase.SpellMove && !this.movingSpells) {
         this.movingSpells = true;
-        // await delay(2000);
+
+        await delay(DEFAULT_DELAY);
         await handleEndOfTurnSpellActions();
-        // await delay(1000);
         this.movingSpells = false;
-        nextPhase();
-        return;
+
+        await delay(DEFAULT_DELAY);
+        await nextPhase();
+        return runGameloop();
       }
 
-      if (this.state.currentPhase === GamePhase.End) {
-        // await delay(1000);
-        nextPhase();
-        return;
+      if (currentPhase === GamePhase.End) {
+        await delay(DEFAULT_DELAY);
+        await nextPhase();
+        return runGameloop();
       }
 
-      if (this.state.currentTurn === TurnOrder.Opponent) {
-        aiAttemptAction();
-        // await delay(1000);
+      if (currentTurn === TurnOrder.Opponent) {
+        await aiAttemptAction();
+        return runGameloop();
       }
-    });
+
+      runGameloop();
+    };
+
+    runGameloop();
   }
 }

@@ -10,6 +10,7 @@ import { gamestate } from './signal';
 import { drawCard } from './turn';
 
 import { seededrng, weighted } from '../static/rng';
+import { DEFAULT_DELAY, delay } from '../static/time';
 import * as Behaviors from './ai-patterns';
 import { canPlayCardsInHand, playableCardsInHand } from './hand';
 
@@ -27,7 +28,7 @@ export function getAIOpts(): AIOpts {
   };
 }
 
-export function aiAttemptAction(): void {
+export async function aiAttemptAction(): Promise<void> {
   const state = gamestate();
 
   if (state.currentTurn === TurnOrder.Player) return;
@@ -36,27 +37,32 @@ export function aiAttemptAction(): void {
 
   switch (state.currentPhase) {
     case GamePhase.Draw:
-      aiDrawPhase({ character: aiPlayer });
+      await aiDrawPhase({ character: aiPlayer });
       break;
 
     case GamePhase.Turn:
-      aiSpendPhase({ character: aiPlayer });
+      await aiSpendPhase({ character: aiPlayer });
       break;
 
     case GamePhase.End:
-      aiEndPhase();
+      await aiEndPhase();
       break;
   }
 }
 
-export function aiDrawPhase(opts: { character: ActivePlayer }): void {
+export async function aiDrawPhase(opts: {
+  character: ActivePlayer;
+}): Promise<void> {
   const { character } = opts;
 
   drawCard(character);
-  nextPhase();
+  await delay(DEFAULT_DELAY);
+  await nextPhase();
 }
 
-export function aiSpendPhase(opts: { character: ActivePlayer }): void {
+export async function aiSpendPhase(opts: {
+  character: ActivePlayer;
+}): Promise<void> {
   const { character } = opts;
 
   let numDecisions = 0;
@@ -84,9 +90,11 @@ export function aiSpendPhase(opts: { character: ActivePlayer }): void {
     }
   }
 
-  nextPhase();
+  await delay(DEFAULT_DELAY);
+  await nextPhase();
 }
 
-export function aiEndPhase(): void {
-  nextPhase();
+export async function aiEndPhase(): Promise<void> {
+  await delay(DEFAULT_DELAY);
+  await nextPhase();
 }

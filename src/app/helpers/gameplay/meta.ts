@@ -2,6 +2,7 @@ import { ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
 import { gamestate } from './signal';
 import { gainMana } from './stats';
 import { reshuffleDeck } from './turn';
+import { setPhaseBannerString } from './vfx';
 
 /*
  * This function is marked async, but it doesn't actually do anything asynchronous.
@@ -18,20 +19,29 @@ export async function nextPhase(): Promise<void> {
   let newRound: number = state.currentRound;
   let newPlayer: ActivePlayer;
 
+  const playerString =
+    state.currentTurn === TurnOrder.Player ? 'Your' : 'Opponent';
+  const otherPlayerString =
+    state.currentTurn === TurnOrder.Player ? 'Opponent' : 'Your';
+
   switch (state.currentPhase) {
     case GamePhase.Draw:
+      setPhaseBannerString({ text: `${playerString} Spend Phase` });
       newPhase = GamePhase.Turn;
       break;
 
     case GamePhase.Turn:
+      setPhaseBannerString({ text: `${playerString} Spell Move Phase` });
       newPhase = GamePhase.SpellMove;
       break;
 
     case GamePhase.SpellMove:
+      setPhaseBannerString({ text: `${playerString} End Phase` });
       newPhase = GamePhase.End;
       break;
 
     case GamePhase.End:
+      setPhaseBannerString({ text: `${otherPlayerString} Draw Phase` });
       newPhase = GamePhase.Draw;
 
       newTurn =
