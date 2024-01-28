@@ -28,11 +28,10 @@ function collide(opts: CollideOpts): void {
   const { collider, collidee } = opts;
   if (!defaultShouldFieldEffectBeCreated({ collider, collidee })) return;
 
-  const pos = findSpellPositionOnField(collidee.castId);
+  const pos = findSpellPositionOnField({ spellId: collidee.castId });
   if (!pos) return;
 
-  const { x, y } = pos;
-  setFieldEffect(x, y, SpellEffect.Oil);
+  setFieldEffect({ ...pos, effect: SpellEffect.Oil });
 }
 
 function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
@@ -43,11 +42,11 @@ function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
 function onSpellEnter(opts: OnSpellEnterOpts): void {
   const { currentTile, spell } = opts;
   if (spell.element === SpellElement.Earth) {
-    setFieldEffect(currentTile.x, currentTile.y, undefined);
+    setFieldEffect({ ...currentTile, effect: undefined });
   }
 
   if (spell.element === SpellElement.Water) {
-    setFieldEffect(currentTile.x, currentTile.y, SpellEffect.Oil);
+    setFieldEffect({ ...currentTile, effect: SpellEffect.Oil });
   }
 
   if (spell.element === SpellElement.Fire) {

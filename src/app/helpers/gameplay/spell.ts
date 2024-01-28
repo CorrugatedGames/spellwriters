@@ -16,7 +16,7 @@ export function setSpellDamage(opts: {
   spell.damage = Math.max(0, power);
 
   if (spell.damage === 0) {
-    removeSpellFromField(spell.castId);
+    removeSpellFromField({ spellId: spell.castId });
   }
 }
 

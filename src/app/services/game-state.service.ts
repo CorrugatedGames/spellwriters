@@ -105,7 +105,7 @@ export class GameStateService {
         !this.movingSpells
       ) {
         this.movingSpells = true;
-        await handleEndOfTurnSpellActions(this.state);
+        await handleEndOfTurnSpellActions();
         this.movingSpells = false;
         nextPhase();
         return;

@@ -2,7 +2,6 @@ import {
   ElementalCollision,
   FieldNode,
   FieldSpell,
-  GameState,
   Spell,
   SpellEffect,
   SpellPattern,
@@ -15,34 +14,44 @@ import * as ElementalCollisions from './collisions';
 import { createBlankFieldRecord } from './init';
 import { gamestate } from './signal';
 import { defaultCollisionDamageReduction, isSpellDead } from './spell';
+
 const AllElementalCollisions: Record<SpellEffect, ElementalCollision> =
   ElementalCollisions;
 
-export function setFieldSpell(
-  x: number,
-  y: number,
-  spell: FieldSpell | undefined,
-): void {
+export function setFieldSpell(opts: {
+  x: number;
+  y: number;
+  spell: FieldSpell | undefined;
+}): void {
+  const { x, y, spell } = opts;
   const { field } = gamestate();
 
   field[y][x].containedSpell = spell;
 }
 
-export function setFieldEffect(
-  x: number,
-  y: number,
-  effect: SpellEffect | undefined,
-): void {
+export function setFieldEffect(opts: {
+  x: number;
+  y: number;
+  effect: SpellEffect | undefined;
+}): void {
+  const { x, y, effect } = opts;
   const { field } = gamestate();
   field[y][x].containedEffect = effect ? { effect } : undefined;
 }
 
-export function addSpellToCastQueue(queue: string[], spell: FieldSpell): void {
-  queue.push(spell.castId);
+export function addSpellToCastQueue(opts: { spell: FieldSpell }): void {
+  const { spell } = opts;
+  const { spellQueue } = gamestate();
+
+  spellQueue.push(spell.castId);
 }
 
-export function findSpellOnField(spellId: string): FieldSpell | undefined {
+export function findSpellOnField(opts: {
+  spellId: string;
+}): FieldSpell | undefined {
+  const { spellId } = opts;
   const { field } = gamestate();
+
   for (const row of field) {
     for (const node of row) {
       if (node.containedSpell?.castId === spellId) {
@@ -54,10 +63,12 @@ export function findSpellOnField(spellId: string): FieldSpell | undefined {
   return undefined;
 }
 
-export function findSpellPositionOnField(
-  spellId: string,
-): { x: number; y: number } | undefined {
+export function findSpellPositionOnField(opts: {
+  spellId: string;
+}): { x: number; y: number } | undefined {
+  const { spellId } = opts;
   const { field } = gamestate();
+
   for (const [y, row] of field.entries()) {
     for (const [x, node] of row.entries()) {
       if (node.containedSpell?.castId === spellId) {
@@ -69,35 +80,37 @@ export function findSpellPositionOnField(
   return undefined;
 }
 
-export function getSpaceFromField(
-  field: FieldNode[][],
-  x: number,
-  y: number,
-): FieldNode | undefined {
+export function getSpaceFromField(opts: {
+  x: number;
+  y: number;
+}): FieldNode | undefined {
+  const { field } = gamestate();
+  const { x, y } = opts;
+
   return field[y]?.[x];
 }
 
-export function isFieldSpaceEmpty(
-  field: FieldNode[][],
-  x: number,
-  y: number,
-): boolean {
-  const node = getSpaceFromField(field, x, y);
+export function isFieldSpaceEmpty(opts: { x: number; y: number }): boolean {
+  const { x, y } = opts;
+
+  const node = getSpaceFromField({ x, y });
   if (!node) return false;
 
   return !node.containedSpell && !node.containedEffect;
 }
 
-export function getTargettableSpacesForSpellAroundPosition(
-  spell: Spell,
-  x: number,
-  y: number,
-): Record<number, Record<number, Spell>> {
-  const { field, width, height } = gamestate();
+export function getTargettableSpacesForSpellAroundPosition(opts: {
+  spell: Spell;
+  x: number;
+  y: number;
+}): Record<number, Record<number, Spell>> {
+  const { spell, x, y } = opts;
+  const { width, height } = gamestate();
+
   const targetField = createBlankFieldRecord({ width, height });
 
   const setInTargetField = (x: number, y: number) => {
-    if (!isFieldSpaceEmpty(field, x, y)) return;
+    if (!isFieldSpaceEmpty({ x, y })) return;
 
     targetField[y][x] = spell;
   };
@@ -134,7 +147,8 @@ export function getTargettableSpacesForSpellAroundPosition(
   return targetField as Record<number, Record<number, Spell>>;
 }
 
-export function removeSpellFromField(spellId: string): void {
+export function removeSpellFromField(opts: { spellId: string }): void {
+  const { spellId } = opts;
   const { field, spellQueue } = gamestate();
 
   const index = spellQueue.indexOf(spellId);
@@ -151,12 +165,11 @@ export function removeSpellFromField(spellId: string): void {
   }
 }
 
-export function moveSpellForwardOneStep(
-  state: GameState,
-  spell: FieldSpell,
-): void {
-  const field = state.field;
-  const position = findSpellPositionOnField(spell.castId);
+export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
+  const { spell } = opts;
+  const { field, players } = gamestate();
+
+  const position = findSpellPositionOnField({ spellId: spell.castId });
   if (!position) return;
 
   const yDelta = spell.caster === TurnOrder.Player ? -1 : 1;
@@ -166,15 +179,15 @@ export function moveSpellForwardOneStep(
   // get our current tile
   const currentTile = field[position.y][position.x];
 
-  setFieldSpell(position.x, position.y, undefined);
+  setFieldSpell({ x: position.x, y: position.y, spell: undefined });
 
   // check if we have a next tile
   const nextTile = field[nextY]?.[position.x];
   if (!nextTile || nextY === 0 || nextY === field.length - 1) {
     const opponentRef =
       spell.caster === TurnOrder.Player
-        ? state.players[TurnOrder.Opponent]
-        : state.players[TurnOrder.Player];
+        ? players[TurnOrder.Opponent]
+        : players[TurnOrder.Player];
 
     loseHealth({ character: opponentRef, amount: spell.damage });
     return;
@@ -252,20 +265,20 @@ export function lowerSpellTimer(spell: FieldSpell): void {
   spell.castTime--;
 }
 
-export async function handleEndOfTurnSpellActions(
-  state: GameState,
-): Promise<void> {
+export async function handleEndOfTurnSpellActions(): Promise<void> {
+  const { spellQueue, currentTurn } = gamestate();
+
   await delay(200);
 
-  const queue = state.spellQueue.filter(
-    (spellId) => findSpellOnField(spellId)?.caster === state.currentTurn,
+  const queue = spellQueue.filter(
+    (spellId) => findSpellOnField({ spellId })?.caster === currentTurn,
   );
 
   await Promise.all([
     ...queue.map(async (spellId: string, i) => {
       await delay(200 * i);
 
-      const spell = findSpellOnField(spellId);
+      const spell = findSpellOnField({ spellId });
       if (!spell) return;
 
       if (spell.castTime > 0) {
@@ -278,7 +291,7 @@ export async function handleEndOfTurnSpellActions(
         [...Array(numSteps)].map(async (_, i) => {
           await delay(75 * i);
 
-          moveSpellForwardOneStep(state, spell);
+          moveSpellForwardOneStep({ spell });
         }),
       );
     }),

@@ -124,12 +124,16 @@ export class PlayComponent {
     const spell = this.contentService.getSpell(this.activeCardData.card.id);
     if (!spell) return;
 
-    this.targetTiles = getTargettableSpacesForSpellAroundPosition(spell, x, y);
+    this.targetTiles = getTargettableSpacesForSpellAroundPosition({
+      spell,
+      x,
+      y,
+    });
   }
 
   public canSelectTile(y: number, x: number) {
     if (!this.selectableTiles) return false;
-    if (!isFieldSpaceEmpty(this.gamestate.field, x, y)) return false;
+    if (!isFieldSpaceEmpty({ x, y })) return false;
 
     return this.selectableTiles[y]?.[x];
   }

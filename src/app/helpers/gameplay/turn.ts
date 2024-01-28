@@ -74,16 +74,16 @@ export function handleEntireSpellcastSequence(props: {
 }): void {
   const { field } = gamestate();
 
-  const { character, spellQueue, x, y, card, turnOrder } = props;
+  const { character, x, y, card, turnOrder } = props;
 
   const spellData = getSpellById(card.id);
   if (!spellData) return;
 
-  const targetTiles = getTargettableSpacesForSpellAroundPosition(
-    spellData,
+  const targetTiles = getTargettableSpacesForSpellAroundPosition({
+    spell: spellData,
     x,
     y,
-  );
+  });
 
   for (let y = 0; y < field.length; y++) {
     for (let x = 0; x < field[y].length; x++) {
@@ -95,8 +95,8 @@ export function handleEntireSpellcastSequence(props: {
         castId: getId(),
       };
 
-      addSpellToCastQueue(spellQueue, newlyCastSpell);
-      setFieldSpell(x, y, newlyCastSpell);
+      addSpellToCastQueue({ spell: newlyCastSpell });
+      setFieldSpell({ x, y, spell: newlyCastSpell });
     }
   }
 
