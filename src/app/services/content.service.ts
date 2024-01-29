@@ -25,33 +25,15 @@ export class ContentService {
   constructor(private iconReg: SvgIconRegistryService) {}
 
   async init() {
-    await this.loadCoreSVGs();
-
-    const defaultMod = await fetch('assets/mods/default/content.json');
-    const defaultModContent = await defaultMod.json();
-
-    await this.loadMod(defaultModContent);
+    await this.loadModByName('core');
+    await this.loadModByName('default');
   }
 
-  async loadCoreSVGs() {
-    const statSvgs = [...Object.values(SpellStat).map((el) => `stat-${el}`)];
+  async loadModByName(name: string) {
+    const mod = await fetch(`assets/mods/${name}/content.json`);
+    const modContent = await mod.json();
 
-    this.iconReg
-      .loadSvg('assets/mods/core/core-spellwriters.svg', 'core-spellwriters')
-      ?.subscribe();
-
-    this.iconReg
-      .loadSvg('assets/mods/core/play-nextturn.svg', 'play-nextturn')
-      ?.subscribe();
-
-    statSvgs.forEach((svg) =>
-      this.iconReg
-        .loadSvg(
-          `assets/mods/core/${svg.toLowerCase()}.svg`,
-          `${svg.toLowerCase()}`,
-        )
-        ?.subscribe(),
-    );
+    await this.loadMod(modContent);
   }
 
   async loadMod(mod: ContentMod) {
