@@ -1,0 +1,58 @@
+:host {
+  pointer-events: none;
+}
+
+.element-card-container {
+  width: var(--element-card-width);
+  height: var(--element-card-height);
+
+  color: var(--element-card-foreground);
+  background-color: var(--element-card-background);
+
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 4px;
+  border-color: var(--element-color);
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .name-row {
+    height: 44px;
+
+    .name {
+      padding: 4px;
+      padding-left: 8px;
+      font-size: 1.5rem;
+    }
+
+    .icon {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+  }
+
+  .description-row {
+    flex: 1;
+
+    .description {
+      padding: 4px;
+      padding-left: 8px;
+    }
+  }
+
+  .interactions-row {
+    height: 28px;
+    padding: 4px;
+
+    .interactions {
+      display: flex;
+      flex-direction: row;
+
+      .interaction {
+      }
+    }
+  }
+}

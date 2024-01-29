@@ -7,7 +7,11 @@ import {
   OnSpellEnterOpts,
 } from '../../../interfaces';
 import { getElementIdByKey, getElementKey } from '../../lookup/elements';
-import { findSpellPositionOnField, setFieldElement } from '../field';
+import {
+  elementKeyToFieldElement,
+  findSpellPositionOnField,
+  setFieldElement,
+} from '../field';
 import {
   defaultCollisionWinner,
   defaultShouldFieldEffectBeCreated,
@@ -31,7 +35,13 @@ function collide(opts: CollideOpts): void {
   const pos = findSpellPositionOnField({ spellId: collidee.castId });
   if (!pos) return;
 
-  setFieldElement({ ...pos, element: 'steam' });
+  setFieldElement({
+    ...pos,
+    element: elementKeyToFieldElement({
+      elementKey: 'steam',
+      caster: collider.caster,
+    }),
+  });
 }
 
 function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
@@ -50,7 +60,13 @@ function onSpellEnter(opts: OnSpellEnterOpts): void {
   }
 
   if (isSpellElement({ spell, element: 'earth' })) {
-    setFieldElement({ ...currentTile, element: 'mud' });
+    setFieldElement({
+      ...currentTile,
+      element: elementKeyToFieldElement({
+        elementKey: 'mud',
+        caster: spell.caster,
+      }),
+    });
   }
 
   if (isSpellElement({ spell, element: 'water' })) {

@@ -7,6 +7,7 @@ import {
   endTurnAndPassPhase,
   gamestate,
   gamestateInitOptions,
+  getSpaceFromField,
   getTargetableTilesForCard,
   getTargettableSpacesForSpellAroundPosition,
   handleEntireSpellcastSequence,
@@ -22,6 +23,7 @@ import {
 } from '../../helpers';
 import {
   CurrentPhase,
+  FieldNode,
   GamePhase,
   GameState,
   GameStateInitOpts,
@@ -39,6 +41,8 @@ import { ContentService } from '../../services/content.service';
 export class PlayComponent {
   public gamestate: GameState = createBlankGameState();
   public gamephase: CurrentPhase = createBlankStateMachineMap();
+
+  public hoveringTile?: FieldNode;
 
   public activeCardData?: SelectedCard;
   public selectableTiles:
@@ -117,6 +121,14 @@ export class PlayComponent {
 
   public resetTargettableSpaces(): void {
     this.targetTiles = {};
+  }
+
+  public getHoverInfoForTile(gridRow: number, gridCol: number): void {
+    this.hoveringTile = getSpaceFromField({ x: gridCol, y: gridRow });
+  }
+
+  public resetHoverInfoForTile(): void {
+    this.hoveringTile = undefined;
   }
 
   public showTargettableSpacesForTile(y: number, x: number): void {

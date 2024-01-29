@@ -1,9 +1,6 @@
 import { Character } from './character';
+import { FieldElement } from './element';
 import { FieldSpell } from './spell';
-
-export interface FieldElement {
-  element: string;
-}
 
 export interface FieldNode {
   containedSpell?: FieldSpell;

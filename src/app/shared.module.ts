@@ -8,6 +8,7 @@ import {
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { CharacterSpriteComponent } from './components/_shared/character-sprite/character-sprite.component';
+import { ElementCardComponent } from './components/_shared/element-card/element-card.component';
 import { FitTextComponent } from './components/_shared/fit-text/fit-text.component';
 import { IconElementComponent } from './components/_shared/icon-element/icon-element.component';
 import { IconStatComponent } from './components/_shared/icon-stat/icon-stat.component';
@@ -32,6 +33,7 @@ const components = [
   CharacterSpriteComponent,
   SpellSpriteComponent,
   SpellCardComponent,
+  ElementCardComponent,
   IconElementComponent,
   IconStatComponent,
   IconComponent,

@@ -29,12 +29,12 @@
     Created when $element:electric$ is added to $element:steam$.
 
   interactions:
-    - element: fire
-      text: Dissipated by $element:fire$
     - element: earth
       text: Becomes $element:mud$ when $element:earth$ is added
     - element: electric
       text: $element:electric$ spells get +1 damage
+    - element: fire
+      text: Dissipated by $element:fire$
     - element: water
       text: $element:water$ spells become $element:electric$ spells
 

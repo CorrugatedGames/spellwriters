@@ -23,12 +23,12 @@
     Base element.
 
   interactions:
-    - element: fire
-      text: Creates $element:steam$ when colliding with $element:fire$
     - element: earth
       text: Creates $element:mud$ when colliding with $element:earth$
     - element: electric
       text: Explodes when colliding with $element:electric$
+    - element: fire
+      text: Creates $element:steam$ when colliding with $element:fire$
 
 - name: Earth
   key: earth
@@ -39,10 +39,10 @@
     Base element.
 
   interactions:
-    - element: fire
-      text: Creates $element:oil$ when colliding with $element:fire$
     - element: electric
       text: Explodes when colliding with $element:electric$
+    - element: fire
+      text: Creates $element:oil$ when colliding with $element:fire$
     - element: water
       text: Creates $element:mud$ when colliding with $element:water$
 
@@ -55,9 +55,9 @@
     Base element.
 
   interactions:
-    - element: fire
-      text: Explodes when colliding with $element:fire$
     - element: earth
       text: Explodes when colliding with $element:earth$
+    - element: fire
+      text: Explodes when colliding with $element:fire$
     - element: water
       text: Explodes when colliding with $element:water$

@@ -100,6 +100,20 @@
     right: 72px;
   }
 
+  .tile-info {
+    .hover-element {
+      position: absolute;
+      bottom: 818px;
+      left: 72px;
+    }
+
+    .hover-spell {
+      position: absolute;
+      bottom: 388px;
+      left: 72px;
+    }
+  }
+
   .stats {
     display: flex;
     flex-direction: column;

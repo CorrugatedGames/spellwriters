@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-  <h1>Field Spell Examples</h1>
+  <h1 id="fieldspells"><a [routerLink]="['/debug/components']" fragment="fieldspells">Field Spells</a></h1>
 
   <div class="sprite-container">
     <div class="sprite fieldspell-sprite" *ngFor="let spell of fieldSpells">
@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <h1>Phase Banners</h1>
+  <h1 id="phasebanners"><a [routerLink]="['/debug/components']" fragment="phasebanners">Phase Banners</a></h1>
 
   <div class="banner-container">
     <sw-phase-banner class="banner" [text]="'Player Draw'"></sw-phase-banner>
@@ -25,13 +25,13 @@
       [actions]="[bannerActions[0], bannerActions[1], bannerActions[2]]"></sw-phase-banner>
   </div>
 
-  <h1>Error Banners</h1>
+  <h1 id="errorbanners"><a [routerLink]="['/debug/components']" fragment="errorbanners">Error Banners</a></h1>
 
   <div class="sprite-container">
     <sw-error-banner [text]="'You do not have enough mana to do that!'"></sw-error-banner>
   </div>
 
-  <h1>Decks</h1>
+  <h1 id="decks"><a [routerLink]="['/debug/components']" fragment="decks">Decks</a></h1>
 
   <div class="sprite-container">
     <div class="sprite">
@@ -67,7 +67,7 @@
     </div>
   </div>
 
-  <h1>Hand</h1>
+  <h1 id="hand"><a [routerLink]="['/debug/components']" fragment="hand">Hand</a></h1>
 
   <div class="sprite-container">
     <div class="sprite">
@@ -76,8 +76,7 @@
     </div>
   </div>
 
-
-  <h1>Health Bars</h1>
+  <h1 id="healthbars"><a [routerLink]="['/debug/components']" fragment="healthbars">Health Bars</a></h1>
 
   <div class="sprite-container">
     <div class="sprite health-sprite">
@@ -97,7 +96,7 @@
     </div>
   </div>
 
-  <h1>Mana Bars</h1>
+  <h1 id="manabars"><a [routerLink]="['/debug/components']" fragment="manabars">Mana Bars</a></h1>
 
   <div class="sprite-container">
     <div class="sprite">
@@ -113,7 +112,8 @@
     </div>
   </div>
 
-  <h1>Next Turn Indicators</h1>
+  <h1 id="nextturnindicators"><a [routerLink]="['/debug/components']" fragment="nextturnindicators">Next Turn
+      Indicators</a></h1>
 
   <div class="sprite-container">
     <div class="sprite">
@@ -133,7 +133,7 @@
     </div>
   </div>
 
-  <h1>Spell Card States</h1>
+  <h1 id="spellcardstates"><a [routerLink]="['/debug/components']" fragment="spellcardstates">Spell Card States</a></h1>
 
   <div class="sprite-container">
     <div class="sprite" [ngbTooltip]="'isUpsideDown = true; isGlowing = true'">
@@ -156,7 +156,7 @@
     </div>
   </div>
 
-  <h1>Spell Cards</h1>
+  <h1 id="spellcards"><a [routerLink]="['/debug/components']" fragment="spellcards">Spell Cards</a></h1>
 
   <div class="sprite-container">
     @for(spell of contentService.allSpells(); track spell) {
@@ -166,7 +166,17 @@
     }
   </div>
 
-  <h1>Element Icons</h1>
+  <h1 id="elementcards"><a [routerLink]="['/debug/components']" fragment="elementcards">Element Cards</a></h1>
+
+  <div class="sprite-container">
+    @for(element of contentService.allElements(); track element) {
+    <div class="sprite" [ngbTooltip]="'Element: ' + element.key">
+      <sw-element-card [element]="element"></sw-element-card>
+    </div>
+    }
+  </div>
+
+  <h1 id="elementicons"><a [routerLink]="['/debug/components']" fragment="elementicons">Element Icons</a></h1>
 
   <div class="sprite-container">
     @for(element of contentService.allElements(); track element) {
@@ -176,7 +186,7 @@
     }
   </div>
 
-  <h1>Stat Icons</h1>
+  <h1 id="staticons"><a [routerLink]="['/debug/components']" fragment="staticons">Stat Icons</a></h1>
 
   <div class="sprite-container">
     @for(stat of contentService.allStats(); track stat) {
@@ -186,7 +196,8 @@
     }
   </div>
 
-  <h1>Character Sprites</h1>
+  <h1 id="charactersprites"><a [routerLink]="['/debug/components']" fragment="charactersprites">Character Sprites</a>
+  </h1>
 
   <div class="sprite-container">
     <div class="sprite" *ngFor="let charId of numCharacters" [ngbTooltip]="'Id: ' + charId">
@@ -194,7 +205,7 @@
     </div>
   </div>
 
-  <h1>Spell Sprites</h1>
+  <h1 id="spellsprites"><a [routerLink]="['/debug/components']" fragment="spellsprites">Spell Sprites</a></h1>
 
   <div class="sprite-container">
     <div class="sprite" *ngFor="let spellId of numSpells" [ngbTooltip]="'Id: ' + spellId">

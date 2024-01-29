@@ -1,0 +1,33 @@
+<div class="element-card-container" *ngIf="element() as elementData" [style.--element-color]="elementData.color">
+  <div class="name-row row">
+    <div class="col-12">
+      <div class="name">
+        {{ elementData.name }}
+      </div>
+
+      <div class="icon">
+        <sw-icon-element [element]="elementData.id" [size]="32"></sw-icon-element>
+      </div>
+    </div>
+  </div>
+
+  <div class="description-row row">
+    <div class="col-12">
+      <div class="description">
+        {{ formattedDescription }}
+      </div>
+    </div>
+  </div>
+
+  <div class="interactions-row row">
+    <div class="col-12">
+      <div class="interactions">
+        @for(interaction of elementData.interactions; track interaction) {
+        <div class="interaction">
+          <sw-icon-element [element]="interaction.element" [size]="16"></sw-icon-element>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

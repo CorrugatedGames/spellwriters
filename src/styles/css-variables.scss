@@ -24,6 +24,11 @@
   --field-secret-player: var(--color-player);
   --field-secret-opponent: var(--color-opponent);
 
+  --element-card-width: 275px;
+  --element-card-height: 200px;
+  --element-card-background: #133042;
+  --element-card-foreground: #fff;
+
   --spell-card-width: 275px;
   --spell-card-height: 400px;
   --spell-card-width-small: calc(var(--spell-card-width) / 2);

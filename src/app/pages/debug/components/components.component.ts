@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FieldSpell } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -7,7 +8,7 @@ import { ContentService } from '../../../services/content.service';
   templateUrl: './components.component.html',
   styleUrl: './components.component.scss',
 })
-export class DebugComponentsComponent {
+export class DebugComponentsComponent implements OnInit {
   public numSpells = Array(261)
     .fill(0)
     .map((_, i) => i);
@@ -64,5 +65,16 @@ export class DebugComponentsComponent {
     },
   ];
 
-  constructor(public contentService: ContentService) {}
+  constructor(
+    private route: ActivatedRoute,
+    public contentService: ContentService,
+  ) {}
+
+  ngOnInit() {
+    this.route.fragment.subscribe((fragment) => {
+      setTimeout(() => {
+        document.querySelector('#' + fragment)?.scrollIntoView();
+      }, 0);
+    });
+  }
 }

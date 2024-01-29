@@ -27,8 +27,10 @@
         [class.secret-opponent]="isSecretOpponentTile(gridRow)" [class.secret-player]="isSecretPlayerTile(gridRow)">
 
         <div class="grid-space" [class.glowing]="canSelectTile(gridRow, gridCol)" (click)="selectTile(gridRow, gridCol)"
-          (keyup.enter)="selectTile(gridRow, gridCol)" (mouseenter)="showTargettableSpacesForTile(gridRow, gridCol)"
-          (mouseleave)="resetTargettableSpaces()" tabindex="0" *ngFor="let col of row; let gridCol = index">
+          (keyup.enter)="selectTile(gridRow, gridCol)"
+          (mouseenter)="getHoverInfoForTile(gridRow, gridCol); showTargettableSpacesForTile(gridRow, gridCol)"
+          (mouseleave)="resetHoverInfoForTile(); resetTargettableSpaces()" tabindex="0"
+          *ngFor="let col of row; let gridCol = index">
 
           <sw-spell-sprite class="grid-item cast-sprite"
             *ngIf="activeCardData && canSelectTile(gridRow, gridCol) && targetTiles[gridRow]?.[gridCol]"
@@ -50,6 +52,12 @@
     </div>
 
     <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck" [isGlowing]="gamephase.PlayerDraw"></sw-deck>
+
+    <div class="tile-info">
+      <sw-element-card class="hover-element" *ngIf="hoveringTile?.containedElement as element"
+        [element]="element"></sw-element-card>
+      <sw-spell-card class="hover-spell" *ngIf="hoveringTile?.containedSpell as spell" [spell]="spell"></sw-spell-card>
+    </div>
 
     <sw-nextturn *ngIf="gamephase.PlayerTurn" class="pass" (nextTurn)="nextTurn()" [isDisabled]="!!activeCardData"
       [isGlowing]="gamephase.PlayerTurn"></sw-nextturn>

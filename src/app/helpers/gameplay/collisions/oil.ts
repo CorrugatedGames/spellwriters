@@ -8,7 +8,11 @@ import {
   OnSpellExitOpts,
 } from '../../../interfaces';
 import { getElementKey } from '../../lookup/elements';
-import { findSpellPositionOnField, setFieldElement } from '../field';
+import {
+  elementKeyToFieldElement,
+  findSpellPositionOnField,
+  setFieldElement,
+} from '../field';
 import {
   defaultCollisionWinner,
   defaultShouldFieldEffectBeCreated,
@@ -32,7 +36,13 @@ function collide(opts: CollideOpts): void {
   const pos = findSpellPositionOnField({ spellId: collidee.castId });
   if (!pos) return;
 
-  setFieldElement({ ...pos, element: 'oil' });
+  setFieldElement({
+    ...pos,
+    element: elementKeyToFieldElement({
+      elementKey: 'oil',
+      caster: collider.caster,
+    }),
+  });
 }
 
 function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
@@ -48,18 +58,36 @@ function onSpellEnter(opts: OnSpellEnterOpts): void {
 
   if (isSpellElement({ spell, element: 'fire' })) {
     setSpellDamage({ spell, power: spell.damage + 1 });
-    setFieldElement({ ...currentTile, element: 'burningoil' });
+    setFieldElement({
+      ...currentTile,
+      element: elementKeyToFieldElement({
+        elementKey: 'burningoil',
+        caster: spell.caster,
+      }),
+    });
   }
 
   if (isSpellElement({ spell, element: 'electric' })) {
-    setFieldElement({ ...currentTile, element: 'burningoil' });
+    setFieldElement({
+      ...currentTile,
+      element: elementKeyToFieldElement({
+        elementKey: 'burningoil',
+        caster: spell.caster,
+      }),
+    });
   }
 }
 
 function onSpellExit(opts: OnSpellExitOpts): void {
   const { nextTile, spell } = opts;
   if (isSpellElement({ spell, element: 'water' })) {
-    setFieldElement({ ...nextTile, element: 'oil' });
+    setFieldElement({
+      ...nextTile,
+      element: elementKeyToFieldElement({
+        elementKey: 'oil',
+        caster: spell.caster,
+      }),
+    });
   }
 }
 

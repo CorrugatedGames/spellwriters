@@ -12,6 +12,11 @@ export function getElementById(id: string): SpellElement | undefined {
   return data[id];
 }
 
+export function getElementByKey(key: string): SpellElement | undefined {
+  const id = getElementIdByKey(key);
+  return getElementById(id ?? '');
+}
+
 export function getElementKey(id: string): string | undefined {
   return getElementById(id)?.key;
 }

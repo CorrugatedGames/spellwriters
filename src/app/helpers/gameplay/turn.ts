@@ -1,17 +1,16 @@
 import {
   ActivePlayer,
-  FieldSpell,
   GamePhase,
   PlayableCard,
   TurnOrder,
 } from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
 import { seededrng } from '../static/rng';
-import { getId } from '../static/uuid';
 import {
   addSpellToCastQueue,
   getTargettableSpacesForSpellAroundPosition,
   setFieldSpell,
+  spellToFieldSpell,
 } from './field';
 import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
@@ -89,11 +88,10 @@ export function handleEntireSpellcastSequence(props: {
     for (let x = 0; x < field[y].length; x++) {
       if (!targetTiles[y]?.[x]) continue;
 
-      const newlyCastSpell: FieldSpell = {
-        ...spellData,
+      const newlyCastSpell = spellToFieldSpell({
+        spell: spellData,
         caster: turnOrder,
-        castId: getId(),
-      };
+      });
 
       addSpellToCastQueue({ spell: newlyCastSpell });
       setFieldSpell({ x, y, spell: newlyCastSpell });

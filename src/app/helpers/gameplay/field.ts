@@ -1,14 +1,18 @@
 import {
   ElementalCollision,
+  FieldElement,
   FieldNode,
   FieldSpell,
   Spell,
+  SpellElement,
   SpellPattern,
   TurnOrder,
 } from '../../interfaces';
 import { delay } from '../static/time';
 import { loseHealth } from './stats';
 
+import { getElementByKey } from '../lookup/elements';
+import { getId } from '../static/uuid';
 import * as ElementalCollisions from './collisions';
 import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
@@ -17,6 +21,44 @@ import { defaultCollisionDamageReduction, isSpellDead } from './spell';
 
 const AllElementalCollisions: Record<string, ElementalCollision> =
   ElementalCollisions;
+
+export function spellToFieldSpell(opts: {
+  spell: Spell;
+  caster: TurnOrder;
+}): FieldSpell {
+  const { spell, caster } = opts;
+
+  return {
+    ...spell,
+    castId: getId(),
+    caster,
+  };
+}
+
+export function elementToFieldElement(opts: {
+  element: SpellElement;
+  caster: TurnOrder;
+}): FieldElement {
+  const { element, caster } = opts;
+
+  return {
+    ...element,
+    castId: getId(),
+    caster,
+  };
+}
+
+export function elementKeyToFieldElement(opts: {
+  elementKey: string;
+  caster: TurnOrder;
+}): FieldElement {
+  const { elementKey, caster } = opts;
+
+  const element = getElementByKey(elementKey);
+  if (!element) throw new Error(`No element for ${elementKey}`);
+
+  return elementToFieldElement({ element, caster });
+}
 
 export function setFieldSpell(opts: {
   x: number;
@@ -32,7 +74,7 @@ export function setFieldSpell(opts: {
 export function setFieldElement(opts: {
   x: number;
   y: number;
-  element: string | undefined;
+  element: FieldElement | undefined;
 }): void {
   const { x, y, element } = opts;
   const { field } = gamestate();
@@ -42,7 +84,7 @@ export function setFieldElement(opts: {
     return;
   }
 
-  field[y][x].containedElement = { element };
+  field[y][x].containedElement = element;
 }
 
 export function addSpellToCastQueue(opts: { spell: FieldSpell }): void {
@@ -235,7 +277,7 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
     if (currentTile.containedElement) {
       const containedElement = currentTile.containedElement;
 
-      const collisionEffect = AllElementalCollisions[containedElement.element];
+      const collisionEffect = AllElementalCollisions[containedElement.key];
       if (collisionEffect) {
         collisionEffect.onSpellExit({
           currentTile: { x: position.x, y: position.y },
@@ -255,7 +297,7 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
     if (nextTile.containedElement) {
       const containedElement = nextTile.containedElement;
 
-      const collisionEffect = AllElementalCollisions[containedElement.element];
+      const collisionEffect = AllElementalCollisions[containedElement.key];
       if (collisionEffect) {
         collisionEffect.onSpellEnter({
           previousTile: { x: position.x, y: position.y },
