@@ -39,8 +39,11 @@
               <sw-icon-stat [stat]="spellStat.stat"></sw-icon-stat>
             </div>
 
-            <div class="col-9">
+            <div class="col-9 stat-value">
               {{ spellStat.value }}
+
+              <sw-icon-element class="spell-element-damage" *ngIf="spellStat.stat === 'damage'"
+                [element]="spell().element" [size]="18"></sw-icon-element>
             </div>
           </div>
         </div>

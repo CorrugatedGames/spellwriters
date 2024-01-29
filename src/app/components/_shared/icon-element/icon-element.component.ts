@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { getElementKey } from '../../../helpers';
 
 @Component({
   selector: 'sw-icon-element',
@@ -13,6 +14,6 @@ export class IconElementComponent {
   public size = input<number>(24);
 
   public get elementName() {
-    return this.element().toLowerCase();
+    return getElementKey(this.element()) ?? '';
   }
 }

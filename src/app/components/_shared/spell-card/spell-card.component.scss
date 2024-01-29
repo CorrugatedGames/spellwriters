@@ -68,6 +68,18 @@
 
         margin-bottom: 4px;
         color: #fff;
+
+        .stat-value {
+          display: flex;
+          align-items: center;
+          position: relative;
+
+          .spell-element-damage {
+            position: absolute;
+            left: 2.5rem;
+            top: -2px;
+          }
+        }
       }
     }
 
