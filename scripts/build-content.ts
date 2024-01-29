@@ -9,10 +9,11 @@ const allData: Record<string, any> = {};
 const filepath = './data/mod/content';
 const filename = `${contentType}.json`;
 
+fs.ensureDirSync(filepath);
+
 const postprocess: Record<string, (items: any[]) => Promise<void>> = {
   elements: async (items: SpellElement[]) => {
-    const allElements = await fs.readJson(`${filepath}/elements.json`);
-    const elementsByKey = Object.values(allElements).reduce(
+    const elementsByKey = items.reduce(
       (acc: Record<string, SpellElement>, spell: any) => {
         acc[spell.key] = spell;
         return acc;
