@@ -1,5 +1,5 @@
 import { FieldSpell } from '../../interfaces';
-import { getElementIdByKey } from '../lookup/elements';
+import { getElementKey } from '../lookup/elements';
 import { removeSpellFromField } from './field';
 
 export function isSpellDead(opts: { spell: FieldSpell }): boolean {
@@ -14,7 +14,7 @@ export function isSpellElement(opts: {
 }): boolean {
   const { spell, element } = opts;
 
-  return getElementIdByKey(spell.element) === element;
+  return getElementKey(spell.element) === element;
 }
 
 export function setSpellDamage(opts: {
