@@ -3,7 +3,7 @@
   description: A basic fire attack.
   sprite: 0
 
-  element: Fire
+  element: fire
   rarity: Common
 
   damage: 2
@@ -19,7 +19,7 @@
   description: A powerful fire attack that explodes when it collides with another spell.
   sprite: 1
 
-  element: Fire
+  element: fire
   rarity: Uncommon
 
   damage: 2
@@ -38,7 +38,7 @@
   description: A wide, steamy attack that slowly moves towards your opponent on multiple fronts.
   sprite: 2
 
-  element: Fire
+  element: fire
   rarity: Uncommon
 
   damage: 1

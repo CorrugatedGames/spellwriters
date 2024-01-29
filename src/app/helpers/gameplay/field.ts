@@ -3,20 +3,20 @@ import {
   FieldNode,
   FieldSpell,
   Spell,
-  SpellEffect,
   SpellPattern,
   TurnOrder,
 } from '../../interfaces';
 import { delay } from '../static/time';
 import { loseHealth } from './stats';
 
+import { getElementIdByKey } from '../lookup/elements';
 import * as ElementalCollisions from './collisions';
 import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
 import { gamestate } from './signal';
 import { defaultCollisionDamageReduction, isSpellDead } from './spell';
 
-const AllElementalCollisions: Record<SpellEffect, ElementalCollision> =
+const AllElementalCollisions: Record<string, ElementalCollision> =
   ElementalCollisions;
 
 export function setFieldSpell(opts: {
@@ -30,14 +30,20 @@ export function setFieldSpell(opts: {
   field[y][x].containedSpell = spell;
 }
 
-export function setFieldEffect(opts: {
+export function setFieldElement(opts: {
   x: number;
   y: number;
-  effect: SpellEffect | undefined;
+  element: string | undefined;
 }): void {
-  const { x, y, effect } = opts;
+  const { x, y, element } = opts;
   const { field } = gamestate();
-  field[y][x].containedEffect = effect ? { effect } : undefined;
+  if (!element) {
+    field[y][x].containedElement = undefined;
+    return;
+  }
+
+  const elementId = getElementIdByKey(element);
+  field[y][x].containedElement = elementId ? { element: elementId } : undefined;
 }
 
 export function addSpellToCastQueue(opts: { spell: FieldSpell }): void {
@@ -97,7 +103,7 @@ export function isFieldSpaceEmpty(opts: { x: number; y: number }): boolean {
   const node = getSpaceFromField({ x, y });
   if (!node) return false;
 
-  return !node.containedSpell && !node.containedEffect;
+  return !node.containedSpell && !node.containedElement;
 }
 
 export function getTargettableSpacesForSpellAroundPosition(opts: {
@@ -209,7 +215,7 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
     }
 
     Object.keys(AllElementalCollisions).forEach((key) => {
-      const collision = AllElementalCollisions[key as SpellEffect];
+      const collision = AllElementalCollisions[key];
       const collisionArgs = () => ({
         collider: spell,
         collidee: containedSpell,
@@ -227,10 +233,10 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
 
   if (shouldMoveToNextTile) {
     // do effects for our current spell leaving
-    if (currentTile.containedEffect) {
-      const containedEffect = currentTile.containedEffect;
+    if (currentTile.containedElement) {
+      const containedElement = currentTile.containedElement;
 
-      const collisionEffect = AllElementalCollisions[containedEffect.effect];
+      const collisionEffect = AllElementalCollisions[containedElement.element];
       if (collisionEffect) {
         collisionEffect.onSpellExit({
           currentTile: { x: position.x, y: position.y },
@@ -247,10 +253,10 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
     };
 
     // do effects for our next spell entering
-    if (nextTile.containedEffect) {
-      const containedEffect = nextTile.containedEffect;
+    if (nextTile.containedElement) {
+      const containedElement = nextTile.containedElement;
 
-      const collisionEffect = AllElementalCollisions[containedEffect.effect];
+      const collisionEffect = AllElementalCollisions[containedElement.element];
       if (collisionEffect) {
         collisionEffect.onSpellEnter({
           previousTile: { x: position.x, y: position.y },

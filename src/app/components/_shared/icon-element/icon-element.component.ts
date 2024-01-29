@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { SpellElement } from '../../../interfaces';
 
 @Component({
   selector: 'sw-icon-element',
@@ -10,7 +9,7 @@ import { SpellElement } from '../../../interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconElementComponent {
-  public element = input.required<SpellElement>();
+  public element = input.required<string>();
   public size = input<number>(24);
 
   public get elementName() {

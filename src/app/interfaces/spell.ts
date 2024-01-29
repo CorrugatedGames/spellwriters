@@ -15,13 +15,6 @@ export enum SpellPattern {
   Wide = '5x1',
 }
 
-export enum SpellElement {
-  Fire = 'Fire',
-  Water = 'Water',
-  Earth = 'Earth',
-  Electric = 'Electric',
-}
-
 export enum SpellStat {
   Damage = 'damage',
   Speed = 'speed',
@@ -48,7 +41,7 @@ export interface Spell {
   asset: string;
   sprite: number;
 
-  element: SpellElement;
+  element: string;
   rarity: SpellRarity;
 
   damage: number;

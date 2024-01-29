@@ -3,7 +3,7 @@
   description: A basic electric attack.
   sprite: 89
 
-  element: Electric
+  element: electric
   rarity: Common
 
   damage: 1
@@ -19,7 +19,7 @@
   description: A quick electric attack that's sure to pierce your opponents defenses.
   sprite: 88
 
-  element: Electric
+  element: electric
   rarity: Uncommon
 
   damage: 1
@@ -35,7 +35,7 @@
   description: A powerful electric attack that improves your next electric attack.
   sprite: 91
 
-  element: Electric
+  element: electric
   rarity: Uncommon
 
   damage: 2

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { getElementKey } from '../../../helpers';
 import { Spell, SpellStat, SpellTag } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -16,7 +17,7 @@ export class SpellCardComponent {
   public extraCost = input<number>(0);
 
   public get spellElement() {
-    return this.isUpsideDown() ? '' : this.spell()?.element.toLowerCase();
+    return this.isUpsideDown() ? '' : getElementKey(this.spell()?.element);
   }
 
   public get spellRarity() {

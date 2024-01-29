@@ -5,23 +5,23 @@ import {
   FieldSpell,
   HasCollisionReactionOpts,
   OnSpellEnterOpts,
-  SpellEffect,
-  SpellElement,
 } from '../../../interfaces';
-import { findSpellPositionOnField, setFieldEffect } from '../field';
+import { getElementIdByKey, getElementKey } from '../../lookup/elements';
+import { findSpellPositionOnField, setFieldElement } from '../field';
 import {
   defaultCollisionWinner,
   defaultShouldFieldEffectBeCreated,
+  isSpellElement,
   setSpellDamage,
 } from '../spell';
 
 function hasCollisionReaction(opts: HasCollisionReactionOpts): boolean {
   const { collider, collidee } = opts;
-  const elements = [collider.element, collidee.element];
-  return (
-    elements.includes(SpellElement.Fire) &&
-    elements.includes(SpellElement.Water)
-  );
+  const elements = [
+    getElementKey(collider.element),
+    getElementKey(collidee.element),
+  ];
+  return elements.includes('fire') && elements.includes('water');
 }
 
 function collide(opts: CollideOpts): void {
@@ -31,7 +31,7 @@ function collide(opts: CollideOpts): void {
   const pos = findSpellPositionOnField({ spellId: collidee.castId });
   if (!pos) return;
 
-  setFieldEffect({ ...pos, effect: SpellEffect.Steam });
+  setFieldElement({ ...pos, element: 'steam' });
 }
 
 function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
@@ -41,22 +41,22 @@ function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
 
 function onSpellEnter(opts: OnSpellEnterOpts): void {
   const { currentTile, spell } = opts;
-  if (spell.element === SpellElement.Fire) {
-    setFieldEffect({ ...currentTile, effect: undefined });
+  if (isSpellElement({ spell, element: 'fire' })) {
+    setFieldElement({ ...currentTile, element: undefined });
   }
 
-  if (spell.element === SpellElement.Electric) {
+  if (isSpellElement({ spell, element: 'electric' })) {
     setSpellDamage({ spell, power: spell.damage + 1 });
   }
 
-  if (spell.element === SpellElement.Earth) {
-    setFieldEffect({ ...currentTile, effect: SpellEffect.Mud });
+  if (isSpellElement({ spell, element: 'earth' })) {
+    setFieldElement({ ...currentTile, element: 'mud' });
   }
 
-  if (spell.element === SpellElement.Water) {
-    setFieldEffect({ ...currentTile, effect: undefined });
+  if (isSpellElement({ spell, element: 'water' })) {
+    setFieldElement({ ...currentTile, element: undefined });
 
-    spell.element = SpellElement.Electric;
+    spell.element = getElementIdByKey('electric') ?? spell.element;
     setSpellDamage({ spell, power: spell.damage + 1 });
   }
 }

@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import yaml from 'js-yaml';
 import readdir from 'recursive-readdir';
-import { Character, Spell } from '../src/app/interfaces';
+import { Character, Spell, SpellElement } from '../src/app/interfaces';
 
 const contentType = process.argv.slice(2)[0];
 
@@ -10,11 +10,50 @@ const filepath = './data/mod/content';
 const filename = `${contentType}.json`;
 
 const postprocess: Record<string, (items: any[]) => Promise<void>> = {
+  elements: async (items: SpellElement[]) => {
+    const allElements = await fs.readJson(`${filepath}/elements.json`);
+    const elementsByKey = Object.values(allElements).reduce(
+      (acc: Record<string, SpellElement>, spell: any) => {
+        acc[spell.key] = spell;
+        return acc;
+      },
+      {},
+    );
+
+    items.forEach((item) => {
+      item.mod = 'default';
+      item.asset = item.asset ?? `${item.key}.svg`;
+
+      item.createdBy = item.createdBy.map((elementName: string) => {
+        const element = elementsByKey[elementName];
+        return element.id ?? `INVALID: ${elementName}`;
+      });
+
+      item.interactions.forEach((interaction) => {
+        interaction.element =
+          elementsByKey[interaction.element]?.id ??
+          `INVALID: ${interaction.element}`;
+      });
+    });
+  },
+
   spells: async (items: Spell[]) => {
+    const allElements = await fs.readJson(`${filepath}/elements.json`);
+    const elementsByKey = Object.values(allElements).reduce(
+      (acc: Record<string, SpellElement>, spell: any) => {
+        acc[spell.key] = spell;
+        return acc;
+      },
+      {},
+    );
+
     items.forEach((item) => {
       item.mod = 'default';
       item.asset = 'spells.webp';
       item.tags ??= {};
+
+      item.element =
+        elementsByKey[item.element]?.id ?? `INVALID: ${item.element}`;
     });
   },
 

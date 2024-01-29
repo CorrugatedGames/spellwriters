@@ -1,21 +1,13 @@
 import { Character } from './character';
 import { FieldSpell } from './spell';
 
-export enum SpellEffect {
-  Oil = 'oil',
-  BurningOil = 'burningoil',
-  Mud = 'mud',
-  Steam = 'steam',
-  ChargedSteam = 'chargedsteam',
-}
-
-export interface FieldEffect {
-  effect: SpellEffect;
+export interface FieldElement {
+  element: string;
 }
 
 export interface FieldNode {
   containedSpell?: FieldSpell;
-  containedEffect?: FieldEffect;
+  containedElement?: FieldElement;
 }
 
 export interface PlayableCard {

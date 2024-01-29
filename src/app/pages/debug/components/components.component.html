@@ -170,8 +170,8 @@
 
   <div class="sprite-container">
     @for(element of contentService.allElements(); track element) {
-    <div class="sprite" [ngbTooltip]="'Element: ' + element">
-      <sw-icon-element [element]="element" [size]="48"></sw-icon-element>
+    <div class="sprite" [ngbTooltip]="'Element: ' + element.key">
+      <sw-icon-element [element]="element.key" [size]="48"></sw-icon-element>
     </div>
     }
   </div>

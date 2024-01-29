@@ -35,10 +35,10 @@
             [sprite]="targetTiles[gridRow][gridCol].sprite"></sw-spell-sprite>
 
           <sw-field-spell class="grid-item spell" *ngIf="col.containedSpell" [spell]="col.containedSpell"
-            [effect]="col.containedEffect"></sw-field-spell>
+            [element]="col.containedElement"></sw-field-spell>
 
-          <sw-field-effect class="grid-item effect" *ngIf="!col.containedSpell && col.containedEffect"
-            [effect]="col.containedEffect"></sw-field-effect>
+          <sw-field-element class="grid-item effect" *ngIf="!col.containedSpell && col.containedElement"
+            [element]="col.containedElement"></sw-field-element>
         </div>
       </div>
     </div>

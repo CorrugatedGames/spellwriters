@@ -1,18 +1,13 @@
 :root {
   --sprite-size: 64px;
 
-  --icon-spellwriters: #fff;
+  --core-spellwriters: #fff;
 
   --rarity-common: #0b5394;
   --rarity-uncommon: #4f803a;
   --rarity-rare: #a1801e;
   --rarity-epic: #674ea7;
   --rarity-legendary: #a61c00;
-
-  --element-fire: #b33232;
-  --element-water: #4bb9b9;
-  --element-earth: #47b447;
-  --element-electric: #bbbb21;
 
   --stat-damage: #e07d7d;
   --stat-speed: #68d468;
@@ -22,12 +17,6 @@
   --stat-pattern: #d3e68e;
 
   --play-nextturn: #fff;
-
-  --field-effect-mud: #fff;
-  --field-effect-oil: #fff;
-  --field-effect-steam: #fff;
-  --field-effect-burningoil: #a54040;
-  --field-effect-chargedsteam: #eafc49;
 
   --color-player: #3893c7;
   --color-opponent: #bb3d3d;

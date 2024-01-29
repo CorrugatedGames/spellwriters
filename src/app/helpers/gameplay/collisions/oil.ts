@@ -6,23 +6,23 @@ import {
   HasCollisionReactionOpts,
   OnSpellEnterOpts,
   OnSpellExitOpts,
-  SpellEffect,
-  SpellElement,
 } from '../../../interfaces';
-import { findSpellPositionOnField, setFieldEffect } from '../field';
+import { getElementKey } from '../../lookup/elements';
+import { findSpellPositionOnField, setFieldElement } from '../field';
 import {
   defaultCollisionWinner,
   defaultShouldFieldEffectBeCreated,
+  isSpellElement,
   setSpellDamage,
 } from '../spell';
 
 function hasCollisionReaction(opts: HasCollisionReactionOpts): boolean {
   const { collider, collidee } = opts;
-  const elements = [collider.element, collidee.element];
-  return (
-    elements.includes(SpellElement.Fire) &&
-    elements.includes(SpellElement.Earth)
-  );
+  const elements = [
+    getElementKey(collider.element),
+    getElementKey(collidee.element),
+  ];
+  return elements.includes('fire') && elements.includes('earth');
 }
 
 function collide(opts: CollideOpts): void {
@@ -32,7 +32,7 @@ function collide(opts: CollideOpts): void {
   const pos = findSpellPositionOnField({ spellId: collidee.castId });
   if (!pos) return;
 
-  setFieldEffect({ ...pos, effect: SpellEffect.Oil });
+  setFieldElement({ ...pos, element: 'oil' });
 }
 
 function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
@@ -42,24 +42,24 @@ function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
 
 function onSpellEnter(opts: OnSpellEnterOpts): void {
   const { currentTile, spell } = opts;
-  if (spell.element === SpellElement.Earth) {
-    setFieldEffect({ ...currentTile, effect: undefined });
+  if (isSpellElement({ spell, element: 'earth' })) {
+    setFieldElement({ ...currentTile, element: undefined });
   }
 
-  if (spell.element === SpellElement.Fire) {
+  if (isSpellElement({ spell, element: 'fire' })) {
     setSpellDamage({ spell, power: spell.damage + 1 });
-    setFieldEffect({ ...currentTile, effect: SpellEffect.BurningOil });
+    setFieldElement({ ...currentTile, element: 'burningoil' });
   }
 
-  if (spell.element === SpellElement.Electric) {
-    setFieldEffect({ ...currentTile, effect: SpellEffect.BurningOil });
+  if (isSpellElement({ spell, element: 'electric' })) {
+    setFieldElement({ ...currentTile, element: 'burningoil' });
   }
 }
 
 function onSpellExit(opts: OnSpellExitOpts): void {
   const { nextTile, spell } = opts;
-  if (spell.element === SpellElement.Water) {
-    setFieldEffect({ ...nextTile, effect: SpellEffect.Oil });
+  if (isSpellElement({ spell, element: 'water' })) {
+    setFieldElement({ ...nextTile, element: 'oil' });
   }
 }
 

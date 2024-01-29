@@ -1,4 +1,5 @@
 import { Character } from './character';
+import { SpellElement } from './element';
 import { Spell } from './spell';
 
 export interface ContentMod {
@@ -9,4 +10,9 @@ export interface ContentMod {
 
   characters: Record<string, Character>;
   spells: Record<string, Spell>;
+  elements: Record<string, SpellElement>;
+
+  preload: {
+    svgs: string[];
+  };
 }

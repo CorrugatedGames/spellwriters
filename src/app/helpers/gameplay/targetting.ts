@@ -21,7 +21,7 @@ export function getTargetableTilesForCard(opts: {
     targetableTiles[y] = targetableTiles[y] || {};
 
     row.forEach((node, x) => {
-      if (node.containedEffect || node.containedSpell) {
+      if (node.containedElement || node.containedSpell) {
         return;
       }
 

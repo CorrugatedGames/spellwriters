@@ -1,10 +1,20 @@
 import { FieldSpell } from '../../interfaces';
+import { getElementIdByKey } from '../lookup/elements';
 import { removeSpellFromField } from './field';
 
 export function isSpellDead(opts: { spell: FieldSpell }): boolean {
   const { spell } = opts;
 
   return spell.damage === 0;
+}
+
+export function isSpellElement(opts: {
+  spell: FieldSpell;
+  element: string;
+}): boolean {
+  const { spell, element } = opts;
+
+  return getElementIdByKey(spell.element) === element;
 }
 
 export function setSpellDamage(opts: {

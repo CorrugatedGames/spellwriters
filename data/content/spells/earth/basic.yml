@@ -3,7 +3,7 @@
   description: A basic earth attack.
   sprite: 18
 
-  element: Earth
+  element: earth
   rarity: Common
 
   damage: 1
@@ -19,7 +19,7 @@
   description: Put up a wide defensive earth shield to slow down your opponents attacks.
   sprite: 16
 
-  element: Earth
+  element: earth
   rarity: Uncommon
 
   damage: 3
@@ -35,7 +35,7 @@
   description: Throw a ball of sludge to enhance your next fire attack.
   sprite: 153
 
-  element: Earth
+  element: earth
   rarity: Uncommon
 
   damage: 2

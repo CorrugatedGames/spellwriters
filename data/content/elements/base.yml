@@ -1,0 +1,63 @@
+- name: Fire
+  key: fire
+  id: 5b84988a-df83-4edf-9b92-183b513456f0
+  color: '#b33232'
+  createdBy: []
+  description: >
+    Base element.
+
+  interactions:
+    - element: earth
+      text: Creates $element:oil$ when colliding with $element:earth$
+    - element: electric
+      text: Explodes when colliding with $element:electric$
+    - element: water
+      text: Creates $element:steam$ when colliding with $element:water$
+
+- name: Water
+  key: water
+  id: 5b7a3c88-2486-4cdf-8fde-93d84c9411b1
+  color: '#4bb9b9'
+  createdBy: []
+  description: >
+    Base element.
+
+  interactions:
+    - element: fire
+      text: Creates $element:steam$ when colliding with $element:fire$
+    - element: earth
+      text: Creates $element:mud$ when colliding with $element:earth$
+    - element: electric
+      text: Explodes when colliding with $element:electric$
+
+- name: Earth
+  key: earth
+  id: 81e29986-5c0f-4337-b339-562a546b375c
+  color: '#47b447'
+  createdBy: []
+  description: >
+    Base element.
+
+  interactions:
+    - element: fire
+      text: Creates $element:oil$ when colliding with $element:fire$
+    - element: electric
+      text: Explodes when colliding with $element:electric$
+    - element: water
+      text: Creates $element:mud$ when colliding with $element:water$
+
+- name: Electric
+  key: electric
+  id: de47d597-8eff-4e0b-9cf8-be35cd9164d8
+  color: '#bbbb21'
+  createdBy: []
+  description: >
+    Base element.
+
+  interactions:
+    - element: fire
+      text: Explodes when colliding with $element:fire$
+    - element: earth
+      text: Explodes when colliding with $element:earth$
+    - element: water
+      text: Explodes when colliding with $element:water$

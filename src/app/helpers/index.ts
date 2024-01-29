@@ -13,6 +13,7 @@ export * from './gameplay/turn';
 export * from './gameplay/vfx';
 
 export * from './lookup/characters';
+export * from './lookup/elements';
 export * from './lookup/mods';
 export * from './lookup/spells';
 

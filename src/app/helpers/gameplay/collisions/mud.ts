@@ -6,23 +6,23 @@ import {
   HasCollisionReactionOpts,
   OnSpellEnterOpts,
   OnSpellExitOpts,
-  SpellEffect,
-  SpellElement,
 } from '../../../interfaces';
-import { findSpellPositionOnField, setFieldEffect } from '../field';
+import { getElementKey } from '../../lookup/elements';
+import { findSpellPositionOnField, setFieldElement } from '../field';
 import {
   defaultCollisionWinner,
   defaultShouldFieldEffectBeCreated,
+  isSpellElement,
   setSpellDamage,
 } from '../spell';
 
 function hasCollisionReaction(opts: HasCollisionReactionOpts): boolean {
   const { collider, collidee } = opts;
-  const elements = [collider.element, collidee.element];
-  return (
-    elements.includes(SpellElement.Earth) &&
-    elements.includes(SpellElement.Water)
-  );
+  const elements = [
+    getElementKey(collider.element),
+    getElementKey(collidee.element),
+  ];
+  return elements.includes('earth') && elements.includes('water');
 }
 
 function collide(opts: CollideOpts): void {
@@ -32,7 +32,7 @@ function collide(opts: CollideOpts): void {
   const pos = findSpellPositionOnField({ spellId: collidee.castId });
   if (!pos) return;
 
-  setFieldEffect({ ...pos, effect: SpellEffect.Mud });
+  setFieldElement({ ...pos, element: 'mud' });
 }
 
 function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
@@ -42,27 +42,27 @@ function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
 
 function onSpellEnter(opts: OnSpellEnterOpts): void {
   const { currentTile, spell } = opts;
-  if (spell.element === SpellElement.Earth) {
-    setFieldEffect({ ...currentTile, effect: undefined });
+  if (isSpellElement({ spell, element: 'earth' })) {
+    setFieldElement({ ...currentTile, element: undefined });
   }
 
-  if (spell.element === SpellElement.Fire) {
-    setFieldEffect({ ...currentTile, effect: SpellEffect.Oil });
+  if (isSpellElement({ spell, element: 'fire' })) {
+    setFieldElement({ ...currentTile, element: 'oil' });
   }
 
-  if (spell.element === SpellElement.Water) {
+  if (isSpellElement({ spell, element: 'water' })) {
     setSpellDamage({ spell, power: spell.damage + 1 });
   }
 
-  if (spell.element === SpellElement.Electric) {
+  if (isSpellElement({ spell, element: 'electric' })) {
     setSpellDamage({ spell, power: spell.damage - 1 });
   }
 }
 
 function onSpellExit(opts: OnSpellExitOpts): void {
   const { nextTile, spell } = opts;
-  if (spell.element === SpellElement.Water) {
-    setFieldEffect({ ...nextTile, effect: SpellEffect.Mud });
+  if (isSpellElement({ spell, element: 'water' })) {
+    setFieldElement({ ...nextTile, element: 'mud' });
   }
 }
 

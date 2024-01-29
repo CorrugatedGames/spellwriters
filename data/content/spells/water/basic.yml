@@ -3,7 +3,7 @@
   description: A basic water attack.
   sprite: 76
 
-  element: Water
+  element: water
   rarity: Common
 
   damage: 1
@@ -19,7 +19,7 @@
   description: A powerful stream of water that defends against incoming spells.
   sprite: 77
 
-  element: Water
+  element: water
   rarity: Uncommon
 
   damage: 2
@@ -35,7 +35,7 @@
   description: A storm that moves towards your opponent, creating mud along the way.
   sprite: 179
 
-  element: Water
+  element: water
   rarity: Uncommon
 
   damage: 3

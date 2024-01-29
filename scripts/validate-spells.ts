@@ -9,11 +9,15 @@ import {
 
 const validRarities = Object.values(SpellRarity);
 const validPatterns = Object.values(SpellPattern);
-const validElements = Object.values(SpellElement);
 const validTags = Object.values(SpellTag);
 
 const validate = async () => {
+  const elements = await fs.readJson('./data/mod/content/elements.json');
   const spells = await fs.readJson('./data/mod/content/spells.json');
+
+  const validElements = Object.values(elements).map(
+    (el: unknown) => (el as SpellElement).id,
+  );
 
   const allIds: Record<string, boolean> = {};
 

@@ -1,0 +1,100 @@
+- name: Steam
+  key: steam
+  id: c89244df-67c1-459c-81d3-0ecb363a94a6
+  color: '#fff'
+  createdBy:
+    - fire
+    - water
+  description: >
+    Created when $element:fire$ and $element:water$ collide. Can turn into $element:chargedsteam$ when $element:electric$ is added.
+
+  interactions:
+    - element: earth
+      text: Becomes $element:mud$ when $element:earth$ is added
+    - element: electric
+      text: Charged by $element:electric$ ($element:chargedsteam$)
+    - element: fire
+      text: Dissipated by $element:fire$
+    - element: water
+      text: Spread by $element:water$
+
+- name: Charged Steam
+  key: chargedsteam
+  id: 7181650a-9dcf-4eb0-97a8-a247dc253536
+  color: '#eafc49'
+  createdBy:
+    - electric
+    - steam
+  description: >
+    Created when $element:electric$ is added to $element:steam$.
+
+  interactions:
+    - element: fire
+      text: Dissipated by $element:fire$
+    - element: earth
+      text: Becomes $element:mud$ when $element:earth$ is added
+    - element: electric
+      text: $element:electric$ spells get +1 damage
+    - element: water
+      text: $element:water$ spells become $element:electric$ spells
+
+- name: Oil
+  key: oil
+  id: 4a4d8c7b-2cab-4407-9e9c-3101d713a967
+  color: '#fff'
+  createdBy:
+    - earth
+    - fire
+
+  description: >
+    Created when $element:earth$ and $element:fire$ collide. Can turn into $element:burningoil$ when $element:fire$ is added.
+
+  interactions:
+    - element: earth
+      text: Dissipated by $element:earth$
+    - element: electric
+      text: Set on fire by $element:electric$ ($element:burningoil$)
+    - element: fire
+      text: Set on fire by $element:fire$ ($element:burningoil$)
+    - element: water
+      text: Spread by $element:water$
+
+- name: Burning Oil
+  key: burningoil
+  id: bd276b33-968a-4e2e-9d9a-350ca03bd3a9
+  color: '#a54040'
+  createdBy:
+    - fire
+    - oil
+
+  description: >
+    Created when $element:fire$ is added to $element:oil$.
+
+  interactions:
+    - element: fire
+      text: $element:fire$ spells get +1 damage
+    - element: water
+      text: Becomes $element:oil$ when $element:water$ is added
+
+- name: Mud
+  key: mud
+  id: b9fd6142-1e3f-4513-b2cf-0f443cb144a9
+  color: '#fff'
+  createdBy:
+    - earth
+    - water
+
+  description: >
+    Created when $element:earth$ and $element:water$ collide.
+
+  interactions:
+    - element: earth
+      text: Dissipated by $element:earth$
+    - element: electric
+      text: $element:electric$ spells get -1 damage
+    - element: fire
+      text: Becomes $element:oil$ when $element:fire$ is added
+    - element: water
+      text: Spread by $element:water$
+    - element: water
+      text: $element:water$ spells get +1 damage
