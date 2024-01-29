@@ -16,6 +16,7 @@ export class ElementCardComponent {
 
     const matches = text.match(/\$[a-zA-Z]+:([a-zA-Z]+)\$/g);
     matches?.forEach((match) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [_, key] = match.split(':');
       const elementKey = key.replace('$', '');
 
