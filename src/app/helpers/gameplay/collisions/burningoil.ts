@@ -21,6 +21,7 @@ function hasCollisionReaction(opts: HasCollisionReactionOpts): boolean {
     getElementKey(collider.element),
     getElementKey(collidee.element),
   ];
+
   return elements.includes('fire') && elements.includes('earth');
 }
 

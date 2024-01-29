@@ -9,7 +9,6 @@ import {
 import { delay } from '../static/time';
 import { loseHealth } from './stats';
 
-import { getElementIdByKey } from '../lookup/elements';
 import * as ElementalCollisions from './collisions';
 import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
@@ -37,13 +36,13 @@ export function setFieldElement(opts: {
 }): void {
   const { x, y, element } = opts;
   const { field } = gamestate();
+
   if (!element) {
     field[y][x].containedElement = undefined;
     return;
   }
 
-  const elementId = getElementIdByKey(element);
-  field[y][x].containedElement = elementId ? { element: elementId } : undefined;
+  field[y][x].containedElement = { element };
 }
 
 export function addSpellToCastQueue(opts: { spell: FieldSpell }): void {
