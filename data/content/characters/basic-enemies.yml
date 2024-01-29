@@ -1,6 +1,6 @@
 - name: Fire Goblin
   id: 34454542-3641-40cb-8227-7c30a9ba884a
-  description: A very basic enemy that only uses Ignis.
+  description: A very basic enemy that only uses Pale Fire.
   sprite: 34
 
   maxHealth: 5
@@ -8,23 +8,23 @@
   deck:
     name: Fire Goblin Starter
     spells:
-      - Ignis
-      - Ignis
-      - Ignis
-      - Ignis
-      - Ignis
-      - Ignis
-      - Ignis
-      - Ignis
-      - Ignis
-      - Ignis
+      - Pale Fire
+      - Pale Fire
+      - Pale Fire
+      - Pale Fire
+      - Pale Fire
+      - Pale Fire
+      - Pale Fire
+      - Pale Fire
+      - Pale Fire
+      - Pale Fire
 
   behaviors:
     random: 1
 
 - name: Water Goblin
   id: e9b4d547-20b7-436d-aad4-26ed1ee2f651
-  description: A very basic enemy that only uses Aqua.
+  description: A very basic enemy that only uses Aquarell.
   sprite: 34
 
   maxHealth: 5
@@ -32,16 +32,16 @@
   deck:
     name: Water Goblin Starter
     spells:
-      - Aqua
-      - Aqua
-      - Aqua
-      - Aqua
-      - Aqua
-      - Aqua
-      - Aqua
-      - Aqua
-      - Aqua
-      - Aqua
+      - Aquarell
+      - Aquarell
+      - Aquarell
+      - Aquarell
+      - Aquarell
+      - Aquarell
+      - Aquarell
+      - Aquarell
+      - Aquarell
+      - Aquarell
 
   behaviors:
     random: 1

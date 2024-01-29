@@ -8,16 +8,16 @@
   deck:
     name: Torriy Starter
     spells:
-      - Ignis
-      - Ignis
-      - Ignis
-      - Aqua
-      - Aqua
-      - Aqua
-      - Flamma
-      - Geyser
-      - Incendia Misteria
-      - Rainstorm
+      - Pale Fire
+      - Pale Fire
+      - Pale Fire
+      - Aquarell
+      - Aquarell
+      - Aquarell
+      - Fireball
+      - Water's Edge
+      - Fireflies
+      - Rain
 
   behaviors:
     random: 1
@@ -35,13 +35,13 @@
       - Terra
       - Terra
       - Terra
-      - Aqua
-      - Aqua
-      - Aqua
-      - Earth Wall
-      - Earth Wall
-      - Geyser
-      - Sludge
+      - Aquarell
+      - Aquarell
+      - Aquarell
+      - Mushroom Wall
+      - Mushroom Wall
+      - Water's Edge
+      - Glycerine
 
   behaviors:
     random: 1
@@ -56,16 +56,16 @@
   deck:
     name: Dewey Starter
     spells:
-      - Concussa
-      - Concussa
-      - Concussa
-      - Concussa
-      - Ignis
-      - Ignis
-      - Ignis
-      - Lightning
-      - Lightning
-      - Surge
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Pale Fire
+      - Pale Fire
+      - Pale Fire
+      - Tin Star
+      - Tin Star
+      - Steampowered Surge
 
   behaviors:
     random: 1

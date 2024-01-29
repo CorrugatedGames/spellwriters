@@ -43,6 +43,12 @@
       padding: 4px;
       padding-left: 12px;
 
+      min-height: 44px;
+      max-height: 44px;
+
+      display: flex;
+      align-items: center;
+
       color: var(--spell-card-foreground);
       background-color: var(--element-color);
     }

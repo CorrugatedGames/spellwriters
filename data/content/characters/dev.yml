@@ -8,18 +8,18 @@
   deck:
     name: Dev Starter
     spells:
-      - Ignis
-      - Flamma
-      - Incendia Misteria
+      - Pale Fire
+      - Fireball
+      - Fireflies
       - Terra
-      - Earth Wall
-      - Sludge
-      - Concussa
-      - Lightning
-      - Surge
-      - Aqua
-      - Geyser
-      - Rainstorm
+      - Mushroom Wall
+      - Glycerine
+      - Electricity
+      - Tin Star
+      - Steampowered Surge
+      - Aquarell
+      - Water's Edge
+      - Rain
 
   behaviors:
     random: 1
