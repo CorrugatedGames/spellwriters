@@ -8,6 +8,7 @@ import {
   getElementById,
   getSpellById,
   modData,
+  patternData,
   spellData,
 } from '../helpers';
 import {
@@ -69,6 +70,16 @@ export class ContentService {
         ...existingHash,
         ...Object.values(mod.elements).reduce(
           (acc, element) => ({ ...acc, [element.id]: element }),
+          {},
+        ),
+      };
+    });
+
+    patternData.update((existingHash) => {
+      return {
+        ...existingHash,
+        ...Object.values(mod.patterns).reduce(
+          (acc, pattern) => ({ ...acc, [pattern.id]: pattern }),
           {},
         ),
       };

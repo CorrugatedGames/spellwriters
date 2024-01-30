@@ -12,7 +12,7 @@
   castTime: 0
   depthMin: 0
   depthMax: 1
-  pattern: 1x1
+  pattern: single
 
 - name: Mushroom Wall
   id: 5346e122-4f6f-409d-9366-758b066869aa
@@ -28,7 +28,7 @@
   castTime: 0
   depthMin: 1
   depthMax: 1
-  pattern: 2x1
+  pattern: double
 
 - name: Glycerine
   id: 579c177e-93ed-413f-85d0-773fa31afd5e
@@ -44,7 +44,7 @@
   castTime: 1
   depthMin: 0
   depthMax: 1
-  pattern: 1x1
+  pattern: single
 
   tags:
     oily: 1

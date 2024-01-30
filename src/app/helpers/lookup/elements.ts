@@ -1,5 +1,10 @@
 import { WritableSignal, signal } from '@angular/core';
-import { SpellElement } from '../../interfaces';
+import { ElementalCollision, SpellElement } from '../../interfaces';
+
+import * as ElementalCollisions from '../gameplay/collisions';
+
+const AllElementalCollisions: Record<string, ElementalCollision> =
+  ElementalCollisions;
 
 export const elementData: WritableSignal<Record<string, SpellElement>> = signal(
   {},
@@ -28,4 +33,17 @@ export function getElementKey(id: string): string | undefined {
 
 export function getElementIdByKey(key: string): string | undefined {
   return elementKeyIds()[key];
+}
+
+export function getAllElementalCollisionImpls(): ElementalCollision[] {
+  return Object.values(AllElementalCollisions);
+}
+
+export function getElementCollisionImpl(
+  id: string,
+): ElementalCollision | undefined {
+  const key = getElementKey(id);
+  if (!key) throw new Error(`No element collision exists for ${id}`);
+
+  return AllElementalCollisions[key];
 }

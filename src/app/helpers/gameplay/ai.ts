@@ -1,6 +1,6 @@
 import {
   AIOpts,
-  AIPattern,
+  AIPatternImpl,
   ActivePlayer,
   GamePhase,
   TurnOrder,
@@ -14,7 +14,7 @@ import { DEFAULT_DELAY, delay } from '../static/time';
 import * as Behaviors from './ai-patterns';
 import { canPlayCardsInHand, playableCardsInHand } from './hand';
 
-const AllBehaviors: Record<string, AIPattern> = Behaviors;
+const AllBehaviors: Record<string, AIPatternImpl> = Behaviors;
 
 export function getAIOpts(): AIOpts {
   const state = gamestate();

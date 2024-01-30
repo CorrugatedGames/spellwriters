@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { getElementKey } from '../../../helpers';
+import { getElementKey, getPatternById } from '../../../helpers';
 import { Spell, SpellStat, SpellTag } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -51,7 +51,7 @@ export class SpellCardComponent {
       },
       {
         stat: SpellStat.Pattern,
-        value: this.spell().pattern,
+        value: getPatternById(this.spell().pattern)?.name ?? 'Unknown',
       },
     ];
   }

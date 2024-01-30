@@ -8,13 +8,6 @@ export enum SpellRarity {
   Legendary = 'Legendary',
 }
 
-export enum SpellPattern {
-  Single = '1x1',
-  Double = '2x1',
-  Triple = '3x1',
-  Wide = '5x1',
-}
-
 export enum SpellStat {
   Damage = 'damage',
   Speed = 'speed',
@@ -50,7 +43,7 @@ export interface Spell {
   castTime: number;
   depthMin: number;
   depthMax: number;
-  pattern: SpellPattern;
+  pattern: string;
 
   tags: Partial<Record<SpellTag, number>>;
 }

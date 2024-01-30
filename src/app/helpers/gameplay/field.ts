@@ -1,26 +1,25 @@
 import {
-  ElementalCollision,
   FieldElement,
   FieldNode,
   FieldSpell,
   Spell,
   SpellElement,
-  SpellPattern,
   TurnOrder,
 } from '../../interfaces';
 import { delay } from '../static/time';
 import { loseHealth } from './stats';
 
-import { getElementByKey } from '../lookup/elements';
+import {
+  getAllElementalCollisionImpls,
+  getElementByKey,
+  getElementCollisionImpl,
+} from '../lookup/elements';
+import { getPatternImpl } from '../lookup/patterns';
 import { getId } from '../static/uuid';
-import * as ElementalCollisions from './collisions';
 import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
 import { gamestate } from './signal';
 import { defaultCollisionDamageReduction, isSpellDead } from './spell';
-
-const AllElementalCollisions: Record<string, ElementalCollision> =
-  ElementalCollisions;
 
 export function spellToFieldSpell(opts: {
   spell: Spell;
@@ -163,34 +162,14 @@ export function getTargettableSpacesForSpellAroundPosition(opts: {
     targetField[y][x] = spell;
   };
 
-  switch (spell.pattern) {
-    case SpellPattern.Single: {
-      setInTargetField(x, y);
-      break;
-    }
-
-    case SpellPattern.Double: {
-      setInTargetField(x, y);
-      setInTargetField(x + 1, y);
-      break;
-    }
-
-    case SpellPattern.Triple: {
-      setInTargetField(x - 1, y);
-      setInTargetField(x, y);
-      setInTargetField(x + 1, y);
-      break;
-    }
-
-    case SpellPattern.Wide: {
-      setInTargetField(x - 2, y);
-      setInTargetField(x - 1, y);
-      setInTargetField(x, y);
-      setInTargetField(x + 1, y);
-      setInTargetField(x + 2, y);
-      break;
-    }
-  }
+  const allTiles =
+    getPatternImpl(spell.pattern)?.getFieldNodesBasedOnTarget({
+      x,
+      y,
+    }) ?? [];
+  allTiles.forEach((tile) => {
+    setInTargetField(tile.x, tile.y);
+  });
 
   return targetField as Record<number, Record<number, Spell>>;
 }
@@ -258,8 +237,7 @@ export function moveSpellToPosition(opts: {
       shouldMoveToNextTile = false;
     }
 
-    Object.keys(AllElementalCollisions).forEach((key) => {
-      const collision = AllElementalCollisions[key];
+    getAllElementalCollisionImpls().forEach((collision) => {
       const collisionArgs = () => ({
         collider: spell,
         collidee: containedSpell,
@@ -282,7 +260,7 @@ export function moveSpellToPosition(opts: {
     if (currentTile.containedElement) {
       const containedElement = currentTile.containedElement;
 
-      const collisionEffect = AllElementalCollisions[containedElement.key];
+      const collisionEffect = getElementCollisionImpl(containedElement.key);
       if (collisionEffect) {
         collisionEffect.onSpellExit({
           currentTile: { x: currentX, y: currentY },
@@ -299,7 +277,7 @@ export function moveSpellToPosition(opts: {
     if (nextTile.containedElement) {
       const containedElement = nextTile.containedElement;
 
-      const collisionEffect = AllElementalCollisions[containedElement.key];
+      const collisionEffect = getElementCollisionImpl(containedElement.key);
       if (collisionEffect) {
         collisionEffect.onSpellEnter({
           previousTile: { x: currentX, y: currentY },

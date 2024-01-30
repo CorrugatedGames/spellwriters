@@ -1,4 +1,5 @@
 import { PlayableCard, TurnOrder } from '../../interfaces';
+import { getPatternImpl } from '../lookup/patterns';
 import { getSpellById } from '../lookup/spells';
 import { gamestate } from './signal';
 
@@ -42,7 +43,7 @@ export function getTargetableTilesForCard(opts: {
   return targetableTiles;
 }
 
-export function getListOfTargetableTilesForCard(opts: {
+export function getAllTargettableTilesForCard(opts: {
   card: PlayableCard;
 }): Array<{ x: number; y: number }> {
   const { card } = opts;
@@ -62,4 +63,35 @@ export function getListOfTargetableTilesForCard(opts: {
   });
 
   return tiles;
+}
+
+export function getListOfSuggestedTargetableTilesForCard(opts: {
+  card: PlayableCard;
+}): Array<{ x: number; y: number }> {
+  const { card } = opts;
+  const spell = getSpellById(card.id);
+  if (!spell) return [];
+
+  const allTiles = getAllTargettableTilesForCard(opts);
+
+  const pattern = getPatternImpl(spell.pattern);
+  console.log(spell.name, pattern);
+  if (!pattern) return allTiles;
+
+  const suggestedTiles = pattern.chooseTargetableTiles({
+    allTargettableNodes: allTiles,
+  });
+
+  return suggestedTiles.length > 0 ? suggestedTiles : allTiles;
+}
+
+export function getListOfTargetableTilesForCard(opts: {
+  card: PlayableCard;
+  alwaysReturnAllTiles?: boolean;
+}): Array<{ x: number; y: number }> {
+  const allTiles = getAllTargettableTilesForCard(opts);
+  if (opts.alwaysReturnAllTiles) return allTiles;
+
+  const suggestedTiles = getListOfSuggestedTargetableTilesForCard(opts);
+  return suggestedTiles.length > 0 ? suggestedTiles : allTiles;
 }

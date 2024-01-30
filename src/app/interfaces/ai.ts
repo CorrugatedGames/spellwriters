@@ -1,7 +1,7 @@
 import { PRNG } from 'seedrandom';
 import { GameState, PlayableCard } from './gamestate';
 
-export interface AIPattern {
+export interface AIPatternImpl {
   canMakeDecision(aistate: AIOpts): boolean;
   makeDecision(aistate: AIOpts): void;
 }

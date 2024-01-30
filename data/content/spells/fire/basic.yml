@@ -12,7 +12,7 @@
   castTime: 0
   depthMin: 0
   depthMax: 1
-  pattern: 1x1
+  pattern: single
 
 - name: Fireball
   id: 4afa0224-24b8-47de-b210-54c57c25bbeb
@@ -28,7 +28,7 @@
   castTime: 0
   depthMin: 0
   depthMax: 1
-  pattern: 1x1
+  pattern: single
 
   tags:
     explodes: 1
@@ -47,7 +47,7 @@
   castTime: 1
   depthMin: 0
   depthMax: 1
-  pattern: 3x1
+  pattern: triple
 
   tags:
     steamy: 1

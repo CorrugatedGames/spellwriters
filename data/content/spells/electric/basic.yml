@@ -12,7 +12,7 @@
   castTime: 2
   depthMin: 1
   depthMax: 1
-  pattern: 1x1
+  pattern: single
 
 - name: Tin Star
   id: f2d8af51-90aa-4fe1-a348-dfc54352c70d
@@ -28,7 +28,7 @@
   castTime: 3
   depthMin: 1
   depthMax: 1
-  pattern: 1x1
+  pattern: single
 
 - name: Steampowered Surge
   id: 2bf909e3-1806-4011-ae32-2c43e097362b
@@ -44,7 +44,7 @@
   castTime: 2
   depthMin: 0
   depthMax: 1
-  pattern: 1x1
+  pattern: single
 
   tags:
     steamy: 1

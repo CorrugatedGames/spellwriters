@@ -1,7 +1,12 @@
 import fs from 'fs-extra';
 import yaml from 'js-yaml';
 import readdir from 'recursive-readdir';
-import { Character, Spell, SpellElement } from '../src/app/interfaces';
+import {
+  Character,
+  Spell,
+  SpellElement,
+  SpellPattern,
+} from '../src/app/interfaces';
 
 const contentType = process.argv.slice(2)[0];
 
@@ -39,10 +44,20 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
   },
 
   spells: async (items: Spell[]) => {
+    const allPatterns = await fs.readJson(`${filepath}/patterns.json`);
     const allElements = await fs.readJson(`${filepath}/elements.json`);
+
     const elementsByKey = Object.values(allElements).reduce(
       (acc: Record<string, SpellElement>, spell: any) => {
         acc[spell.key] = spell;
+        return acc;
+      },
+      {},
+    );
+
+    const patternsByKey = Object.values(allPatterns).reduce(
+      (acc: Record<string, SpellPattern>, pattern: any) => {
+        acc[pattern.key] = pattern;
         return acc;
       },
       {},
@@ -55,6 +70,9 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
 
       item.element =
         elementsByKey[item.element]?.id ?? `INVALID: ${item.element}`;
+
+      item.pattern =
+        patternsByKey[item.pattern]?.id ?? `INVALID: ${item.pattern}`;
     });
   },
 

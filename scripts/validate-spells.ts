@@ -8,15 +8,19 @@ import {
 } from '../src/app/interfaces';
 
 const validRarities = Object.values(SpellRarity);
-const validPatterns = Object.values(SpellPattern);
 const validTags = Object.values(SpellTag);
 
 const validate = async () => {
   const elements = await fs.readJson('./data/mod/content/elements.json');
   const spells = await fs.readJson('./data/mod/content/spells.json');
+  const patterns = await fs.readJson('./data/mod/content/patterns.json');
 
   const validElements = Object.values(elements).map(
     (el: unknown) => (el as SpellElement).id,
+  );
+
+  const validPatterns = Object.values(patterns).map(
+    (pattern: unknown) => (pattern as SpellPattern).id,
   );
 
   const allIds: Record<string, boolean> = {};

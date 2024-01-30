@@ -1,0 +1,11 @@
+- name: Single
+  id: b1a53183-2340-4eba-8f82-399da01c2700
+  key: single
+
+- name: Double
+  id: dc8b56f0-e46e-433a-b5a8-5647f0adf74f
+  key: double
+
+- name: Triple
+  id: 2eec94aa-5df0-4fa9-90a0-48d813a0ea58
+  key: triple

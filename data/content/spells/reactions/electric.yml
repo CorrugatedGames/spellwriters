@@ -12,7 +12,7 @@
   castTime: 0
   depthMin: 0
   depthMax: 0
-  pattern: 1x1
+  pattern: single
 
 - name: Pyroelectric Blast
   id: 98d67d81-8481-4fa8-bb16-3ce3f9fd0ced
@@ -28,7 +28,7 @@
   castTime: 0
   depthMin: 0
   depthMax: 0
-  pattern: 1x1
+  pattern: single
 
 - name: Hydroelectric Blast
   id: 8916c6e3-092d-43a1-95e3-c52b911ba365
@@ -44,4 +44,4 @@
   castTime: 0
   depthMin: 0
   depthMax: 0
-  pattern: 1x1
+  pattern: single

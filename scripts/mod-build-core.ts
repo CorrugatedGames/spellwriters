@@ -16,6 +16,7 @@ const load = async () => {
     characters: {},
     spells: {},
     elements: {},
+    patterns: {},
 
     preload: {
       svgs: [],
