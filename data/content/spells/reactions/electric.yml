@@ -1,0 +1,47 @@
+- name: Terraelectric Blast
+  id: 2f9e1b1e-24cc-4a39-8382-b658df2a6347
+  description: A spell that can only happen when earth and electricity collide.
+  sprite: 18
+
+  element: earth
+  rarity: Common
+
+  damage: 1
+  speed: 0
+  cost: 0
+  castTime: 0
+  depthMin: 0
+  depthMax: 0
+  pattern: 1x1
+
+- name: Pyroelectric Blast
+  id: 98d67d81-8481-4fa8-bb16-3ce3f9fd0ced
+  description: A spell that can only happen when fire and electricity collide.
+  sprite: 0
+
+  element: fire
+  rarity: Common
+
+  damage: 1
+  speed: 0
+  cost: 0
+  castTime: 0
+  depthMin: 0
+  depthMax: 0
+  pattern: 1x1
+
+- name: Hydroelectric Blast
+  id: 8916c6e3-092d-43a1-95e3-c52b911ba365
+  description: A spell that can only happen when water and electricity collide.
+  sprite: 76
+
+  element: water
+  rarity: Common
+
+  damage: 1
+  speed: 0
+  cost: 0
+  castTime: 0
+  depthMin: 0
+  depthMax: 0
+  pattern: 1x1

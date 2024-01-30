@@ -8,14 +8,10 @@ import {
   OnSpellExitOpts,
 } from '../../../interfaces';
 import { getElementKey } from '../../lookup/elements';
-import {
-  elementKeyToFieldElement,
-  findSpellPositionOnField,
-  setFieldElement,
-} from '../field';
+import { elementKeyToFieldElement, setFieldElement } from '../field';
 import {
   defaultCollisionWinner,
-  defaultShouldFieldEffectBeCreated,
+  defaultShouldFieldElementBeCreated,
   isSpellElement,
   setSpellDamage,
 } from '../spell';
@@ -30,15 +26,13 @@ function hasCollisionReaction(opts: HasCollisionReactionOpts): boolean {
 }
 
 function collide(opts: CollideOpts): void {
-  const { collider, collidee } = opts;
+  const { collider, collidee, collisionX, collisionY } = opts;
 
-  if (!defaultShouldFieldEffectBeCreated({ collider, collidee })) return;
-
-  const pos = findSpellPositionOnField({ spellId: collidee.castId });
-  if (!pos) return;
+  if (!defaultShouldFieldElementBeCreated({ collider, collidee })) return;
 
   setFieldElement({
-    ...pos,
+    x: collisionX,
+    y: collisionY,
     element: elementKeyToFieldElement({
       elementKey: 'steam',
       caster: collider.caster,

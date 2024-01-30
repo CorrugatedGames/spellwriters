@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorage } from 'ngx-webstorage';
-import { gamestateInitOptions, startCombat } from '../../../helpers';
+import {
+  gamestateInitOptions,
+  getElementById,
+  startCombat,
+} from '../../../helpers';
 import { GameStateInitOpts } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 import { GameStateService } from '../../../services/game-state.service';
@@ -50,5 +54,9 @@ export class DebugTestRunComponent {
     startCombat({ gamestateInitOpts: opts });
 
     this.router.navigate(['/play']);
+  }
+
+  elementName(elementId: string): string {
+    return getElementById(elementId)?.name ?? 'unknown';
   }
 }

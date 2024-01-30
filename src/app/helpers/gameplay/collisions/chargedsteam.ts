@@ -1,52 +1,20 @@
 import {
-  CollideOpts,
-  CollisionWinnerOpts,
   ElementalCollision,
   FieldSpell,
-  HasCollisionReactionOpts,
   OnSpellEnterOpts,
 } from '../../../interfaces';
-import { getElementIdByKey, getElementKey } from '../../lookup/elements';
-import {
-  elementKeyToFieldElement,
-  findSpellPositionOnField,
-  setFieldElement,
-} from '../field';
-import {
-  defaultCollisionWinner,
-  defaultShouldFieldEffectBeCreated,
-  isSpellElement,
-  setSpellDamage,
-} from '../spell';
+import { getElementIdByKey } from '../../lookup/elements';
+import { elementKeyToFieldElement, setFieldElement } from '../field';
+import { isSpellElement, setSpellDamage } from '../spell';
 
-function hasCollisionReaction(opts: HasCollisionReactionOpts): boolean {
-  const { collider, collidee } = opts;
-  const elements = [
-    getElementKey(collider.element),
-    getElementKey(collidee.element),
-  ];
-  return elements.includes('fire') && elements.includes('water');
+function hasCollisionReaction(): boolean {
+  return false;
 }
 
-function collide(opts: CollideOpts): void {
-  const { collider, collidee } = opts;
-  if (!defaultShouldFieldEffectBeCreated({ collider, collidee })) return;
+function collide(): void {}
 
-  const pos = findSpellPositionOnField({ spellId: collidee.castId });
-  if (!pos) return;
-
-  setFieldElement({
-    ...pos,
-    element: elementKeyToFieldElement({
-      elementKey: 'steam',
-      caster: collider.caster,
-    }),
-  });
-}
-
-function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
-  const { collider, collidee } = opts;
-  return defaultCollisionWinner({ collider, collidee });
+function collisionWinner(): FieldSpell | undefined {
+  return undefined;
 }
 
 function onSpellEnter(opts: OnSpellEnterOpts): void {

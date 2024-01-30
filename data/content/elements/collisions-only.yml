@@ -1,0 +1,35 @@
+- name: Hydroelectricity
+  key: hydroelectricity
+  id: 0eb28e78-948b-46f1-b040-2f95cfa6319b
+  color: '#bbbb21'
+  createdBy:
+    - electric
+    - water
+  description: >
+    Electric + Water collision. Hits left/right with 1 damage of Water, then Dissipates.
+
+  interactions: []
+
+- name: Terraelectricity
+  key: terraelectricity
+  id: ba29efc0-665b-40de-8ad9-6f6beae3f64e
+  color: '#bbbb21'
+  createdBy:
+    - electric
+    - earth
+  description: >
+    Electric + Earth collision. Hits left/right with 1 damage of Earth, then Dissipates.
+
+  interactions: []
+
+- name: Pyroelectricity
+  key: pyroelectricity
+  id: 0c6a12b5-173c-4b22-bbb2-81153a94b778
+  color: '#bbbb21'
+  createdBy:
+    - electric
+    - fire
+  description: >
+    Electric + Fire collision. Hits left/right with 1 damage of Fire, then Dissipates.
+
+  interactions: []

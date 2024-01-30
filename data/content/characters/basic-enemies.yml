@@ -69,3 +69,27 @@
 
   behaviors:
     random: 1
+
+- name: Electric Goblin
+  id: be170516-ea68-4eee-981a-3bf1e9387a82
+  description: A very basic enemy that only uses Electricity.
+  sprite: 34
+
+  maxHealth: 5
+
+  deck:
+    name: Electric Goblin Starter
+    spells:
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+
+  behaviors:
+    random: 1

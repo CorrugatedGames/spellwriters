@@ -49,7 +49,7 @@ export function defaultCollisionWinner(opts: {
   return undefined;
 }
 
-export function defaultShouldFieldEffectBeCreated(opts: {
+export function defaultShouldFieldElementBeCreated(opts: {
   collider: FieldSpell;
   collidee: FieldSpell;
 }): boolean {

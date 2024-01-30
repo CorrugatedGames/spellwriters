@@ -213,24 +213,28 @@ export function removeSpellFromField(opts: { spellId: string }): void {
   }
 }
 
-export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
-  const { spell } = opts;
+export function moveSpellToPosition(opts: {
+  spell: FieldSpell;
+  currentX: number;
+  currentY: number;
+  nextX: number;
+  nextY: number;
+  disallowEntryIntoNextTile?: boolean;
+}): void {
+  const { spell, nextX, nextY, currentX, currentY, disallowEntryIntoNextTile } =
+    opts;
   const { field, players } = gamestate();
 
-  const position = findSpellPositionOnField({ spellId: spell.castId });
-  if (!position) return;
-
-  const yDelta = spell.caster === TurnOrder.Player ? -1 : 1;
-  const nextY = position.y + yDelta;
-  const nextX = position.x;
-
   // get our current tile
-  const currentTile = field[position.y][position.x];
+  const currentTile = getSpaceFromField({ x: currentX, y: currentY });
+  if (!currentTile) return;
 
-  setFieldSpell({ x: position.x, y: position.y, spell: undefined });
+  if (currentTile.containedSpell?.castId === spell.castId) {
+    setFieldSpell({ x: currentX, y: currentY, spell: undefined });
+  }
 
   // check if we have a next tile
-  const nextTile = field[nextY]?.[position.x];
+  const nextTile = getSpaceFromField({ x: nextX, y: nextY });
   if (!nextTile || nextY === 0 || nextY === field.length - 1) {
     const opponentRef =
       spell.caster === TurnOrder.Player
@@ -243,9 +247,8 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
 
   let shouldMoveToNextTile = true;
 
-  if (nextTile.containedSpell) {
-    const containedSpell = nextTile.containedSpell;
-
+  const containedSpell = nextTile.containedSpell;
+  if (containedSpell) {
     defaultCollisionDamageReduction({
       collider: spell,
       collidee: containedSpell,
@@ -260,6 +263,8 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
       const collisionArgs = () => ({
         collider: spell,
         collidee: containedSpell,
+        collisionX: nextX,
+        collisionY: nextY,
       });
 
       if (collision.hasCollisionReaction(collisionArgs())) {
@@ -272,7 +277,7 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
     });
   }
 
-  if (shouldMoveToNextTile) {
+  if (shouldMoveToNextTile && !disallowEntryIntoNextTile) {
     // do effects for our current spell leaving
     if (currentTile.containedElement) {
       const containedElement = currentTile.containedElement;
@@ -280,7 +285,7 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
       const collisionEffect = AllElementalCollisions[containedElement.key];
       if (collisionEffect) {
         collisionEffect.onSpellExit({
-          currentTile: { x: position.x, y: position.y },
+          currentTile: { x: currentX, y: currentY },
           nextTile: { x: nextX, y: nextY },
           spell,
         });
@@ -288,10 +293,7 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
     }
 
     // move our spell
-    field[nextY][nextX] = {
-      ...nextTile,
-      containedSpell: spell,
-    };
+    setFieldSpell({ x: nextX, y: nextY, spell });
 
     // do effects for our next spell entering
     if (nextTile.containedElement) {
@@ -300,13 +302,32 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
       const collisionEffect = AllElementalCollisions[containedElement.key];
       if (collisionEffect) {
         collisionEffect.onSpellEnter({
-          previousTile: { x: position.x, y: position.y },
+          previousTile: { x: currentX, y: currentY },
           currentTile: { x: nextX, y: nextY },
           spell,
         });
       }
     }
   }
+}
+
+export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
+  const { spell } = opts;
+
+  const position = findSpellPositionOnField({ spellId: spell.castId });
+  if (!position) return;
+
+  const yDelta = spell.caster === TurnOrder.Player ? -1 : 1;
+  const nextY = position.y + yDelta;
+  const nextX = position.x;
+
+  moveSpellToPosition({
+    spell,
+    currentX: position.x,
+    currentY: position.y,
+    nextX,
+    nextY,
+  });
 }
 
 export function lowerSpellTimer(spell: FieldSpell): void {

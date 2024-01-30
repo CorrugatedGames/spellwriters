@@ -3,16 +3,22 @@ import { FieldSpell } from './spell';
 export interface HasCollisionReactionOpts {
   collider: FieldSpell;
   collidee: FieldSpell;
+  collisionX: number;
+  collisionY: number;
 }
 
 export interface CollideOpts {
   collider: FieldSpell;
   collidee: FieldSpell;
+  collisionX: number;
+  collisionY: number;
 }
 
 export interface CollisionWinnerOpts {
   collider: FieldSpell;
   collidee: FieldSpell;
+  collisionX: number;
+  collisionY: number;
 }
 
 export interface OnSpellEnterOpts {

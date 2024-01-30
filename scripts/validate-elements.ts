@@ -41,8 +41,8 @@ const validate = async () => {
       throw new Error(`Element ${element.name} has no description`);
     }
 
-    if (!element.interactions || element.interactions.length === 0) {
-      throw new Error(`Element ${element.name} has no interactions`);
+    if (!element.interactions) {
+      throw new Error(`Element ${element.name} has no interactions array`);
     }
   });
 
