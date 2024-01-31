@@ -13,7 +13,7 @@ const validTags = Object.values(SpellTag);
 const validate = async () => {
   const elements = await fs.readJson('./data/mod/content/elements.json');
   const spells = await fs.readJson('./data/mod/content/spells.json');
-  const patterns = await fs.readJson('./data/mod/content/patterns.json');
+  const patterns = await fs.readJson('./data/mod/content/spell-patterns.json');
 
   const validElements = Object.values(elements).map(
     (el: unknown) => (el as SpellElement).id,

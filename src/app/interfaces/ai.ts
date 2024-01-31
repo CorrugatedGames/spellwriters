@@ -6,6 +6,12 @@ export interface AIPatternImpl {
   makeDecision(aistate: AIOpts): void;
 }
 
+export interface AIPattern {
+  name: string;
+  id: string;
+  key: string;
+}
+
 export interface AIOpts {
   gamestate: GameState;
   rng: PRNG;

@@ -1,20 +1,12 @@
-import {
-  AIOpts,
-  AIPatternImpl,
-  ActivePlayer,
-  GamePhase,
-  TurnOrder,
-} from '../../interfaces';
+import { AIOpts, ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
 import { nextPhase } from './meta';
 import { gamestate } from './signal';
 import { drawCard } from './turn';
 
+import { getAIPatternImpl } from '../lookup/ai-patterns';
 import { seededrng, weighted } from '../static/rng';
 import { DEFAULT_DELAY, delay } from '../static/time';
-import * as Behaviors from './ai-patterns';
 import { canPlayCardsInHand, playableCardsInHand } from './hand';
-
-const AllBehaviors: Record<string, AIPatternImpl> = Behaviors;
 
 export function getAIOpts(): AIOpts {
   const state = gamestate();
@@ -65,12 +57,16 @@ export async function aiSpendPhase(opts: {
 }): Promise<void> {
   const { character } = opts;
 
+  const validBehaviors = Object.keys(character.behaviors).filter((b) =>
+    getAIPatternImpl(b),
+  );
+
   let numDecisions = 0;
   while (numDecisions++ < 100 && canPlayCardsInHand({ player: character })) {
     try {
       const aiOpts = getAIOpts();
-      const applicableBehaviors = Object.keys(character.behaviors).filter((b) =>
-        AllBehaviors[b]?.canMakeDecision(aiOpts),
+      const applicableBehaviors = validBehaviors.filter((b) =>
+        getAIPatternImpl(b)?.canMakeDecision(aiOpts),
       );
       if (applicableBehaviors.length === 0) break;
 
@@ -81,7 +77,8 @@ export async function aiSpendPhase(opts: {
 
       const chosenBehavior = weighted(behaviorWeights);
 
-      const behavior = AllBehaviors[chosenBehavior];
+      const behavior = getAIPatternImpl(chosenBehavior);
+      if (!behavior) break;
 
       behavior.makeDecision(aiOpts);
     } catch (e) {

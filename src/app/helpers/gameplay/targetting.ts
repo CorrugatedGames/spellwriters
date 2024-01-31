@@ -1,5 +1,5 @@
 import { PlayableCard, TurnOrder } from '../../interfaces';
-import { getPatternImpl } from '../lookup/patterns';
+import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getSpellById } from '../lookup/spells';
 import { gamestate } from './signal';
 
@@ -74,8 +74,7 @@ export function getListOfSuggestedTargetableTilesForCard(opts: {
 
   const allTiles = getAllTargettableTilesForCard(opts);
 
-  const pattern = getPatternImpl(spell.pattern);
-  console.log(spell.name, pattern);
+  const pattern = getSpellPatternImpl(spell.pattern);
   if (!pattern) return allTiles;
 
   const suggestedTiles = pattern.chooseTargetableTiles({

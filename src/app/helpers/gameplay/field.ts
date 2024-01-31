@@ -14,7 +14,7 @@ import {
   getElementByKey,
   getElementCollisionImpl,
 } from '../lookup/elements';
-import { getPatternImpl } from '../lookup/patterns';
+import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getId } from '../static/uuid';
 import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
@@ -163,7 +163,7 @@ export function getTargettableSpacesForSpellAroundPosition(opts: {
   };
 
   const allTiles =
-    getPatternImpl(spell.pattern)?.getFieldNodesBasedOnTarget({
+    getSpellPatternImpl(spell.pattern)?.getFieldNodesBasedOnTarget({
       x,
       y,
     }) ?? [];

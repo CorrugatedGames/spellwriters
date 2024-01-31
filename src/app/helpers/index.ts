@@ -15,7 +15,7 @@ export * from './gameplay/vfx';
 export * from './lookup/characters';
 export * from './lookup/elements';
 export * from './lookup/mods';
-export * from './lookup/patterns';
+export * from './lookup/spell-patterns';
 export * from './lookup/spells';
 
 export * from './static/rng';

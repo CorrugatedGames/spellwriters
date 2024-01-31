@@ -1,3 +1,4 @@
+import { AIPattern } from './ai';
 import { Character } from './character';
 import { SpellElement } from './element';
 import { SpellPattern } from './pattern';
@@ -12,7 +13,8 @@ export interface ContentMod {
   characters: Record<string, Character>;
   spells: Record<string, Spell>;
   elements: Record<string, SpellElement>;
-  patterns: Record<string, SpellPattern>;
+  spellPatterns: Record<string, SpellPattern>;
+  aiPatterns: Record<string, AIPattern>;
 
   preload: {
     svgs: string[];

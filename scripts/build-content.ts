@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import yaml from 'js-yaml';
 import readdir from 'recursive-readdir';
 import {
+  AIPattern,
   Character,
   Spell,
   SpellElement,
@@ -44,7 +45,7 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
   },
 
   spells: async (items: Spell[]) => {
-    const allPatterns = await fs.readJson(`${filepath}/patterns.json`);
+    const allPatterns = await fs.readJson(`${filepath}/spell-patterns.json`);
     const allElements = await fs.readJson(`${filepath}/elements.json`);
 
     const elementsByKey = Object.values(allElements).reduce(
@@ -78,9 +79,19 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
 
   characters: async (items: Character[]) => {
     const allSpells = await fs.readJson(`${filepath}/spells.json`);
+    const aiPatterns = await fs.readJson(`${filepath}/ai-patterns.json`);
+
     const spellsByName = Object.values(allSpells).reduce(
       (acc: Record<string, Spell>, spell: any) => {
         acc[spell.name] = spell;
+        return acc;
+      },
+      {},
+    );
+
+    const patternsByName = Object.values(aiPatterns).reduce(
+      (acc: Record<string, AIPattern>, pattern: any) => {
+        acc[pattern.key] = pattern;
         return acc;
       },
       {},
@@ -93,6 +104,15 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
       item.deck.spells = item.deck.spells.map((spellName: string) => {
         const spell = spellsByName[spellName];
         return spell?.id ?? `INVALID: ${spellName}`;
+      });
+
+      const oldBehaviors = item.behaviors;
+
+      item.behaviors = {};
+      Object.keys(oldBehaviors).forEach((behaviorName) => {
+        const pattern = patternsByName[behaviorName];
+        item.behaviors[pattern?.id ?? `INVALID: ${behaviorName}`] =
+          oldBehaviors[behaviorName];
       });
     });
   },

@@ -8,9 +8,10 @@ import {
   getElementById,
   getSpellById,
   modData,
-  patternData,
   spellData,
+  spellPatternData,
 } from '../helpers';
+import { aiPatternData } from '../helpers/lookup/ai-patterns';
 import {
   Character,
   ContentMod,
@@ -48,7 +49,7 @@ export class ContentService {
     characterData.update((existingHash) => {
       return {
         ...existingHash,
-        ...Object.values(mod.characters).reduce(
+        ...Object.values(mod.characters ?? {}).reduce(
           (acc, character) => ({ ...acc, [character.id]: character }),
           {},
         ),
@@ -58,7 +59,7 @@ export class ContentService {
     spellData.update((existingHash) => {
       return {
         ...existingHash,
-        ...Object.values(mod.spells).reduce(
+        ...Object.values(mod.spells ?? {}).reduce(
           (acc, spell) => ({ ...acc, [spell.id]: spell }),
           {},
         ),
@@ -68,18 +69,8 @@ export class ContentService {
     elementData.update((existingHash) => {
       return {
         ...existingHash,
-        ...Object.values(mod.elements).reduce(
+        ...Object.values(mod.elements ?? {}).reduce(
           (acc, element) => ({ ...acc, [element.id]: element }),
-          {},
-        ),
-      };
-    });
-
-    patternData.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.patterns).reduce(
-          (acc, pattern) => ({ ...acc, [pattern.id]: pattern }),
           {},
         ),
       };
@@ -88,21 +79,41 @@ export class ContentService {
     elementKeyIds.update((existingHash) => {
       return {
         ...existingHash,
-        ...Object.values(mod.elements).reduce(
+        ...Object.values(mod.elements ?? {}).reduce(
           (acc, element) => ({ ...acc, [element.key]: element.id }),
           {},
         ),
       };
     });
 
-    Object.values(mod.elements).forEach((element) => {
+    spellPatternData.update((existingHash) => {
+      return {
+        ...existingHash,
+        ...Object.values(mod.spellPatterns ?? {}).reduce(
+          (acc, pattern) => ({ ...acc, [pattern.id]: pattern }),
+          {},
+        ),
+      };
+    });
+
+    aiPatternData.update((existingHash) => {
+      return {
+        ...existingHash,
+        ...Object.values(mod.aiPatterns ?? {}).reduce(
+          (acc, pattern) => ({ ...acc, [pattern.id]: pattern }),
+          {},
+        ),
+      };
+    });
+
+    Object.values(mod.elements ?? {}).forEach((element) => {
       document.documentElement.style.setProperty(
         `--element-${element.key}`,
         element.color,
       );
     });
 
-    mod.preload.svgs.forEach((svg) => {
+    mod.preload?.svgs?.forEach((svg) => {
       this.iconReg
         .loadSvg(`assets/mods/${mod.name}/${svg}.svg`, svg)
         ?.subscribe();
