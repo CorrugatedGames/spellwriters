@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
@@ -8,6 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContentService } from './services/content.service';
 import { GameStateService } from './services/game-state.service';
+import {
+  RollbarErrorHandler,
+  RollbarService,
+} from './services/rollbar.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,14 +26,21 @@ import { GameStateService } from './services/game-state.service';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [ContentService, GameStateService],
+      deps: [RollbarService, ContentService, GameStateService],
       useFactory:
-        (contentService: ContentService, gameStateService: GameStateService) =>
+        (
+          rollbarService: RollbarService,
+          contentService: ContentService,
+          gameStateService: GameStateService,
+        ) =>
         async () => {
+          await rollbarService.init();
           await contentService.init();
           await gameStateService.init();
         },
     },
+
+    { provide: ErrorHandler, useClass: RollbarErrorHandler },
   ],
   bootstrap: [AppComponent],
 })
