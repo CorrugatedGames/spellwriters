@@ -57,8 +57,8 @@ export function createBlankActivePlayer(): ActivePlayer {
     sprite: 0,
 
     name: '',
-    health: 0,
-    maxHealth: 0,
+    health: 1,
+    maxHealth: 1,
     mana: 0,
     maxMana: 0,
 
@@ -78,7 +78,7 @@ export function createBlankGameState(): GameState {
     rng: 0,
     currentRound: 0,
     currentTurn: TurnOrder.Player,
-    currentPhase: GamePhase.Draw,
+    currentPhase: GamePhase.Start,
 
     players: [createBlankActivePlayer(), createBlankActivePlayer()],
 

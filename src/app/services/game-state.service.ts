@@ -22,8 +22,6 @@ import { GamePhase, GameState, TurnOrder } from '../interfaces';
 export class GameStateService {
   private state: GameState = createBlankGameState();
   private previousPhase!: GamePhase;
-  private previousPhaseText = '';
-  private currentPhaseDisplay = '';
   private movingSpells = false;
 
   constructor(private localStorage: LocalStorageService) {
@@ -77,6 +75,11 @@ export class GameStateService {
       const { currentPhase, currentTurn } = this.state;
 
       this.previousPhase = currentPhase;
+
+      if (currentPhase === GamePhase.Start) {
+        await nextPhase();
+        return runGameloop();
+      }
 
       if (currentPhase === GamePhase.Victory) {
         const message =

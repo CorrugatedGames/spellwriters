@@ -25,6 +25,12 @@ export async function nextPhase(): Promise<void> {
     state.currentTurn === TurnOrder.Player ? 'Opponent' : 'Your';
 
   switch (state.currentPhase) {
+    case GamePhase.Start: {
+      setPhaseBannerString({ text: `${playerString} Draw Phase` });
+      newPhase = GamePhase.Draw;
+      break;
+    }
+
     case GamePhase.Draw:
       setPhaseBannerString({ text: `${playerString} Spend Phase` });
       newPhase = GamePhase.Turn;
@@ -77,6 +83,7 @@ export async function nextPhase(): Promise<void> {
 
 export function hasAnyoneWon(): boolean {
   const { players } = gamestate();
+  if (players.length < 2) return false;
 
   return players.some((player) => player.health === 0);
 }
