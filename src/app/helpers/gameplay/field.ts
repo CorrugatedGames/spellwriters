@@ -12,7 +12,7 @@ import { loseHealth } from './stats';
 import {
   getAllElementalCollisionImpls,
   getElementByKey,
-  getElementCollisionImpl,
+  getElementCollisionImplByKey,
 } from '../lookup/elements';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getId } from '../static/uuid';
@@ -91,6 +91,25 @@ export function addSpellToCastQueue(opts: { spell: FieldSpell }): void {
   const { spellQueue } = gamestate();
 
   spellQueue.push(spell.castId);
+}
+
+export function findSpellsOnField(): Array<{
+  x: number;
+  y: number;
+  spell: FieldSpell;
+}> {
+  const { field } = gamestate();
+
+  const ret: Array<{ x: number; y: number; spell: FieldSpell }> = [];
+
+  for (const [y, row] of field.entries()) {
+    for (const [x, node] of row.entries()) {
+      if (!node.containedSpell) continue;
+      ret.push({ x, y, spell: node.containedSpell });
+    }
+  }
+
+  return ret;
 }
 
 export function findSpellOnField(opts: {
@@ -260,7 +279,9 @@ export function moveSpellToPosition(opts: {
     if (currentTile.containedElement) {
       const containedElement = currentTile.containedElement;
 
-      const collisionEffect = getElementCollisionImpl(containedElement.key);
+      const collisionEffect = getElementCollisionImplByKey(
+        containedElement.key,
+      );
       if (collisionEffect) {
         collisionEffect.onSpellExit({
           currentTile: { x: currentX, y: currentY },
@@ -277,7 +298,9 @@ export function moveSpellToPosition(opts: {
     if (nextTile.containedElement) {
       const containedElement = nextTile.containedElement;
 
-      const collisionEffect = getElementCollisionImpl(containedElement.key);
+      const collisionEffect = getElementCollisionImplByKey(
+        containedElement.key,
+      );
       if (collisionEffect) {
         collisionEffect.onSpellEnter({
           previousTile: { x: currentX, y: currentY },

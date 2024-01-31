@@ -47,3 +47,9 @@ export function getElementCollisionImpl(
 
   return AllElementalCollisions[key];
 }
+
+export function getElementCollisionImplByKey(
+  key: string,
+): ElementalCollision | undefined {
+  return getElementCollisionImpl(getElementIdByKey(key) ?? '');
+}

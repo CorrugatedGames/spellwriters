@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SvgIconRegistryService } from 'angular-svg-icon';
 import {
+  aiPatternData,
   characterData,
   elementData,
   elementKeyIds,
@@ -11,7 +12,6 @@ import {
   spellData,
   spellPatternData,
 } from '../helpers';
-import { aiPatternData } from '../helpers/lookup/ai-patterns';
 import {
   Character,
   ContentMod,

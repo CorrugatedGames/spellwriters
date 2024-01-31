@@ -68,6 +68,7 @@ export async function aiSpendPhase(opts: {
       const applicableBehaviors = validBehaviors.filter((b) =>
         getAIPatternImpl(b)?.canMakeDecision(aiOpts),
       );
+
       if (applicableBehaviors.length === 0) break;
 
       const behaviorWeights = applicableBehaviors.reduce((acc, cur) => {

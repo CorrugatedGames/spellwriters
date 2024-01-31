@@ -2,10 +2,10 @@
   id: f73ca5e7-5d10-4acc-9368-c15c9ede0af2
   key: random
 
-- name: Offense
+- name: Offensive
   id: e32f430e-b881-444b-80c7-897516a9216f
-  key: offense
+  key: offensive
 
-- name: Defense
+- name: Defensive
   id: 00e98c8d-05b7-4a8a-8563-9b404cb8b832
-  key: defense
+  key: defensive

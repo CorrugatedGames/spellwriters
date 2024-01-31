@@ -1,6 +1,6 @@
 - name: Torriy
   id: 89341c54-fbe0-4a8f-90bd-9415d6526d11
-  description: An antipodal magus, specializing in both fire and water.
+  description: An antipodal magus, specializing in both fire and water. Somewhat offensive and defensive.
   sprite: 1
 
   maxHealth: 25
@@ -21,8 +21,10 @@
 
   behaviors:
     random: 1
+    offensive: 3
+    defensive: 3
 
-- name: Eineroo
+- name: Dewbert
   id: d0ff10fa-4c74-41ea-a1df-7e3aa9397a10
   description: A defensive magus who specializes in earth and water.
   sprite: 0
@@ -45,10 +47,11 @@
 
   behaviors:
     random: 1
+    defensive: 5
 
-- name: Dewbert
+- name: Eineroo
   id: 55a8a748-0a86-40ab-b555-e0c5f24ecff4
-  description: A powerful magus who specializes in electricity and fire.
+  description: A powerful magus who specializes in electricity and fire. Highly offensive.
   sprite: 128
 
   maxHealth: 25
@@ -69,3 +72,4 @@
 
   behaviors:
     random: 1
+    offensive: 5
