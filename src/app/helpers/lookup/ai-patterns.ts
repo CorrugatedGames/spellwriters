@@ -2,6 +2,7 @@ import { WritableSignal, signal } from '@angular/core';
 import { AIPattern, AIPatternImpl } from '../../interfaces';
 
 import * as AIPatterns from '../gameplay/ai-patterns';
+import { clone } from '../static/object';
 
 const AllAIPatterns: Record<string, AIPatternImpl> = AIPatterns;
 
@@ -11,12 +12,17 @@ export const aiPatternData: WritableSignal<Record<string, AIPattern>> = signal(
 
 export function getAIPatternById(id: string): AIPattern | undefined {
   const data = aiPatternData();
-  return data[id];
+  const ref = data[id];
+
+  return ref ? clone(ref) : undefined;
 }
 
 export function getAIPatternByName(name: string): AIPattern | undefined {
   const data = aiPatternData();
-  return Object.values(data).find((pattern) => pattern.name === name);
+  const id = Object.values(data).find((pattern) => pattern.name === name)?.id;
+  if (!id) return undefined;
+
+  return getAIPatternById(id);
 }
 
 export function getAIPatternKey(id: string): string | undefined {

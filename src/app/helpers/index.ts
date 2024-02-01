@@ -15,6 +15,7 @@ export * from './gameplay/vfx';
 export * from './gameplay/defaults/ai-patterns';
 export * from './gameplay/defaults/collisions';
 export * from './gameplay/defaults/spell-patterns';
+export * from './gameplay/defaults/spell-tags';
 
 export * from './lookup/ai-patterns';
 export * from './lookup/characters';
@@ -25,6 +26,7 @@ export * from './lookup/spell-tags';
 export * from './lookup/spells';
 
 export * from './static/array';
+export * from './static/object';
 export * from './static/rng';
 export * from './static/time';
 export * from './static/uuid';

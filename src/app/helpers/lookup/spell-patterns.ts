@@ -2,6 +2,7 @@ import { WritableSignal, signal } from '@angular/core';
 import { SpellPattern, SpellPatternImpl } from '../../interfaces';
 
 import * as SpellPatterns from '../gameplay/spell-patterns';
+import { clone } from '../static/object';
 
 const AllSpellPatterns: Record<string, SpellPatternImpl> = SpellPatterns;
 
@@ -10,12 +11,17 @@ export const spellPatternData: WritableSignal<Record<string, SpellPattern>> =
 
 export function getSpellPatternById(id: string): SpellPattern | undefined {
   const data = spellPatternData();
-  return data[id];
+  const ref = data[id];
+
+  return ref ? clone(ref) : undefined;
 }
 
 export function getSpellPatternByName(name: string): SpellPattern | undefined {
   const data = spellPatternData();
-  return Object.values(data).find((pattern) => pattern.name === name);
+  const id = Object.values(data).find((pattern) => pattern.name === name)?.id;
+  if (!id) return undefined;
+
+  return getSpellPatternById(id);
 }
 
 export function getSpellPatternKey(id: string): string | undefined {

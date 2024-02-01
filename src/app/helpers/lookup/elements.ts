@@ -2,6 +2,7 @@ import { WritableSignal, signal } from '@angular/core';
 import { ElementalCollision, SpellElement } from '../../interfaces';
 
 import * as ElementalCollisions from '../gameplay/collisions';
+import { clone } from '../static/object';
 
 const AllElementalCollisions: Record<string, ElementalCollision> =
   ElementalCollisions;
@@ -14,12 +15,17 @@ export const elementKeyIds: WritableSignal<Record<string, string>> = signal({});
 
 export function getElementById(id: string): SpellElement | undefined {
   const data = elementData();
-  return data[id];
+  const ref = data[id];
+
+  return ref ? clone(ref) : undefined;
 }
 
 export function getElementByName(name: string): SpellElement | undefined {
   const data = elementData();
-  return Object.values(data).find((element) => element.name === name);
+  const id = Object.values(data).find((element) => element.name === name)?.id;
+  if (!id) return undefined;
+
+  return getElementById(id);
 }
 
 export function getElementByKey(key: string): SpellElement | undefined {
