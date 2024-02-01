@@ -1,4 +1,5 @@
 import { SpellPatternImpl } from '../../../interfaces';
+import { defaultSpellPattern } from '../defaults/spell-patterns';
 import { getSpaceFromField } from '../field';
 
 function chooseTargetableTiles(opts: {
@@ -26,6 +27,7 @@ function getFieldNodesBasedOnTarget(opts: { x: number; y: number }) {
 }
 
 export const triple: SpellPatternImpl = {
+  ...defaultSpellPattern,
   chooseTargetableTiles,
   getFieldNodesBasedOnTarget,
 };

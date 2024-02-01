@@ -4,6 +4,7 @@ import {
   FieldSpell,
   Spell,
   SpellElement,
+  SpellStatImpl,
   TurnOrder,
 } from '../../interfaces';
 import { delay } from '../static/time';
@@ -19,7 +20,12 @@ import { getId } from '../static/uuid';
 import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
 import { gamestate } from './signal';
-import { defaultCollisionDamageReduction, isSpellDead } from './spell';
+import {
+  callSpellTagFunction,
+  defaultCollisionDamageReduction,
+  isSpellDead,
+  setSpellStat,
+} from './spell';
 
 export function spellToFieldSpell(opts: {
   spell: Spell;
@@ -227,9 +233,11 @@ export function moveSpellToPosition(opts: {
   const currentTile = getSpaceFromField({ x: currentX, y: currentY });
   if (!currentTile) return;
 
-  if (currentTile.containedSpell?.castId === spell.castId) {
+  const removeMovingSpellFromField = () => {
+    if (currentTile.containedSpell?.castId !== spell.castId) return;
+
     setFieldSpell({ x: currentX, y: currentY, spell: undefined });
-  }
+  };
 
   // check if we have a next tile
   const nextTile = getSpaceFromField({ x: nextX, y: nextY });
@@ -240,13 +248,51 @@ export function moveSpellToPosition(opts: {
         : players[TurnOrder.Player];
 
     loseHealth({ character: opponentRef, amount: spell.damage });
+
+    callSpellTagFunction({
+      spell,
+      func: 'onSpellDealDamage',
+      funcOpts: { damage: spell.damage },
+    });
+
+    removeMovingSpellFromField();
     return;
   }
 
   let shouldMoveToNextTile = true;
 
+  // first, we collide with a spell to see if we even can move into that space
   const containedSpell = nextTile.containedSpell;
   if (containedSpell) {
+    const collisionArgs = {
+      collider: spell,
+      collidee: containedSpell,
+      collisionX: nextX,
+      collisionY: nextY,
+    };
+
+    callSpellTagFunction({
+      spell: collisionArgs.collider,
+      func: 'onCollision',
+      funcOpts: {
+        spell: collisionArgs.collider,
+        collidedWith: collisionArgs.collidee,
+        collisionX: nextX,
+        collisionY: nextY,
+      },
+    });
+
+    callSpellTagFunction({
+      spell: collisionArgs.collidee,
+      func: 'onCollision',
+      funcOpts: {
+        spell: collisionArgs.collidee,
+        collidedWith: collisionArgs.collider,
+        collisionX: nextX,
+        collisionY: nextY,
+      },
+    });
+
     defaultCollisionDamageReduction({
       collider: spell,
       collidee: containedSpell,
@@ -257,24 +303,41 @@ export function moveSpellToPosition(opts: {
     }
 
     getAllElementalCollisionImpls().forEach((collision) => {
-      const collisionArgs = () => ({
-        collider: spell,
-        collidee: containedSpell,
-        collisionX: nextX,
-        collisionY: nextY,
-      });
+      if (collision.hasCollisionReaction(collisionArgs)) {
+        collision.collide(collisionArgs);
 
-      if (collision.hasCollisionReaction(collisionArgs())) {
-        collision.collide(collisionArgs());
-
-        if (collision.collisionWinner(collisionArgs()) !== spell) {
+        if (collision.collisionWinner(collisionArgs) !== spell) {
           shouldMoveToNextTile = false;
         }
       }
     });
   }
 
+  // next, we check if we're allowed to move via tags
   if (shouldMoveToNextTile && !disallowEntryIntoNextTile) {
+    const canEnter = (
+      callSpellTagFunction({
+        spell,
+        func: 'onSpaceEnter',
+        funcOpts: { spell, x: nextX, y: nextY },
+      }) as boolean[]
+    ).every(Boolean);
+
+    const canExit = (
+      callSpellTagFunction({
+        spell,
+        func: 'onSpaceExit',
+        funcOpts: { spell, x: currentX, y: currentY },
+      }) as boolean[]
+    ).every(Boolean);
+
+    if (!canEnter || !canExit) {
+      shouldMoveToNextTile = false;
+    }
+  }
+
+  // lastly, we do the real movement
+  if (shouldMoveToNextTile) {
     // do effects for our current spell leaving
     if (currentTile.containedElement) {
       const containedElement = currentTile.containedElement;
@@ -291,8 +354,25 @@ export function moveSpellToPosition(opts: {
       }
     }
 
-    // move our spell
-    setFieldSpell({ x: nextX, y: nextY, spell });
+    // if the next tile can't be entered, we don't allow it to happen
+    if (!disallowEntryIntoNextTile) {
+      // move our spell
+      removeMovingSpellFromField();
+
+      callSpellTagFunction({
+        spell,
+        func: 'onSpaceExited',
+        funcOpts: { spell, x: currentX, y: currentY },
+      });
+
+      setFieldSpell({ x: nextX, y: nextY, spell });
+
+      callSpellTagFunction({
+        spell,
+        func: 'onSpaceEntered',
+        funcOpts: { spell, x: nextX, y: nextY },
+      });
+    }
 
     // do effects for our next spell entering
     if (nextTile.containedElement) {
@@ -332,7 +412,11 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
 }
 
 export function lowerSpellTimer(spell: FieldSpell): void {
-  spell.castTime--;
+  setSpellStat({
+    spell,
+    stat: SpellStatImpl.CastTime,
+    value: Math.max(0, spell.castTime - 1),
+  });
 }
 
 export async function handleEndOfTurnSpellActions(): Promise<void> {

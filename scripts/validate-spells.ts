@@ -8,12 +8,12 @@ import {
 } from '../src/app/interfaces';
 
 const validRarities = Object.values(SpellRarity);
-const validTags = Object.values(SpellTag);
 
 const validate = async () => {
   const elements = await fs.readJson('./data/mod/content/elements.json');
   const spells = await fs.readJson('./data/mod/content/spells.json');
   const patterns = await fs.readJson('./data/mod/content/spell-patterns.json');
+  const tags = await fs.readJson('./data/mod/content/spell-tags.json');
 
   const validElements = Object.values(elements).map(
     (el: unknown) => (el as SpellElement).id,
@@ -21,6 +21,10 @@ const validate = async () => {
 
   const validPatterns = Object.values(patterns).map(
     (pattern: unknown) => (pattern as SpellPattern).id,
+  );
+
+  const validTags = Object.values(tags).map(
+    (tag: unknown) => (tag as SpellTag).id,
   );
 
   const allIds: Record<string, boolean> = {};
@@ -105,13 +109,11 @@ const validate = async () => {
     }
 
     Object.keys(spell.tags).forEach((tag: string) => {
-      const actualTag: SpellTag = tag as SpellTag;
-
-      if (!validTags.includes(actualTag)) {
+      if (!validTags.includes(tag)) {
         throw new Error(`Spell ${spell.id} has invalid tag ${tag}`);
       }
 
-      if ((spell.tags[actualTag] ?? 0) < 0) {
+      if ((spell.tags[tag] ?? 0) < 0) {
         throw new Error(`Spell ${spell.id} has invalid tag value ${tag}`);
       }
     });

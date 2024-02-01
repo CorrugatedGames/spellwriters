@@ -6,3 +6,4 @@ export * from './gamestate';
 export * from './mod';
 export * from './pattern';
 export * from './spell';
+export * from './tag';

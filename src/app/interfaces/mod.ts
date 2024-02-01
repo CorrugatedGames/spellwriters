@@ -3,6 +3,7 @@ import { Character } from './character';
 import { SpellElement } from './element';
 import { SpellPattern } from './pattern';
 import { Spell } from './spell';
+import { SpellTag } from './tag';
 
 export interface ContentMod {
   name: string;
@@ -15,6 +16,7 @@ export interface ContentMod {
   elements: Record<string, SpellElement>;
   spellPatterns: Record<string, SpellPattern>;
   aiPatterns: Record<string, AIPattern>;
+  spellTags: Record<string, SpellTag>;
 
   preload: {
     svgs: string[];

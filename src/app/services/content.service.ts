@@ -11,6 +11,7 @@ import {
   modData,
   spellData,
   spellPatternData,
+  spellTagData,
 } from '../helpers';
 import {
   Character,
@@ -91,6 +92,16 @@ export class ContentService {
         ...existingHash,
         ...Object.values(mod.spellPatterns ?? {}).reduce(
           (acc, pattern) => ({ ...acc, [pattern.id]: pattern }),
+          {},
+        ),
+      };
+    });
+
+    spellTagData.update((existingHash) => {
+      return {
+        ...existingHash,
+        ...Object.values(mod.spellTags ?? {}).reduce(
+          (acc, tag) => ({ ...acc, [tag.id]: tag }),
           {},
         ),
       };

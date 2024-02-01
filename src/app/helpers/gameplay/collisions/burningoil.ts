@@ -1,20 +1,7 @@
-import {
-  ElementalCollision,
-  FieldSpell,
-  OnSpellEnterOpts,
-} from '../../../interfaces';
+import { ElementalCollision, OnSpellEnterOpts } from '../../../interfaces';
+import { defaultElementalCollision } from '../defaults/collisions';
 import { elementKeyToFieldElement, setFieldElement } from '../field';
 import { isSpellElement, setSpellDamage } from '../spell';
-
-function hasCollisionReaction(): boolean {
-  return false;
-}
-
-function collide(): void {}
-
-function collisionWinner(): FieldSpell | undefined {
-  return undefined;
-}
 
 function onSpellEnter(opts: OnSpellEnterOpts): void {
   const { currentTile, spell } = opts;
@@ -37,12 +24,7 @@ function onSpellEnter(opts: OnSpellEnterOpts): void {
   }
 }
 
-function onSpellExit(): void {}
-
 export const burningoil: ElementalCollision = {
-  hasCollisionReaction,
-  collide,
-  collisionWinner,
+  ...defaultElementalCollision,
   onSpellEnter,
-  onSpellExit,
 };

@@ -7,6 +7,7 @@ import {
   Spell,
   SpellElement,
   SpellPattern,
+  SpellTag,
 } from '../src/app/interfaces';
 
 const contentType = process.argv.slice(2)[0];
@@ -46,11 +47,20 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
 
   spells: async (items: Spell[]) => {
     const allPatterns = await fs.readJson(`${filepath}/spell-patterns.json`);
+    const allTags = await fs.readJson(`${filepath}/spell-tags.json`);
     const allElements = await fs.readJson(`${filepath}/elements.json`);
 
     const elementsByKey = Object.values(allElements).reduce(
       (acc: Record<string, SpellElement>, spell: any) => {
         acc[spell.key] = spell;
+        return acc;
+      },
+      {},
+    );
+
+    const tagsByKey = Object.values(allTags).reduce(
+      (acc: Record<string, SpellTag>, spellTag: any) => {
+        acc[spellTag.key] = spellTag;
         return acc;
       },
       {},
@@ -74,6 +84,14 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
 
       item.pattern =
         patternsByKey[item.pattern]?.id ?? `INVALID: ${item.pattern}`;
+
+      const oldTags = item.tags;
+
+      item.tags = {};
+      Object.keys(oldTags).forEach((tagKey) => {
+        const pattern = tagsByKey[tagKey];
+        item.tags[pattern?.id ?? `INVALID: ${tagKey}`] = oldTags[tagKey];
+      });
     });
   },
 

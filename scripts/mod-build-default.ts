@@ -15,6 +15,7 @@ const load = async () => {
   const elements = await fs.readJson(`${contentpath}/elements.json`);
   const spells = await fs.readJson(`${contentpath}/spells.json`);
   const spellPatterns = await fs.readJson(`${contentpath}/spell-patterns.json`);
+  const spellTags = await fs.readJson(`${contentpath}/spell-tags.json`);
   const aiPatterns = await fs.readJson(`${contentpath}/ai-patterns.json`);
 
   const mod: ContentMod = {
@@ -27,6 +28,7 @@ const load = async () => {
     spells,
     elements,
     spellPatterns,
+    spellTags,
     aiPatterns,
 
     preload: {

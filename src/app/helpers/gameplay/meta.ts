@@ -1,5 +1,6 @@
 import { ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
 import { gamestate } from './signal';
+import { callSpellTagFunctionGlobally } from './spell';
 import { gainMana } from './stats';
 import { reshuffleDeck } from './turn';
 import { setPhaseBannerString } from './vfx';
@@ -8,8 +9,6 @@ import { setPhaseBannerString } from './vfx';
  * This function is marked async, but it doesn't actually do anything asynchronous.
  * The entire purpose is to wait for moveAllSpellsForward() which may have delays in it
  * for the animations.
- *
- * In general, game logic, at this time, is not asynchronous nor should it be.
  */
 export async function nextPhase(): Promise<void> {
   const state = gamestate();
@@ -78,6 +77,11 @@ export async function nextPhase(): Promise<void> {
       currentTurn: newTurn,
       currentRound: newRound,
     };
+  });
+
+  callSpellTagFunctionGlobally({
+    func: 'onPhaseChange',
+    funcOpts: { newPhase, newTurn },
   });
 }
 

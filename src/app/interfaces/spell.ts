@@ -17,12 +17,14 @@ export enum SpellStat {
   Pattern = 'pattern',
 }
 
-export enum SpellTag {
-  Explodes = 'explodes',
-  Dissipates = 'dissipates',
-  Steamy = 'steamy',
-  Muddy = 'muddy',
-  Oily = 'oily',
+export enum SpellStatImpl {
+  Damage = 'damage',
+  Speed = 'speed',
+  Cost = 'cost',
+  CastTime = 'castTime',
+  DepthMin = 'depthMin',
+  DepthMax = 'depthMax',
+  Pattern = 'pattern',
 }
 
 export interface Spell {
@@ -37,15 +39,15 @@ export interface Spell {
   element: string;
   rarity: SpellRarity;
 
-  damage: number;
-  speed: number;
-  cost: number;
-  castTime: number;
-  depthMin: number;
-  depthMax: number;
-  pattern: string;
+  [SpellStatImpl.Damage]: number;
+  [SpellStatImpl.Speed]: number;
+  [SpellStatImpl.Cost]: number;
+  [SpellStatImpl.CastTime]: number;
+  [SpellStatImpl.DepthMin]: number;
+  [SpellStatImpl.DepthMax]: number;
+  [SpellStatImpl.Pattern]: string;
 
-  tags: Partial<Record<SpellTag, number>>;
+  tags: Record<string, number>;
 }
 
 export interface FieldSpell extends Spell {

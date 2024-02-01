@@ -1,6 +1,7 @@
 import { AIOpts, AIPatternImpl, TurnOrder } from '../../../interfaces';
 import { getSpellById } from '../../lookup/spells';
 import { groupArray, sortArray } from '../../static/array';
+import { defaultAIPattern } from '../defaults/ai-patterns';
 import { findSpellOnField, findSpellsOnField } from '../field';
 import { getListOfTargetableTilesForCard } from '../targetting';
 import { handleEntireSpellcastSequence } from '../turn';
@@ -48,6 +49,7 @@ function makeDecision(opts: AIOpts): void {
 }
 
 export const offensive: AIPatternImpl = {
+  ...defaultAIPattern,
   canMakeDecision,
   makeDecision,
 };

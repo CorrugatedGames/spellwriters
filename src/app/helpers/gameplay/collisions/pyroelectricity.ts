@@ -5,8 +5,9 @@ import {
   FieldSpell,
   HasCollisionReactionOpts,
 } from '../../../interfaces';
-import { getElementKey } from '../../lookup/elements';
+import { getElementByKey, getElementKey } from '../../lookup/elements';
 import { getSpellByName } from '../../lookup/spells';
+import { defaultElementalCollision } from '../defaults/collisions';
 import { moveSpellToPosition, spellToFieldSpell } from '../field';
 import { defaultShouldFieldElementBeCreated } from '../spell';
 
@@ -25,11 +26,17 @@ function collide(opts: CollideOpts): void {
   if (!defaultShouldFieldElementBeCreated({ collider, collidee })) return;
 
   const hitNearbyTile = (x: number, y: number): void => {
-    const spellInst = getSpellByName('Pyroelectric Blast');
+    const spellInst = getSpellByName('Electric Explosion');
     if (!spellInst) return;
 
+    const elementRef = getElementByKey('fire');
+    if (!elementRef) return;
+
     const fieldSpellInst = spellToFieldSpell({
-      spell: spellInst,
+      spell: {
+        ...spellInst,
+        element: elementRef.id,
+      },
       caster: collider.caster,
     });
 
@@ -61,14 +68,9 @@ function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
   return undefined;
 }
 
-function onSpellEnter(): void {}
-
-function onSpellExit(): void {}
-
 export const pyroelectricity: ElementalCollision = {
+  ...defaultElementalCollision,
   hasCollisionReaction,
   collide,
   collisionWinner,
-  onSpellEnter,
-  onSpellExit,
 };

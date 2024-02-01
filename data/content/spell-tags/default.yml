@@ -1,0 +1,15 @@
+- name: Explodes
+  id: 03171316-6beb-4fa8-9805-1a4ac40961f8
+  key: explodes
+
+- name: Steamy
+  id: 84d7b61d-da15-45dc-b845-321b1a23a593
+  key: steamy
+
+- name: Muddy
+  id: 49600134-21df-43b5-b0ec-71b213df0f48
+  key: muddy
+
+- name: Oily
+  id: d84673f4-a0ef-40b8-9e93-d01e934391b5
+  key: oily

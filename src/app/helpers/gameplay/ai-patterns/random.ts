@@ -1,5 +1,6 @@
 import { AIOpts, AIPatternImpl } from '../../../interfaces';
 import { randomChoice } from '../../static/rng';
+import { defaultAIPattern } from '../defaults/ai-patterns';
 import { getListOfTargetableTilesForCard } from '../targetting';
 import { handleEntireSpellcastSequence } from '../turn';
 
@@ -27,6 +28,7 @@ function makeDecision(opts: AIOpts): void {
 }
 
 export const random: AIPatternImpl = {
+  ...defaultAIPattern,
   canMakeDecision,
   makeDecision,
 };

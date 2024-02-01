@@ -15,6 +15,7 @@ import {
 import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
 import { gamestate } from './signal';
+import { callSpellTagFunction } from './spell';
 import { manaCostForSpell, spendMana } from './stats';
 
 export function shuffleDeck(character: ActivePlayer): void {
@@ -33,7 +34,10 @@ export function reshuffleDeck(character: ActivePlayer): void {
 export function canDrawCard(character: ActivePlayer): boolean {
   const state = gamestate();
 
-  return state.currentPhase === GamePhase.Draw && character.deck.length > 0;
+  return (
+    [GamePhase.Start, GamePhase.Draw].includes(state.currentPhase) &&
+    character.deck.length > 0
+  );
 }
 
 export function drawCard(character: ActivePlayer): void {
@@ -84,6 +88,7 @@ export function handleEntireSpellcastSequence(props: {
     y,
   });
 
+  let placeNum = 0;
   for (let y = 0; y < field.length; y++) {
     for (let x = 0; x < field[y].length; x++) {
       if (!targetTiles[y]?.[x]) continue;
@@ -95,6 +100,12 @@ export function handleEntireSpellcastSequence(props: {
 
       addSpellToCastQueue({ spell: newlyCastSpell });
       setFieldSpell({ x, y, spell: newlyCastSpell });
+
+      callSpellTagFunction({
+        spell: newlyCastSpell,
+        func: 'onSpellPlacement',
+        funcOpts: { x, y, placeNum: placeNum++ },
+      });
     }
   }
 

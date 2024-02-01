@@ -8,6 +8,7 @@ import {
   OnSpellExitOpts,
 } from '../../../interfaces';
 import { getElementKey } from '../../lookup/elements';
+import { defaultElementalCollision } from '../defaults/collisions';
 import { elementKeyToFieldElement, setFieldElement } from '../field';
 import {
   defaultCollisionWinner,
@@ -40,8 +41,7 @@ function collide(opts: CollideOpts): void {
 }
 
 function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
-  const { collider, collidee } = opts;
-  return defaultCollisionWinner({ collider, collidee });
+  return defaultCollisionWinner(opts);
 }
 
 function onSpellEnter(opts: OnSpellEnterOpts): void {
@@ -86,6 +86,7 @@ function onSpellExit(opts: OnSpellExitOpts): void {
 }
 
 export const oil: ElementalCollision = {
+  ...defaultElementalCollision,
   hasCollisionReaction,
   collide,
   collisionWinner,

@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { getElementKey, getSpellPatternById } from '../../../helpers';
-import { Spell, SpellStat, SpellTag } from '../../../interfaces';
+import {
+  getElementKey,
+  getSpellPatternById,
+  getSpellTagById,
+} from '../../../helpers';
+import { Spell, SpellStat } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
 @Component({
@@ -56,9 +60,9 @@ export class SpellCardComponent {
     ];
   }
 
-  public get spellTags(): { name: SpellTag; value: number }[] {
-    return (Object.keys(this.spell().tags) as SpellTag[]).map((name) => ({
-      name,
+  public get spellTags(): { name: string; value: number }[] {
+    return Object.keys(this.spell().tags).map((name) => ({
+      name: getSpellTagById(name)?.name ?? '(unknown)',
       value: this.spell().tags[name] ?? 0,
     }));
   }
