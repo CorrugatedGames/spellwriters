@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-type IconType = 'core' | 'element' | 'stat' | 'play';
+type IconType = 'core' | 'external' | 'element' | 'stat' | 'play';
 
 @Component({
   selector: 'sw-icon',
@@ -10,7 +10,7 @@ type IconType = 'core' | 'element' | 'stat' | 'play';
       [svgStyle]="{
         'width.px': size(),
         'height.px': size(),
-        fill: 'var(--' + category() + '-' + name() + ')'
+        fill: color() ? color() : 'var(--' + category() + '-' + name() + ')'
       }"
     ></svg-icon>
   `,
@@ -25,6 +25,7 @@ type IconType = 'core' | 'element' | 'stat' | 'play';
 export class IconComponent {
   public category = input.required<IconType>();
   public name = input.required<string>();
+  public color = input<string>();
   public size = input<number>(24);
 
   public get path(): string {

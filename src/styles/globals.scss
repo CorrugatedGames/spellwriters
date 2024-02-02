@@ -10,18 +10,22 @@ body {
   overflow: hidden;
 }
 
-.root-container {
-  height: 100vh;
-  width: 100vw;
-  overflow-y: auto;
+svg {
+  transition: fill 150ms linear;
 }
 
 img {
   user-select: none;
 }
 
+.root-container {
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+}
+
 .title {
-  font-family: 'TitleText', sans-serif;
+  font-family: 'FancyText', sans-serif;
   letter-spacing: 1px;
 }
 
@@ -41,4 +45,27 @@ img {
 
 .background {
   z-index: -1;
+}
+
+.text {
+  text-shadow: 1px 1px 0 var(--outline-color), -1px 1px 0 var(--outline-color),
+    -1px -1px 0 var(--outline-color), 1px -1px 0 var(--outline-color);
+
+  &.white-outline {
+    --outline-color: #fff;
+  }
+
+  &.black-outline {
+    --outline-color: #000;
+  }
+}
+
+.btn {
+  background: url('../assets/bg/texture-button.png'),
+    linear-gradient(to bottom, var(--bs-btn-bg), var(--bs-btn-bg));
+}
+
+.card {
+  background: url('../assets/bg/texture-bg.png'),
+    linear-gradient(to bottom, var(--bs-body-color), var(--bs-body-color)) !important;
 }

@@ -1,6 +1,51 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 main-menu-container">
+    <div class="col-6">
+
+      <div class="row hero-container">
+        <div class="col-12">
+          <div class="card bg-dark">
+            <img src="assets/bg/hero.png" alt="Spellwriters" class="card-img-top">
+            <h1 class="title text white-outline">Spellwriters</h1>
+            <p class="hello-jamspoon text white-outline">Sei Makes Corrugated Games</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row external-links-container">
+        <div class="col-12">
+          <div class="card bg-dark">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-2" *ngFor="let ext of links" [style.--social-color]="ext.color">
+                  <div class="d-grid gap-2">
+                    <a class="btn btn-block btn-link" (mouseenter)="ext.currentColor = ext.color"
+                      (mouseleave)="ext.currentColor = '#ccc'" [href]="ext.link" target="_blank">
+                      <sw-icon category="external" [name]="ext.icon" [color]="ext.currentColor || '#ccc'"></sw-icon>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row news-container">
+        <div class="col-12">
+          <div class="card bg-dark text-light">
+            <div class="card-body">
+              <h5 class="card-title">Spellwriters News</h5>
+              <div class="card-text">
+                When there's a blog, it'll be linked here.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 main-menu-container">
       <div class="main-menu">
         <div class="row action-row mb-3">
           <div class="col-12">

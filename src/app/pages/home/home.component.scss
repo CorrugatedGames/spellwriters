@@ -2,6 +2,44 @@
   height: 100vh;
   width: 100vw;
 
+  .hero-container,
+  .external-links-container,
+  .news-container {
+    margin-top: 32px;
+  }
+
+  .hero-container {
+    .card {
+      position: relative;
+
+      .title {
+        top: 40px;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .hello-jamspoon {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        bottom: 0;
+        font-size: 6px;
+      }
+    }
+  }
+
+  .external-links-container {
+    .btn {
+      --bs-btn-bg: #121710;
+    }
+
+    .social-icon:hover {
+      --icon-color: var(--social-color);
+    }
+  }
+
   .main-menu-container {
     margin-top: 40vh;
     max-width: 30vw;
