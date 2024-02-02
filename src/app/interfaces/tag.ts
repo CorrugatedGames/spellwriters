@@ -1,5 +1,5 @@
 import { ActivePlayer, GamePhase, TurnOrder } from './gamestate';
-import { FieldSpell, SpellStat } from './spell';
+import { FieldSpell, SpellStatImpl } from './spell';
 
 export interface SpellTag {
   name: string;
@@ -91,7 +91,7 @@ export interface SpellTagImpl {
   // ✅ implemented in setSpellStat
   onStatChange(
     opts: SpellTagDefaultArgs & {
-      stat: SpellStat;
+      stat: SpellStatImpl;
       oldValue: string | number;
       newValue: string | number;
     },

@@ -252,7 +252,7 @@ export function moveSpellToPosition(opts: {
     callSpellTagFunction({
       spell,
       func: 'onSpellDealDamage',
-      funcOpts: { damage: spell.damage },
+      funcOpts: { spell, damage: spell.damage },
     });
 
     removeMovingSpellFromField();

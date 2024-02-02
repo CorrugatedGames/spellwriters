@@ -104,7 +104,7 @@ export function handleEntireSpellcastSequence(props: {
       callSpellTagFunction({
         spell: newlyCastSpell,
         func: 'onSpellPlacement',
-        funcOpts: { x, y, placeNum: placeNum++ },
+        funcOpts: { spell: newlyCastSpell, x, y, placeNum: placeNum++ },
       });
     }
   }

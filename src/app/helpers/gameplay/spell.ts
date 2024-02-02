@@ -33,7 +33,7 @@ export function setSpellStat<T extends SpellStatImpl>(opts: {
   callSpellTagFunction({
     spell,
     func: 'onStatChange',
-    funcOpts: { stat, oldValue, newValue: value },
+    funcOpts: { spell, stat, oldValue, newValue: value },
   });
 }
 
@@ -64,7 +64,7 @@ export function setSpellTag(opts: {
   callSpellTagFunction({
     spell,
     func: 'onTagChange',
-    funcOpts: { tag, newValue: value },
+    funcOpts: { spell, tag, newValue: value },
   });
 
   if (value <= 0) {
@@ -90,22 +90,26 @@ export function callSpellTagFunctionGlobally<
   T extends keyof SpellTagImpl,
 >(opts: {
   func: T;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  funcOpts: any;
+  funcOpts: Omit<Parameters<SpellTagImpl[T]>[0], 'spell'>;
 }): void {
   const { func, funcOpts } = opts;
 
   const allSpells = gamestate()
     .spellQueue.map((spellId) => findSpellOnField({ spellId }))
     .filter(Boolean) as FieldSpell[];
-  allSpells.forEach((spell) => callSpellTagFunction({ spell, func, funcOpts }));
+  allSpells.forEach((spell) => {
+    const spellOpts: Parameters<SpellTagImpl[T]>[0] = {
+      ...funcOpts,
+      spell,
+    } as Parameters<SpellTagImpl[T]>[0];
+    callSpellTagFunction({ spell, func, funcOpts: spellOpts });
+  });
 }
 
 export function callSpellTagFunction<T extends keyof SpellTagImpl>(opts: {
   spell: FieldSpell;
   func: T;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  funcOpts: any;
+  funcOpts: Parameters<SpellTagImpl[T]>[0];
 }): void | boolean[] {
   const { spell, func, funcOpts } = opts;
   const allTags = getSpellTags({ spell });
@@ -114,11 +118,13 @@ export function callSpellTagFunction<T extends keyof SpellTagImpl>(opts: {
     case 'onSpaceEnter':
     case 'onSpaceExit':
       return allTags.map((tag) =>
-        getSpellTagImpl(tag.key)?.[func]?.(funcOpts),
+        getSpellTagImpl(tag.key)?.[func]?.(funcOpts as never),
       ) as boolean[];
 
     default:
-      allTags.forEach((tag) => getSpellTagImpl(tag.key)?.[func]?.(funcOpts));
+      allTags.forEach((tag) =>
+        getSpellTagImpl(tag.key)?.[func]?.(funcOpts as never),
+      );
       return;
   }
 }
@@ -200,25 +206,25 @@ export function defaultCollisionDamageReduction(opts: {
       callSpellTagFunction({
         spell: collidee,
         func: 'onSpellCancel',
-        funcOpts: { canceledSpell: collider },
+        funcOpts: { spell: collidee, canceledSpell: collider },
       });
 
       callSpellTagFunction({
         spell: collider,
         func: 'onSpellCanceled',
-        funcOpts: { canceledBySpell: collidee },
+        funcOpts: { spell: collider, canceledBySpell: collidee },
       });
     } else {
       callSpellTagFunction({
         spell: collidee,
         func: 'onSpellDestroy',
-        funcOpts: { destroyedSpell: collider },
+        funcOpts: { spell: collidee, destroyedSpell: collider },
       });
 
       callSpellTagFunction({
         spell: collider,
         func: 'onSpellDestroyed',
-        funcOpts: { destroyedBySpell: collidee },
+        funcOpts: { spell: collider, destroyedBySpell: collidee },
       });
     }
   }
@@ -228,25 +234,25 @@ export function defaultCollisionDamageReduction(opts: {
       callSpellTagFunction({
         spell: collider,
         func: 'onSpellCancel',
-        funcOpts: { canceledSpell: collidee },
+        funcOpts: { spell: collider, canceledSpell: collidee },
       });
 
       callSpellTagFunction({
         spell: collidee,
         func: 'onSpellCanceled',
-        funcOpts: { canceledBySpell: collider },
+        funcOpts: { spell: collidee, canceledBySpell: collider },
       });
     } else {
       callSpellTagFunction({
         spell: collider,
         func: 'onSpellDestroy',
-        funcOpts: { destroyedSpell: collidee },
+        funcOpts: { spell: collider, destroyedSpell: collidee },
       });
 
       callSpellTagFunction({
         spell: collidee,
         func: 'onSpellDestroyed',
-        funcOpts: { destroyedBySpell: collider },
+        funcOpts: { spell: collidee, destroyedBySpell: collider },
       });
     }
   }
