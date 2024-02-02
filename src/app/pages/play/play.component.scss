@@ -142,10 +142,14 @@
 
   .play-grid {
     --play-grid-size: 96px;
+    --secret-area-spacing: 16px;
     --max-play-grid-rows: 9;
 
-    height: calc(var(--max-play-grid-rows) * var(--play-grid-size));
-    max-height: calc(var(--max-play-grid-rows) * var(--play-grid-size));
+    --grid-height: calc(var(--max-play-grid-rows) * var(--play-grid-size));
+    --secret-height: calc(var(--secret-area-spacing) * 2);
+
+    height: calc(var(--grid-height) + var(--secret-height));
+    max-height: calc(var(--grid-height) + var(--secret-height));
     margin-top: 32px;
 
     display: flex;
@@ -159,12 +163,16 @@
 
       &.secret {
         &.secret-player {
+          margin-top: var(--secret-area-spacing);
+
           .grid-space {
             border-color: var(--field-secret-player);
           }
         }
 
         &.secret-opponent {
+          margin-bottom: var(--secret-area-spacing);
+
           .grid-space {
             border-color: var(--field-secret-opponent);
           }
