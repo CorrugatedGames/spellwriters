@@ -252,7 +252,7 @@ export function moveSpellToPosition(opts: {
     callSpellTagFunction({
       spell,
       func: 'onSpellDealDamage',
-      funcOpts: { spell, damage: spell.damage },
+      funcOpts: { damage: spell.damage },
     });
 
     removeMovingSpellFromField();
@@ -275,7 +275,6 @@ export function moveSpellToPosition(opts: {
       spell: collisionArgs.collider,
       func: 'onCollision',
       funcOpts: {
-        spell: collisionArgs.collider,
         collidedWith: collisionArgs.collidee,
         collisionX: nextX,
         collisionY: nextY,
@@ -286,7 +285,6 @@ export function moveSpellToPosition(opts: {
       spell: collisionArgs.collidee,
       func: 'onCollision',
       funcOpts: {
-        spell: collisionArgs.collidee,
         collidedWith: collisionArgs.collider,
         collisionX: nextX,
         collisionY: nextY,
@@ -319,7 +317,7 @@ export function moveSpellToPosition(opts: {
       callSpellTagFunction({
         spell,
         func: 'onSpaceEnter',
-        funcOpts: { spell, x: nextX, y: nextY },
+        funcOpts: { x: nextX, y: nextY },
       }) as boolean[]
     ).every(Boolean);
 
@@ -327,7 +325,7 @@ export function moveSpellToPosition(opts: {
       callSpellTagFunction({
         spell,
         func: 'onSpaceExit',
-        funcOpts: { spell, x: currentX, y: currentY },
+        funcOpts: { x: currentX, y: currentY },
       }) as boolean[]
     ).every(Boolean);
 
@@ -362,7 +360,7 @@ export function moveSpellToPosition(opts: {
       callSpellTagFunction({
         spell,
         func: 'onSpaceExited',
-        funcOpts: { spell, x: currentX, y: currentY },
+        funcOpts: { x: currentX, y: currentY },
       });
 
       setFieldSpell({ x: nextX, y: nextY, spell });
@@ -370,7 +368,7 @@ export function moveSpellToPosition(opts: {
       callSpellTagFunction({
         spell,
         func: 'onSpaceEntered',
-        funcOpts: { spell, x: nextX, y: nextY },
+        funcOpts: { x: nextX, y: nextY },
       });
     }
 

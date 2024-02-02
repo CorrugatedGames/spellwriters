@@ -33,7 +33,7 @@ export function setSpellStat<T extends SpellStatImpl>(opts: {
   callSpellTagFunction({
     spell,
     func: 'onStatChange',
-    funcOpts: { spell, stat, oldValue, newValue: value },
+    funcOpts: { stat, oldValue, newValue: value },
   });
 }
 
@@ -64,7 +64,7 @@ export function setSpellTag(opts: {
   callSpellTagFunction({
     spell,
     func: 'onTagChange',
-    funcOpts: { spell, tag, newValue: value },
+    funcOpts: { tag, newValue: value },
   });
 
   if (value <= 0) {
@@ -97,33 +97,35 @@ export function callSpellTagFunctionGlobally<
   const allSpells = gamestate()
     .spellQueue.map((spellId) => findSpellOnField({ spellId }))
     .filter(Boolean) as FieldSpell[];
+
   allSpells.forEach((spell) => {
-    const spellOpts: Parameters<SpellTagImpl[T]>[0] = {
-      ...funcOpts,
-      spell,
-    } as Parameters<SpellTagImpl[T]>[0];
-    callSpellTagFunction({ spell, func, funcOpts: spellOpts });
+    callSpellTagFunction({ spell, func, funcOpts });
   });
 }
 
 export function callSpellTagFunction<T extends keyof SpellTagImpl>(opts: {
   spell: FieldSpell;
   func: T;
-  funcOpts: Parameters<SpellTagImpl[T]>[0];
+  funcOpts: Omit<Parameters<SpellTagImpl[T]>[0], 'spell'>;
 }): void | boolean[] {
   const { spell, func, funcOpts } = opts;
   const allTags = getSpellTags({ spell });
+
+  const spellOpts: Parameters<SpellTagImpl[T]>[0] = {
+    ...funcOpts,
+    spell,
+  } as Parameters<SpellTagImpl[T]>[0];
 
   switch (func) {
     case 'onSpaceEnter':
     case 'onSpaceExit':
       return allTags.map((tag) =>
-        getSpellTagImpl(tag.key)?.[func]?.(funcOpts as never),
+        getSpellTagImpl(tag.key)?.[func]?.(spellOpts as never),
       ) as boolean[];
 
     default:
       allTags.forEach((tag) =>
-        getSpellTagImpl(tag.key)?.[func]?.(funcOpts as never),
+        getSpellTagImpl(tag.key)?.[func]?.(spellOpts as never),
       );
       return;
   }
@@ -139,13 +141,13 @@ export function defaultCollisionWinner(opts: {
     callSpellTagFunction({
       spell: collider,
       func: 'onCollisionWin',
-      funcOpts: { spell: collider, collidedWith: collidee },
+      funcOpts: { collidedWith: collidee },
     });
 
     callSpellTagFunction({
       spell: collidee,
       func: 'onCollisionLose',
-      funcOpts: { spell: collidee, collidedWith: collider },
+      funcOpts: { collidedWith: collider },
     });
 
     return collider;
@@ -155,13 +157,13 @@ export function defaultCollisionWinner(opts: {
     callSpellTagFunction({
       spell: collidee,
       func: 'onCollisionWin',
-      funcOpts: { spell: collidee, collidedWith: collider },
+      funcOpts: { collidedWith: collider },
     });
 
     callSpellTagFunction({
       spell: collider,
       func: 'onCollisionLose',
-      funcOpts: { spell: collider, collidedWith: collidee },
+      funcOpts: { collidedWith: collidee },
     });
     return collidee;
   }
@@ -169,13 +171,13 @@ export function defaultCollisionWinner(opts: {
   callSpellTagFunction({
     spell: collider,
     func: 'onCollisionTie',
-    funcOpts: { spell: collider, collidedWith: collidee },
+    funcOpts: { collidedWith: collidee },
   });
 
   callSpellTagFunction({
     spell: collidee,
     func: 'onCollisionTie',
-    funcOpts: { spell: collidee, collidedWith: collider },
+    funcOpts: { collidedWith: collider },
   });
 
   return undefined;
@@ -206,25 +208,25 @@ export function defaultCollisionDamageReduction(opts: {
       callSpellTagFunction({
         spell: collidee,
         func: 'onSpellCancel',
-        funcOpts: { spell: collidee, canceledSpell: collider },
+        funcOpts: { canceledSpell: collider },
       });
 
       callSpellTagFunction({
         spell: collider,
         func: 'onSpellCanceled',
-        funcOpts: { spell: collider, canceledBySpell: collidee },
+        funcOpts: { canceledBySpell: collidee },
       });
     } else {
       callSpellTagFunction({
         spell: collidee,
         func: 'onSpellDestroy',
-        funcOpts: { spell: collidee, destroyedSpell: collider },
+        funcOpts: { destroyedSpell: collider },
       });
 
       callSpellTagFunction({
         spell: collider,
         func: 'onSpellDestroyed',
-        funcOpts: { spell: collider, destroyedBySpell: collidee },
+        funcOpts: { destroyedBySpell: collidee },
       });
     }
   }
@@ -234,25 +236,25 @@ export function defaultCollisionDamageReduction(opts: {
       callSpellTagFunction({
         spell: collider,
         func: 'onSpellCancel',
-        funcOpts: { spell: collider, canceledSpell: collidee },
+        funcOpts: { canceledSpell: collidee },
       });
 
       callSpellTagFunction({
         spell: collidee,
         func: 'onSpellCanceled',
-        funcOpts: { spell: collidee, canceledBySpell: collider },
+        funcOpts: { canceledBySpell: collider },
       });
     } else {
       callSpellTagFunction({
         spell: collider,
         func: 'onSpellDestroy',
-        funcOpts: { spell: collider, destroyedSpell: collidee },
+        funcOpts: { destroyedSpell: collidee },
       });
 
       callSpellTagFunction({
         spell: collidee,
         func: 'onSpellDestroyed',
-        funcOpts: { spell: collidee, destroyedBySpell: collider },
+        funcOpts: { destroyedBySpell: collider },
       });
     }
   }
