@@ -44,4 +44,10 @@ Thumbs.db
 src/assets/spritesheets
 src/assets/content
 src/assets/mods
+src/assets/version.json
 data/mod
+
+electron/node_modules
+electron/icons
+electron/out
+electron/browser

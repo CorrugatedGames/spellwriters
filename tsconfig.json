@@ -25,7 +25,8 @@
     "moduleDetection": "force",
     "useDefineForClassFields": false,
     "lib": ["ES2022", "dom"],
-    "noErrorTruncation": true
+    "noErrorTruncation": true,
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,0 +1,43 @@
+{
+  "name": "spellwriters",
+  "description": "Spellwriters is a 1v1 roguelite deckbuilder about flinging spells around!",
+  "author": "Spellwriters Team <hi@spellwritersgame.com>",
+  "license": "UNLICENSED",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "npm run start:localref",
+    "start:localbuild": "npm run build:copy && npm run build:replacebasehref && electron-forge start",
+    "start:localref": "cross-env APP_URL=http://localhost:9104 electron-forge start",
+    "start:prodref": "cross-env APP_URL=https://play.spellwritersgame.com electron-forge start",
+    "build": "npm run build:copy && npm run build:replacebasehref && npm run build:createicons",
+    "build:createicons": "cpy ../src/assets/favicon/android-chrome-512x512.png --rename icon.png ./icons --flat && png2icons ./icons/icon.png icon -allp -hm -i && cpy ./icon.icns ./icons && cpy ./icon.ico ./icons && rimraf icon.icns && rimraf icon.ico",
+    "build:copy": "cpy ../dist/browser/ .",
+    "build:replacebasehref": "replace-in-file \"\\\"/\\\"\" \"\\\"./\\\"\" browser/index.html",
+    "prepackage": "npm run build",
+    "package": "electron-forge package",
+    "premake": "npm run build",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
+  },
+  "dependencies": {
+    "discord-rpc": "^4.0.1",
+    "electron-config": "^2.0.0",
+    "electron-debug": "^3.2.0",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-dmg": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
+    "cpy-cli": "^4.2.0",
+    "cross-env": "^7.0.3",
+    "electron": "23.1.1",
+    "png2icons": "^2.0.1",
+    "replace-in-file": "^6.3.5",
+    "rimraf": "^5.0.5"
+  }
+}
