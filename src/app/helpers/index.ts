@@ -1,3 +1,5 @@
+export * from './electron/in-electron';
+
 export * from './gameplay/ai';
 export * from './gameplay/error';
 export * from './gameplay/field';

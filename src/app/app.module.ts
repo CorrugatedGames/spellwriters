@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContentService } from './services/content.service';
 import { GameStateService } from './services/game-state.service';
+import { MetaService } from './services/meta.service';
 import {
   RollbarErrorHandler,
   RollbarService,
@@ -26,14 +27,16 @@ import {
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [RollbarService, ContentService, GameStateService],
+      deps: [MetaService, RollbarService, ContentService, GameStateService],
       useFactory:
         (
+          metaService: MetaService,
           rollbarService: RollbarService,
           contentService: ContentService,
           gameStateService: GameStateService,
         ) =>
         async () => {
+          await metaService.init();
           await rollbarService.init();
           await contentService.init();
           await gameStateService.init();

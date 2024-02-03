@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MetaService } from '../../services/meta.service';
 
 @Component({
   selector: 'sw-home',
@@ -50,4 +51,6 @@ export class HomeComponent {
       icon: 'email',
     },
   ];
+
+  constructor(public metaService: MetaService) {}
 }
