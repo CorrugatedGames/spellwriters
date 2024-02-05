@@ -4,6 +4,7 @@ import {
   getSpellPatternById,
   getSpellTagById,
 } from '../../../helpers';
+import { getRarityKey } from '../../../helpers/lookup/rarities';
 import { Spell, SpellStat } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -25,7 +26,7 @@ export class SpellCardComponent {
   }
 
   public get spellRarity() {
-    return this.isUpsideDown() ? '' : this.spell()?.rarity.toLowerCase();
+    return this.isUpsideDown() ? '' : getRarityKey(this.spell()?.rarity);
   }
 
   public get spellStatsAndValues(): {

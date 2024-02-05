@@ -16,9 +16,6 @@ import { ContentService } from '../../../services/content.service';
 })
 export class DebugComponentsComponent implements OnInit {
   getSpellById = getSpellById;
-  allElements = allElements;
-  allSpells = allSpells;
-  allStats = allStats;
 
   public numSpells = Array(261)
     .fill(0)
@@ -28,6 +25,10 @@ export class DebugComponentsComponent implements OnInit {
     .map((_, i) => i);
 
   public hoverCard = false;
+
+  public spellList = allSpells();
+  public elementList = allElements();
+  public statList = allStats();
 
   public fieldSpells: FieldSpell[] = [
     {

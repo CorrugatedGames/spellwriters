@@ -23,6 +23,11 @@ const iconColors: Record<string, string> = {
   'element-steam': '#fff',
   'element-terraelectricity': '#fff',
   'element-water': '#4bb9b9',
+  'rarity-common': '#0b5394',
+  'rarity-uncommon': '#4f803a',
+  'rarity-rare': '#a1801e',
+  'rarity-epic': '#674ea7',
+  'rarity-legendary': '#a61c00',
 };
 
 const load = async () => {
@@ -32,6 +37,7 @@ const load = async () => {
   const spellPatterns = await fs.readJson(`${contentpath}/spell-patterns.json`);
   const spellTags = await fs.readJson(`${contentpath}/spell-tags.json`);
   const aiPatterns = await fs.readJson(`${contentpath}/ai-patterns.json`);
+  const rarities = await fs.readJson(`${contentpath}/rarities.json`);
 
   const mod: ContentMod = {
     name: 'default',
@@ -45,8 +51,10 @@ const load = async () => {
     spellPatterns,
     spellTags,
     aiPatterns,
+    rarities,
 
     preload: {
+      colors: iconColors,
       images: [],
       svgs: [],
     },
@@ -72,7 +80,7 @@ const load = async () => {
     const iconColor = iconColors[iconName];
     if (!iconColor) throw new Error(`No color found for icon ${iconName}`);
 
-    mod.preload.svgs.push({ name: iconName, color: iconColor });
+    mod.preload.svgs.push({ name: iconName });
   });
 
   fs.writeJson(`${savedir}/content.json`, mod);

@@ -4,7 +4,7 @@
   sprite: 0
 
   element: electric
-  rarity: Common
+  rarity: common
 
   damage: 1
   speed: 0

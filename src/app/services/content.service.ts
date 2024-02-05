@@ -10,6 +10,7 @@ import {
   spellPatternData,
   spellTagData,
 } from '../helpers';
+import { rarityData } from '../helpers/lookup/rarities';
 import { ContentMod } from '../interfaces';
 
 @Injectable({
@@ -108,12 +109,27 @@ export class ContentService {
       };
     });
 
+    rarityData.update((existingHash) => {
+      return {
+        ...existingHash,
+        ...Object.values(mod.rarities ?? {}).reduce(
+          (acc, rarity) => ({ ...acc, [rarity.id]: rarity }),
+          {},
+        ),
+      };
+    });
+
     mod.preload?.svgs?.forEach((svg) => {
       this.iconReg
         .loadSvg(`assets/mods/${mod.name}/${svg.name}.svg`, svg.name)
         ?.subscribe();
+    });
 
-      document.documentElement.style.setProperty(`--${svg.name}`, svg.color);
+    Object.keys(mod.preload?.colors ?? {}).forEach((colorName) => {
+      document.documentElement.style.setProperty(
+        `--${colorName}`,
+        mod.preload?.colors[colorName],
+      );
     });
   }
 }

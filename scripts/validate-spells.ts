@@ -1,19 +1,18 @@
 import fs from 'fs-extra';
 import {
+  Rarity,
   Spell,
   SpellElement,
   SpellPattern,
-  SpellRarity,
   SpellTag,
 } from '../src/app/interfaces';
-
-const validRarities = Object.values(SpellRarity);
 
 const validate = async () => {
   const elements = await fs.readJson('./data/mod/content/elements.json');
   const spells = await fs.readJson('./data/mod/content/spells.json');
   const patterns = await fs.readJson('./data/mod/content/spell-patterns.json');
   const tags = await fs.readJson('./data/mod/content/spell-tags.json');
+  const rarities = await fs.readJson('./data/mod/content/rarities.json');
 
   const validElements = Object.values(elements).map(
     (el: unknown) => (el as SpellElement).id,
@@ -25,6 +24,10 @@ const validate = async () => {
 
   const validTags = Object.values(tags).map(
     (tag: unknown) => (tag as SpellTag).id,
+  );
+
+  const validRarities = Object.values(rarities).map(
+    (rarity: unknown) => (rarity as Rarity).id,
   );
 
   const allIds: Record<string, boolean> = {};

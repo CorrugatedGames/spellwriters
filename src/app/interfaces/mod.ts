@@ -2,12 +2,12 @@ import { AIPattern } from './ai';
 import { Character } from './character';
 import { SpellElement } from './element';
 import { SpellPattern } from './pattern';
+import { Rarity } from './rarity';
 import { Spell } from './spell';
 import { SpellTag } from './tag';
 
 export interface ContentModSvg {
   name: string;
-  color: string;
 }
 
 export interface ContentModImage {
@@ -28,8 +28,10 @@ export interface ContentMod {
   spellPatterns: Record<string, SpellPattern>;
   aiPatterns: Record<string, AIPattern>;
   spellTags: Record<string, SpellTag>;
+  rarities: Record<string, Rarity>;
 
   preload: {
+    colors: Record<string, string>;
     images: ContentModImage[];
     svgs: ContentModSvg[];
   };

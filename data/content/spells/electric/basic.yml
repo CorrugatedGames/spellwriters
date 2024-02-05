@@ -4,7 +4,7 @@
   sprite: 89
 
   element: electric
-  rarity: Common
+  rarity: common
 
   damage: 1
   speed: 3
@@ -20,7 +20,7 @@
   sprite: 88
 
   element: electric
-  rarity: Uncommon
+  rarity: uncommon
 
   damage: 1
   speed: 7
@@ -36,7 +36,7 @@
   sprite: 91
 
   element: electric
-  rarity: Uncommon
+  rarity: uncommon
 
   damage: 2
   speed: 2

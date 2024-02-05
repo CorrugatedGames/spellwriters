@@ -4,7 +4,7 @@
   sprite: 76
 
   element: water
-  rarity: Common
+  rarity: common
 
   damage: 1
   speed: 2
@@ -20,7 +20,7 @@
   sprite: 77
 
   element: water
-  rarity: Uncommon
+  rarity: uncommon
 
   damage: 2
   speed: 0
@@ -36,7 +36,7 @@
   sprite: 179
 
   element: water
-  rarity: Uncommon
+  rarity: uncommon
 
   damage: 3
   speed: 2

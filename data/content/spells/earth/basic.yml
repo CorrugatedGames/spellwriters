@@ -4,7 +4,7 @@
   sprite: 18
 
   element: earth
-  rarity: Common
+  rarity: common
 
   damage: 1
   speed: 1
@@ -20,7 +20,7 @@
   sprite: 16
 
   element: earth
-  rarity: Uncommon
+  rarity: uncommon
 
   damage: 3
   speed: 0
@@ -36,7 +36,7 @@
   sprite: 153
 
   element: earth
-  rarity: Uncommon
+  rarity: uncommon
 
   damage: 2
   speed: 1

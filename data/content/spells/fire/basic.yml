@@ -4,7 +4,7 @@
   sprite: 0
 
   element: fire
-  rarity: Common
+  rarity: common
 
   damage: 2
   speed: 1
@@ -20,7 +20,7 @@
   sprite: 1
 
   element: fire
-  rarity: Uncommon
+  rarity: uncommon
 
   damage: 2
   speed: 1
@@ -39,7 +39,7 @@
   sprite: 2
 
   element: fire
-  rarity: Uncommon
+  rarity: uncommon
 
   damage: 1
   speed: 1

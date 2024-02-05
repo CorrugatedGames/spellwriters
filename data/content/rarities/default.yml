@@ -1,0 +1,19 @@
+- name: Common
+  id: 651d055c-f42e-4a57-bd59-a8b1f5d2b985
+  key: common
+
+- name: Uncommon
+  id: 42c00ce1-baa5-43c8-bb35-05299a0e7a2c
+  key: uncommon
+
+- name: Rare
+  id: 907a1cc1-d3fc-49d5-a3a6-4d40f74ccebe
+  key: rare
+
+- name: Mystical
+  id: 82a223c3-adde-42a8-9813-c468570826f5
+  key: mystical
+
+- name: Legendary
+  id: afb18fb6-eb2a-49d2-a640-7c697af1a364
+  key: legendary

@@ -1,13 +1,5 @@
 import { TurnOrder } from './gamestate';
 
-export enum SpellRarity {
-  Common = 'Common',
-  Uncommon = 'Uncommon',
-  Rare = 'Rare',
-  Mystical = 'Mystical',
-  Legendary = 'Legendary',
-}
-
 export enum SpellStat {
   Damage = 'damage',
   Speed = 'speed',
@@ -37,7 +29,7 @@ export interface Spell {
   sprite: number;
 
   element: string;
-  rarity: SpellRarity;
+  rarity: string;
 
   [SpellStatImpl.Damage]: number;
   [SpellStatImpl.Speed]: number;

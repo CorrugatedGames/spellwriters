@@ -6,5 +6,6 @@ export * from './element';
 export * from './gamestate';
 export * from './mod';
 export * from './pattern';
+export * from './rarity';
 export * from './spell';
 export * from './tag';

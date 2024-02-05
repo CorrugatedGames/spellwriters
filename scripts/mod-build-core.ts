@@ -37,8 +37,10 @@ const load = async () => {
     spellPatterns: {},
     aiPatterns: {},
     spellTags: {},
+    rarities: {},
 
     preload: {
+      colors: iconColors,
       images: [],
       svgs: [],
     },
@@ -53,7 +55,7 @@ const load = async () => {
     const iconColor = iconColors[iconName];
     if (!iconColor) throw new Error(`No color found for icon ${iconName}`);
 
-    mod.preload.svgs.push({ name: iconName, color: iconColor });
+    mod.preload.svgs.push({ name: iconName });
   });
 
   fs.writeJson(`${savedir}/content.json`, mod);

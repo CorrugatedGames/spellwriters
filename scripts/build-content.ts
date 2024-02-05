@@ -4,6 +4,7 @@ import readdir from 'recursive-readdir';
 import {
   AIPattern,
   Character,
+  Rarity,
   Spell,
   SpellElement,
   SpellPattern,
@@ -49,6 +50,15 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
     const allPatterns = await fs.readJson(`${filepath}/spell-patterns.json`);
     const allTags = await fs.readJson(`${filepath}/spell-tags.json`);
     const allElements = await fs.readJson(`${filepath}/elements.json`);
+    const allRarities = await fs.readJson(`${filepath}/rarities.json`);
+
+    const patternsByKey = Object.values(allPatterns).reduce(
+      (acc: Record<string, SpellPattern>, pattern: any) => {
+        acc[pattern.key] = pattern;
+        return acc;
+      },
+      {},
+    );
 
     const elementsByKey = Object.values(allElements).reduce(
       (acc: Record<string, SpellElement>, spell: any) => {
@@ -66,9 +76,9 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
       {},
     );
 
-    const patternsByKey = Object.values(allPatterns).reduce(
-      (acc: Record<string, SpellPattern>, pattern: any) => {
-        acc[pattern.key] = pattern;
+    const raritiesByKey = Object.values(allRarities).reduce(
+      (acc: Record<string, Rarity>, spellRarity: any) => {
+        acc[spellRarity.key] = spellRarity;
         return acc;
       },
       {},
@@ -84,6 +94,8 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
 
       item.pattern =
         patternsByKey[item.pattern]?.id ?? `INVALID: ${item.pattern}`;
+
+      item.rarity = raritiesByKey[item.rarity]?.id ?? `INVALID: ${item.rarity}`;
 
       const oldTags = item.tags;
 
