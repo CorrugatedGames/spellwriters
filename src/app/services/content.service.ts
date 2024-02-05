@@ -5,9 +5,6 @@ import {
   characterData,
   elementData,
   elementKeyIds,
-  getCharacterById,
-  getElementById,
-  getSpellById,
   modData,
   spellData,
   spellPatternData,
@@ -137,18 +134,6 @@ export class ContentService {
 
   public allSpells(): Spell[] {
     return Object.values(spellData());
-  }
-
-  public getCharacter(id: string): Character | undefined {
-    return getCharacterById(id);
-  }
-
-  public getElement(id: string): SpellElement | undefined {
-    return getElementById(id);
-  }
-
-  public getSpell(id: string): Spell | undefined {
-    return getSpellById(id);
   }
   // #endregion
 

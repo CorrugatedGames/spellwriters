@@ -8,6 +8,7 @@ import {
   gamestate,
   gamestateInitOptions,
   getSpaceFromField,
+  getSpellById,
   getTargetableTilesForCard,
   getTargettableSpacesForSpellAroundPosition,
   handleEntireSpellcastSequence,
@@ -82,7 +83,7 @@ export class PlayComponent {
   public get activeSpell(): Spell | undefined {
     if (!this.activeCardData) return undefined;
 
-    return this.contentService.getSpell(this.activeCardData.card.id);
+    return getSpellById(this.activeCardData.card.id);
   }
 
   constructor(private router: Router, public contentService: ContentService) {}
@@ -99,7 +100,7 @@ export class PlayComponent {
       return;
     }
 
-    const spell = this.contentService.getSpell($event.card.id);
+    const spell = getSpellById($event.card.id);
     if (!spell) return;
 
     if (
@@ -134,7 +135,7 @@ export class PlayComponent {
   public showTargettableSpacesForTile(y: number, x: number): void {
     if (!this.activeCardData) return;
 
-    const spell = this.contentService.getSpell(this.activeCardData.card.id);
+    const spell = getSpellById(this.activeCardData.card.id);
     if (!spell) return;
 
     this.targetTiles = getTargettableSpacesForSpellAroundPosition({
@@ -155,7 +156,7 @@ export class PlayComponent {
     if (!this.activeCardData) return;
     if (!this.canSelectTile(y, x)) return;
 
-    const spell = this.contentService.getSpell(this.activeCardData.card.id);
+    const spell = getSpellById(this.activeCardData.card.id);
     if (!spell) return;
 
     if (spell.cost > this.player.mana) {

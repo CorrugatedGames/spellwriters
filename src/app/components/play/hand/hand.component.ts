@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, input } from '@angular/core';
+import { getSpellById } from '../../../helpers';
 import { PlayableCard, SelectedCard } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -17,7 +18,7 @@ import { ContentService } from '../../../services/content.service';
         (keyup.enter)="selectCard.emit({ card, index })"
         [tabindex]="index"
       >
-        <ng-container *ngIf="contentService.getSpell(card.id) as spell">
+        <ng-container *ngIf="getSpellById(card.id) as spell">
           <sw-spell-card
             class="hand-card"
             [class.selected]="selectedCard()?.index === index"
@@ -77,6 +78,8 @@ import { ContentService } from '../../../services/content.service';
   `,
 })
 export class HandComponent {
+  getSpellById = getSpellById;
+
   public hand = input.required<PlayableCard[]>();
   public selectedCard = input<SelectedCard>();
   public extraCost = input<number>(0);

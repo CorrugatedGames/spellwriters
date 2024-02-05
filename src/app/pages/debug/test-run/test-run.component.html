@@ -23,7 +23,7 @@
         </div>
 
         <div class="col-6">
-          <div *ngIf="contentService.getCharacter(playerTestCharacterId) as character">
+          <div *ngIf="getCharacterById(playerTestCharacterId) as character">
             <ng-container [ngTemplateOutlet]="characterDebugInfo" [ngTemplateOutletContext]="{ character: character }">
             </ng-container>
           </div>
@@ -48,7 +48,7 @@
         </div>
 
         <div class="col-6">
-          <div *ngIf="contentService.getCharacter(enemyTestCharacterId) as character">
+          <div *ngIf="getCharacterById(enemyTestCharacterId) as character">
             <ng-container [ngTemplateOutlet]="characterDebugInfo" [ngTemplateOutletContext]="{ character: character }">
             </ng-container>
           </div>
@@ -155,7 +155,7 @@
       <div class="col-12 cards">
         <div class="spell-row">
           <div class="spell-container" *ngFor="let spellId of character.deck.spells">
-            <div class="spell" *ngIf="contentService.getSpell(spellId) as spell" [ngbTooltip]="spellInfo"
+            <div class="spell" *ngIf="getSpellById(spellId) as spell" [ngbTooltip]="spellInfo"
               [tooltipContext]="{ spell: spell }">
               <sw-spell-sprite [sprite]="spell.sprite"></sw-spell-sprite>
             </div>

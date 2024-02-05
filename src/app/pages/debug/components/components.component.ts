@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { getSpellById } from '../../../helpers';
 import { FieldSpell } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -9,6 +10,8 @@ import { ContentService } from '../../../services/content.service';
   styleUrl: './components.component.scss',
 })
 export class DebugComponentsComponent implements OnInit {
+  getSpellById = getSpellById;
+
   public numSpells = Array(261)
     .fill(0)
     .map((_, i) => i);
@@ -20,24 +23,24 @@ export class DebugComponentsComponent implements OnInit {
 
   public fieldSpells: FieldSpell[] = [
     {
-      ...this.contentService.getSpell('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
+      ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       caster: 0,
       castId: '',
     },
     {
-      ...this.contentService.getSpell('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
+      ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       castTime: 2,
       caster: 0,
       castId: '',
     },
     {
-      ...this.contentService.getSpell('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
+      ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       damage: 3,
       caster: 1,
       castId: '',
     },
     {
-      ...this.contentService.getSpell('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
+      ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       castTime: 7,
       caster: 1,
       castId: '',

@@ -137,22 +137,21 @@
 
   <div class="sprite-container">
     <div class="sprite" [ngbTooltip]="'isUpsideDown = true; isGlowing = true'">
-      <sw-spell-card [spell]="contentService.getSpell('')!" [isUpsideDown]="true" [isGlowing]="true"></sw-spell-card>
+      <sw-spell-card [spell]="getSpellById('')!" [isUpsideDown]="true" [isGlowing]="true"></sw-spell-card>
     </div>
 
     <div class="sprite" [ngbTooltip]="'isUpsideDown = true; isSmall = true'">
-      <sw-spell-card [spell]="contentService.getSpell('')!" [isUpsideDown]="true" [isSmall]="true"></sw-spell-card>
+      <sw-spell-card [spell]="getSpellById('')!" [isUpsideDown]="true" [isSmall]="true"></sw-spell-card>
     </div>
 
     <div class="sprite" [ngbTooltip]="'isSmall = true; isGlowing = true; extraCost = 1'">
-      <sw-spell-card [spell]="contentService.getSpell('5346e122-4f6f-409d-9366-758b066869aa')!" [isSmall]="true"
-        [isGlowing]="true" [extraCost]="1"></sw-spell-card>
+      <sw-spell-card [spell]="getSpellById('5346e122-4f6f-409d-9366-758b066869aa')!" [isSmall]="true" [isGlowing]="true"
+        [extraCost]="1"></sw-spell-card>
     </div>
 
     <div class="sprite" [ngbTooltip]="'hover state swap'">
-      <sw-spell-card [spell]="contentService.getSpell('5346e122-4f6f-409d-9366-758b066869aa')!"
-        (mouseenter)="hoverCard = true" (mouseleave)="hoverCard = false" [isSmall]="!hoverCard"
-        [isUpsideDown]="!hoverCard"></sw-spell-card>
+      <sw-spell-card [spell]="getSpellById('5346e122-4f6f-409d-9366-758b066869aa')!" (mouseenter)="hoverCard = true"
+        (mouseleave)="hoverCard = false" [isSmall]="!hoverCard" [isUpsideDown]="!hoverCard"></sw-spell-card>
     </div>
   </div>
 

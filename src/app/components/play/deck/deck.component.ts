@@ -5,6 +5,7 @@ import {
   Output,
   input,
 } from '@angular/core';
+import { getSpellById } from '../../../helpers';
 import { PlayableCard } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -24,7 +25,7 @@ import { ContentService } from '../../../services/content.service';
       >
         <sw-spell-card
           *ngIf="deck().length > deckSize"
-          [spell]="contentService.getSpell('')!"
+          [spell]="getSpellById('')!"
           [isUpsideDown]="true"
           [isSmall]="true"
         ></sw-spell-card>
@@ -67,6 +68,8 @@ import { ContentService } from '../../../services/content.service';
   `,
 })
 export class DeckComponent {
+  getSpellById = getSpellById;
+
   public deck = input.required<PlayableCard[]>();
   public isGlowing = input<boolean>(false);
 

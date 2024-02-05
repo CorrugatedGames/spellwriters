@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { LocalStorage } from 'ngx-webstorage';
 import {
   gamestateInitOptions,
+  getCharacterById,
   getElementById,
+  getSpellById,
   startCombat,
 } from '../../../helpers';
 import { GameStateInitOpts } from '../../../interfaces';
@@ -16,6 +18,9 @@ import { GameStateService } from '../../../services/game-state.service';
   styleUrl: './test-run.component.scss',
 })
 export class DebugTestRunComponent {
+  getCharacterById = getCharacterById;
+  getSpellById = getSpellById;
+
   @LocalStorage()
   public playerTestCharacterId!: string;
 
@@ -29,8 +34,8 @@ export class DebugTestRunComponent {
   ) {}
 
   startTestRun() {
-    const player = this.contentService.getCharacter(this.playerTestCharacterId);
-    const enemy = this.contentService.getCharacter(this.enemyTestCharacterId);
+    const player = this.getCharacterById(this.playerTestCharacterId);
+    const enemy = this.getCharacterById(this.enemyTestCharacterId);
 
     if (!player) {
       alert('Please select a player character');
