@@ -26,8 +26,14 @@ A roguelite deckbuilder.
 
 ### Creating Content
 
+#### Raw Data
+
 1. Go to `http://localhost:9104/debug/components` to view all possible components in the game based on the current set of content
 2. Add relevant content in the `data/` folder
+
+#### Art
+
+Art is currently based on 7souls RPG assets. Eventually these will be replaced.
 
 ### Creating a New Page
 
