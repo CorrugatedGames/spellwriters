@@ -5,7 +5,7 @@ import { clone } from '../static/object';
 export const modData: WritableSignal<Record<string, ContentMod>> = signal({});
 
 export function allMods() {
-  return Object.values(modData());
+  return clone(Object.values(modData()));
 }
 
 export function getModById(id: string): ContentMod | undefined {

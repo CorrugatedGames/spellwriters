@@ -5,7 +5,7 @@ import { Spell } from '../../interfaces';
 export const spellData: WritableSignal<Record<string, Spell>> = signal({});
 
 export function allSpells() {
-  return Object.values(spellData());
+  return clone(Object.values(spellData()));
 }
 
 export function getSpellById(id: string): Spell | undefined {

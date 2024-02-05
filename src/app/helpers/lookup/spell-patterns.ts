@@ -10,7 +10,7 @@ export const spellPatternData: WritableSignal<Record<string, SpellPattern>> =
   signal({});
 
 export function allSpellPatterns() {
-  return Object.values(spellPatternData());
+  return clone(Object.values(spellPatternData()));
 }
 
 export function getSpellPatternById(id: string): SpellPattern | undefined {

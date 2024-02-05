@@ -11,7 +11,7 @@ export const aiPatternData: WritableSignal<Record<string, AIPattern>> = signal(
 );
 
 export function allAIPatterns() {
-  return Object.values(aiPatternData());
+  return clone(Object.values(aiPatternData()));
 }
 
 export function getAIPatternById(id: string): AIPattern | undefined {

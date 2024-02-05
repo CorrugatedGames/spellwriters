@@ -1,5 +1,6 @@
 import { SpellStat } from '../../interfaces';
+import { clone } from '../static/object';
 
 export function allStats() {
-  return Object.values(SpellStat);
+  return clone(Object.values(SpellStat));
 }
