@@ -10,6 +10,21 @@ const allSpritesheets = ['characters', 'spells'];
 
 const savedir = './src/assets/mods/default';
 
+const iconColors: Record<string, string> = {
+  'element-burningoil': '#a54040',
+  'element-chargedsteam': '#eafc49',
+  'element-earth': '#47b447',
+  'element-electric': '#bbbb21',
+  'element-fire': '#b33232',
+  'element-hydroelectricity': '#fff',
+  'element-mud': '#fff',
+  'element-oil': '#fff',
+  'element-pyroelectricity': '#fff',
+  'element-steam': '#fff',
+  'element-terraelectricity': '#fff',
+  'element-water': '#4bb9b9',
+};
+
 const load = async () => {
   const characters = await fs.readJson(`${contentpath}/characters.json`);
   const elements = await fs.readJson(`${contentpath}/elements.json`);
@@ -32,6 +47,7 @@ const load = async () => {
     aiPatterns,
 
     preload: {
+      images: [],
       svgs: [],
     },
   };
@@ -52,7 +68,11 @@ const load = async () => {
   const icons = await fs.readdir(iconpath);
   icons.forEach((icon) => {
     fs.copyFile(`${iconpath}/${icon}`, `${savedir}/${icon}`);
-    mod.preload.svgs.push(path.basename(icon, '.svg'));
+    const iconName = path.basename(icon, '.svg');
+    const iconColor = iconColors[iconName];
+    if (!iconColor) throw new Error(`No color found for icon ${iconName}`);
+
+    mod.preload.svgs.push({ name: iconName, color: iconColor });
   });
 
   fs.writeJson(`${savedir}/content.json`, mod);

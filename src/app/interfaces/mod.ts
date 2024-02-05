@@ -5,6 +5,17 @@ import { SpellPattern } from './pattern';
 import { Spell } from './spell';
 import { SpellTag } from './tag';
 
+export interface ContentModSvg {
+  name: string;
+  color: string;
+}
+
+export interface ContentModImage {
+  name: string;
+  spritesPerRow: number;
+  spriteSize: number;
+}
+
 export interface ContentMod {
   name: string;
   description: string;
@@ -19,6 +30,7 @@ export interface ContentMod {
   spellTags: Record<string, SpellTag>;
 
   preload: {
-    svgs: string[];
+    images: ContentModImage[];
+    svgs: ContentModSvg[];
   };
 }

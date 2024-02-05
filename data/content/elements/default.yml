@@ -17,7 +17,6 @@
 - name: Water
   key: water
   id: 5b7a3c88-2486-4cdf-8fde-93d84c9411b1
-  color: '#4bb9b9'
   createdBy: []
   description: >
     Base element.
@@ -33,7 +32,6 @@
 - name: Earth
   key: earth
   id: 81e29986-5c0f-4337-b339-562a546b375c
-  color: '#47b447'
   createdBy: []
   description: >
     Base element.
@@ -49,7 +47,6 @@
 - name: Electric
   key: electric
   id: de47d597-8eff-4e0b-9cf8-be35cd9164d8
-  color: '#bbbb21'
   createdBy: []
   description: >
     Base element.

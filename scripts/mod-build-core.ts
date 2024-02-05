@@ -6,6 +6,24 @@ const iconpath = './data/sprites/icons/core';
 
 const savedir = './src/assets/mods/core';
 
+const iconColors: Record<string, string> = {
+  'core-spellwriters': '#fff',
+  'external-blog': '#ccc',
+  'external-discord': '#ccc',
+  'external-email': '#ccc',
+  'external-facebook': '#ccc',
+  'external-reddit': '#ccc',
+  'external-twitter': '#ccc',
+  'external-youtube': '#ccc',
+  'play-nextturn': '#fff',
+  'stat-casttime': '#717fcc',
+  'stat-cost': '#d46cc7',
+  'stat-damage': '#e07d7d',
+  'stat-depth': '#4adde7',
+  'stat-pattern': '#d3e68e',
+  'stat-speed': '#68d468',
+};
+
 const load = async () => {
   const mod: ContentMod = {
     name: 'core',
@@ -21,6 +39,7 @@ const load = async () => {
     spellTags: {},
 
     preload: {
+      images: [],
       svgs: [],
     },
   };
@@ -30,7 +49,11 @@ const load = async () => {
   const icons = await fs.readdir(iconpath);
   icons.forEach((icon) => {
     fs.copyFile(`${iconpath}/${icon}`, `${savedir}/${icon}`);
-    mod.preload.svgs.push(path.basename(icon, '.svg'));
+    const iconName = path.basename(icon, '.svg');
+    const iconColor = iconColors[iconName];
+    if (!iconColor) throw new Error(`No color found for icon ${iconName}`);
+
+    mod.preload.svgs.push({ name: iconName, color: iconColor });
   });
 
   fs.writeJson(`${savedir}/content.json`, mod);

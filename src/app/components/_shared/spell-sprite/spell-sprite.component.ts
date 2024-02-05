@@ -2,8 +2,34 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'sw-spell-sprite',
-  templateUrl: './spell-sprite.component.html',
-  styleUrl: './spell-sprite.component.scss',
+  template: `
+    <div class="image-container">
+      <img
+        [src]="imgUrl"
+        [style.object-position]="spriteLocation"
+        alt="spell sprite"
+      />
+    </div>
+  `,
+  styles: `
+  :host {
+  width: var(--sprite-size);
+  height: var(--sprite-size);
+  display: inline-block;
+
+  .image-container {
+    width: var(--sprite-size);
+    height: var(--sprite-size);
+
+    img {
+      width: var(--sprite-size);
+      height: var(--sprite-size);
+
+      object-fit: none;
+    }
+  }
+}
+`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpellSpriteComponent {

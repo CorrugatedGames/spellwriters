@@ -117,17 +117,12 @@ export class ContentService {
       };
     });
 
-    Object.values(mod.elements ?? {}).forEach((element) => {
-      document.documentElement.style.setProperty(
-        `--element-${element.key}`,
-        element.color,
-      );
-    });
-
     mod.preload?.svgs?.forEach((svg) => {
       this.iconReg
-        .loadSvg(`assets/mods/${mod.name}/${svg}.svg`, svg)
+        .loadSvg(`assets/mods/${mod.name}/${svg.name}.svg`, svg.name)
         ?.subscribe();
+
+      document.documentElement.style.setProperty(`--${svg.name}`, svg.color);
     });
   }
 

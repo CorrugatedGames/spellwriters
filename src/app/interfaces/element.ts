@@ -11,7 +11,6 @@ export interface SpellElement {
   id: string;
   mod: string;
   asset: string;
-  color: string;
   createdBy: string[];
   description: string;
   interactions: SpellElementInteraction[];

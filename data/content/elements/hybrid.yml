@@ -1,7 +1,6 @@
 - name: Steam
   key: steam
   id: c89244df-67c1-459c-81d3-0ecb363a94a6
-  color: '#fff'
   createdBy:
     - fire
     - water
@@ -21,7 +20,6 @@
 - name: Charged Steam
   key: chargedsteam
   id: 7181650a-9dcf-4eb0-97a8-a247dc253536
-  color: '#eafc49'
   createdBy:
     - electric
     - steam
@@ -41,7 +39,6 @@
 - name: Oil
   key: oil
   id: 4a4d8c7b-2cab-4407-9e9c-3101d713a967
-  color: '#fff'
   createdBy:
     - earth
     - fire
@@ -62,7 +59,6 @@
 - name: Burning Oil
   key: burningoil
   id: bd276b33-968a-4e2e-9d9a-350ca03bd3a9
-  color: '#a54040'
   createdBy:
     - fire
     - oil
@@ -79,7 +75,6 @@
 - name: Mud
   key: mud
   id: b9fd6142-1e3f-4513-b2cf-0f443cb144a9
-  color: '#fff'
   createdBy:
     - earth
     - water
