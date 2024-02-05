@@ -4,6 +4,10 @@ import { Spell } from '../../interfaces';
 
 export const spellData: WritableSignal<Record<string, Spell>> = signal({});
 
+export function allSpells() {
+  return Object.values(spellData());
+}
+
 export function getSpellById(id: string): Spell | undefined {
   const data = spellData();
   const ref = data[id];

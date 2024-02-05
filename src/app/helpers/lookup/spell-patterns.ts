@@ -9,6 +9,10 @@ const AllSpellPatterns: Record<string, SpellPatternImpl> = SpellPatterns;
 export const spellPatternData: WritableSignal<Record<string, SpellPattern>> =
   signal({});
 
+export function allSpellPatterns() {
+  return Object.values(spellPatternData());
+}
+
 export function getSpellPatternById(id: string): SpellPattern | undefined {
   const data = spellPatternData();
   const ref = data[id];

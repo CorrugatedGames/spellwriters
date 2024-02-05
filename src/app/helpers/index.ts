@@ -26,6 +26,7 @@ export * from './lookup/mods';
 export * from './lookup/spell-patterns';
 export * from './lookup/spell-tags';
 export * from './lookup/spells';
+export * from './lookup/stats';
 
 export * from './static/array';
 export * from './static/object';

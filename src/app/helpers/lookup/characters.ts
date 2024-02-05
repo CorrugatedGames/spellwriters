@@ -6,6 +6,10 @@ export const characterData: WritableSignal<Record<string, Character>> = signal(
   {},
 );
 
+export function allCharacters() {
+  return Object.values(characterData());
+}
+
 export function getCharacterById(id: string): Character | undefined {
   const data = characterData();
   const ref = data[id];

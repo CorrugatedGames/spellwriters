@@ -10,13 +10,7 @@ import {
   spellPatternData,
   spellTagData,
 } from '../helpers';
-import {
-  Character,
-  ContentMod,
-  Spell,
-  SpellElement,
-  SpellStat,
-} from '../interfaces';
+import { ContentMod } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -122,24 +116,4 @@ export class ContentService {
       document.documentElement.style.setProperty(`--${svg.name}`, svg.color);
     });
   }
-
-  // #region Content Getters
-  public allCharacters(): Character[] {
-    return Object.values(characterData());
-  }
-
-  public allElements(): SpellElement[] {
-    return Object.values(elementData());
-  }
-
-  public allSpells(): Spell[] {
-    return Object.values(spellData());
-  }
-  // #endregion
-
-  // #region Basic Content Iterators
-  public allStats(): SpellStat[] {
-    return Object.values(SpellStat);
-  }
-  // #endregion
 }

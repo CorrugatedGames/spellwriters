@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorage } from 'ngx-webstorage';
 import {
+  allCharacters,
   gamestateInitOptions,
   getCharacterById,
   getElementById,
@@ -20,6 +21,7 @@ import { GameStateService } from '../../../services/game-state.service';
 export class DebugTestRunComponent {
   getCharacterById = getCharacterById;
   getSpellById = getSpellById;
+  allCharacters = allCharacters;
 
   @LocalStorage()
   public playerTestCharacterId!: string;
@@ -34,8 +36,8 @@ export class DebugTestRunComponent {
   ) {}
 
   startTestRun() {
-    const player = this.getCharacterById(this.playerTestCharacterId);
-    const enemy = this.getCharacterById(this.enemyTestCharacterId);
+    const player = getCharacterById(this.playerTestCharacterId);
+    const enemy = getCharacterById(this.enemyTestCharacterId);
 
     if (!player) {
       alert('Please select a player character');

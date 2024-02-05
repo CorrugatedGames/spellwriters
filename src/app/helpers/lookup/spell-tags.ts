@@ -10,6 +10,10 @@ export const spellTagData: WritableSignal<Record<string, SpellTag>> = signal(
   {},
 );
 
+export function allSpellTags() {
+  return Object.values(spellTagData());
+}
+
 export function getSpellTagById(id: string): SpellTag | undefined {
   const data = spellTagData();
   const ref = data[id];

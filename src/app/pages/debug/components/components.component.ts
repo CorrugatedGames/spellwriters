@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { getSpellById } from '../../../helpers';
+import {
+  allElements,
+  allSpells,
+  allStats,
+  getSpellById,
+} from '../../../helpers';
 import { FieldSpell } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 
@@ -11,6 +16,9 @@ import { ContentService } from '../../../services/content.service';
 })
 export class DebugComponentsComponent implements OnInit {
   getSpellById = getSpellById;
+  allElements = allElements;
+  allSpells = allSpells;
+  allStats = allStats;
 
   public numSpells = Array(261)
     .fill(0)

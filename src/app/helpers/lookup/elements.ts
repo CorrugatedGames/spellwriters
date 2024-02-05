@@ -13,6 +13,10 @@ export const elementData: WritableSignal<Record<string, SpellElement>> = signal(
 
 export const elementKeyIds: WritableSignal<Record<string, string>> = signal({});
 
+export function allElements() {
+  return Object.values(elementData());
+}
+
 export function getElementById(id: string): SpellElement | undefined {
   const data = elementData();
   const ref = data[id];
