@@ -9,6 +9,7 @@ import {
   getSpellById,
   startCombat,
 } from '../../../helpers';
+import { getRarityById } from '../../../helpers/lookup/rarities';
 import { GameStateInitOpts } from '../../../interfaces';
 import { ContentService } from '../../../services/content.service';
 import { GameStateService } from '../../../services/game-state.service';
@@ -66,5 +67,9 @@ export class DebugTestRunComponent {
 
   elementName(elementId: string): string {
     return getElementById(elementId)?.name ?? 'unknown';
+  }
+
+  rarityName(rarityId: string): string {
+    return getRarityById(rarityId)?.name ?? 'unknown';
   }
 }
