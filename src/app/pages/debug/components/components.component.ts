@@ -20,7 +20,7 @@ export class DebugComponentsComponent implements OnInit {
   public numCharacters = Array(130)
     .fill(0)
     .map((_, i) => i);
-  public numSpells = Array(261)
+  public numSpells = Array(140)
     .fill(0)
     .map((_, i) => i);
 

@@ -1,7 +1,7 @@
 - name: Aquarell
   id: a9594eb2-9bef-4497-be88-07d04b41d070
   description: A basic water attack.
-  sprite: 76
+  sprite: 58
 
   element: water
   rarity: common
@@ -17,7 +17,7 @@
 - name: Water's Edge
   id: a4334820-3a54-4855-9068-520546e943ed
   description: A powerful stream of water that defends against incoming spells.
-  sprite: 77
+  sprite: 59
 
   element: water
   rarity: uncommon
@@ -33,7 +33,7 @@
 - name: Rain
   id: dc05162f-a29f-489f-8d97-f96f431f5d50
   description: A storm that moves towards your opponent, creating mud along the way.
-  sprite: 179
+  sprite: 61
 
   element: water
   rarity: uncommon

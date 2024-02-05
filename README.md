@@ -33,7 +33,7 @@ A roguelite deckbuilder.
 
 #### Art
 
-Art is currently based on 7souls RPG assets. Eventually these will be replaced.
+Art is currently based on 7souls RPG assets. Eventually these will be replaced. For now, the raw assets can be found [here](https://github.com/CorrugatedGames/spellwriters-art). Filtered out versions will be in this repo.
 
 ### Creating a New Page
 
