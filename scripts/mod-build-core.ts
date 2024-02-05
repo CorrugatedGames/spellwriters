@@ -41,7 +41,7 @@ const load = async () => {
 
     preload: {
       colors: iconColors,
-      images: [],
+      images: {},
       svgs: [],
     },
   };

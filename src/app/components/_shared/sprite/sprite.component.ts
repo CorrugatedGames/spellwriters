@@ -4,18 +4,17 @@ import {
   computed,
   input,
 } from '@angular/core';
+import { getModAssetInformationByName } from '../../../helpers';
 import { spriteIterationCount } from '../../../helpers/static/sprite';
 
-const numFrames = 4;
-
 @Component({
-  selector: 'sw-character-sprite',
+  selector: 'sw-sprite',
   template: `
     <div
       class="image-container"
       [style.--animation-position]="currentAnimationPosition()"
     >
-      <img [src]="imgUrl" alt="character sprite" />
+      <img [src]="imgUrl" alt="sprite" />
     </div>
   `,
   styles: `
@@ -41,26 +40,34 @@ const numFrames = 4;
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CharacterSpriteComponent {
-  public mod = input<string>('default');
-  public asset = input<string>('characters.webp');
-  public sprite = input<number, number>(0, {
-    transform: (v) => v * numFrames,
-  });
+export class SpriteComponent {
+  public mod = input.required<string>();
+  public asset = input.required<string>();
+  public sprite = input<number>(0);
 
-  public currentSprite = computed(() => this.sprite() + this.currentFrame());
+  public assetInformation = computed(() =>
+    getModAssetInformationByName(this.mod(), this.asset()),
+  );
+  private numFrames = computed(
+    () => this.assetInformation()?.framesPerAnimation ?? 1,
+  );
+  private currentSprite = computed(
+    () => this.sprite() * this.numFrames() + this.currentFrame(),
+  );
+  private currentFrame = computed(
+    () => spriteIterationCount() % this.numFrames(),
+  );
 
   public currentAnimationPosition = computed(() => {
-    const spritesPerRow = 20;
-    const spriteSize = 64;
+    const assetInformation = this.assetInformation();
+    const spritesPerRow = assetInformation?.spritesPerRow ?? 10;
+    const spriteSize = assetInformation?.spriteSize ?? 64;
 
     const sprite = this.currentSprite();
     const y = Math.floor(sprite / spritesPerRow);
     const x = sprite % spritesPerRow;
     return `-${x * spriteSize}px -${y * spriteSize}px`;
   });
-
-  public currentFrame = computed(() => spriteIterationCount() % numFrames);
 
   public get imgUrl(): string {
     return `assets/mods/${this.mod()}/${this.asset()}`;

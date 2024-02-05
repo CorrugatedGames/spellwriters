@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { ContentMod } from '../src/app/interfaces';
+import { ContentMod, ContentModImage } from '../src/app/interfaces';
 
 const contentpath = './data/mod/content';
 const spritesheetpath = './data/mod/spritesheets';
@@ -30,6 +30,21 @@ const iconColors: Record<string, string> = {
   'rarity-legendary': '#a61c00',
 };
 
+const imageData: Record<string, ContentModImage> = {
+  'characters.webp': {
+    name: 'characters.webp',
+    spritesPerRow: 20,
+    spriteSize: 64,
+    framesPerAnimation: 4,
+  },
+  'spells.webp': {
+    name: 'spells.webp',
+    spritesPerRow: 20,
+    spriteSize: 64,
+    framesPerAnimation: 1,
+  },
+};
+
 const load = async () => {
   const characters = await fs.readJson(`${contentpath}/characters.json`);
   const elements = await fs.readJson(`${contentpath}/elements.json`);
@@ -55,7 +70,7 @@ const load = async () => {
 
     preload: {
       colors: iconColors,
-      images: [],
+      images: {},
       svgs: [],
     },
   };
@@ -71,6 +86,12 @@ const load = async () => {
       `${spritesheetpath}/${spritesheet}.webp`,
       `${savedir}/${spritesheet}.webp`,
     );
+
+    const spritesheetFile = `${spritesheet}.webp`;
+    const imageRef = imageData[spritesheetFile];
+    if (!imageRef) throw new Error(`No image data found for ${spritesheet}`);
+
+    mod.preload.images[spritesheetFile] = imageRef;
   });
 
   const icons = await fs.readdir(iconpath);

@@ -14,7 +14,8 @@
 
     <div class="visuals">
       <div class="opponent">
-        <sw-character-sprite [sprite]="opponent.sprite"></sw-character-sprite>
+        <sw-sprite class="opponent-sprite" [sprite]="opponent.sprite" [asset]="'characters.webp'"
+          [mod]="'default'"></sw-sprite>
       </div>
     </div>
   </div>
@@ -32,9 +33,10 @@
           (mouseleave)="resetHoverInfoForTile(); resetTargettableSpaces()" tabindex="0"
           *ngFor="let col of row; let gridCol = index">
 
-          <sw-spell-sprite class="grid-item cast-sprite"
+          <sw-sprite class="grid-item cast-sprite"
             *ngIf="activeCardData && canSelectTile(gridRow, gridCol) && targetTiles[gridRow]?.[gridCol]"
-            [sprite]="targetTiles[gridRow][gridCol].sprite"></sw-spell-sprite>
+            [sprite]="targetTiles[gridRow][gridCol].sprite" [asset]="targetTiles[gridRow][gridCol].asset"
+            [mod]="targetTiles[gridRow][gridCol].mod"></sw-sprite>
 
           <sw-field-spell class="grid-item spell" *ngIf="col.containedSpell" [spell]="col.containedSpell"
             [element]="col.containedElement"></sw-field-spell>

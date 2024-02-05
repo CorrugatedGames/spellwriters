@@ -1,7 +1,7 @@
 - name: Electricity
   id: 890b0e15-ad9b-4246-a1f6-7a28b7ba71cf
   description: A basic electric attack.
-  sprite: 70
+  sprite: 67
 
   element: electric
   rarity: common
@@ -17,7 +17,7 @@
 - name: Tin Star
   id: f2d8af51-90aa-4fe1-a348-dfc54352c70d
   description: A quick electric attack that's sure to pierce your opponents defenses.
-  sprite: 71
+  sprite: 68
 
   element: electric
   rarity: uncommon
@@ -33,7 +33,7 @@
 - name: Steampowered Surge
   id: 2bf909e3-1806-4011-ae32-2c43e097362b
   description: A powerful electric attack that improves your next electric attack.
-  sprite: 73
+  sprite: 70
 
   element: electric
   rarity: uncommon

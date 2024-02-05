@@ -200,7 +200,7 @@
 
   <div class="sprite-container">
     <div class="sprite" *ngFor="let charId of numCharacters" [ngbTooltip]="'Id: ' + charId">
-      <sw-character-sprite [sprite]="charId"></sw-character-sprite>
+      <sw-sprite [sprite]="charId" mod="default" asset="characters.webp"></sw-sprite>
     </div>
   </div>
 
@@ -208,7 +208,7 @@
 
   <div class="sprite-container">
     <div class="sprite" *ngFor="let spellId of numSpells" [ngbTooltip]="'Id: ' + spellId">
-      <sw-spell-sprite [sprite]="spellId"></sw-spell-sprite>
+      <sw-sprite [sprite]="spellId" mod="default" asset="spells.webp"></sw-sprite>
     </div>
   </div>
 </div>

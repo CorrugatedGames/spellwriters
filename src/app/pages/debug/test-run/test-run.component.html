@@ -16,7 +16,7 @@
           <div class="sprite-container">
             <div class="sprite" *ngFor="let character of characterList" (click)="playerTestCharacterId = character.id"
               [class.selected]="playerTestCharacterId === character.id" aria-hidden="true">
-              <sw-character-sprite [sprite]="character.sprite"></sw-character-sprite>
+              <sw-sprite [sprite]="character.sprite" [asset]="character.asset" [mod]="character.mod"></sw-sprite>
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
           <div class="sprite-container">
             <div class="sprite" *ngFor="let character of characterList" (click)="enemyTestCharacterId = character.id"
               [class.selected]="enemyTestCharacterId === character.id" aria-hidden="true">
-              <sw-character-sprite [sprite]="character.sprite"></sw-character-sprite>
+              <sw-sprite [sprite]="character.sprite" [asset]="character.asset" [mod]="character.mod"></sw-sprite>
             </div>
           </div>
         </div>
@@ -155,7 +155,7 @@
           <div class="spell-container" *ngFor="let spellId of character.deck.spells">
             <div class="spell" *ngIf="getSpellById(spellId) as spell" [ngbTooltip]="spellInfo"
               [tooltipContext]="{ spell: spell }">
-              <sw-spell-sprite [sprite]="spell.sprite"></sw-spell-sprite>
+              <sw-sprite [sprite]="spell.sprite" [asset]="spell.asset" [mod]="spell.mod"></sw-sprite>
             </div>
           </div>
         </div>

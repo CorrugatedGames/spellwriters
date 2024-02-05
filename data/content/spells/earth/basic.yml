@@ -1,7 +1,7 @@
 - name: Terra
   id: 235853b4-dd3d-40e6-a0e4-2f3048fbc8e1
   description: A basic earth attack.
-  sprite: 18
+  sprite: 19
 
   element: earth
   rarity: common
@@ -17,7 +17,7 @@
 - name: Mushroom Wall
   id: 5346e122-4f6f-409d-9366-758b066869aa
   description: Put up a wide defensive earth shield to slow down your opponents attacks.
-  sprite: 88
+  sprite: 30
 
   element: earth
   rarity: uncommon
@@ -33,7 +33,7 @@
 - name: Glycerine
   id: 579c177e-93ed-413f-85d0-773fa31afd5e
   description: Cast explosive material towards your opponent to enhance your next fire attack.
-  sprite: 85
+  sprite: 81
 
   element: earth
   rarity: uncommon

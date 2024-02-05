@@ -14,6 +14,7 @@ export interface ContentModImage {
   name: string;
   spritesPerRow: number;
   spriteSize: number;
+  framesPerAnimation: number;
 }
 
 export interface ContentMod {
@@ -32,7 +33,7 @@ export interface ContentMod {
 
   preload: {
     colors: Record<string, string>;
-    images: ContentModImage[];
+    images: Record<string, ContentModImage>;
     svgs: ContentModSvg[];
   };
 }

@@ -11,10 +11,12 @@ import { FieldElement, FieldSpell } from '../../../interfaces';
       [class.origin-opponent]="spellData.caster === 1"
       *ngIf="spell() as spellData"
     >
-      <sw-spell-sprite
+      <sw-sprite
         class="background sprite"
         [sprite]="spellData.sprite"
-      ></sw-spell-sprite>
+        [asset]="spellData.asset"
+        [mod]="spellData.mod"
+      ></sw-sprite>
 
       <div class="info-container">
         <div class="direction">

@@ -12,13 +12,13 @@
 </ng-template>
 
 <ng-template #cardFront>
-  <div class="spell-card">
+  <div class="spell-card" *ngIf="spell() as spellData">
     <div class="spell-card-internals">
       <div class="row">
         <div class="col-12">
           <div class="name">
             <sw-fit-text height="44px" width="240px">
-              {{ spell().name }}
+              {{ spellData.name }}
             </sw-fit-text>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="row">
             <div class="col-12">
               <div class="card-art">
-                <sw-spell-sprite [sprite]="spell().sprite"></sw-spell-sprite>
+                <sw-sprite [sprite]="spellData.sprite" [asset]="spellData.asset" [mod]="spellData.mod"></sw-sprite>
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@
               {{ spellStat.value }}
 
               <sw-icon-element class="spell-element-damage" *ngIf="spellStat.stat === 'damage'"
-                [element]="spell().element" [size]="18"></sw-icon-element>
+                [element]="spellData.element" [size]="18"></sw-icon-element>
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@
         <div class="col-12">
           <div class="text-container">
             <div class="description">
-              {{ spell().description }}
+              {{ spellData.description }}
             </div>
 
             <div class="tags" *ngIf="spellTags.length > 0">

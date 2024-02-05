@@ -7,14 +7,13 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-import { CharacterSpriteComponent } from './components/_shared/character-sprite/character-sprite.component';
 import { ElementCardComponent } from './components/_shared/element-card/element-card.component';
 import { FitTextComponent } from './components/_shared/fit-text/fit-text.component';
 import { IconElementComponent } from './components/_shared/icon-element/icon-element.component';
 import { IconStatComponent } from './components/_shared/icon-stat/icon-stat.component';
 import { IconComponent } from './components/_shared/icon/icon.component';
 import { SpellCardComponent } from './components/_shared/spell-card/spell-card.component';
-import { SpellSpriteComponent } from './components/_shared/spell-sprite/spell-sprite.component';
+import { SpriteComponent } from './components/_shared/sprite/sprite.component';
 import { DeckComponent } from './components/play/deck/deck.component';
 import { ErrorBannerComponent } from './components/play/error-banner/error-banner.component';
 import { FieldElementComponent } from './components/play/field-element/field-element.component';
@@ -30,8 +29,7 @@ const components = [
   HoverClassDirective,
   FitTextComponent,
 
-  CharacterSpriteComponent,
-  SpellSpriteComponent,
+  SpriteComponent,
   SpellCardComponent,
   ElementCardComponent,
   IconElementComponent,
