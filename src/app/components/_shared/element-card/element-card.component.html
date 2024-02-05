@@ -1,4 +1,5 @@
-<div class="element-card-container" *ngIf="element() as elementData" [style.--element-color]="elementData.color">
+<div class="element-card-container" *ngIf="element() as elementData"
+  [style.--element-color]="'var(--element-' + elementData.key + ')'">
   <div class="name-row row">
     <div class="col-12">
       <div class="name">
