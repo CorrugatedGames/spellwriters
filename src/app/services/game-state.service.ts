@@ -1,5 +1,6 @@
 import { Injectable, effect } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
+import { interval } from 'rxjs';
 import {
   DEFAULT_DELAY,
   aiAttemptAction,
@@ -14,6 +15,7 @@ import {
   saveGamestate,
   setPhaseBannerString,
 } from '../helpers';
+import { spriteIterationCount } from '../helpers/static/sprite';
 import { GamePhase, GameState, TurnOrder } from '../interfaces';
 
 @Injectable({
@@ -41,7 +43,8 @@ export class GameStateService {
 
   async init() {
     this.load();
-    this.loop();
+    this.handleGameLoop();
+    this.handleSpriteLoop();
   }
 
   load() {
@@ -62,7 +65,13 @@ export class GameStateService {
     this.localStorage.store('gamestate', saveState);
   }
 
-  loop() {
+  handleSpriteLoop() {
+    interval(100).subscribe(() => {
+      spriteIterationCount.set(spriteIterationCount() + 1);
+    });
+  }
+
+  handleGameLoop() {
     const runGameloop = async () => {
       setTimeout(() => {
         gameloop();

@@ -14,7 +14,7 @@
       <div class="row">
         <div class="col-6">
           <div class="sprite-container">
-            <div class="sprite" *ngFor="let character of allCharacters()" (click)="playerTestCharacterId = character.id"
+            <div class="sprite" *ngFor="let character of characterList" (click)="playerTestCharacterId = character.id"
               [class.selected]="playerTestCharacterId === character.id" aria-hidden="true">
               <sw-character-sprite [sprite]="character.sprite"></sw-character-sprite>
             </div>
@@ -38,7 +38,7 @@
       <div class="row">
         <div class="col-6">
           <div class="sprite-container">
-            <div class="sprite" *ngFor="let character of allCharacters()" (click)="enemyTestCharacterId = character.id"
+            <div class="sprite" *ngFor="let character of characterList" (click)="enemyTestCharacterId = character.id"
               [class.selected]="enemyTestCharacterId === character.id" aria-hidden="true">
               <sw-character-sprite [sprite]="character.sprite"></sw-character-sprite>
             </div>

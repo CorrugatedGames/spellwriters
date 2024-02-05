@@ -21,13 +21,14 @@ import { GameStateService } from '../../../services/game-state.service';
 export class DebugTestRunComponent {
   getCharacterById = getCharacterById;
   getSpellById = getSpellById;
-  allCharacters = allCharacters;
 
   @LocalStorage()
   public playerTestCharacterId!: string;
 
   @LocalStorage()
   public enemyTestCharacterId!: string;
+
+  public characterList = allCharacters();
 
   constructor(
     private router: Router,

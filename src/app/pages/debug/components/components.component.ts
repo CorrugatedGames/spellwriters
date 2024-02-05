@@ -17,10 +17,10 @@ import { ContentService } from '../../../services/content.service';
 export class DebugComponentsComponent implements OnInit {
   getSpellById = getSpellById;
 
-  public numSpells = Array(261)
+  public numCharacters = Array(130)
     .fill(0)
     .map((_, i) => i);
-  public numCharacters = Array(130)
+  public numSpells = Array(261)
     .fill(0)
     .map((_, i) => i);
 

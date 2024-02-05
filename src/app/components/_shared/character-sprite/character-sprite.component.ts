@@ -3,10 +3,8 @@ import {
   Component,
   computed,
   input,
-  signal,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { interval } from 'rxjs';
+import { spriteIterationCount } from '../../../helpers/static/sprite';
 
 const numFrames = 4;
 
@@ -44,8 +42,6 @@ const numFrames = 4;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterSpriteComponent {
-  private currentFrame = signal<number>(0);
-
   public mod = input<string>('default');
   public asset = input<string>('characters.webp');
   public sprite = input<number, number>(0, {
@@ -64,20 +60,9 @@ export class CharacterSpriteComponent {
     return `-${x * spriteSize}px -${y * spriteSize}px`;
   });
 
+  public currentFrame = computed(() => spriteIterationCount() % numFrames);
+
   public get imgUrl(): string {
     return `assets/mods/${this.mod()}/${this.asset()}`;
-  }
-
-  constructor() {
-    interval(100)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => {
-        const frame = this.currentFrame();
-        this.currentFrame.set(frame + 1);
-
-        if (frame >= numFrames - 1) {
-          this.currentFrame.set(0);
-        }
-      });
   }
 }
