@@ -10,13 +10,13 @@ import { Component, input } from '@angular/core';
       [animated]="true"
       height="24px"
     >
-      <strong class="health-text" *ngIf="showHealth() && health() < 3">
+      @if(showHealth() && health() < 3) {
+      <strong class="health-text">
         {{ health() }}
       </strong>
-
-      <strong class="health-text" *ngIf="showHealth() && health() >= 3">
-        {{ health() }} / {{ maxHealth() }}
-      </strong>
+      } @if(showHealth() && health() >= 3) {
+      <strong class="health-text">{{ health() }} / {{ maxHealth() }}</strong>
+      }
     </ngb-progressbar>
   `,
   styles: `

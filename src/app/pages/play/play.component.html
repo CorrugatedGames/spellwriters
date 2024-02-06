@@ -23,28 +23,33 @@
   <div class="play-grid-container">
     <div class="play-grid" [style.--play-grid-rows]="gamestate.field[0].length">
 
-      <div class="grid-row" *ngFor="let row of gamestate.field; let gridRow = index"
-        [class.secret]="isSecretPlayerTile(gridRow) || isSecretOpponentTile(gridRow)"
+      @for(row of gamestate.field; let gridRow = $index; track gridRow) {
+      <div class="grid-row" [class.secret]="isSecretPlayerTile(gridRow) || isSecretOpponentTile(gridRow)"
         [class.secret-opponent]="isSecretOpponentTile(gridRow)" [class.secret-player]="isSecretPlayerTile(gridRow)">
 
+        @for(col of row; let gridCol = $index; track gridCol) {
         <div class="grid-space" [class.glowing]="canSelectTile(gridRow, gridCol)" (click)="selectTile(gridRow, gridCol)"
           (keyup.enter)="selectTile(gridRow, gridCol)"
           (mouseenter)="getHoverInfoForTile(gridRow, gridCol); showTargettableSpacesForTile(gridRow, gridCol)"
-          (mouseleave)="resetHoverInfoForTile(); resetTargettableSpaces()" tabindex="0"
-          *ngFor="let col of row; let gridCol = index">
+          (mouseleave)="resetHoverInfoForTile(); resetTargettableSpaces()" tabindex="0">
 
-          <sw-sprite class="grid-item cast-sprite"
-            *ngIf="activeCardData && canSelectTile(gridRow, gridCol) && targetTiles[gridRow]?.[gridCol]"
-            [sprite]="targetTiles[gridRow][gridCol].sprite" [asset]="targetTiles[gridRow][gridCol].asset"
-            [mod]="targetTiles[gridRow][gridCol].mod"></sw-sprite>
+          @if(activeCardData && canSelectTile(gridRow, gridCol) && targetTiles[gridRow][gridCol]) {
+          <sw-sprite class="grid-item cast-sprite" [sprite]="targetTiles[gridRow][gridCol].sprite"
+            [asset]="targetTiles[gridRow][gridCol].asset" [mod]="targetTiles[gridRow][gridCol].mod"></sw-sprite>
+          }
 
-          <sw-field-spell class="grid-item spell" *ngIf="col.containedSpell" [spell]="col.containedSpell"
+          @if(col.containedSpell) {
+          <sw-field-spell class="grid-item spell" [spell]="col.containedSpell"
             [element]="col.containedElement"></sw-field-spell>
+          }
 
-          <sw-field-element class="grid-item effect" *ngIf="!col.containedSpell && col.containedElement"
-            [element]="col.containedElement"></sw-field-element>
+          @if(!col.containedSpell && col.containedElement) {
+          <sw-field-element class="grid-item effect" [element]="col.containedElement"></sw-field-element>
+          }
         </div>
+        }
       </div>
+      }
     </div>
   </div>
 
@@ -56,21 +61,28 @@
     <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck" [isGlowing]="gamephase.PlayerDraw"></sw-deck>
 
     <div class="tile-info">
-      <sw-element-card class="hover-element" *ngIf="hoveringTile?.containedElement as element"
-        [element]="element"></sw-element-card>
-      <sw-spell-card class="hover-spell" *ngIf="hoveringTile?.containedSpell as spell" [spell]="spell"></sw-spell-card>
+      @if(hoveringTile?.containedElement; as element) {
+      <sw-element-card class="hover-element" [element]="element"></sw-element-card>
+      }
+
+      @if(hoveringTile?.containedSpell; as spell) {
+      <sw-spell-card class="hover-spell" [spell]="spell"></sw-spell-card>
+      }
     </div>
 
-    <sw-nextturn *ngIf="gamephase.PlayerTurn" class="pass" (nextTurn)="nextTurn()" [isDisabled]="!!activeCardData"
+    @if(gamephase.PlayerTurn) {
+    <sw-nextturn class="pass" (nextTurn)="nextTurn()" [isDisabled]="!!activeCardData"
       [isGlowing]="gamephase.PlayerTurn"></sw-nextturn>
+    }
 
     <sw-hand class="hand" (selectCard)="selectCard($event)" (unselectCard)="selectCard(undefined)" [hand]="player.hand"
       [selectedCard]="activeCardData" [extraCost]="player.spellsCastThisTurn"
       [highlightCastableCardCost]="gamephase.PlayerTurn ? player.mana : 0"></sw-hand>
 
-    <sw-spell-card *ngIf="activeSpell" class="selected-card" [spell]="activeSpell" [isGlowing]="true"
+    @if(activeSpell) {
+    <sw-spell-card class="selected-card" [spell]="activeSpell" [isGlowing]="true"
       (contextmenu)="selectCard(undefined); $event.preventDefault()"></sw-spell-card>
-
+    }
     <div class="stats">
       <sw-health-bar class="health player-health" [health]="player.health" [maxHealth]="player.maxHealth"
         [showHealth]="true"></sw-health-bar>

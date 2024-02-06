@@ -1,6 +1,15 @@
 <div class="spell-card-container" [style.--element-color]="'var(--element-' + spellElement + ')'"
   [style.--rarity-color]="'var(--rarity-' + spellRarity + ')'" [class.small]="isSmall()" [class.glowing]="isGlowing()">
-  <ng-content *ngIf="isUpsideDown(); then cardBack else cardFront"></ng-content>
+
+  @switch(isUpsideDown()) {
+  @case (true) {
+  <ng-container *ngTemplateOutlet="cardBack"></ng-container>
+  }
+
+  @case (false) {
+  <ng-container *ngTemplateOutlet="cardFront; context: { spellData: spell() }"></ng-container>
+  }
+  }
 </div>
 
 <ng-template #cardBack>
@@ -11,8 +20,8 @@
   </div>
 </ng-template>
 
-<ng-template #cardFront>
-  <div class="spell-card" *ngIf="spell() as spellData">
+<ng-template #cardFront let-spellData="spellData">
+  <div class="spell-card">
     <div class="spell-card-internals">
       <div class="row">
         <div class="col-12">
@@ -36,7 +45,8 @@
         </div>
 
         <div class="col-6 right-side">
-          <div class="row stat-row" *ngFor="let spellStat of spellStatsAndValues">
+          @for(spellStat of spellStatsAndValues; track $index) {
+          <div class="row stat-row">
             <div class="col-3">
               <sw-icon-stat [stat]="spellStat.stat"></sw-icon-stat>
             </div>
@@ -44,10 +54,12 @@
             <div class="col-9 stat-value">
               {{ spellStat.value }}
 
-              <sw-icon-element class="spell-element-damage" *ngIf="spellStat.stat === 'damage'"
-                [element]="spellData.element" [size]="18"></sw-icon-element>
+              @if(spellStat.stat === 'damage') {
+              <sw-icon-element class="spell-element-damage" [element]="spellData.element" [size]="18"></sw-icon-element>
+              }
             </div>
           </div>
+          }
         </div>
       </div>
 
@@ -58,11 +70,13 @@
               {{ spellData.description }}
             </div>
 
-            <div class="tags" *ngIf="spellTags.length > 0">
-              <span class="tag badge rounded-pill text-bg-info" *ngFor="let tag of spellTags">{{ tag.name | titlecase }}
-                ({{
-                tag.value }})</span>
+            @if(spellTags.length > 0) {
+            <div class="tags">
+              @for(tag of spellTags; track $index) {
+              <span class="tag badge rounded-pill text-bg-info">{{ tag.name | titlecase }} ({{ tag.value }})</span>
+              }
             </div>
+            }
           </div>
         </div>
       </div>

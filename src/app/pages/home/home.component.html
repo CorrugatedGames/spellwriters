@@ -17,7 +17,8 @@
           <div class="card bg-dark">
             <div class="card-body">
               <div class="row">
-                <div class="col-2" *ngFor="let ext of links" [style.--social-color]="ext.color">
+                @for(ext of links; track $index) {
+                <div class="col-2" [style.--social-color]="ext.color">
                   <div class="d-grid gap-2">
                     <a class="btn btn-block btn-link" (mouseenter)="ext.currentColor = ext.color"
                       (mouseleave)="ext.currentColor = '#ccc'" [href]="ext.link" target="_blank">
@@ -25,6 +26,7 @@
                     </a>
                   </div>
                 </div>
+                }
               </div>
             </div>
           </div>

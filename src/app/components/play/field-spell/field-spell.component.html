@@ -1,0 +1,44 @@
+@if(spell(); as spellData) {
+<div class="field-spell" [class.casting]="isCasting" [class.origin-player]="spellData.caster === 0"
+  [class.origin-opponent]="spellData.caster === 1">
+  <sw-sprite class="background sprite" [sprite]="spellData.sprite" [asset]="spellData.asset"
+    [mod]="spellData.mod"></sw-sprite>
+
+  <div class="info-container">
+    <div class="direction">
+      @if(element(); as elementData) {
+      <sw-field-element class="effect" [element]="elementData"></sw-field-element>
+      }
+    </div>
+
+    <div class="stats">
+      @switch(isCasting) {
+      @case(true) {
+      <div class="stat cast-time">
+        <div class="background spinner-border"></div>
+
+        <span class="stat-badge badge rounded-pill">
+          {{ spellData.castTime }}
+        </span>
+      </div>
+
+      } @case (false) {
+      <div class="stat damage">
+        <sw-icon class="background damage-icon" category="stat" name="damage" [size]="40"></sw-icon>
+
+        <span class="stat-badge badge rounded-pill">
+          {{ spellData.damage }}
+        </span>
+      </div>
+
+      <div class="stat speed">
+        <span class="stat-badge badge rounded-pill">
+          {{ spellData.speed }}
+        </span>
+      </div>
+      }
+      }
+    </div>
+  </div>
+</div>
+}

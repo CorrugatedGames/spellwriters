@@ -14,18 +14,20 @@
       <div class="row">
         <div class="col-6">
           <div class="sprite-container">
-            <div class="sprite" *ngFor="let character of characterList" (click)="playerTestCharacterId = character.id"
+            @for(character of characterList; track $index) {
+            <div class="sprite" (click)="playerTestCharacterId = character.id"
               [class.selected]="playerTestCharacterId === character.id" aria-hidden="true">
               <sw-sprite [sprite]="character.sprite" [asset]="character.asset" [mod]="character.mod"></sw-sprite>
             </div>
+            }
           </div>
         </div>
 
         <div class="col-6">
-          <div *ngIf="getCharacterById(playerTestCharacterId) as character">
-            <ng-container [ngTemplateOutlet]="characterDebugInfo" [ngTemplateOutletContext]="{ character: character }">
-            </ng-container>
-          </div>
+          @if(getCharacterById(playerTestCharacterId); as character) {
+          <ng-container [ngTemplateOutlet]="characterDebugInfo" [ngTemplateOutletContext]="{ character: character }">
+          </ng-container>
+          }
         </div>
       </div>
     </div>
@@ -38,18 +40,20 @@
       <div class="row">
         <div class="col-6">
           <div class="sprite-container">
-            <div class="sprite" *ngFor="let character of characterList" (click)="enemyTestCharacterId = character.id"
+            @for(character of characterList; track $index) {
+            <div class="sprite" (click)="enemyTestCharacterId = character.id"
               [class.selected]="enemyTestCharacterId === character.id" aria-hidden="true">
               <sw-sprite [sprite]="character.sprite" [asset]="character.asset" [mod]="character.mod"></sw-sprite>
             </div>
+            }
           </div>
         </div>
 
         <div class="col-6">
-          <div *ngIf="getCharacterById(enemyTestCharacterId) as character">
-            <ng-container [ngTemplateOutlet]="characterDebugInfo" [ngTemplateOutletContext]="{ character: character }">
-            </ng-container>
-          </div>
+          @if(getCharacterById(enemyTestCharacterId); as character) {
+          <ng-container [ngTemplateOutlet]="characterDebugInfo" [ngTemplateOutletContext]="{ character: character }">
+          </ng-container>
+          }
         </div>
       </div>
     </div>
@@ -152,12 +156,15 @@
 
       <div class="col-12 cards">
         <div class="spell-row">
-          <div class="spell-container" *ngFor="let spellId of character.deck.spells">
-            <div class="spell" *ngIf="getSpellById(spellId) as spell" [ngbTooltip]="spellInfo"
-              [tooltipContext]="{ spell: spell }">
+          @for(spellId of character.deck.spells; track $index) {
+          <div class="spell-container">
+            @if(getSpellById(spellId); as spell) {
+            <div class="spell" [ngbTooltip]="spellInfo" [tooltipContext]="{ spell: spell }">
               <sw-sprite [sprite]="spell.sprite" [asset]="spell.asset" [mod]="spell.mod"></sw-sprite>
             </div>
+            }
           </div>
+          }
         </div>
       </div>
     </div>

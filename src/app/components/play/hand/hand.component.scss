@@ -1,0 +1,40 @@
+.hand-card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: flex-start;
+
+  height: 100%;
+  position: relative;
+  max-width: 600px;
+  left: 64px;
+
+  .hand-card-position {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 100%;
+    min-width: 0;
+
+    width: var(--spell-card-width-small);
+    height: var(--spell-card-height-small);
+    position: relative;
+
+    cursor: pointer;
+
+    &:hover {
+      z-index: 1000;
+    }
+
+    .hand-card {
+      position: absolute;
+      bottom: -60px;
+      left: -68px;
+
+      z-index: calc(10 + var(--card-index));
+
+      &.selected {
+        z-index: 100;
+      }
+    }
+  }
+}

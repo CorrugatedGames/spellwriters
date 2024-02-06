@@ -5,77 +5,8 @@ import { ContentService } from '../../../services/content.service';
 
 @Component({
   selector: 'sw-hand',
-  template: `
-    <div class="hand-card-container">
-      <div
-        class="hand-card-position"
-        *ngFor="let card of hand(); let index = index"
-        [style.--card-index]="index"
-        (mouseenter)="focusHandCard(index)"
-        (mouseleave)="unfocusHandCard()"
-        (contextmenu)="unselectCardFromHand(index); $event.preventDefault()"
-        (click)="selectCard.emit({ card, index })"
-        (keyup.enter)="selectCard.emit({ card, index })"
-        [tabindex]="index"
-      >
-        <ng-container *ngIf="getSpellById(card.id) as spell">
-          <sw-spell-card
-            class="hand-card"
-            [class.selected]="selectedCard()?.index === index"
-            [spell]="spell"
-            [isSmall]="hoveringSpellIndex !== index"
-            [isGlowing]="
-              selectedCard()?.index === index ||
-              spell.cost + extraCost() <= highlightCastableCardCost()
-            "
-            [extraCost]="extraCost()"
-          ></sw-spell-card>
-        </ng-container>
-      </div>
-    </div>
-  `,
-  styles: `
-    .hand-card-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-content: flex-start;
-
-      height: 100%;
-      position: relative;
-      max-width: 600px;
-      left: 64px;
-
-      .hand-card-position {
-        display: flex;
-        flex-direction: row;
-        flex: 1 1 100%;
-        min-width: 0;
-
-        width: var(--spell-card-width-small);
-        height: var(--spell-card-height-small);
-        position: relative;
-
-        cursor: pointer;
-
-        &:hover {
-          z-index: 1000;
-        }
-
-        .hand-card {
-          position: absolute;
-          bottom: -60px;
-          left: -68px;
-
-          z-index: calc(10 + var(--card-index));
-
-          &.selected {
-            z-index: 100;
-          }
-        }
-      }
-    }
-  `,
+  templateUrl: './hand.component.html',
+  styleUrls: ['./hand.component.scss'],
 })
 export class HandComponent {
   getSpellById = getSpellById;

@@ -3,9 +3,11 @@
   <h1 id="fieldspells"><a [routerLink]="['/debug/components']" fragment="fieldspells">Field Spells</a></h1>
 
   <div class="sprite-container">
-    <div class="sprite fieldspell-sprite" *ngFor="let spell of fieldSpells">
+    @for(spell of fieldSpells; track spell.castId) {
+    <div class="sprite fieldspell-sprite">
       <sw-field-spell [spell]="spell"></sw-field-spell>
     </div>
+    }
   </div>
 
   <h1 id="phasebanners"><a [routerLink]="['/debug/components']" fragment="phasebanners">Phase Banners</a></h1>
@@ -199,16 +201,20 @@
   </h1>
 
   <div class="sprite-container">
-    <div class="sprite" *ngFor="let charId of numCharacters" [ngbTooltip]="'Id: ' + charId">
+    @for(charId of numCharacters; track charId) {
+    <div class="sprite" [ngbTooltip]="'Id: ' + charId">
       <sw-sprite [sprite]="charId" mod="default" asset="characters.webp"></sw-sprite>
     </div>
+    }
   </div>
 
   <h1 id="spellsprites"><a [routerLink]="['/debug/components']" fragment="spellsprites">Spell Sprites</a></h1>
 
   <div class="sprite-container">
-    <div class="sprite" *ngFor="let spellId of numSpells" [ngbTooltip]="'Id: ' + spellId">
+    @for(spellId of numSpells; track spellId) {
+    <div class="sprite" [ngbTooltip]="'Id: ' + spellId">
       <sw-sprite [sprite]="spellId" mod="default" asset="spells.webp"></sw-sprite>
     </div>
+    }
   </div>
 </div>
