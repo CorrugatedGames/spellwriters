@@ -11,7 +11,7 @@ import { Component, input } from '@angular/core';
       <div class="banner-actions">
         @for(action of actions(); track $index) {
         <button
-          class="btn banner-action"
+          class="btn btn-untextured banner-action"
           [swHoverClass]="'hovering'"
           (click)="action.action()"
         >

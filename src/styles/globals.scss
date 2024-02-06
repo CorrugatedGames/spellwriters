@@ -60,12 +60,12 @@ img {
   }
 }
 
-.btn {
+.btn:not(.btn-untextured) {
   background: url('../assets/bg/texture-button.png'),
     linear-gradient(to bottom, var(--bs-btn-bg), var(--bs-btn-bg));
 }
 
-.card {
+.card:not(.card-untextured) {
   background: url('../assets/bg/texture-bg.png'),
     linear-gradient(to bottom, var(--bs-body-color), var(--bs-body-color)) !important;
 }
