@@ -1,0 +1,17 @@
+.relic-indicator-container {
+  position: relative;
+
+  .relic-stack-value {
+    position: absolute;
+    min-width: 24px;
+    border-radius: 50%;
+    background-color: var(--rarity-color);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    top: 0;
+    right: 0;
+  }
+}

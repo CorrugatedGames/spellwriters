@@ -38,6 +38,7 @@ const load = async () => {
     aiPatterns: {},
     spellTags: {},
     rarities: {},
+    relics: {},
 
     preload: {
       colors: iconColors,

@@ -1,5 +1,6 @@
 body {
-  font-family: 'OtherText', sans-serif;
+  font-family: var(--font);
+  overflow: hidden;
 
   background: url(../assets/bg/splash-dark.png) no-repeat center center/cover;
 
@@ -7,7 +8,7 @@ body {
     background: url(../assets/bg/splash.png) no-repeat center center/cover;
   }
 
-  overflow: hidden;
+  --bs-font-sans-serif: var(--font);
 }
 
 svg {
@@ -68,4 +69,13 @@ img {
 .card:not(.card-untextured) {
   background: url('../assets/bg/texture-bg.png'),
     linear-gradient(to bottom, var(--bs-body-color), var(--bs-body-color)) !important;
+}
+
+.tooltip-normalize {
+  --bs-tooltip-font-size: 1rem;
+}
+
+.tooltip-relic {
+  --bs-tooltip-max-width: auto;
+  --bs-tooltip-bg: transparent;
 }

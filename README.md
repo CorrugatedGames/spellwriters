@@ -35,6 +35,16 @@ A roguelite deckbuilder.
 
 Art is currently based on 7souls RPG assets. Eventually these will be replaced. For now, the raw assets can be found [here](https://github.com/CorrugatedGames/spellwriters-art). Filtered out versions will be in this repo.
 
+### Creating a New Component
+
+1. `npx ng g c components/<folder>/<component-name> --module=shared`
+1. Add it to the `shared.module.ts` array of components
+1. Ideally, also add it to the debug components page
+
+### Creating a New Service
+
+1. `npx ng g s services/<service-name>`
+
 ### Creating a New Page
 
 1. Run the following:

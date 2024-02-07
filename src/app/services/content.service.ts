@@ -6,6 +6,7 @@ import {
   elementData,
   elementKeyIds,
   modData,
+  relicData,
   spellData,
   spellPatternData,
   spellTagData,
@@ -114,6 +115,16 @@ export class ContentService {
         ...existingHash,
         ...Object.values(mod.rarities ?? {}).reduce(
           (acc, rarity) => ({ ...acc, [rarity.id]: rarity }),
+          {},
+        ),
+      };
+    });
+
+    relicData.update((existingHash) => {
+      return {
+        ...existingHash,
+        ...Object.values(mod.relics ?? {}).reduce(
+          (acc, relic) => ({ ...acc, [relic.id]: relic }),
           {},
         ),
       };

@@ -1,0 +1,32 @@
+- name: Fire Fingers
+  key: firefingers
+  id: d9113e28-2368-4361-bb82-410e85a5f2a7
+  description: 'A pair of gloves that are always warm to the touch. Fire spells do +1 damage.'
+  rarity: common
+  stackable: true
+
+  sprite: 5
+
+- name: Speedy Shoes
+  key: speedyshoes
+  id: 294215f5-d813-431f-97c2-2f838dc06952
+  description: "A pair of shoes that make you feel like you're walking on air. Spells have +1 speed when placed."
+  rarity: common
+
+  sprite: 4
+
+- name: Elemental Goo
+  key: elementalgoo
+  id: 995b132a-983e-4908-8711-3376652f0a45
+  description: 'A bottle of viscious liquid. When starting combat, elements are placed randomly on the board.'
+  rarity: uncommon
+
+  sprite: 8
+
+- name: Gem of Greed
+  key: gemofgreed
+  id: 67624fdd-366d-4dbd-81be-66da21fbc946
+  description: 'A gem that glows with an eerie light. When starting combat, draw 2 additional cards.'
+  rarity: uncommon
+
+  sprite: 7

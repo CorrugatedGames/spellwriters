@@ -3,6 +3,7 @@ import { Character } from './character';
 import { SpellElement } from './element';
 import { SpellPattern } from './pattern';
 import { Rarity } from './rarity';
+import { Relic } from './relic';
 import { Spell } from './spell';
 import { SpellTag } from './tag';
 
@@ -30,6 +31,7 @@ export interface ContentMod {
   aiPatterns: Record<string, AIPattern>;
   spellTags: Record<string, SpellTag>;
   rarities: Record<string, Rarity>;
+  relics: Record<string, Relic>;
 
   preload: {
     colors: Record<string, string>;

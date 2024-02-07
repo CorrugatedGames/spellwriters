@@ -30,7 +30,7 @@
     "lint": "ng lint",
     "gamedata": "npm run clean && npm run content && npm run validate && npm run generate && npm run mod",
     "clean": "rimraf data/mod && rimraf src/assets/mods && rimraf dist && rimraf electron/browser && rimraf electron/icons && rimraf electron/out",
-    "content": "npm run content:rarities && npm run content:aipatterns && npm run content:spellpatterns && npm run content:spelltags && npm run content:elements && npm run content:spells && npm run content:characters",
+    "content": "npm run content:rarities && npm run content:aipatterns && npm run content:spellpatterns && npm run content:spelltags && npm run content:elements && npm run content:spells && npm run content:characters && npm run content:relics",
     "content:mod": "ts-node scripts/build-default-mod",
     "content:single": "ts-node scripts/build-content",
     "content:rarities": "npm run content:single -- rarities",
@@ -40,6 +40,7 @@
     "content:spelltags": "npm run content:single -- spell-tags",
     "content:characters": "npm run content:single -- characters",
     "content:spells": "npm run content:single -- spells",
+    "content:relics": "npm run content:single -- relics",
     "mod": "npm run mod:build:core && npm run mod:build:default",
     "mod:build:default": "ts-node scripts/mod-build-default",
     "mod:build:core": "ts-node scripts/mod-build-core",
@@ -53,7 +54,8 @@
     "validate:spellpatterns": "ts-node scripts/validate-spellpatterns",
     "validate:spelltags": "ts-node scripts/validate-spelltags",
     "validate:characters": "ts-node scripts/validate-characters",
-    "validate:spells": "ts-node scripts/validate-spells"
+    "validate:spells": "ts-node scripts/validate-spells",
+    "validate:relics": "ts-node scripts/validate-relics"
   },
   "private": true,
   "dependencies": {

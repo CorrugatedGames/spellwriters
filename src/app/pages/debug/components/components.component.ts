@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   allElements,
+  allRelics,
   allSpells,
   allStats,
   getSpellById,
@@ -23,12 +24,16 @@ export class DebugComponentsComponent implements OnInit {
   public numSpells = Array(140)
     .fill(0)
     .map((_, i) => i);
+  public numRelics = Array(9)
+    .fill(0)
+    .map((_, i) => i);
 
   public hoverCard = false;
 
   public spellList = allSpells();
   public elementList = allElements();
   public statList = allStats();
+  public relicList = allRelics();
 
   public fieldSpells: FieldSpell[] = [
     {

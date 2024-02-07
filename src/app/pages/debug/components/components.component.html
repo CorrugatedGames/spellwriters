@@ -157,6 +157,26 @@
     </div>
   </div>
 
+  <h1 id="relicindicators"><a [routerLink]="['/debug/components']" fragment="relicindicators">Relic Indicators</a></h1>
+
+  <div class="sprite-container">
+    @for(relic of relicList; track relic) {
+    <div class="sprite">
+      <sw-relic-indicator [relic]="relic" [stacks]="relic.stackable ? 4 : 0"></sw-relic-indicator>
+    </div>
+    }
+  </div>
+
+  <h1 id="reliccards"><a [routerLink]="['/debug/components']" fragment="reliccards">Relic Cards</a></h1>
+
+  <div class="sprite-container">
+    @for(relic of relicList; track relic) {
+    <div class="sprite" [ngbTooltip]="'Relic: ' + relic.name">
+      <sw-relic-card [relic]="relic" [stacks]="relic.stackable ? 4 : 0"></sw-relic-card>
+    </div>
+    }
+  </div>
+
   <h1 id="spellcards"><a [routerLink]="['/debug/components']" fragment="spellcards">Spell Cards</a></h1>
 
   <div class="sprite-container">
@@ -214,6 +234,16 @@
     @for(spellId of numSpells; track spellId) {
     <div class="sprite" [ngbTooltip]="'Id: ' + spellId">
       <sw-sprite [sprite]="spellId" mod="default" asset="spells.webp"></sw-sprite>
+    </div>
+    }
+  </div>
+
+  <h1 id="relicsprites"><a [routerLink]="['/debug/components']" fragment="relicsprites">Relic Sprites</a></h1>
+
+  <div class="sprite-container">
+    @for(relicId of numRelics; track relicId) {
+    <div class="sprite" [ngbTooltip]="'Id: ' + relicId">
+      <sw-sprite [sprite]="relicId" mod="default" asset="relics.webp"></sw-sprite>
     </div>
     }
   </div>

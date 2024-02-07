@@ -6,7 +6,7 @@ const contentpath = './data/mod/content';
 const spritesheetpath = './data/mod/spritesheets';
 const iconpath = './data/mod/icons';
 
-const allSpritesheets = ['characters', 'spells'];
+const allSpritesheets = ['characters', 'spells', 'relics'];
 
 const savedir = './src/assets/mods/default';
 
@@ -43,6 +43,12 @@ const imageData: Record<string, ContentModImage> = {
     spriteSize: 64,
     framesPerAnimation: 1,
   },
+  'relics.webp': {
+    name: 'relics.webp',
+    spritesPerRow: 20,
+    spriteSize: 64,
+    framesPerAnimation: 1,
+  },
 };
 
 const load = async () => {
@@ -53,6 +59,7 @@ const load = async () => {
   const spellTags = await fs.readJson(`${contentpath}/spell-tags.json`);
   const aiPatterns = await fs.readJson(`${contentpath}/ai-patterns.json`);
   const rarities = await fs.readJson(`${contentpath}/rarities.json`);
+  const relics = await fs.readJson(`${contentpath}/relics.json`);
 
   const mod: ContentMod = {
     name: 'default',
@@ -67,6 +74,7 @@ const load = async () => {
     spellTags,
     aiPatterns,
     rarities,
+    relics,
 
     preload: {
       colors: iconColors,

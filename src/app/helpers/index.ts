@@ -23,6 +23,7 @@ export * from './lookup/ai-patterns';
 export * from './lookup/characters';
 export * from './lookup/elements';
 export * from './lookup/mods';
+export * from './lookup/relics';
 export * from './lookup/spell-patterns';
 export * from './lookup/spell-tags';
 export * from './lookup/spells';

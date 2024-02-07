@@ -1,4 +1,6 @@
 :root {
+  --font: 'OtherText', sans-serif;
+
   --sprite-size: 64px;
 
   --rarity-common: #0b5394;
@@ -17,6 +19,11 @@
   --element-card-height: 200px;
   --element-card-background: #133042;
   --element-card-foreground: #fff;
+
+  --relic-card-width: 275px;
+  --relic-card-height: 200px;
+  --relic-card-background: #133042;
+  --relic-card-foreground: #fff;
 
   --spell-card-width: 275px;
   --spell-card-height: 400px;

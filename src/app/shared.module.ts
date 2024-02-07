@@ -12,6 +12,8 @@ import { FitTextComponent } from './components/_shared/fit-text/fit-text.compone
 import { IconElementComponent } from './components/_shared/icon-element/icon-element.component';
 import { IconStatComponent } from './components/_shared/icon-stat/icon-stat.component';
 import { IconComponent } from './components/_shared/icon/icon.component';
+import { RelicCardComponent } from './components/_shared/relic-card/relic-card.component';
+import { RelicIndicatorComponent } from './components/_shared/relic-indicator/relic-indicator.component';
 import { SpellCardComponent } from './components/_shared/spell-card/spell-card.component';
 import { SpriteComponent } from './components/_shared/sprite/sprite.component';
 import { DeckComponent } from './components/play/deck/deck.component';
@@ -44,6 +46,8 @@ const components = [
   ErrorBannerComponent,
   FieldSpellComponent,
   FieldElementComponent,
+  RelicCardComponent,
+  RelicIndicatorComponent,
 ];
 
 @NgModule({

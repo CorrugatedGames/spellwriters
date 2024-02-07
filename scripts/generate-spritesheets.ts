@@ -5,7 +5,7 @@ import Jimp from 'jimp';
 
 const spriteSize = 64;
 const spritesPerRow = 20;
-const spritesheets = ['characters', 'spells'];
+const spritesheets = ['characters', 'spells', 'relics'];
 
 const compressImages = async () => {
   await imagemin([`./data/mod/spritesheets/*.png`], {
@@ -54,6 +54,8 @@ const createSpritesheets = async () => {
       await finalImage
         .quality(100)
         .writeAsync(`./data/mod/spritesheets/${spritegroup}.png`);
+
+      console.log(`[Build] Built ${spritegroup}!`);
     }),
   );
 };

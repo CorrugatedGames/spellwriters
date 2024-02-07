@@ -5,6 +5,7 @@ import {
   AIPattern,
   Character,
   Rarity,
+  Relic,
   Spell,
   SpellElement,
   SpellPattern,
@@ -144,6 +145,25 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
         item.behaviors[pattern?.id ?? `INVALID: ${behaviorName}`] =
           oldBehaviors[behaviorName];
       });
+    });
+  },
+
+  relics: async (items: Relic[]) => {
+    const allRarities = await fs.readJson(`${filepath}/rarities.json`);
+
+    const raritiesByKey = Object.values(allRarities).reduce(
+      (acc: Record<string, Rarity>, spellRarity: any) => {
+        acc[spellRarity.key] = spellRarity;
+        return acc;
+      },
+      {},
+    );
+
+    items.forEach((item) => {
+      item.mod = 'default';
+      item.asset = 'relics.webp';
+
+      item.rarity = raritiesByKey[item.rarity]?.id ?? `INVALID: ${item.rarity}`;
     });
   },
 };
