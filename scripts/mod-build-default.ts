@@ -6,8 +6,6 @@ const contentpath = './data/mod/content';
 const spritesheetpath = './data/mod/spritesheets';
 const iconpath = './data/mod/icons';
 
-const allSpritesheets = ['characters', 'spells', 'relics'];
-
 const savedir = './src/assets/mods/default';
 
 const iconColors: Record<string, string> = {
@@ -30,28 +28,8 @@ const iconColors: Record<string, string> = {
   'rarity-legendary': '#a61c00',
 };
 
-const imageData: Record<string, ContentModImage> = {
-  'characters.webp': {
-    name: 'characters.webp',
-    spritesPerRow: 20,
-    spriteSize: 64,
-    framesPerAnimation: 4,
-  },
-  'spells.webp': {
-    name: 'spells.webp',
-    spritesPerRow: 20,
-    spriteSize: 64,
-    framesPerAnimation: 1,
-  },
-  'relics.webp': {
-    name: 'relics.webp',
-    spritesPerRow: 20,
-    spriteSize: 64,
-    framesPerAnimation: 1,
-  },
-};
-
 const load = async () => {
+  const images = await fs.readJson(`${contentpath}/images.json`);
   const characters = await fs.readJson(`${contentpath}/characters.json`);
   const elements = await fs.readJson(`${contentpath}/elements.json`);
   const spells = await fs.readJson(`${contentpath}/spells.json`);
@@ -85,21 +63,11 @@ const load = async () => {
 
   fs.ensureDirSync(savedir);
 
-  allSpritesheets.forEach((spritesheet) => {
-    fs.copyFile(
-      `${spritesheetpath}/${spritesheet}.png`,
-      `${savedir}/${spritesheet}.png`,
-    );
-    fs.copyFile(
-      `${spritesheetpath}/${spritesheet}.webp`,
-      `${savedir}/${spritesheet}.webp`,
-    );
+  Object.values(images).forEach((imageData) => {
+    const image: ContentModImage = imageData as ContentModImage;
+    fs.copyFile(`${spritesheetpath}/${image.name}`, `${savedir}/${image.name}`);
 
-    const spritesheetFile = `${spritesheet}.webp`;
-    const imageRef = imageData[spritesheetFile];
-    if (!imageRef) throw new Error(`No image data found for ${spritesheet}`);
-
-    mod.preload.images[spritesheetFile] = imageRef;
+    mod.preload.images[image.name] = image;
   });
 
   const icons = await fs.readdir(iconpath);

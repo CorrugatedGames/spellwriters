@@ -30,7 +30,7 @@
     "lint": "ng lint",
     "gamedata": "npm run clean && concurrently \"npm run gamedata:content\" \"npm run gamedata:art\" && npm run gamedata:validate && npm run gamedata:mod",
     "gamedata:content": "npm run gamedata:content:basic && npm run gamedata:content:advanced && npm run gamedata:content:ultimate",
-    "gamedata:content:basic": "concurrently \"npm run content:rarities\" \"npm run content:elements\" \"npm run content:aipatterns\" \"npm run content:spellpatterns\" \"npm run content:spelltags\"",
+    "gamedata:content:basic": "concurrently \"npm run content:rarities\" \"npm run content:elements\" \"npm run content:aipatterns\" \"npm run content:spellpatterns\" \"npm run content:spelltags\" \"npm run content:images\"",
     "gamedata:content:advanced": "concurrently \"npm run content:spells\" \"npm run content:relics\"",
     "gamedata:content:ultimate": "npm run content:characters",
     "gamedata:art": "npm run art",
@@ -47,6 +47,7 @@
     "content:characters": "npm run content:single -- characters",
     "content:spells": "npm run content:single -- spells",
     "content:relics": "npm run content:single -- relics",
+    "content:images": "npm run content:single -- images",
     "mod": "concurrently \"npm run mod:build:*\"",
     "mod:build:default": "ts-node scripts/mod-build-default",
     "mod:build:core": "ts-node scripts/mod-build-core",
@@ -61,7 +62,8 @@
     "validate:spelltags": "ts-node scripts/validate-spelltags",
     "validate:characters": "ts-node scripts/validate-characters",
     "validate:spells": "ts-node scripts/validate-spells",
-    "validate:relics": "ts-node scripts/validate-relics"
+    "validate:relics": "ts-node scripts/validate-relics",
+    "validate:images": "ts-node scripts/validate-images"
   },
   "private": true,
   "dependencies": {
