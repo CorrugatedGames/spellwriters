@@ -54,6 +54,8 @@ export function createBlankField(opts: {
 export function createBlankActivePlayer(): ActivePlayer {
   return {
     id: '',
+    mod: 'default',
+    asset: 'characters.webp',
     sprite: 0,
     turnOrder: TurnOrder.Player,
 

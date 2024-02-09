@@ -10,4 +10,5 @@ export * from './rarity';
 export * from './relic';
 export * from './ritual';
 export * from './spell';
+export * from './sprite';
 export * from './tag';

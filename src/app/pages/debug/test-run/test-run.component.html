@@ -28,7 +28,7 @@
             @for(character of characterList; track $index) {
             <div class="sprite" (click)="selectPlayerCharacter(character)"
               [class.selected]="playerTestCharacterId === character.id" aria-hidden="true">
-              <sw-sprite [sprite]="character.sprite" [asset]="character.asset" [mod]="character.mod"></sw-sprite>
+              <sw-sprite [spritable]="character"></sw-sprite>
             </div>
             }
           </div>
@@ -66,7 +66,7 @@
             @for(character of characterList; track $index) {
             <div class="sprite" (click)="selectEnemyCharacter(character)"
               [class.selected]="enemyTestCharacterId === character.id" aria-hidden="true">
-              <sw-sprite [sprite]="character.sprite" [asset]="character.asset" [mod]="character.mod"></sw-sprite>
+              <sw-sprite [spritable]="character"></sw-sprite>
             </div>
             }
           </div>
@@ -184,7 +184,7 @@
           <div class="spell-container">
             @if(getSpellById(spellId); as spell) {
             <div class="spell" [ngbTooltip]="spellInfo" [tooltipContext]="{ spell: spell }">
-              <sw-sprite [sprite]="spell.sprite" [asset]="spell.asset" [mod]="spell.mod"></sw-sprite>
+              <sw-sprite [spritable]="spell"></sw-sprite>
             </div>
             }
           </div>

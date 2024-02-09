@@ -14,8 +14,7 @@
 
     <div class="visuals">
       <div class="opponent">
-        <sw-sprite class="opponent-sprite" [sprite]="opponent.sprite" [asset]="'characters.webp'"
-          [mod]="'default'"></sw-sprite>
+        <sw-sprite class="opponent-sprite" [spritable]="opponent"></sw-sprite>
       </div>
     </div>
   </div>
@@ -35,8 +34,7 @@
 
           @if(activeCardData && canSelectTile(gridRow, gridCol) && targetTiles[gridRow]?.[gridCol]) {
           @if(targetTiles[gridRow]?.[gridCol]; as targetTile) {
-          <sw-sprite class="grid-item cast-sprite" [sprite]="targetTile.sprite" [asset]="targetTile.asset"
-            [mod]="targetTile.mod"></sw-sprite>
+          <sw-sprite class="grid-item cast-sprite" [spritable]="targetTile"></sw-sprite>
           }
           }
 

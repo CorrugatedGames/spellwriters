@@ -1,4 +1,5 @@
 import { TurnOrder } from './gamestate';
+import { Spritable } from './sprite';
 
 export enum SpellStat {
   Damage = 'damage',
@@ -19,15 +20,11 @@ export enum SpellStatImpl {
   Pattern = 'pattern',
 }
 
-export interface Spell {
+export interface Spell extends Spritable {
   name: string;
   id: string;
   key: string;
   description: string;
-
-  mod: string;
-  asset: string;
-  sprite: number;
 
   element: string;
   rarity: string;

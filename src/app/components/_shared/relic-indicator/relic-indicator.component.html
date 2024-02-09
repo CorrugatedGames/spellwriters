@@ -2,7 +2,7 @@
 <div class="relic-indicator-container" [style.--rarity-color]="'var(--rarity-' + rarity() + ')'"
   [ngbTooltip]="relicTooltip" tooltipClass="tooltip-normalize tooltip-relic">
   <div class="relic-sprite">
-    <sw-sprite [sprite]="relicData.sprite" [mod]="relicData.mod" [asset]="relicData.asset"></sw-sprite>
+    <sw-sprite [spritable]="relicData"></sw-sprite>
   </div>
 
   @if(stacks() > 0 && relicData.stackable) {

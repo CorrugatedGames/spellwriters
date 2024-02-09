@@ -1,16 +1,15 @@
 import { TurnOrder } from './gamestate';
+import { ModAssetable } from './sprite';
 
 export interface SpellElementInteraction {
   element: string;
   text: string;
 }
 
-export interface SpellElement {
+export interface SpellElement extends ModAssetable {
   name: string;
   key: string;
   id: string;
-  mod: string;
-  asset: string;
   createdBy: string[];
   description: string;
   interactions: SpellElementInteraction[];

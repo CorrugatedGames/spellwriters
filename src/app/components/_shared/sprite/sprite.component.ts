@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { getModAssetInformationByName } from '../../../helpers';
 import { spriteIterationCount } from '../../../helpers/static/sprite';
+import { Spritable } from '../../../interfaces';
 
 @Component({
   selector: 'sw-sprite',
@@ -41,9 +42,11 @@ import { spriteIterationCount } from '../../../helpers/static/sprite';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpriteComponent {
-  public mod = input.required<string>();
-  public asset = input.required<string>();
-  public sprite = input<number>(0);
+  public spritable = input.required<Spritable>();
+
+  private mod = computed(() => this.spritable().mod);
+  private asset = computed(() => this.spritable().asset);
+  private sprite = computed(() => this.spritable().sprite);
 
   public assetInformation = computed(() =>
     getModAssetInformationByName(this.mod(), this.asset()),

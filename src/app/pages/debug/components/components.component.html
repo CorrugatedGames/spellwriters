@@ -223,7 +223,7 @@
   <div class="sprite-container">
     @for(charId of numCharacters; track charId) {
     <div class="sprite" [ngbTooltip]="'Id: ' + charId">
-      <sw-sprite [sprite]="charId" mod="default" asset="characters.webp"></sw-sprite>
+      <sw-sprite [spritable]="{ sprite: charId, mod: 'default', asset: 'characters.webp' }"></sw-sprite>
     </div>
     }
   </div>
@@ -233,7 +233,7 @@
   <div class="sprite-container">
     @for(spellId of numSpells; track spellId) {
     <div class="sprite" [ngbTooltip]="'Id: ' + spellId">
-      <sw-sprite [sprite]="spellId" mod="default" asset="spells.webp"></sw-sprite>
+      <sw-sprite [spritable]="{ sprite: spellId, mod: 'default', asset: 'spells.webp' }"></sw-sprite>
     </div>
     }
   </div>
@@ -243,7 +243,7 @@
   <div class="sprite-container">
     @for(relicId of numRelics; track relicId) {
     <div class="sprite" [ngbTooltip]="'Id: ' + relicId">
-      <sw-sprite [sprite]="relicId" mod="default" asset="relics.webp"></sw-sprite>
+      <sw-sprite [spritable]="{ sprite: relicId, mod: 'default', asset: 'relics.webp' }"></sw-sprite>
     </div>
     }
   </div>

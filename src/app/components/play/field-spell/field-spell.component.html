@@ -1,8 +1,7 @@
 @if(spell(); as spellData) {
 <div class="field-spell" [class.casting]="isCasting" [class.origin-player]="spellData.caster === 0"
   [class.origin-opponent]="spellData.caster === 1">
-  <sw-sprite class="background sprite" [sprite]="spellData.sprite" [asset]="spellData.asset"
-    [mod]="spellData.mod"></sw-sprite>
+  <sw-sprite class="background sprite" [spritable]="spellData"></sw-sprite>
 
   <div class="info-container">
     <div class="direction">

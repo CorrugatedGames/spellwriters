@@ -68,6 +68,8 @@ export function turnCharacterIntoActivePlayer(opts: {
 
   const player: ActivePlayer = {
     id: character.id,
+    mod: character.mod,
+    asset: character.asset,
     sprite: character.sprite,
     turnOrder: opts.turnOrder,
     name: character.name,

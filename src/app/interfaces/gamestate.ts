@@ -1,6 +1,7 @@
 import { Character } from './character';
 import { FieldElement } from './element';
 import { FieldSpell } from './spell';
+import { Spritable } from './sprite';
 
 export interface FieldNode {
   containedSpell?: FieldSpell;
@@ -11,9 +12,8 @@ export interface PlayableCard {
   id: string;
 }
 
-export interface ActivePlayer {
+export interface ActivePlayer extends Spritable {
   id: string;
-  sprite: number;
 
   turnOrder: TurnOrder;
 
