@@ -210,7 +210,11 @@ const load = async () => {
   console.info(`[Build] Processed ${contentType}!`);
 
   const allIds: Record<string, boolean> = {};
-  allItems.forEach((item: any) => {
+  allItems.forEach((item: any, index: number) => {
+    if (!item.id) {
+      item.id = index;
+    }
+
     if (allIds[item.id]) {
       throw new Error(`Duplicate ${contentType} id ${item.id} (${item.name})`);
     }

@@ -8,26 +8,6 @@ const iconpath = './data/mod/icons';
 
 const savedir = './src/assets/mods/default';
 
-const iconColors: Record<string, string> = {
-  'element-burningoil': '#a54040',
-  'element-chargedsteam': '#eafc49',
-  'element-earth': '#47b447',
-  'element-electric': '#bbbb21',
-  'element-fire': '#b33232',
-  'element-hydroelectricity': '#fff',
-  'element-mud': '#fff',
-  'element-oil': '#fff',
-  'element-pyroelectricity': '#fff',
-  'element-steam': '#fff',
-  'element-terraelectricity': '#fff',
-  'element-water': '#4bb9b9',
-  'rarity-common': '#0b5394',
-  'rarity-uncommon': '#4f803a',
-  'rarity-rare': '#a1801e',
-  'rarity-epic': '#674ea7',
-  'rarity-legendary': '#a61c00',
-};
-
 const load = async () => {
   const images = await fs.readJson(`${contentpath}/images.json`);
   const characters = await fs.readJson(`${contentpath}/characters.json`);
@@ -38,6 +18,18 @@ const load = async () => {
   const aiPatterns = await fs.readJson(`${contentpath}/ai-patterns.json`);
   const rarities = await fs.readJson(`${contentpath}/rarities.json`);
   const relics = await fs.readJson(`${contentpath}/relics.json`);
+
+  const iconColorHash = await fs.readJsonSync(
+    './data/mod/content/colors-default.json',
+  );
+  const iconColors = Object.values(iconColorHash).reduce(
+    (acc: Record<string, string>, iter: unknown) => {
+      const iterData = iter as { name: string; color: string };
+      acc[iterData.name] = iterData.color;
+      return acc;
+    },
+    {},
+  ) as Record<string, string>;
 
   const mod: ContentMod = {
     name: 'default',

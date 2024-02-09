@@ -6,25 +6,19 @@ const iconpath = './data/sprites/icons/core';
 
 const savedir = './src/assets/mods/core';
 
-const iconColors: Record<string, string> = {
-  'core-spellwriters': '#fff',
-  'external-blog': '#ccc',
-  'external-discord': '#ccc',
-  'external-email': '#ccc',
-  'external-facebook': '#ccc',
-  'external-reddit': '#ccc',
-  'external-twitter': '#ccc',
-  'external-youtube': '#ccc',
-  'play-nextturn': '#fff',
-  'stat-casttime': '#717fcc',
-  'stat-cost': '#d46cc7',
-  'stat-damage': '#e07d7d',
-  'stat-depth': '#4adde7',
-  'stat-pattern': '#d3e68e',
-  'stat-speed': '#68d468',
-};
-
 const load = async () => {
+  const iconColorHash = await fs.readJsonSync(
+    './data/mod/content/colors-core.json',
+  );
+  const iconColors = Object.values(iconColorHash).reduce(
+    (acc: Record<string, string>, iter: unknown) => {
+      const iterData = iter as { name: string; color: string };
+      acc[iterData.name] = iterData.color;
+      return acc;
+    },
+    {},
+  ) as Record<string, string>;
+
   const mod: ContentMod = {
     name: 'core',
     description: 'Core game assets. Cannot be disabled.',

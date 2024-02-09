@@ -1,0 +1,50 @@
+- name: element-burningoil
+  color: '#a54040'
+
+- name: element-chargedsteam
+  color: '#eafc49'
+
+- name: element-earth
+  color: '#47b447'
+
+- name: element-electric
+  color: '#bbbb21'
+
+- name: element-fire
+  color: '#b33232'
+
+- name: element-hydroelectricity
+  color: '#fff'
+
+- name: element-mud
+  color: '#fff'
+
+- name: element-oil
+  color: '#fff'
+
+- name: element-pyroelectricity
+  color: '#fff'
+
+- name: element-steam
+  color: '#fff'
+
+- name: element-terraelectricity
+  color: '#fff'
+
+- name: element-water
+  color: '#4bb9b9'
+
+- name: rarity-common
+  color: '#0b5394'
+
+- name: rarity-uncommon
+  color: '#4f803a'
+
+- name: rarity-rare
+  color: '#a1801e'
+
+- name: rarity-epic
+  color: '#674ea7'
+
+- name: rarity-legendary
+  color: '#a61c00'

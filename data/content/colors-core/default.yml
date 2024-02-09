@@ -1,0 +1,44 @@
+- name: core-spellwriters
+  color: '#fff'
+
+- name: external-blog
+  color: '#ccc'
+
+- name: external-discord
+  color: '#ccc'
+
+- name: external-email
+  color: '#ccc'
+
+- name: external-facebook
+  color: '#ccc'
+
+- name: external-reddit
+  color: '#ccc'
+
+- name: external-twitter
+  color: '#ccc'
+
+- name: external-youtube
+  color: '#ccc'
+
+- name: play-nextturn
+  color: '#fff'
+
+- name: stat-casttime
+  color: '#717fcc'
+
+- name: stat-cost
+  color: '#d46cc7'
+
+- name: stat-damage
+  color: '#e07d7d'
+
+- name: stat-depth
+  color: '#4adde7'
+
+- name: stat-pattern
+  color: '#d3e68e'
+
+- name: stat-speed
+  color: '#68d468'

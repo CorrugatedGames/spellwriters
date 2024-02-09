@@ -1,17 +1,14 @@
 - name: characters.webp
-  id: 8ca02f28-e581-4cfa-91b2-a4eadded5b3f
   spritesPerRow: 20
   spriteSize: 64
   framesPerAnimation: 4
 
 - name: spells.webp
-  id: 7eaf4e2e-8fb4-4fb1-9dd8-410769669c41
   spritesPerRow: 20
   spriteSize: 64
   framesPerAnimation: 4
 
 - name: relics.webp
-  id: ffb4e4c1-3c72-4795-b4ea-3feb9d846f92
   spritesPerRow: 20
   spriteSize: 64
   framesPerAnimation: 4
