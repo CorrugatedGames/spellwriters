@@ -118,6 +118,35 @@ export function findSpellsOnField(): Array<{
   return ret;
 }
 
+export function getFieldSpaces(): Array<{
+  x: number;
+  y: number;
+}> {
+  const { field } = gamestate();
+
+  const ret: Array<{ x: number; y: number }> = [];
+
+  for (const [y, row] of field.entries()) {
+    for (const [x] of row.entries()) {
+      ret.push({ x, y });
+    }
+  }
+
+  return ret;
+}
+
+export function getTargettableFieldSpaces(): Array<{
+  x: number;
+  y: number;
+}> {
+  const { field } = gamestate();
+  const allFieldSpaces = getFieldSpaces();
+
+  return allFieldSpaces.filter(
+    (space) => space.y !== 0 && space.y !== field.length - 1,
+  );
+}
+
 export function findSpellOnField(opts: {
   spellId: string;
 }): FieldSpell | undefined {

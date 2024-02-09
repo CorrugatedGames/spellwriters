@@ -48,6 +48,14 @@ export function isCurrentSpellContextSpell(opts: {
   return funcOpts.spell.castId === context.spellContext.spell.castId;
 }
 
+export function isCurrentSpellOwnedByRelicOwner(opts: {
+  spell: FieldSpell;
+  context: RitualCurrentContextRelicArgs;
+}): boolean {
+  const { spell, context } = opts;
+  return spell.caster === context.relicContext.owner.turnOrder;
+}
+
 export function callRitualGlobalFunction<T extends keyof RitualImpl>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];

@@ -27,12 +27,15 @@ export function setSpellStat<T extends SpellStatImpl>(opts: {
   const { spell, stat, value } = opts;
 
   const oldValue = spell[stat];
+  const newValue: FieldSpell[T] = (
+    typeof value === 'number' ? Math.floor(value) : value
+  ) as FieldSpell[T];
 
-  spell[stat] = value;
+  spell[stat] = newValue;
 
   callRitualGlobalFunction({
     func: 'onSpellStatChange',
-    funcOpts: { spell, stat, oldValue, newValue: value },
+    funcOpts: { spell, stat, oldValue, newValue },
   });
 }
 

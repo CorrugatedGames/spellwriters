@@ -10,7 +10,7 @@
 - name: Speedy Shoes
   key: speedyshoes
   id: 294215f5-d813-431f-97c2-2f838dc06952
-  description: "A pair of shoes that make you feel like you're walking on air. Spells have +1 speed when placed."
+  description: "A pair of shoes that make you feel like you're walking on air. Spells have +1 speed when placed, if they have > 0 speed."
   rarity: common
 
   sprite: 4
@@ -18,7 +18,7 @@
 - name: Elemental Goo
   key: elementalgoo
   id: 995b132a-983e-4908-8711-3376652f0a45
-  description: 'A bottle of viscious liquid. When starting combat, elements are placed randomly on the board.'
+  description: 'A bottle of viscious liquid. When starting combat, 3 elements are placed randomly on the field.'
   rarity: uncommon
 
   sprite: 8
