@@ -7,7 +7,7 @@
       </div>
 
       <div class="name">
-        <sw-fit-text height="44px" width="220px">
+        <sw-fit-text height="44px" width="200px">
           {{ relicData.name }}
         </sw-fit-text>
       </div>
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  @if(stacks() > 1) {
+  @if(stacks() > 0 && relicData.stackable) {
   <div class="stacks">
     <div class="stack-value">
       {{ stacks() }}

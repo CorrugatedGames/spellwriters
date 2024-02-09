@@ -1,4 +1,5 @@
 - name: Pale Fire
+  key: fire1
   id: 95ddca50-58dc-44c6-8c0c-9cc08b492920
   description: A basic fire attack.
   sprite: 109
@@ -15,6 +16,7 @@
   pattern: single
 
 - name: Fireball
+  key: fire2
   id: 4afa0224-24b8-47de-b210-54c57c25bbeb
   description: A powerful fire attack that explodes when it collides with another spell.
   sprite: 1
@@ -34,6 +36,7 @@
     explodes: 1
 
 - name: Fireflies
+  key: fire3
   id: 16ec9edc-c575-4181-b845-d07df116bf28
   description: A wide, steamy attack that slowly moves towards your opponent on multiple fronts.
   sprite: 4

@@ -1,6 +1,6 @@
 import { ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
+import { callRitualGlobalFunction } from './ritual';
 import { gamestate } from './signal';
-import { callSpellTagFunctionGlobally } from './spell';
 import { gainMana } from './stats';
 import { reshuffleDeck } from './turn';
 import { setPhaseBannerString } from './vfx';
@@ -79,10 +79,24 @@ export async function nextPhase(): Promise<void> {
     };
   });
 
-  callSpellTagFunctionGlobally({
-    func: 'onPhaseChange',
+  callRitualGlobalFunction({
+    func: 'onCombatPhaseChange',
     funcOpts: { newPhase, newTurn },
   });
+
+  if (state.currentPhase === GamePhase.Start) {
+    callRitualGlobalFunction({
+      func: 'onCombatStart',
+      funcOpts: {},
+    });
+  }
+
+  if (state.currentPhase === GamePhase.Victory) {
+    callRitualGlobalFunction({
+      func: 'onCombatFinish',
+      funcOpts: {},
+    });
+  }
 }
 
 export function hasAnyoneWon(): boolean {

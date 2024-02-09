@@ -1,6 +1,6 @@
 import { WritableSignal, signal } from '@angular/core';
 import { clone } from 'lodash';
-import { Spell } from '../../interfaces';
+import { RitualImpl, Spell } from '../../interfaces';
 
 export const spellData: WritableSignal<Record<string, Spell>> = signal({});
 
@@ -21,4 +21,17 @@ export function getSpellByName(name: string): Spell | undefined {
   if (!id) return undefined;
 
   return getSpellById(id);
+}
+
+export function getSpellKey(id: string): string | undefined {
+  return getSpellById(id)?.key;
+}
+
+export function getSpellImpl(id: string): RitualImpl | undefined {
+  if (!id) return undefined;
+
+  const key = getSpellKey(id);
+  if (!key) throw new Error(`No spell exists for ${id}`);
+
+  return undefined;
 }

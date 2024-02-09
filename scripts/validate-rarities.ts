@@ -30,7 +30,7 @@ const validate = async () => {
     }
   });
 
-  console.log('[Validation] All rarities are valid!');
+  console.info('[Validation] All rarities are valid!');
 };
 
 validate();

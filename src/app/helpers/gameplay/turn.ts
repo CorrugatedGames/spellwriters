@@ -7,15 +7,15 @@ import {
 import { getSpellById } from '../lookup/spells';
 import { seededrng } from '../static/rng';
 import {
-  addSpellToCastQueue,
+  addSpellToQueue,
   getTargettableSpacesForSpellAroundPosition,
   setFieldSpell,
   spellToFieldSpell,
 } from './field';
 import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
+import { callRitualGlobalFunction } from './ritual';
 import { gamestate } from './signal';
-import { callSpellTagFunction } from './spell';
 import { manaCostForSpell, spendMana } from './stats';
 
 export function shuffleDeck(character: ActivePlayer): void {
@@ -98,13 +98,12 @@ export function handleEntireSpellcastSequence(props: {
         caster: turnOrder,
       });
 
-      addSpellToCastQueue({ spell: newlyCastSpell });
+      addSpellToQueue({ spell: newlyCastSpell });
       setFieldSpell({ x, y, spell: newlyCastSpell });
 
-      callSpellTagFunction({
-        spell: newlyCastSpell,
+      callRitualGlobalFunction({
         func: 'onSpellPlacement',
-        funcOpts: { x, y, placeNum: placeNum++ },
+        funcOpts: { spell: newlyCastSpell, x, y, placeNum: placeNum++ },
       });
     }
   }

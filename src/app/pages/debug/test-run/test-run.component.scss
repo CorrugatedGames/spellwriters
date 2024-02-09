@@ -5,6 +5,14 @@
 .card {
   margin-top: 32px;
   margin-bottom: 32px;
+
+  .card-title {
+    margin-bottom: 16px;
+
+    &:not(:first-child) {
+      margin-top: 16px;
+    }
+  }
 }
 
 h1 {
@@ -58,8 +66,4 @@ h1 {
       }
     }
   }
-}
-
-.action-row {
-  margin-top: 64px;
 }

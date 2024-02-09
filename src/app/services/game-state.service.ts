@@ -29,7 +29,7 @@ export class GameStateService {
   constructor(private localStorage: LocalStorageService) {
     effect(() => {
       this.state = gamestate();
-      console.log('[State Update]', this.state);
+      console.info('[State Update]', this.state);
       this.save(this.state);
     });
 

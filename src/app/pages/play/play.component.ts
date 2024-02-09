@@ -7,6 +7,7 @@ import {
   endTurnAndPassPhase,
   gamestate,
   gamestateInitOptions,
+  getRelicById,
   getSpaceFromField,
   getSpellById,
   getTargetableTilesForCard,
@@ -28,6 +29,7 @@ import {
   GamePhase,
   GameState,
   GameStateInitOpts,
+  Relic,
   SelectedCard,
   Spell,
   TurnOrder,
@@ -44,15 +46,15 @@ export class PlayComponent {
   public gamephase: CurrentPhase = createBlankStateMachineMap();
 
   public hoveringTile?: FieldNode;
-
   public activeCardData?: SelectedCard;
   public selectableTiles:
     | Record<number, Record<number, boolean | undefined> | undefined>
     | undefined;
 
-  public targetTiles: Record<number, Record<number, Spell>> = {};
-
+  public targetTiles: Record<number, undefined | Record<number, Spell>> = {};
   public victoryActions: Array<{ text: string; action: () => void }> = [];
+
+  public relics: Array<{ relic: Relic; count: number }> = [];
 
   public readonly phaseBannerString = phaseBannerString.asReadonly();
   public readonly errorMessageString = ingameErrorMessage.asReadonly();
@@ -60,6 +62,8 @@ export class PlayComponent {
   public readonly trackState = effect(() => {
     this.gamestate = gamestate();
     this.gamephase = stateMachineMapFromGameState({ state: this.gamestate });
+
+    this.parseRelics();
 
     if (this.gamestate.currentPhase === GamePhase.Victory) {
       this.createVictoryActions();
@@ -87,6 +91,16 @@ export class PlayComponent {
   }
 
   constructor(private router: Router, public contentService: ContentService) {}
+
+  private parseRelics() {
+    const player = this.gamestate.players[TurnOrder.Player];
+    const relicHash = player.relics;
+
+    this.relics = Object.keys(relicHash).map((relicId) => {
+      const relic = getRelicById(relicId);
+      return { relic, count: relicHash[relicId] };
+    }) as Array<{ relic: Relic; count: number }>;
+  }
 
   public drawCard() {
     drawCardAndPassPhase(this.player);

@@ -1,4 +1,5 @@
 - name: Electric Explosion
+  key: reactionelectric1
   id: 98d67d81-8481-4fa8-bb16-3ce3f9fd0ced
   description: A spell that can only happen when an explosion happens.
   sprite: 0

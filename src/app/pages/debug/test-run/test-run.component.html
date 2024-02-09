@@ -4,18 +4,29 @@
     <div class="card-body">
       <h1 class="card-title">Test Run</h1>
       <p class="card-text">Test runs allow you to test any character against any other character.</p>
+
+      <div class="row action-row">
+        <div class="col-4"></div>
+        <div class="col-4">
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" (click)="startTestRun()"
+              [disabled]="!playerTestCharacterId || !enemyTestCharacterId">Start Test Run</button>
+          </div>
+        </div>
+        <div class="col-4"></div>
+      </div>
     </div>
   </div>
 
   <div class="card bg-dark text-white">
     <div class="card-body">
-      <h1 class="card-title">Choose Your Character</h1>
+      <h1 class="card-title">Choose Your Loadout</h1>
 
       <div class="row">
         <div class="col-6">
           <div class="sprite-container">
             @for(character of characterList; track $index) {
-            <div class="sprite" (click)="playerTestCharacterId = character.id"
+            <div class="sprite" (click)="selectPlayerCharacter(character)"
               [class.selected]="playerTestCharacterId === character.id" aria-hidden="true">
               <sw-sprite [sprite]="character.sprite" [asset]="character.asset" [mod]="character.mod"></sw-sprite>
             </div>
@@ -30,6 +41,18 @@
           }
         </div>
       </div>
+
+      <h1 class="card-title">Choose Your Relics</h1>
+
+      <div class="sprite-container">
+        @for(relic of relicList; track $index) {
+        <div class="sprite" (click)="selectPlayerRelic(relic, 1)"
+          (contextmenu)="selectPlayerRelic(relic, -1); $event.preventDefault()"
+          [class.selected]="playerRelics[relic.id] > 0" aria-hidden="true">
+          <sw-relic-indicator [relic]="relic" [stacks]="playerRelics[relic.id] || 0"></sw-relic-indicator>
+        </div>
+        }
+      </div>
     </div>
   </div>
 
@@ -41,7 +64,7 @@
         <div class="col-6">
           <div class="sprite-container">
             @for(character of characterList; track $index) {
-            <div class="sprite" (click)="enemyTestCharacterId = character.id"
+            <div class="sprite" (click)="selectEnemyCharacter(character)"
               [class.selected]="enemyTestCharacterId === character.id" aria-hidden="true">
               <sw-sprite [sprite]="character.sprite" [asset]="character.asset" [mod]="character.mod"></sw-sprite>
             </div>
@@ -56,18 +79,19 @@
           }
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="row action-row">
-    <div class="col-4"></div>
-    <div class="col-4">
-      <div class="d-grid gap-2">
-        <button class="btn btn-primary" (click)="startTestRun()"
-          [disabled]="!playerTestCharacterId || !enemyTestCharacterId">Start Test Run</button>
+      <h1 class="card-title">Choose Opponent Relics</h1>
+
+      <div class="sprite-container">
+        @for(relic of relicList; track $index) {
+        <div class="sprite" (click)="selectEnemyRelic(relic, 1)"
+          (contextmenu)="selectEnemyRelic(relic, -1); $event.preventDefault()"
+          [class.selected]="enemyRelics[relic.id] > 0" aria-hidden="true">
+          <sw-relic-indicator [relic]="relic" [stacks]="enemyRelics[relic.id] || 0"></sw-relic-indicator>
+        </div>
+        }
       </div>
     </div>
-    <div class="col-4"></div>
   </div>
 </div>
 

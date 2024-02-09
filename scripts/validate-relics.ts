@@ -47,7 +47,7 @@ const validate = async () => {
     }
   });
 
-  console.log('[Validation] All relic are valid!');
+  console.info('[Validation] All relic are valid!');
 };
 
 validate();

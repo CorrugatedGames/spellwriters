@@ -55,6 +55,7 @@ export function createBlankActivePlayer(): ActivePlayer {
   return {
     id: '',
     sprite: 0,
+    turnOrder: TurnOrder.Player,
 
     name: '',
     health: 1,
@@ -69,6 +70,7 @@ export function createBlankActivePlayer(): ActivePlayer {
     spellsCastThisTurn: 0,
 
     behaviors: { random: 1 },
+    relics: {},
   };
 }
 
@@ -103,9 +105,11 @@ export function createFreshGameState(opts: {
     players: [
       turnCharacterIntoActivePlayer({
         character: gamestateInitOpts.playerCharacter,
+        turnOrder: TurnOrder.Player,
       }),
       turnCharacterIntoActivePlayer({
         character: gamestateInitOpts.enemyCharacter,
+        turnOrder: TurnOrder.Opponent,
       }),
     ],
 

@@ -1,5 +1,5 @@
 import { ActivePlayer, Spell } from '../../interfaces';
-import { callSpellTagFunctionGlobally } from './spell';
+import { callRitualGlobalFunction } from './ritual';
 
 export function setMana(opts: {
   character: ActivePlayer;
@@ -17,7 +17,7 @@ export function gainMana(opts: {
   const { character, amount } = opts;
   setMana({ character, amount: character.mana + amount });
 
-  callSpellTagFunctionGlobally({
+  callRitualGlobalFunction({
     func: 'onPlayerGainMana',
     funcOpts: { character, mana: amount },
   });
@@ -30,7 +30,7 @@ export function spendMana(opts: {
   const { character, amount } = opts;
   setMana({ character, amount: character.mana - amount });
 
-  callSpellTagFunctionGlobally({
+  callRitualGlobalFunction({
     func: 'onPlayerLoseMana',
     funcOpts: { character, mana: amount },
   });
@@ -60,7 +60,7 @@ export function gainHealth(opts: {
   const { character, amount } = opts;
   setHealth({ character, amount: character.health + amount });
 
-  callSpellTagFunctionGlobally({
+  callRitualGlobalFunction({
     func: 'onPlayerGainHealth',
     funcOpts: { character, health: amount },
   });
@@ -73,7 +73,7 @@ export function loseHealth(opts: {
   const { character, amount } = opts;
   setHealth({ character, amount: character.health - amount });
 
-  callSpellTagFunctionGlobally({
+  callRitualGlobalFunction({
     func: 'onPlayerLoseHealth',
     funcOpts: { character, health: amount },
   });

@@ -19,9 +19,9 @@ import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getId } from '../static/uuid';
 import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
+import { callRitualGlobalFunction } from './ritual';
 import { gamestate } from './signal';
 import {
-  callSpellTagFunction,
   defaultCollisionDamageReduction,
   isSpellDead,
   setSpellStat,
@@ -92,7 +92,7 @@ export function setFieldElement(opts: {
   field[y][x].containedElement = element;
 }
 
-export function addSpellToCastQueue(opts: { spell: FieldSpell }): void {
+export function addSpellToQueue(opts: { spell: FieldSpell }): void {
   const { spell } = opts;
   const { spellQueue } = gamestate();
 
@@ -199,13 +199,33 @@ export function getTargettableSpacesForSpellAroundPosition(opts: {
   return targetField as Record<number, Record<number, Spell>>;
 }
 
-export function removeSpellFromField(opts: { spellId: string }): void {
+export function removeSpellFromQueue(opts: { spellId: string }): void {
   const { spellId } = opts;
-  const { field, spellQueue } = gamestate();
+  const { spellQueue } = gamestate();
 
   const index = spellQueue.indexOf(spellId);
   if (index !== -1) {
     spellQueue.splice(index, 1);
+  }
+}
+
+export function removeSpellFromField(opts: {
+  spellId: string;
+  fullRemoval: boolean;
+}): void {
+  const { spellId, fullRemoval } = opts;
+  const { field } = gamestate();
+
+  const fieldSpell = findSpellOnField({ spellId });
+  if (!fieldSpell) return;
+
+  if (fullRemoval) {
+    removeSpellFromQueue({ spellId });
+
+    callRitualGlobalFunction({
+      func: 'onSpellRemoval',
+      funcOpts: { spell: fieldSpell },
+    });
   }
 
   for (const row of field) {
@@ -233,10 +253,10 @@ export function moveSpellToPosition(opts: {
   const currentTile = getSpaceFromField({ x: currentX, y: currentY });
   if (!currentTile) return;
 
-  const removeMovingSpellFromField = () => {
+  const removeMovingSpellFromField = (fullRemoval: boolean) => {
     if (currentTile.containedSpell?.castId !== spell.castId) return;
 
-    setFieldSpell({ x: currentX, y: currentY, spell: undefined });
+    removeSpellFromField({ spellId: spell.castId, fullRemoval });
   };
 
   // check if we have a next tile
@@ -249,13 +269,12 @@ export function moveSpellToPosition(opts: {
 
     loseHealth({ character: opponentRef, amount: spell.damage });
 
-    callSpellTagFunction({
-      spell,
+    callRitualGlobalFunction({
       func: 'onSpellDealDamage',
-      funcOpts: { damage: spell.damage },
+      funcOpts: { spell, damage: spell.damage },
     });
 
-    removeMovingSpellFromField();
+    removeMovingSpellFromField(true);
     return;
   }
 
@@ -271,20 +290,20 @@ export function moveSpellToPosition(opts: {
       collisionY: nextY,
     };
 
-    callSpellTagFunction({
-      spell: collisionArgs.collider,
-      func: 'onCollision',
+    callRitualGlobalFunction({
+      func: 'onSpellCollision',
       funcOpts: {
+        spell: collisionArgs.collider,
         collidedWith: collisionArgs.collidee,
         collisionX: nextX,
         collisionY: nextY,
       },
     });
 
-    callSpellTagFunction({
-      spell: collisionArgs.collidee,
-      func: 'onCollision',
+    callRitualGlobalFunction({
+      func: 'onSpellCollision',
       funcOpts: {
+        spell: collisionArgs.collidee,
         collidedWith: collisionArgs.collider,
         collisionX: nextX,
         collisionY: nextY,
@@ -314,18 +333,16 @@ export function moveSpellToPosition(opts: {
   // next, we check if we're allowed to move via tags
   if (shouldMoveToNextTile && !disallowEntryIntoNextTile) {
     const canEnter = (
-      callSpellTagFunction({
-        spell,
-        func: 'onSpaceEnter',
-        funcOpts: { x: nextX, y: nextY },
+      callRitualGlobalFunction({
+        func: 'onSpellSpaceEnter',
+        funcOpts: { spell, x: nextX, y: nextY },
       }) as boolean[]
     ).every(Boolean);
 
     const canExit = (
-      callSpellTagFunction({
-        spell,
-        func: 'onSpaceExit',
-        funcOpts: { x: currentX, y: currentY },
+      callRitualGlobalFunction({
+        func: 'onSpellSpaceExit',
+        funcOpts: { spell, x: currentX, y: currentY },
       }) as boolean[]
     ).every(Boolean);
 
@@ -355,20 +372,19 @@ export function moveSpellToPosition(opts: {
     // if the next tile can't be entered, we don't allow it to happen
     if (!disallowEntryIntoNextTile) {
       // move our spell
-      removeMovingSpellFromField();
 
-      callSpellTagFunction({
-        spell,
-        func: 'onSpaceExited',
-        funcOpts: { x: currentX, y: currentY },
+      callRitualGlobalFunction({
+        func: 'onSpellSpaceExited',
+        funcOpts: { spell, x: currentX, y: currentY },
       });
+
+      removeMovingSpellFromField(false);
 
       setFieldSpell({ x: nextX, y: nextY, spell });
 
-      callSpellTagFunction({
-        spell,
-        func: 'onSpaceEntered',
-        funcOpts: { x: nextX, y: nextY },
+      callRitualGlobalFunction({
+        func: 'onSpellSpaceEntered',
+        funcOpts: { spell, x: nextX, y: nextY },
       });
     }
 

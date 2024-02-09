@@ -14,4 +14,4 @@ try {
 }
 
 fs.writeJson(`src/assets/version.json`, gitRev);
-console.log('Wrote version information', gitRev);
+console.info('Wrote version information', gitRev);

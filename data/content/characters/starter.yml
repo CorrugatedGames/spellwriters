@@ -24,6 +24,37 @@
     offensive: 3
     defensive: 3
 
+  relics:
+    firefingers: 1
+
+- name: Bomgar
+  id: 017e4765-9a84-494f-adc0-60a4b3ef8968
+  description: Bomgar go boom.
+  sprite: 96
+
+  maxHealth: 25
+
+  deck:
+    name: Bomgar Starter
+    spells:
+      - Fireball
+      - Fireball
+      - Fireball
+      - Fireball
+      - Fireball
+      - Fireball
+      - Fireball
+      - Fireball
+      - Fireball
+      - Fireball
+
+  behaviors:
+    random: 1
+    offensive: 5
+
+  relics:
+    firefingers: 1
+
 - name: Dewbert
   id: d0ff10fa-4c74-41ea-a1df-7e3aa9397a10
   description: A defensive magus who specializes in earth and water.
@@ -49,6 +80,9 @@
     random: 1
     defensive: 5
 
+  relics:
+    speedyshoes: 1
+
 - name: Eineroo
   id: 55a8a748-0a86-40ab-b555-e0c5f24ecff4
   description: A powerful magus who specializes in electricity and fire. Highly offensive.
@@ -73,3 +107,6 @@
   behaviors:
     random: 1
     offensive: 5
+
+  relics:
+    firefingers: 2

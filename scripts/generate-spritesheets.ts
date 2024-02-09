@@ -55,19 +55,19 @@ const createSpritesheets = async () => {
         .quality(100)
         .writeAsync(`./data/mod/spritesheets/${spritegroup}.png`);
 
-      console.log(`[Build] Built ${spritegroup}!`);
+      console.info(`[Build] Built ${spritegroup}!`);
     }),
   );
 };
 
 const generateSpritesheets = async () => {
-  console.log('[Build] Building spritesheets...');
+  console.info('[Build] Building spritesheets...');
   await createSpritesheets();
 
-  console.log('[Build] Spritesheets built!');
+  console.info('[Build] Spritesheets built!');
   await compressImages();
 
-  console.log('[Build] Spritesheets compressed!');
+  console.info('[Build] Spritesheets compressed!');
 };
 
 generateSpritesheets();

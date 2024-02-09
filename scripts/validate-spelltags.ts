@@ -26,7 +26,7 @@ const validate = async () => {
     }
   });
 
-  console.log('[Validation] All spell patterns are valid!');
+  console.info('[Validation] All spell patterns are valid!');
 };
 
 validate();

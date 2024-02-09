@@ -61,7 +61,7 @@ const load = async () => {
 
   fs.writeJson(`${savedir}/content.json`, mod);
 
-  console.log('[Build] Core mod built!');
+  console.info('[Build] Core mod built!');
 };
 
 load();

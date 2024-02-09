@@ -8,5 +8,6 @@ export * from './mod';
 export * from './pattern';
 export * from './rarity';
 export * from './relic';
+export * from './ritual';
 export * from './spell';
 export * from './tag';

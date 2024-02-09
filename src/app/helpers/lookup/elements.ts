@@ -52,6 +52,8 @@ export function getAllElementalCollisionImpls(): ElementalCollision[] {
 export function getElementCollisionImpl(
   id: string,
 ): ElementalCollision | undefined {
+  if (!id) return undefined;
+
   const key = getElementKey(id);
   if (!key) throw new Error(`No element collision exists for ${id}`);
 

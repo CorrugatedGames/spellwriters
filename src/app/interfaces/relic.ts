@@ -10,5 +10,3 @@ export interface Relic {
   asset: string;
   sprite: number;
 }
-
-export interface RelicImpl {}

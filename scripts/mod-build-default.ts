@@ -114,7 +114,7 @@ const load = async () => {
 
   fs.writeJson(`${savedir}/content.json`, mod);
 
-  console.log('[Build] Default mod built!');
+  console.info('[Build] Default mod built!');
 };
 
 load();

@@ -1,11 +1,11 @@
 import fs from 'fs-extra';
-import { Character, Spell } from '../src/app/interfaces';
+import { Character } from '../src/app/interfaces';
 
 const validate = async () => {
   const characters = await fs.readJson('./data/mod/content/characters.json');
-  const spells = (await fs.readJson(
-    './data/mod/content/spells.json',
-  )) as unknown as Record<string, Spell>;
+  const spells = await fs.readJson('./data/mod/content/spells.json');
+  const behaviors = await fs.readJson('./data/mod/content/ai-patterns.json');
+  const relics = await fs.readJson('./data/mod/content/relics.json');
 
   const allIds: Record<string, boolean> = {};
 
@@ -59,9 +59,25 @@ const validate = async () => {
         );
       }
     });
+
+    Object.keys(character.behaviors).forEach((behavior) => {
+      if (!behaviors[behavior]) {
+        throw new Error(
+          `Character ${character.name} has invalid behavior ${behavior}`,
+        );
+      }
+    });
+
+    Object.keys(character.relics).forEach((relic) => {
+      if (!relics[relic]) {
+        throw new Error(
+          `Character ${character.name} has invalid relic ${relic}`,
+        );
+      }
+    });
   });
 
-  console.log('[Validation] All characters are valid!');
+  console.info('[Validation] All characters are valid!');
 };
 
 validate();

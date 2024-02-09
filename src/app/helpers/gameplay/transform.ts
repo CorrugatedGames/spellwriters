@@ -59,6 +59,7 @@ export function turnCardIntoPlayableCard(opts: { id: string }): PlayableCard {
 
 export function turnCharacterIntoActivePlayer(opts: {
   character: Character;
+  turnOrder: TurnOrder;
 }): ActivePlayer {
   const { character } = opts;
   const deck = character.deck.spells.map((id) =>
@@ -68,6 +69,7 @@ export function turnCharacterIntoActivePlayer(opts: {
   const player: ActivePlayer = {
     id: character.id,
     sprite: character.sprite,
+    turnOrder: opts.turnOrder,
     name: character.name,
     health: character.maxHealth,
     maxHealth: character.maxHealth,
@@ -78,6 +80,7 @@ export function turnCharacterIntoActivePlayer(opts: {
     discard: [],
     spellsCastThisTurn: 0,
     behaviors: character.behaviors,
+    relics: character.relics,
   };
 
   shuffleDeck(player);

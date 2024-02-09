@@ -15,6 +15,8 @@ export interface ActivePlayer {
   id: string;
   sprite: number;
 
+  turnOrder: TurnOrder;
+
   name: string;
   health: number;
   maxHealth: number;
@@ -28,6 +30,7 @@ export interface ActivePlayer {
   spellsCastThisTurn: number;
 
   behaviors: Record<string, number>;
+  relics: Record<string, number>;
 }
 
 export enum GamePlayer {

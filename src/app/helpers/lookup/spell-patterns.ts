@@ -33,6 +33,8 @@ export function getSpellPatternKey(id: string): string | undefined {
 }
 
 export function getSpellPatternImpl(id: string): SpellPatternImpl | undefined {
+  if (!id) return undefined;
+
   const key = getSpellPatternKey(id);
   if (!key) throw new Error(`No spell pattern exists for ${id}`);
 

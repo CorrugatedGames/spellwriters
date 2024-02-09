@@ -1,15 +1,27 @@
-import { SpellTagCollisionArgs, SpellTagImpl } from '../../../interfaces';
+import {
+  RitualCurrentContextSpellArgs,
+  RitualImpl,
+  SpellTagCollisionArgs,
+} from '../../../interfaces';
 import { getSpellByName } from '../../lookup/spells';
-import { defaultSpellTag } from '../defaults/spell-tags';
+import { defaultRitual } from '../defaults/ritual';
 import { moveSpellToPosition, spellToFieldSpell } from '../field';
+import { isCurrentSpellContextSpell } from '../ritual';
 
-export const explodes: SpellTagImpl = {
-  ...defaultSpellTag,
+export const explodes: RitualImpl = {
+  ...defaultRitual(),
 
-  onCollision: (
+  onSpellCollision: (
     opts: SpellTagCollisionArgs & { collisionX: number; collisionY: number },
+    context: RitualCurrentContextSpellArgs,
   ) => {
-    const { spell, collisionX, collisionY } = opts;
+    if (!context) return;
+    if (!isCurrentSpellContextSpell({ funcOpts: opts, context })) return;
+
+    const { collisionX, collisionY } = opts;
+    const {
+      spellContext: { spell },
+    } = context;
 
     const hitNearbyTile = (x: number, y: number): void => {
       const spellInst = getSpellByName('Electric Explosion');

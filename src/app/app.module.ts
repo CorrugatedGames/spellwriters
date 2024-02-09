@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ContentService } from './services/content.service';
 import { GameStateService } from './services/game-state.service';
 import { MetaService } from './services/meta.service';
+import { ModAPIService } from './services/modapi.service';
 import {
   RollbarErrorHandler,
   RollbarService,
@@ -27,19 +28,27 @@ import {
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [MetaService, RollbarService, ContentService, GameStateService],
+      deps: [
+        MetaService,
+        RollbarService,
+        ContentService,
+        GameStateService,
+        ModAPIService,
+      ],
       useFactory:
         (
           metaService: MetaService,
           rollbarService: RollbarService,
           contentService: ContentService,
           gameStateService: GameStateService,
+          modApiService: ModAPIService,
         ) =>
         async () => {
           await metaService.init();
           await rollbarService.init();
           await contentService.init();
           await gameStateService.init();
+          await modApiService.init();
         },
     },
 

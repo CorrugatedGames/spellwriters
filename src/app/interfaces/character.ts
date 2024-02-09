@@ -12,6 +12,7 @@ export interface Character {
   deck: Deck;
 
   behaviors: Record<string, number>;
+  relics: Record<string, number>;
 }
 
 export interface Deck {

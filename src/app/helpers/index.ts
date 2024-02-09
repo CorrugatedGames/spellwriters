@@ -6,6 +6,7 @@ export * from './gameplay/field';
 export * from './gameplay/hand';
 export * from './gameplay/init';
 export * from './gameplay/meta';
+export * from './gameplay/ritual';
 export * from './gameplay/signal';
 export * from './gameplay/spell';
 export * from './gameplay/stats';
@@ -16,8 +17,8 @@ export * from './gameplay/vfx';
 
 export * from './gameplay/defaults/ai-patterns';
 export * from './gameplay/defaults/collisions';
+export * from './gameplay/defaults/ritual';
 export * from './gameplay/defaults/spell-patterns';
-export * from './gameplay/defaults/spell-tags';
 
 export * from './lookup/ai-patterns';
 export * from './lookup/characters';

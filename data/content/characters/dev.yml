@@ -23,3 +23,9 @@
 
   behaviors:
     random: 1
+
+  relics:
+    firefingers: 2
+    elementalgoo: 1
+    gemofgreed: 1
+    speedyshoes: 1

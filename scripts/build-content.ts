@@ -111,6 +111,7 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
   characters: async (items: Character[]) => {
     const allSpells = await fs.readJson(`${filepath}/spells.json`);
     const aiPatterns = await fs.readJson(`${filepath}/ai-patterns.json`);
+    const allRelics = await fs.readJson(`${filepath}/relics.json`);
 
     const spellsByName = Object.values(allSpells).reduce(
       (acc: Record<string, Spell>, spell: any) => {
@@ -128,6 +129,14 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
       {},
     );
 
+    const relicsByName = Object.values(allRelics).reduce(
+      (acc: Record<string, Relic>, relic: any) => {
+        acc[relic.key] = relic;
+        return acc;
+      },
+      {},
+    );
+
     items.forEach((item) => {
       item.mod = 'default';
       item.asset = 'characters.webp';
@@ -137,13 +146,22 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
         return spell?.id ?? `INVALID: ${spellName}`;
       });
 
-      const oldBehaviors = item.behaviors;
+      const oldBehaviors = item.behaviors ?? {};
 
       item.behaviors = {};
       Object.keys(oldBehaviors).forEach((behaviorName) => {
         const pattern = patternsByName[behaviorName];
         item.behaviors[pattern?.id ?? `INVALID: ${behaviorName}`] =
           oldBehaviors[behaviorName];
+      });
+
+      const oldRelics = item.relics ?? {};
+
+      item.relics = {};
+      Object.keys(oldRelics).forEach((relicName) => {
+        const relic = relicsByName[relicName];
+        item.relics[relic?.id ?? `INVALID: ${relicName}`] =
+          oldRelics[relicName];
       });
     });
   },
@@ -177,7 +195,7 @@ const load = async () => {
   const items = await readdir(`./data/content/${contentType}`);
   const allItems: any[] = [];
 
-  console.log(`[Build] Loading ${contentType}...`);
+  console.info(`[Build] Loading ${contentType}...`);
   items.forEach((spellFile: string) => {
     const data = yaml.load(fs.readFileSync(spellFile, 'utf8')) as any[];
 
@@ -186,10 +204,10 @@ const load = async () => {
     });
   });
 
-  console.log(`[Build] Loaded ${allItems.length}! Postprocessing...`);
+  console.info(`[Build] Loaded ${allItems.length}! Postprocessing...`);
   await postprocess[contentType]?.(allItems);
 
-  console.log(`[Build] Processed ${contentType}!`);
+  console.info(`[Build] Processed ${contentType}!`);
 
   const allIds: Record<string, boolean> = {};
   allItems.forEach((item: any) => {

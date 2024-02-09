@@ -5,7 +5,7 @@
     <sw-sprite [sprite]="relicData.sprite" [mod]="relicData.mod" [asset]="relicData.asset"></sw-sprite>
   </div>
 
-  @if(stacks() > 1) {
+  @if(stacks() > 0 && relicData.stackable) {
   <div class="relic-stack-value">
     {{ stacks() }}
   </div>

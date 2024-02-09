@@ -22,6 +22,7 @@ export enum SpellStatImpl {
 export interface Spell {
   name: string;
   id: string;
+  key: string;
   description: string;
 
   mod: string;

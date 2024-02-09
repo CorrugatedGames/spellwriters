@@ -9,7 +9,7 @@ const reversion = async () => {
     spaces: 2,
   });
 
-  console.log('Updated Electron version!');
+  console.info('Updated Electron version!');
 };
 
 reversion();

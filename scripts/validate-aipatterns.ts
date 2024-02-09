@@ -26,7 +26,7 @@ const validate = async () => {
     }
   });
 
-  console.log('[Validation] All AI patterns are valid!');
+  console.info('[Validation] All AI patterns are valid!');
 };
 
 validate();

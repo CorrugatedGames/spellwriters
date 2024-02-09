@@ -1,8 +1,8 @@
-import { FieldSpell, SpellStatImpl, SpellTagImpl } from '../../interfaces';
+import { FieldSpell, SpellStatImpl } from '../../interfaces';
 import { getElementKey } from '../lookup/elements';
-import { getSpellTagImpl } from '../lookup/spell-tags';
-import { findSpellOnField, removeSpellFromField } from './field';
-import { gamestate } from './signal';
+import { getSpellTagKey } from '../lookup/spell-tags';
+import { removeSpellFromField } from './field';
+import { callRitualGlobalFunction } from './ritual';
 
 export function isSpellDead(opts: { spell: FieldSpell }): boolean {
   const { spell } = opts;
@@ -30,10 +30,9 @@ export function setSpellStat<T extends SpellStatImpl>(opts: {
 
   spell[stat] = value;
 
-  callSpellTagFunction({
-    spell,
-    func: 'onStatChange',
-    funcOpts: { stat, oldValue, newValue: value },
+  callRitualGlobalFunction({
+    func: 'onSpellStatChange',
+    funcOpts: { spell, stat, oldValue, newValue: value },
   });
 }
 
@@ -50,7 +49,7 @@ export function setSpellDamage(opts: {
   });
 
   if (spell.damage === 0) {
-    removeSpellFromField({ spellId: spell.castId });
+    removeSpellFromField({ spellId: spell.castId, fullRemoval: true });
   }
 }
 
@@ -61,10 +60,9 @@ export function setSpellTag(opts: {
 }): void {
   const { spell, tag, value } = opts;
 
-  callSpellTagFunction({
-    spell,
-    func: 'onTagChange',
-    funcOpts: { tag, newValue: value },
+  callRitualGlobalFunction({
+    func: 'onSpellTagChange',
+    funcOpts: { spell, tag, newValue: value },
   });
 
   if (value <= 0) {
@@ -77,58 +75,14 @@ export function setSpellTag(opts: {
 
 export function getSpellTags(opts: {
   spell: FieldSpell;
-}): Array<{ key: string; value: number }> {
+}): Array<{ id: string; key: string | undefined; stacks: number }> {
   const { spell } = opts;
 
-  return Object.keys(spell.tags ?? {}).map((key) => ({
-    key,
-    value: spell.tags[key],
+  return Object.keys(spell.tags ?? {}).map((id) => ({
+    id,
+    key: getSpellTagKey(id),
+    stacks: spell.tags[id],
   }));
-}
-
-export function callSpellTagFunctionGlobally<
-  T extends keyof SpellTagImpl,
->(opts: {
-  func: T;
-  funcOpts: Omit<Parameters<SpellTagImpl[T]>[0], 'spell'>;
-}): void {
-  const { func, funcOpts } = opts;
-
-  const allSpells = gamestate()
-    .spellQueue.map((spellId) => findSpellOnField({ spellId }))
-    .filter(Boolean) as FieldSpell[];
-
-  allSpells.forEach((spell) => {
-    callSpellTagFunction({ spell, func, funcOpts });
-  });
-}
-
-export function callSpellTagFunction<T extends keyof SpellTagImpl>(opts: {
-  spell: FieldSpell;
-  func: T;
-  funcOpts: Omit<Parameters<SpellTagImpl[T]>[0], 'spell'>;
-}): void | boolean[] {
-  const { spell, func, funcOpts } = opts;
-  const allTags = getSpellTags({ spell });
-
-  const spellOpts: Parameters<SpellTagImpl[T]>[0] = {
-    ...funcOpts,
-    spell,
-  } as Parameters<SpellTagImpl[T]>[0];
-
-  switch (func) {
-    case 'onSpaceEnter':
-    case 'onSpaceExit':
-      return allTags.map((tag) =>
-        getSpellTagImpl(tag.key)?.[func]?.(spellOpts as never),
-      ) as boolean[];
-
-    default:
-      allTags.forEach((tag) =>
-        getSpellTagImpl(tag.key)?.[func]?.(spellOpts as never),
-      );
-      return;
-  }
 }
 
 export function defaultCollisionWinner(opts: {
@@ -138,46 +92,40 @@ export function defaultCollisionWinner(opts: {
   const { collider, collidee } = opts;
 
   if (collidee.castTime > 0 || collider.damage > collidee.damage) {
-    callSpellTagFunction({
-      spell: collider,
-      func: 'onCollisionWin',
-      funcOpts: { collidedWith: collidee },
+    callRitualGlobalFunction({
+      func: 'onSpellCollisionWin',
+      funcOpts: { spell: collider, collidedWith: collidee },
     });
 
-    callSpellTagFunction({
-      spell: collidee,
-      func: 'onCollisionLose',
-      funcOpts: { collidedWith: collider },
+    callRitualGlobalFunction({
+      func: 'onSpellCollisionLose',
+      funcOpts: { spell: collidee, collidedWith: collider },
     });
 
     return collider;
   }
 
   if (collider.damage < collidee.damage) {
-    callSpellTagFunction({
-      spell: collidee,
-      func: 'onCollisionWin',
-      funcOpts: { collidedWith: collider },
+    callRitualGlobalFunction({
+      func: 'onSpellCollisionWin',
+      funcOpts: { spell: collidee, collidedWith: collider },
     });
 
-    callSpellTagFunction({
-      spell: collider,
-      func: 'onCollisionLose',
-      funcOpts: { collidedWith: collidee },
+    callRitualGlobalFunction({
+      func: 'onSpellCollisionLose',
+      funcOpts: { spell: collider, collidedWith: collidee },
     });
     return collidee;
   }
 
-  callSpellTagFunction({
-    spell: collider,
-    func: 'onCollisionTie',
-    funcOpts: { collidedWith: collidee },
+  callRitualGlobalFunction({
+    func: 'onSpellCollisionTie',
+    funcOpts: { spell: collider, collidedWith: collidee },
   });
 
-  callSpellTagFunction({
-    spell: collidee,
-    func: 'onCollisionTie',
-    funcOpts: { collidedWith: collider },
+  callRitualGlobalFunction({
+    func: 'onSpellCollisionTie',
+    funcOpts: { spell: collidee, collidedWith: collider },
   });
 
   return undefined;
@@ -205,56 +153,48 @@ export function defaultCollisionDamageReduction(opts: {
 
   if (collider.damage === 0) {
     if (collider.castTime > 0) {
-      callSpellTagFunction({
-        spell: collidee,
+      callRitualGlobalFunction({
         func: 'onSpellCancel',
-        funcOpts: { canceledSpell: collider },
+        funcOpts: { spell: collidee, canceledSpell: collider },
       });
 
-      callSpellTagFunction({
-        spell: collider,
+      callRitualGlobalFunction({
         func: 'onSpellCanceled',
-        funcOpts: { canceledBySpell: collidee },
+        funcOpts: { spell: collider, canceledBySpell: collidee },
       });
     } else {
-      callSpellTagFunction({
-        spell: collidee,
+      callRitualGlobalFunction({
         func: 'onSpellDestroy',
-        funcOpts: { destroyedSpell: collider },
+        funcOpts: { spell: collidee, destroyedSpell: collider },
       });
 
-      callSpellTagFunction({
-        spell: collider,
+      callRitualGlobalFunction({
         func: 'onSpellDestroyed',
-        funcOpts: { destroyedBySpell: collidee },
+        funcOpts: { spell: collider, destroyedBySpell: collidee },
       });
     }
   }
 
   if (collidee.damage === 0) {
     if (collidee.castTime > 0) {
-      callSpellTagFunction({
-        spell: collider,
+      callRitualGlobalFunction({
         func: 'onSpellCancel',
-        funcOpts: { canceledSpell: collidee },
+        funcOpts: { spell: collider, canceledSpell: collidee },
       });
 
-      callSpellTagFunction({
-        spell: collidee,
+      callRitualGlobalFunction({
         func: 'onSpellCanceled',
-        funcOpts: { canceledBySpell: collider },
+        funcOpts: { spell: collidee, canceledBySpell: collider },
       });
     } else {
-      callSpellTagFunction({
-        spell: collider,
+      callRitualGlobalFunction({
         func: 'onSpellDestroy',
-        funcOpts: { destroyedSpell: collidee },
+        funcOpts: { spell: collider, destroyedSpell: collidee },
       });
 
-      callSpellTagFunction({
-        spell: collidee,
+      callRitualGlobalFunction({
         func: 'onSpellDestroyed',
-        funcOpts: { destroyedBySpell: collider },
+        funcOpts: { spell: collidee, destroyedBySpell: collider },
       });
     }
   }

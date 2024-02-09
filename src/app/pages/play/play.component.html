@@ -33,9 +33,11 @@
           (mouseenter)="getHoverInfoForTile(gridRow, gridCol); showTargettableSpacesForTile(gridRow, gridCol)"
           (mouseleave)="resetHoverInfoForTile(); resetTargettableSpaces()" tabindex="0">
 
-          @if(activeCardData && canSelectTile(gridRow, gridCol) && targetTiles[gridRow][gridCol]) {
-          <sw-sprite class="grid-item cast-sprite" [sprite]="targetTiles[gridRow][gridCol].sprite"
-            [asset]="targetTiles[gridRow][gridCol].asset" [mod]="targetTiles[gridRow][gridCol].mod"></sw-sprite>
+          @if(activeCardData && canSelectTile(gridRow, gridCol) && targetTiles[gridRow]?.[gridCol]) {
+          @if(targetTiles[gridRow]?.[gridCol]; as targetTile) {
+          <sw-sprite class="grid-item cast-sprite" [sprite]="targetTile.sprite" [asset]="targetTile.asset"
+            [mod]="targetTile.mod"></sw-sprite>
+          }
           }
 
           @if(col.containedSpell) {
@@ -59,6 +61,12 @@
     </div>
 
     <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck" [isGlowing]="gamephase.PlayerDraw"></sw-deck>
+
+    <div class="relics">
+      @for(relicData of relics; track $index) {
+      <sw-relic-indicator [relic]="relicData.relic" [stacks]="relicData.count"></sw-relic-indicator>
+      }
+    </div>
 
     <div class="tile-info">
       @if(hoveringTile?.containedElement; as element) {

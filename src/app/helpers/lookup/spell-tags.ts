@@ -1,10 +1,10 @@
 import { WritableSignal, signal } from '@angular/core';
-import { SpellTag, SpellTagImpl } from '../../interfaces';
+import { RitualImpl, SpellTag } from '../../interfaces';
 
 import { clone } from 'lodash';
 import * as SpellTags from '../gameplay/spell-tags';
 
-const AllSpellTags: Record<string, SpellTagImpl> = SpellTags;
+const AllSpellTags: Record<string, RitualImpl> = SpellTags;
 
 export const spellTagData: WritableSignal<Record<string, SpellTag>> = signal(
   {},
@@ -32,7 +32,11 @@ export function getSpellTagKey(id: string): string | undefined {
   return getSpellTagById(id)?.key;
 }
 
-export function getSpellTagImpl(id: string): SpellTagImpl | undefined {
+export function getSpellTagImplByKey(key: string): RitualImpl | undefined {
+  return AllSpellTags[key];
+}
+
+export function getSpellTagImpl(id: string): RitualImpl | undefined {
   const key = getSpellTagKey(id);
   if (!key) throw new Error(`No spell tag exists for ${id}`);
 

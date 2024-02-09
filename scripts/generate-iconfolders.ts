@@ -11,7 +11,7 @@ const load = async () => {
     fs.copyFile(`${iconpath}/${icon}`, `./data/mod/icons/${icon}`);
   });
 
-  console.log('[Build] Default mod icons copied!');
+  console.info('[Build] Default mod icons copied!');
 };
 
 load();

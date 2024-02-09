@@ -54,7 +54,7 @@ const validate = async () => {
     });
   });
 
-  console.log('[Validation] All elements are valid!');
+  console.info('[Validation] All elements are valid!');
 };
 
 validate();

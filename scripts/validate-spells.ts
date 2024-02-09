@@ -49,6 +49,10 @@ const validate = async () => {
       throw new Error(`Spell ${spell.id} has no name`);
     }
 
+    if (!spell.key) {
+      throw new Error(`Spell ${spell.name} has no key`);
+    }
+
     if (!spell.description) {
       throw new Error(`Spell ${spell.name} has no description`);
     }
@@ -122,7 +126,7 @@ const validate = async () => {
     });
   });
 
-  console.log('[Validation] All spells are valid!');
+  console.info('[Validation] All spells are valid!');
 };
 
 validate();

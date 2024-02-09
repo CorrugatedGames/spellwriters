@@ -10,7 +10,7 @@ try {
     process.exit(1);
   }
 
-  console.log('Clean git HEAD; continuing process.');
+  console.info('Clean git HEAD; continuing process.');
 } catch (e) {
   console.error(e);
 }

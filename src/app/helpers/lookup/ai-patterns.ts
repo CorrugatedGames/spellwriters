@@ -34,6 +34,8 @@ export function getAIPatternKey(id: string): string | undefined {
 }
 
 export function getAIPatternImpl(id: string): AIPatternImpl | undefined {
+  if (!id) return undefined;
+
   const key = getAIPatternKey(id);
   if (!key) throw new Error(`No ai pattern exists for ${id}`);
 

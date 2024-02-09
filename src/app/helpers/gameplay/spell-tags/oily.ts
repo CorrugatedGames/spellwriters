@@ -1,14 +1,28 @@
-import { SpellTagImpl, SpellTagSpaceArgs } from '../../../interfaces';
+import {
+  RitualCurrentContextSpellArgs,
+  RitualImpl,
+  SpellTagSpaceArgs,
+} from '../../../interfaces';
 import { getSpellTagByKey } from '../../lookup/spell-tags';
-import { defaultSpellTag } from '../defaults/spell-tags';
+import { defaultRitual } from '../defaults/ritual';
 import { elementKeyToFieldElement, setFieldElement } from '../field';
+import { isCurrentSpellContextSpell } from '../ritual';
 import { setSpellTag } from '../spell';
 
-export const oily: SpellTagImpl = {
-  ...defaultSpellTag,
+export const oily: RitualImpl = {
+  ...defaultRitual(),
 
-  onSpaceExited: (opts: SpellTagSpaceArgs) => {
-    const { spell, x, y } = opts;
+  onSpellSpaceExited: (
+    opts: SpellTagSpaceArgs,
+    context: RitualCurrentContextSpellArgs,
+  ) => {
+    if (!context) return;
+    if (!isCurrentSpellContextSpell({ funcOpts: opts, context })) return;
+
+    const { x, y } = opts;
+    const {
+      spellContext: { spell },
+    } = context;
 
     setFieldElement({
       x,
