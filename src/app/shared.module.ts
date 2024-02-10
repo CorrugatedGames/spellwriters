@@ -9,7 +9,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { ElementCardComponent } from './components/_shared/element-card/element-card.component';
 import { FitTextComponent } from './components/_shared/fit-text/fit-text.component';
-import { IconElementComponent } from './components/_shared/icon-element/icon-element.component';
 import { IconStatComponent } from './components/_shared/icon-stat/icon-stat.component';
 import { IconComponent } from './components/_shared/icon/icon.component';
 import { RelicCardComponent } from './components/_shared/relic-card/relic-card.component';
@@ -34,7 +33,6 @@ const components = [
   SpriteComponent,
   SpellCardComponent,
   ElementCardComponent,
-  IconElementComponent,
   IconStatComponent,
   IconComponent,
   ManaBarComponent,

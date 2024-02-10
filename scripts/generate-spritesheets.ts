@@ -3,9 +3,13 @@ import imagemin from 'imagemin';
 import webp from 'imagemin-webp';
 import Jimp from 'jimp';
 
+const getDirectories = async (source: string) =>
+  (await fs.readdir(source, { withFileTypes: true }))
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
+
 const spriteSize = 64;
 const spritesPerRow = 20;
-const spritesheets = ['characters', 'spells', 'relics'];
 
 const compressImages = async () => {
   await imagemin([`./data/mod/spritesheets/*.png`], {
@@ -17,6 +21,8 @@ const compressImages = async () => {
     ],
   });
 };
+
+const spritesheets = await getDirectories('./data/sprites');
 
 const createSpritesheets = async () => {
   await Promise.all(

@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { ContentMod } from '../src/app/interfaces';
 
-const iconpath = './data/sprites/icons/core';
+const iconpath = './data/icons/core';
 
 const savedir = './src/assets/mods/core';
 

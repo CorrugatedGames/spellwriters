@@ -29,6 +29,10 @@ const validate = async () => {
       throw new Error(`Element ${element.name} has no key`);
     }
 
+    if (element.sprite < 0) {
+      throw new Error(`Element ${element.name} has no sprite`);
+    }
+
     if (!element.createdBy) {
       throw new Error(`Element ${element.name} has no createdBy`);
     }

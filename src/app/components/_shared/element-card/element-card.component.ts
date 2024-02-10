@@ -1,5 +1,10 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { getElementByKey } from '../../../helpers';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
+import { getElementById, getElementByKey } from '../../../helpers';
 import { SpellElement } from '../../../interfaces';
 
 @Component({
@@ -26,4 +31,11 @@ export class ElementCardComponent {
 
     return text;
   }
+
+  public allInteractions = computed(
+    () =>
+      this.element()
+        .interactions.map((interaction) => getElementById(interaction.element))
+        .filter(Boolean) as SpellElement[],
+  );
 }

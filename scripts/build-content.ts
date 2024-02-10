@@ -32,7 +32,7 @@ const postprocess: Record<string, (items: any[]) => Promise<void>> = {
 
     items.forEach((item) => {
       item.mod = 'default';
-      item.asset = item.asset ?? `${item.key}.svg`;
+      item.asset = `elements.webp`;
 
       item.createdBy = item.createdBy.map((elementName: string) => {
         const element = elementsByKey[elementName];

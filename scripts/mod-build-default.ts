@@ -1,5 +1,4 @@
 import fs from 'fs-extra';
-import path from 'path';
 import { ContentMod, ContentModImage } from '../src/app/interfaces';
 
 const contentpath = './data/mod/content';
@@ -60,16 +59,6 @@ const load = async () => {
     fs.copyFile(`${spritesheetpath}/${image.name}`, `${savedir}/${image.name}`);
 
     mod.preload.images[image.name] = image;
-  });
-
-  const icons = await fs.readdir(iconpath);
-  icons.forEach((icon) => {
-    fs.copyFile(`${iconpath}/${icon}`, `${savedir}/${icon}`);
-    const iconName = path.basename(icon, '.svg');
-    const iconColor = iconColors[iconName];
-    if (!iconColor) throw new Error(`No color found for icon ${iconName}`);
-
-    mod.preload.svgs.push({ name: iconName });
   });
 
   fs.writeJson(`${savedir}/content.json`, mod);

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import {
+  getElementById,
   getElementKey,
   getSpellPatternById,
   getSpellTagById,
@@ -20,6 +21,10 @@ export class SpellCardComponent {
   public isSmall = input<boolean>(false);
   public isGlowing = input<boolean>(false);
   public extraCost = input<number>(0);
+
+  public get spellElementData() {
+    return getElementById(this.spell().element);
+  }
 
   public get spellElement() {
     return this.isUpsideDown() ? '' : getElementKey(this.spell()?.element);

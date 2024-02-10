@@ -1,6 +1,7 @@
 - name: Hydroelectricity
   key: hydroelectricity
   id: 0eb28e78-948b-46f1-b040-2f95cfa6319b
+  sprite: 5
   createdBy:
     - electric
     - water
@@ -11,6 +12,7 @@
 
 - name: Terraelectricity
   key: terraelectricity
+  sprite: 10
   id: ba29efc0-665b-40de-8ad9-6f6beae3f64e
   createdBy:
     - electric
@@ -23,6 +25,7 @@
 - name: Pyroelectricity
   key: pyroelectricity
   id: 0c6a12b5-173c-4b22-bbb2-81153a94b778
+  sprite: 8
   createdBy:
     - electric
     - fire

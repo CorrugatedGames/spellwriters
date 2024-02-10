@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostBinding,
   computed,
   input,
 } from '@angular/core';
@@ -20,13 +21,10 @@ import { Spritable } from '../../../interfaces';
   `,
   styles: `
   :host {
-    width: var(--sprite-size);
-    height: var(--sprite-size);
     display: inline-block;
   
     .image-container {
-      width: var(--sprite-size);
-      height: var(--sprite-size);
+      transform: scale(var(--sprite-scale));
   
       img {
         width: var(--sprite-size);
@@ -43,6 +41,18 @@ import { Spritable } from '../../../interfaces';
 })
 export class SpriteComponent {
   public spritable = input.required<Spritable>();
+  public spritesheetSize = input<number>(64);
+  public size = input<number>(64);
+
+  @HostBinding('style.--sprite-size')
+  public get spriteSize(): string {
+    return `${this.spritesheetSize()}px`;
+  }
+
+  @HostBinding('style.--sprite-scale')
+  public get spriteScale(): number {
+    return this.size() / this.spritesheetSize();
+  }
 
   private mod = computed(() => this.spritable().mod);
   private asset = computed(() => this.spritable().asset);

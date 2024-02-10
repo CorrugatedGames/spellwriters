@@ -6,9 +6,14 @@
 - name: spells.webp
   spritesPerRow: 20
   spriteSize: 64
-  framesPerAnimation: 4
+  framesPerAnimation: 1
 
 - name: relics.webp
   spritesPerRow: 20
   spriteSize: 64
-  framesPerAnimation: 4
+  framesPerAnimation: 1
+
+- name: elements.webp
+  spritesPerRow: 20
+  spriteSize: 64
+  framesPerAnimation: 1

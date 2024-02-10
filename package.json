@@ -54,7 +54,6 @@
     "mod:build:default": "ts-node scripts/mod-build-default",
     "mod:build:core": "ts-node scripts/mod-build-core",
     "art": "concurrently \"npm run art:build:*\"",
-    "art:build:iconfolders": "ts-node scripts/generate-iconfolders",
     "art:build:spritesheets": "ts-node scripts/generate-spritesheets",
     "validate": "concurrently \"npm run validate:*\"",
     "validate:rarities": "ts-node scripts/validate-rarities",

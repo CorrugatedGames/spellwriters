@@ -30,8 +30,8 @@
 
     .icon {
       position: absolute;
-      top: 8px;
-      right: 8px;
+      top: -8px;
+      right: -8px;
     }
   }
 
@@ -49,10 +49,12 @@
     padding: 4px;
 
     .interactions {
-      display: flex;
-      flex-direction: row;
+      position: relative;
 
       .interaction {
+        position: absolute;
+        bottom: -32px;
+        left: calc(-16px + var(--interaction-index) * 20px);
       }
     }
   }

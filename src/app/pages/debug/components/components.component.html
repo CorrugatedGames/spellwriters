@@ -202,7 +202,7 @@
   <div class="sprite-container">
     @for(element of elementList; track element) {
     <div class="sprite" [ngbTooltip]="'Element: ' + element.key">
-      <sw-icon-element [element]="element.id" [size]="48"></sw-icon-element>
+      <sw-sprite [spritable]="element" [size]="48"></sw-sprite>
     </div>
     }
   </div>

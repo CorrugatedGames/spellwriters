@@ -55,7 +55,9 @@
               {{ spellStat.value }}
 
               @if(spellStat.stat === 'damage') {
-              <sw-icon-element class="spell-element-damage" [element]="spellData.element" [size]="18"></sw-icon-element>
+              @if(spellElementData; as elementData) {
+              <sw-sprite class="spell-element-damage" [spritable]="elementData" [size]="18"></sw-sprite>
+              }
               }
             </div>
           </div>
