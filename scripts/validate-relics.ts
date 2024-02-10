@@ -1,11 +1,14 @@
 import fs from 'fs-extra';
 import { Rarity, Relic } from '../src/app/interfaces';
+import { numFilesInFolder } from './helpers/files-in-folder';
 
 const validate = async () => {
   const relics = (await fs.readJson(
     './data/mod/content/relics.json',
   )) as unknown as Record<string, Relic>;
   const rarities = await fs.readJson('./data/mod/content/rarities.json');
+
+  const numSprites = numFilesInFolder('./data/sprites/relics');
 
   const validRarities = Object.values(rarities).map(
     (rarity: unknown) => (rarity as Rarity).id,
@@ -36,6 +39,10 @@ const validate = async () => {
 
     if (!relic.description) {
       throw new Error(`Relic ${relic.name} has no description`);
+    }
+
+    if (relic.sprite < 0 || relic.sprite >= numSprites) {
+      throw new Error(`Relic ${relic.name} has invalid sprite`);
     }
 
     if (!relic.rarity) {

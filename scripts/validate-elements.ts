@@ -1,10 +1,13 @@
 import fs from 'fs-extra';
 import { Spell, SpellElement } from '../src/app/interfaces';
+import { numFilesInFolder } from './helpers/files-in-folder';
 
 const validate = async () => {
   const elements = (await fs.readJson(
     './data/mod/content/elements.json',
   )) as unknown as Record<string, Spell>;
+
+  const numSprites = numFilesInFolder('./data/sprites/elements');
 
   const allIds: Record<string, boolean> = {};
 
@@ -29,7 +32,7 @@ const validate = async () => {
       throw new Error(`Element ${element.name} has no key`);
     }
 
-    if (element.sprite < 0) {
+    if (element.sprite < 0 || element.sprite >= numSprites) {
       throw new Error(`Element ${element.name} has no sprite`);
     }
 

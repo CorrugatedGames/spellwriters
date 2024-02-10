@@ -6,6 +6,7 @@ import {
   SpellPattern,
   SpellTag,
 } from '../src/app/interfaces';
+import { numFilesInFolder } from './helpers/files-in-folder';
 
 const validate = async () => {
   const elements = await fs.readJson('./data/mod/content/elements.json');
@@ -13,6 +14,8 @@ const validate = async () => {
   const patterns = await fs.readJson('./data/mod/content/spell-patterns.json');
   const tags = await fs.readJson('./data/mod/content/spell-tags.json');
   const rarities = await fs.readJson('./data/mod/content/rarities.json');
+
+  const numSprites = numFilesInFolder('./data/sprites/spells');
 
   const validElements = Object.values(elements).map(
     (el: unknown) => (el as SpellElement).id,
@@ -57,7 +60,7 @@ const validate = async () => {
       throw new Error(`Spell ${spell.name} has no description`);
     }
 
-    if (spell.sprite < 0) {
+    if (spell.sprite < 0 || spell.sprite >= numSprites) {
       throw new Error(`Spell ${spell.name} has invalid sprite ${spell.sprite}`);
     }
 

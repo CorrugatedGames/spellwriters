@@ -1,11 +1,14 @@
 import fs from 'fs-extra';
 import { Character } from '../src/app/interfaces';
+import { numFilesInFolder } from './helpers/files-in-folder';
 
 const validate = async () => {
   const characters = await fs.readJson('./data/mod/content/characters.json');
   const spells = await fs.readJson('./data/mod/content/spells.json');
   const behaviors = await fs.readJson('./data/mod/content/ai-patterns.json');
   const relics = await fs.readJson('./data/mod/content/relics.json');
+
+  const numSprites = numFilesInFolder('./data/sprites/characters') / 4;
 
   const allIds: Record<string, boolean> = {};
 
@@ -30,7 +33,7 @@ const validate = async () => {
       throw new Error(`Character ${character.name} has no description`);
     }
 
-    if (character.sprite < 0) {
+    if (character.sprite < 0 || character.sprite >= numSprites) {
       throw new Error(
         `Character ${character.name} has invalid sprite ${character.sprite}`,
       );
