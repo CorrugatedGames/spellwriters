@@ -6,7 +6,7 @@ import {
 } from '../../../interfaces';
 import { defaultRitual } from '../defaults/ritual';
 import { isCurrentSpellOwnedByRelicOwner } from '../ritual';
-import { setSpellStat } from '../spell';
+import { isSpellElement, setSpellStat } from '../spell';
 
 export const firefingers: RitualImpl = {
   ...defaultRitual(),
@@ -20,6 +20,7 @@ export const firefingers: RitualImpl = {
     const { spell } = opts;
 
     if (!isCurrentSpellOwnedByRelicOwner({ spell, context })) return;
+    if (!isSpellElement({ spell, element: 'fire' })) return;
 
     const {
       relicContext: { stacks },

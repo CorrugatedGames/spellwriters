@@ -4,7 +4,7 @@ import { FieldElement } from '../../../interfaces';
 @Component({
   selector: 'sw-field-element',
   template: `
-    <sw-icon category="element" [name]="element().key" [size]="64"></sw-icon>
+    <sw-sprite [spritable]="element()" [size]="64"></sw-sprite>
   `,
   styles: `
     :host {
