@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import gameanalytics from 'gameanalytics';
 import { environment } from '../../environment';
-import { type MetaService } from './meta.service';
+import { MetaService } from './meta.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AnalyticsService {
+  private metaService = inject(MetaService);
   private analytics: typeof gameanalytics.GameAnalytics;
-
-  constructor(private metaService: MetaService) {}
 
   init() {
     this.analytics = gameanalytics.GameAnalytics;

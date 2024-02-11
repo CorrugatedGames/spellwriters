@@ -1,5 +1,5 @@
-import { Component, type OnInit } from '@angular/core';
-import { type Router } from '@angular/router';
+import { Component, inject, type OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocalStorage } from 'ngx-webstorage';
 import {
   allCharacters,
@@ -12,9 +12,13 @@ import {
   startCombat,
 } from '../../../helpers';
 import { getRarityById } from '../../../helpers/lookup/rarities';
-import { type Character, type GameStateInitOpts, type Relic } from '../../../interfaces';
-import { type ContentService } from '../../../services/content.service';
-import { type GameStateService } from '../../../services/game-state.service';
+import {
+  type Character,
+  type GameStateInitOpts,
+  type Relic,
+} from '../../../interfaces';
+import { ContentService } from '../../../services/content.service';
+import { GameStateService } from '../../../services/game-state.service';
 
 @Component({
   selector: 'sw-test-run',
@@ -22,8 +26,15 @@ import { type GameStateService } from '../../../services/game-state.service';
   styleUrl: './test-run.component.scss',
 })
 export class DebugTestRunComponent implements OnInit {
+  private router = inject(Router);
+  public contentService = inject(ContentService);
+  public gamestateService = inject(GameStateService);
+
   getCharacterById = getCharacterById;
   getSpellById = getSpellById;
+
+  public characterList = allCharacters();
+  public relicList = allRelics();
 
   @LocalStorage()
   public playerTestCharacterId!: string;
@@ -36,15 +47,6 @@ export class DebugTestRunComponent implements OnInit {
 
   @LocalStorage()
   public enemyRelics!: Record<string, number>;
-
-  public characterList = allCharacters();
-  public relicList = allRelics();
-
-  constructor(
-    private router: Router,
-    public contentService: ContentService,
-    public gamestateService: GameStateService,
-  ) {}
 
   ngOnInit() {
     this.playerRelics ??= {};

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { gamestate } from '../../helpers';
-import { type MetaService } from '../../services/meta.service';
+import { MetaService } from '../../services/meta.service';
 
 @Component({
   selector: 'sw-home',
@@ -8,6 +8,8 @@ import { type MetaService } from '../../services/meta.service';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  public metaService = inject(MetaService);
+
   public links = [
     {
       name: 'Discord',
@@ -52,8 +54,6 @@ export class HomeComponent {
       icon: 'email',
     },
   ];
-
-  constructor(public metaService: MetaService) {}
 
   public get hasRun(): boolean {
     return !!gamestate().id;

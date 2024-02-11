@@ -6,8 +6,7 @@ import {
   getSpellTagById,
 } from '../../../helpers';
 import { getRarityKey } from '../../../helpers/lookup/rarities';
-import { type Spell, SpellStat } from '../../../interfaces';
-import { type ContentService } from '../../../services/content.service';
+import { SpellStat, type Spell } from '../../../interfaces';
 
 @Component({
   selector: 'sw-spell-card',
@@ -72,6 +71,4 @@ export class SpellCardComponent {
       value: this.spell().tags[name] ?? 0,
     }));
   }
-
-  constructor(public contentService: ContentService) {}
 }

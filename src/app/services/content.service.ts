@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { type SvgIconRegistryService } from 'angular-svg-icon';
+import { Injectable, inject } from '@angular/core';
+import { SvgIconRegistryService } from 'angular-svg-icon';
 import {
   aiPatternData,
   characterData,
@@ -18,7 +18,7 @@ import { type ContentMod } from '../interfaces';
   providedIn: 'root',
 })
 export class ContentService {
-  constructor(private iconReg: SvgIconRegistryService) {}
+  private iconReg = inject(SvgIconRegistryService);
 
   async init() {
     await this.loadModByName('core');
@@ -26,10 +26,15 @@ export class ContentService {
   }
 
   async loadModByName(name: string) {
-    const mod = await fetch(`assets/mods/${name}/content.json`);
-    const modContent = await mod.json();
+    try {
+      const mod = await fetch(`assets/mods/${name}/content.json`);
+      const modContent = await mod.json();
 
-    await this.loadMod(modContent);
+      await this.loadMod(modContent);
+    } catch (e) {
+      console.error(`Failed to load mod: ${name}`, e);
+      throw e;
+    }
   }
 
   async loadMod(mod: ContentMod) {

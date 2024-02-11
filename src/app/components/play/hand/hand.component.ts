@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output, input } from '@angular/core';
 import { getSpellById } from '../../../helpers';
 import { type PlayableCard, type SelectedCard } from '../../../interfaces';
-import { type ContentService } from '../../../services/content.service';
 
 @Component({
   selector: 'sw-hand',
@@ -20,8 +19,6 @@ export class HandComponent {
   @Output() public unselectCard = new EventEmitter<SelectedCard>();
 
   public hoveringSpellIndex = -1;
-
-  constructor(public contentService: ContentService) {}
 
   public focusHandCard(index: number) {
     this.hoveringSpellIndex = index;

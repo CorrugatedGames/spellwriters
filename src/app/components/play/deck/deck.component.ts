@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { getSpellById } from '../../../helpers';
 import { type PlayableCard } from '../../../interfaces';
-import { type ContentService } from '../../../services/content.service';
 
 @Component({
   selector: 'sw-deck',
@@ -18,16 +17,16 @@ import { type ContentService } from '../../../services/content.service';
       (keyup.enter)="drawCard.next()"
       tabindex="0"
     >
-      @for(deckSize of [0, 1, 2]; track $index) {
-      <div class="deck-card" [style.--card-index]="deckSize">
-        @if(deck().length > deckSize) {
-        <sw-spell-card
-          [spell]="getSpellById('')!"
-          [isUpsideDown]="true"
-          [isSmall]="true"
-        ></sw-spell-card>
-        }
-      </div>
+      @for (deckSize of [0, 1, 2]; track $index) {
+        <div class="deck-card" [style.--card-index]="deckSize">
+          @if (deck().length > deckSize) {
+            <sw-spell-card
+              [spell]="getSpellById('')!"
+              [isUpsideDown]="true"
+              [isSmall]="true"
+            ></sw-spell-card>
+          }
+        </div>
       }
     </div>
   `,
@@ -50,6 +49,4 @@ export class DeckComponent {
   public get cardsInDeck(): number {
     return this.deck().length;
   }
-
-  constructor(public contentService: ContentService) {}
 }

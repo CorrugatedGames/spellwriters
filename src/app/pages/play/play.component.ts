@@ -1,6 +1,6 @@
-import { Component, effect } from '@angular/core';
-import { type Router } from '@angular/router';
-import { type NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, effect, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPauseComponent } from '../../components/play/modal-pause/modal-pause.component';
 import {
   createBlankGameState,
@@ -26,17 +26,17 @@ import {
   stateMachineMapFromGameState,
 } from '../../helpers';
 import {
+  GamePhase,
+  TurnOrder,
   type CurrentPhase,
   type FieldNode,
-  GamePhase,
   type GameState,
   type GameStateInitOpts,
   type Relic,
   type SelectedCard,
   type Spell,
-  TurnOrder,
 } from '../../interfaces';
-import { type ContentService } from '../../services/content.service';
+import { ContentService } from '../../services/content.service';
 
 @Component({
   selector: 'sw-play',
@@ -44,6 +44,10 @@ import { type ContentService } from '../../services/content.service';
   styleUrl: './play.component.scss',
 })
 export class PlayComponent {
+  private router = inject(Router);
+  private modalService = inject(NgbModal);
+  public contentService = inject(ContentService);
+
   public gamestate: GameState = createBlankGameState();
   public gamephase: CurrentPhase = createBlankStateMachineMap();
 
@@ -91,12 +95,6 @@ export class PlayComponent {
 
     return getSpellById(this.activeCardData.card.id);
   }
-
-  constructor(
-    private router: Router,
-    private modalService: NgbModal,
-    public contentService: ContentService,
-  ) {}
 
   private parseRelics() {
     const player = this.gamestate.players[TurnOrder.Player];

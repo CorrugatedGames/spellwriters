@@ -1,5 +1,5 @@
-import { Component, type OnInit } from '@angular/core';
-import { type ActivatedRoute } from '@angular/router';
+import { Component, inject, type OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   allElements,
   allRelics,
@@ -8,7 +8,7 @@ import {
   getSpellById,
 } from '../../../helpers';
 import { type FieldSpell } from '../../../interfaces';
-import { type ContentService } from '../../../services/content.service';
+import { ContentService } from '../../../services/content.service';
 
 @Component({
   selector: 'sw-components',
@@ -16,6 +16,9 @@ import { type ContentService } from '../../../services/content.service';
   styleUrl: './components.component.scss',
 })
 export class DebugComponentsComponent implements OnInit {
+  public route = inject(ActivatedRoute);
+  public contentService = inject(ContentService);
+
   getSpellById = getSpellById;
 
   public numCharacters = Array(130)
@@ -81,11 +84,6 @@ export class DebugComponentsComponent implements OnInit {
       },
     },
   ];
-
-  constructor(
-    private route: ActivatedRoute,
-    public contentService: ContentService,
-  ) {}
 
   ngOnInit() {
     this.route.fragment.subscribe((fragment) => {

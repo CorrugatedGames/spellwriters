@@ -1,5 +1,5 @@
-import { Injectable, effect } from '@angular/core';
-import { type LocalStorageService } from 'ngx-webstorage';
+import { Injectable, effect, inject } from '@angular/core';
+import { LocalStorageService } from 'ngx-webstorage';
 import { interval } from 'rxjs';
 import {
   DEFAULT_DELAY,
@@ -16,17 +16,19 @@ import {
   setPhaseBannerString,
 } from '../helpers';
 import { spriteIterationCount } from '../helpers/static/sprite';
-import { GamePhase, type GameState, TurnOrder } from '../interfaces';
+import { GamePhase, TurnOrder, type GameState } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameStateService {
+  private localStorage = inject(LocalStorageService);
+
   private state: GameState = createBlankGameState();
   private previousPhase!: GamePhase;
   private movingSpells = false;
 
-  constructor(private localStorage: LocalStorageService) {
+  constructor() {
     effect(() => {
       this.state = gamestate();
       console.info('[State Update]', this.state);

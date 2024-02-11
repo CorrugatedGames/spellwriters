@@ -1,10 +1,11 @@
 import {
-  type AfterViewInit,
   Component,
-  type ElementRef,
-  type Renderer2,
+  ElementRef,
+  Renderer2,
   ViewChild,
+  inject,
   input,
+  type AfterViewInit,
 } from '@angular/core';
 
 // shoutout to https://github.com/pikselinweb/ngx-fittext for rough implementation
@@ -18,17 +19,20 @@ import {
     </div>
   `,
   styles: `
-  :host {
-    display: flex;
-    position: relative;
-    margin: 0;
-    padding: 0;
+    :host {
+      display: flex;
+      position: relative;
+      margin: 0;
+      padding: 0;
 
-    align-items: center;
-  }
-`,
+      align-items: center;
+    }
+  `,
 })
 export class FitTextComponent implements AfterViewInit {
+  private renderer = inject(Renderer2);
+  private el = inject(ElementRef);
+
   @ViewChild('controllerDiv') controllerDiv!: ElementRef;
 
   public width = input<string>();
@@ -36,8 +40,6 @@ export class FitTextComponent implements AfterViewInit {
 
   private minFontSize = 12;
   private stepSize = 2;
-
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
 
   ngAfterViewInit() {
     this.fitTextToBox();

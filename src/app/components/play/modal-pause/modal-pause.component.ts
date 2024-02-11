@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { type Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { resetGamestate } from '../../../helpers';
 
@@ -9,9 +9,8 @@ import { resetGamestate } from '../../../helpers';
   styleUrl: './modal-pause.component.scss',
 })
 export class ModalPauseComponent {
+  private router = inject(Router);
   activeModal = inject(NgbActiveModal);
-
-  constructor(private router: Router) {}
 
   private closeModal() {
     this.activeModal.close();
