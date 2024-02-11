@@ -80,6 +80,7 @@
     "@popperjs/core": "^2.11.8",
     "angular-svg-icon": "^17.0.0",
     "bootstrap": "^5.3.2",
+    "gameanalytics": "^4.4.7",
     "lodash.clonedeep": "^4.5.0",
     "lodash.groupby": "^4.6.0",
     "lodash.sortby": "^4.7.0",

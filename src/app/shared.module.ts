@@ -26,10 +26,12 @@ import { ManaBarComponent } from './components/play/mana-bar/mana-bar.component'
 import { NextTurnComponent } from './components/play/nextturn/nextturn.component';
 import { PauseGameComponent } from './components/play/pausegame/pausegame.component';
 import { PhaseBannerComponent } from './components/play/phase-banner/phase-banner.component';
+import { AnalyticsClickDirective } from './directives/_shared/analytics-click.directive';
 import { HoverClassDirective } from './directives/_shared/hover-class.directive';
 
 const components = [
   HoverClassDirective,
+  AnalyticsClickDirective,
   FitTextComponent,
 
   SpriteComponent,

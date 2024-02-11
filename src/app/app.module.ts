@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AnalyticsService } from './services/analytics.service';
 import { ContentService } from './services/content.service';
 import { GameStateService } from './services/game-state.service';
 import { MetaService } from './services/meta.service';
@@ -30,6 +31,7 @@ import {
       multi: true,
       deps: [
         MetaService,
+        AnalyticsService,
         RollbarService,
         ContentService,
         GameStateService,
@@ -38,6 +40,7 @@ import {
       useFactory:
         (
           metaService: MetaService,
+          analyticsService: AnalyticsService,
           rollbarService: RollbarService,
           contentService: ContentService,
           gameStateService: GameStateService,
@@ -45,6 +48,7 @@ import {
         ) =>
         async () => {
           await metaService.init();
+          await analyticsService.init();
           await rollbarService.init();
           await contentService.init();
           await gameStateService.init();
