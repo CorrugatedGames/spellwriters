@@ -49,6 +49,16 @@
 
     <div class="col-6 main-menu-container">
       <div class="main-menu">
+        @if(hasRun) {
+        <div class="row action-row mb-3">
+          <div class="col-12">
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-secondary" routerLink="/play">Resume Run</button>
+            </div>
+          </div>
+        </div>
+        }
+
         <div class="row action-row mb-3">
           <div class="col-12">
             <div class="d-grid gap-2">

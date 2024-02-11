@@ -79,3 +79,23 @@ img {
   --bs-tooltip-max-width: auto;
   --bs-tooltip-bg: transparent;
 }
+
+.modal {
+  .modal-content {
+    color: #fff;
+    background: url(../assets/bg/splash-dark.png) no-repeat center center/cover;
+
+    .modal-header {
+      border-bottom: none;
+
+      .modal-title {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .modal-footer {
+      border-top: none;
+    }
+  }
+}

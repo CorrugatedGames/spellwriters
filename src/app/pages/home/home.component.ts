@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { gamestate } from '../../helpers';
 import { MetaService } from '../../services/meta.service';
 
 @Component({
@@ -53,4 +54,8 @@ export class HomeComponent {
   ];
 
   constructor(public metaService: MetaService) {}
+
+  public get hasRun(): boolean {
+    return !!gamestate().id;
+  }
 }

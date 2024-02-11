@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import {
+  NgbModalModule,
   NgbProgressbarModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -23,6 +24,7 @@ import { HandComponent } from './components/play/hand/hand.component';
 import { HealthBarComponent } from './components/play/health-bar/health-bar.component';
 import { ManaBarComponent } from './components/play/mana-bar/mana-bar.component';
 import { NextTurnComponent } from './components/play/nextturn/nextturn.component';
+import { PauseGameComponent } from './components/play/pausegame/pausegame.component';
 import { PhaseBannerComponent } from './components/play/phase-banner/phase-banner.component';
 import { HoverClassDirective } from './directives/_shared/hover-class.directive';
 
@@ -40,6 +42,7 @@ const components = [
   DeckComponent,
   HandComponent,
   NextTurnComponent,
+  PauseGameComponent,
   PhaseBannerComponent,
   ErrorBannerComponent,
   FieldSpellComponent,
@@ -50,7 +53,12 @@ const components = [
 
 @NgModule({
   declarations: components,
-  exports: [...components, AngularSvgIconModule, NgbTooltipModule],
+  exports: [
+    ...components,
+    AngularSvgIconModule,
+    NgbTooltipModule,
+    NgbModalModule,
+  ],
   imports: [
     CommonModule,
     HttpClientModule,

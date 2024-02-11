@@ -25,6 +25,9 @@
 - name: play-nextturn
   color: '#fff'
 
+- name: play-pausegame
+  color: '#fff'
+
 - name: stat-casttime
   color: '#717fcc'
 

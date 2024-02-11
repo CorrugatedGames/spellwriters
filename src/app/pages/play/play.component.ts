@@ -1,5 +1,7 @@
 import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalPauseComponent } from '../../components/play/modal-pause/modal-pause.component';
 import {
   createBlankGameState,
   createBlankStateMachineMap,
@@ -90,7 +92,11 @@ export class PlayComponent {
     return getSpellById(this.activeCardData.card.id);
   }
 
-  constructor(private router: Router, public contentService: ContentService) {}
+  constructor(
+    private router: Router,
+    private modalService: NgbModal,
+    public contentService: ContentService,
+  ) {}
 
   private parseRelics() {
     const player = this.gamestate.players[TurnOrder.Player];
@@ -242,5 +248,13 @@ export class PlayComponent {
         },
       },
     ];
+  }
+
+  pauseGame() {
+    this.modalService.open(ModalPauseComponent, {
+      centered: true,
+      backdrop: 'static',
+      windowClass: 'modal-gamepause',
+    });
   }
 }

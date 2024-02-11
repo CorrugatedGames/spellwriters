@@ -1,4 +1,5 @@
 <div class="field" (contextmenu)="$event.preventDefault()">
+  <sw-pausegame class="pause" (pauseGame)="pauseGame()"></sw-pausegame>
 
   <sw-phase-banner class="phase-banner" [class.hidden-animate]="!phaseBannerString()" [text]="phaseBannerString()"
     [actions]="victoryActions"></sw-phase-banner>
@@ -54,6 +55,7 @@
   </div>
 
   <div class="player-side">
+
     <div class="error-banner-container">
       <sw-error-banner class="error-banner" [text]="errorMessageString()"></sw-error-banner>
     </div>
