@@ -10,11 +10,11 @@ export class ModAPIService {
 
   init() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).modAPI = {};
+    (window as any).api = {};
 
     Object.keys(Helpers).forEach((helperFnKey) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).modAPI[helperFnKey] = (Helpers as any)[helperFnKey];
+      (window as any).api[helperFnKey] = (Helpers as any)[helperFnKey];
     });
   }
 }

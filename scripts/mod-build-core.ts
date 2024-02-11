@@ -7,6 +7,8 @@ const iconpath = './data/icons/core';
 const savedir = './src/assets/mods/core';
 
 const load = async () => {
+  const packageJson = await fs.readJson(`./package.json`);
+
   const iconColorHash = await fs.readJsonSync(
     './data/mod/content/colors-core.json',
   );
@@ -23,6 +25,7 @@ const load = async () => {
     name: 'core',
     description: 'Core game assets. Cannot be disabled.',
     version: '0.0.0',
+    gameVersion: packageJson.version,
     author: 'Spellwriters',
 
     characters: {},

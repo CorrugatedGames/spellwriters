@@ -22,6 +22,7 @@ export interface ContentMod {
   name: string;
   description: string;
   version: string;
+  gameVersion: string;
   author: string;
 
   characters: Record<string, Character>;

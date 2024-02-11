@@ -7,6 +7,8 @@ const spritesheetpath = './data/mod/spritesheets';
 const savedir = './src/assets/mods/default';
 
 const load = async () => {
+  const packageJson = await fs.readJson(`./package.json`);
+
   const images = await fs.readJson(`${contentpath}/images.json`);
   const characters = await fs.readJson(`${contentpath}/characters.json`);
   const elements = await fs.readJson(`${contentpath}/elements.json`);
@@ -33,6 +35,7 @@ const load = async () => {
     name: 'default',
     description: 'Default game content.',
     version: '0.0.0',
+    gameVersion: packageJson.version,
     author: 'Spellwriters',
 
     characters,
