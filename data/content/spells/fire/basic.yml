@@ -48,7 +48,7 @@
   speed: 1
   cost: 4
   castTime: 1
-  depthMin: 0
+  depthMin: 1
   depthMax: 1
   pattern: triple
 

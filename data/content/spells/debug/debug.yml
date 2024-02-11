@@ -1,0 +1,16 @@
+- name: Debug Spell
+  key: debugspell
+  id: af760227-0ab9-4b7c-b6a6-c9fb01d3d423
+  description: Used to test various things.
+  sprite: 133
+
+  element: fire
+  rarity: common
+
+  damage: 2
+  speed: 1
+  cost: 1
+  castTime: 0
+  depthMin: 0
+  depthMax: 1
+  pattern: single

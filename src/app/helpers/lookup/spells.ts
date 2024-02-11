@@ -2,6 +2,9 @@ import { WritableSignal, signal } from '@angular/core';
 import { clone } from 'lodash';
 import { RitualImpl, Spell } from '../../interfaces';
 
+import * as Spells from '../gameplay/spells';
+const AllSpells: Record<string, RitualImpl> = Spells;
+
 export const spellData: WritableSignal<Record<string, Spell>> = signal({});
 
 export function allSpells() {
@@ -33,5 +36,5 @@ export function getSpellImpl(id: string): RitualImpl | undefined {
   const key = getSpellKey(id);
   if (!key) throw new Error(`No spell exists for ${id}`);
 
-  return undefined;
+  return AllSpells[key];
 }

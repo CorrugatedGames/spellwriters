@@ -20,6 +20,7 @@
       - Aquarell
       - Water's Edge
       - Rain
+      - Debug Spell
 
   behaviors:
     random: 1
