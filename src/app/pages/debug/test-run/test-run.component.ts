@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, type OnInit } from '@angular/core';
+import { type Router } from '@angular/router';
 import { LocalStorage } from 'ngx-webstorage';
 import {
   allCharacters,
@@ -12,9 +12,9 @@ import {
   startCombat,
 } from '../../../helpers';
 import { getRarityById } from '../../../helpers/lookup/rarities';
-import { Character, GameStateInitOpts, Relic } from '../../../interfaces';
-import { ContentService } from '../../../services/content.service';
-import { GameStateService } from '../../../services/game-state.service';
+import { type Character, type GameStateInitOpts, type Relic } from '../../../interfaces';
+import { type ContentService } from '../../../services/content.service';
+import { type GameStateService } from '../../../services/game-state.service';
 
 @Component({
   selector: 'sw-test-run',

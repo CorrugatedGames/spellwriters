@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, input } from '@angular/core';
 import { getSpellById } from '../../../helpers';
-import { PlayableCard, SelectedCard } from '../../../interfaces';
-import { ContentService } from '../../../services/content.service';
+import { type PlayableCard, type SelectedCard } from '../../../interfaces';
+import { type ContentService } from '../../../services/content.service';
 
 @Component({
   selector: 'sw-hand',

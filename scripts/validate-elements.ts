@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { Spell, SpellElement } from '../src/app/interfaces';
+import { type Spell, type SpellElement } from '../src/app/interfaces';
 import { numFilesInFolder } from './helpers/files-in-folder';
 
 const validate = async () => {

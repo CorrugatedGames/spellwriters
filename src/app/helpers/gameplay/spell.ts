@@ -1,4 +1,4 @@
-import { FieldSpell, SpellStatImpl } from '../../interfaces';
+import { type FieldSpell, SpellStatImpl } from '../../interfaces';
 import { getElementKey } from '../lookup/elements';
 import { getSpellTagKey } from '../lookup/spell-tags';
 import { removeSpellFromField } from './field';

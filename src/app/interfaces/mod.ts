@@ -1,11 +1,11 @@
-import { AIPattern } from './ai';
-import { Character } from './character';
-import { SpellElement } from './element';
-import { SpellPattern } from './pattern';
-import { Rarity } from './rarity';
-import { Relic } from './relic';
-import { Spell } from './spell';
-import { SpellTag } from './tag';
+import { type AIPattern } from './ai';
+import { type Character } from './character';
+import { type SpellElement } from './element';
+import { type SpellPattern } from './pattern';
+import { type Rarity } from './rarity';
+import { type Relic } from './relic';
+import { type Spell } from './spell';
+import { type SpellTag } from './tag';
 
 export interface ContentModSvg {
   name: string;

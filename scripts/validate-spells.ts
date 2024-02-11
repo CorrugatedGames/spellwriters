@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import {
+import type {
   Rarity,
   Spell,
   SpellElement,

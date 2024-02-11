@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { Rarity, Spell } from '../src/app/interfaces';
+import { type Rarity, type Spell } from '../src/app/interfaces';
 
 const validate = async () => {
   const rarities = (await fs.readJson(

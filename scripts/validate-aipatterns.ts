@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { AIPattern } from '../src/app/interfaces';
+import { type AIPattern } from '../src/app/interfaces';
 
 const validate = async () => {
   const patterns = (await fs.readJson(

@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { Character } from '../src/app/interfaces';
+import { type Character } from '../src/app/interfaces';
 import { numFilesInFolder } from './helpers/files-in-folder';
 
 const validate = async () => {

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { SpellStat } from '../../../interfaces';
+import { type SpellStat } from '../../../interfaces';
 
 @Component({
   selector: 'sw-icon-stat',

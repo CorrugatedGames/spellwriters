@@ -1,9 +1,8 @@
 import fs from 'fs-extra';
-import { ContentMod, ContentModImage } from '../src/app/interfaces';
+import type { ContentMod, ContentModImage } from '../src/app/interfaces';
 
 const contentpath = './data/mod/content';
 const spritesheetpath = './data/mod/spritesheets';
-const iconpath = './data/mod/icons';
 
 const savedir = './src/assets/mods/default';
 

@@ -1,9 +1,9 @@
 import {
-  ActivePlayer,
-  FieldNode,
+  type ActivePlayer,
+  type FieldNode,
   GamePhase,
-  GameState,
-  GameStateInitOpts,
+  type GameState,
+  type GameStateInitOpts,
   TurnOrder,
 } from '../../interfaces';
 import { getId } from '../static/uuid';

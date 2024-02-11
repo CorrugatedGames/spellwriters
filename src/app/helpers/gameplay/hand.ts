@@ -1,4 +1,4 @@
-import { ActivePlayer, PlayableCard } from '../../interfaces';
+import { type ActivePlayer, type PlayableCard } from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
 import { manaCostForSpell } from './stats';
 import { getListOfTargetableTilesForCard } from './targetting';

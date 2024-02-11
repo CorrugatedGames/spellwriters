@@ -1,4 +1,4 @@
-import { ActivePlayer, Spell } from '../../interfaces';
+import { type ActivePlayer, type Spell } from '../../interfaces';
 import { callRitualGlobalFunction } from './ritual';
 
 export function setMana(opts: {

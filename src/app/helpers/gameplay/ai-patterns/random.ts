@@ -1,4 +1,4 @@
-import { AIOpts, AIPatternImpl } from '../../../interfaces';
+import { type AIOpts, type AIPatternImpl } from '../../../interfaces';
 import { randomChoice } from '../../static/rng';
 import { defaultAIPattern } from '../defaults/ai-patterns';
 import { getListOfTargetableTilesForCard } from '../targetting';

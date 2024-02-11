@@ -1,5 +1,5 @@
-import { ActivePlayer, GamePhase, TurnOrder } from './gamestate';
-import { FieldSpell, SpellStatImpl } from './spell';
+import { type ActivePlayer, type GamePhase, type TurnOrder } from './gamestate';
+import { type FieldSpell, type SpellStatImpl } from './spell';
 
 export interface RitualDefaultArgs {}
 

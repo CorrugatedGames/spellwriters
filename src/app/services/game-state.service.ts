@@ -1,5 +1,5 @@
 import { Injectable, effect } from '@angular/core';
-import { LocalStorageService } from 'ngx-webstorage';
+import { type LocalStorageService } from 'ngx-webstorage';
 import { interval } from 'rxjs';
 import {
   DEFAULT_DELAY,
@@ -16,7 +16,7 @@ import {
   setPhaseBannerString,
 } from '../helpers';
 import { spriteIterationCount } from '../helpers/static/sprite';
-import { GamePhase, GameState, TurnOrder } from '../interfaces';
+import { GamePhase, type GameState, TurnOrder } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',

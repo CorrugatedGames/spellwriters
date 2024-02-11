@@ -1,4 +1,4 @@
-import { Spritable } from './sprite';
+import { type Spritable } from './sprite';
 
 export interface Character extends Spritable {
   name: string;

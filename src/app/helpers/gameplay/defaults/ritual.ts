@@ -1,6 +1,6 @@
 import {
-  RitualCurrentContextArgs,
-  RitualImpl,
+  type RitualCurrentContextArgs,
+  type RitualImpl,
   TurnOrder,
 } from '../../../interfaces';
 

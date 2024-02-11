@@ -1,4 +1,4 @@
-import { ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
+import { type ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
 import { callRitualGlobalFunction } from './ritual';
 import { gamestate } from './signal';
 import { gainMana } from './stats';

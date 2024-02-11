@@ -1,5 +1,5 @@
-import { WritableSignal, signal } from '@angular/core';
-import { Relic, RitualImpl } from '../../interfaces';
+import { type WritableSignal, signal } from '@angular/core';
+import { type Relic, type RitualImpl } from '../../interfaces';
 import { clone } from '../static/object';
 
 import * as Relics from '../gameplay/relics';

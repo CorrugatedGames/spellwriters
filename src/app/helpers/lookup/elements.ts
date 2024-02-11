@@ -1,5 +1,5 @@
-import { WritableSignal, signal } from '@angular/core';
-import { ElementalCollision, SpellElement } from '../../interfaces';
+import { type WritableSignal, signal } from '@angular/core';
+import { type ElementalCollision, type SpellElement } from '../../interfaces';
 
 import * as ElementalCollisions from '../gameplay/collisions';
 import { clone } from '../static/object';

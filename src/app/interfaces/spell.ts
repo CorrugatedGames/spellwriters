@@ -1,5 +1,5 @@
-import { TurnOrder } from './gamestate';
-import { Spritable } from './sprite';
+import { type TurnOrder } from './gamestate';
+import { type Spritable } from './sprite';
 
 export enum SpellStat {
   Damage = 'damage',

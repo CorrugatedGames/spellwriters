@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { ContentMod } from '../src/app/interfaces';
+import { type ContentMod } from '../src/app/interfaces';
 
 const iconpath = './data/icons/core';
 

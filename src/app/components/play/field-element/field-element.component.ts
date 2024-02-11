@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { FieldElement } from '../../../interfaces';
+import { type FieldElement } from '../../../interfaces';
 
 @Component({
   selector: 'sw-field-element',

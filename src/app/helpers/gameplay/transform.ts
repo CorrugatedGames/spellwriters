@@ -1,11 +1,11 @@
 import {
-  ActivePlayer,
-  Character,
-  CurrentPhase,
+  type ActivePlayer,
+  type Character,
+  type CurrentPhase,
   GamePhase,
   GamePlayer,
-  GameState,
-  PlayableCard,
+  type GameState,
+  type PlayableCard,
   TurnOrder,
 } from '../../interfaces';
 import { drawCard, shuffleDeck } from './turn';

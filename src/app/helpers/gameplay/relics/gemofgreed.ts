@@ -1,7 +1,7 @@
 import {
-  RitualCurrentContextRelicArgs,
-  RitualDefaultArgs,
-  RitualImpl,
+  type RitualCurrentContextRelicArgs,
+  type RitualDefaultArgs,
+  type RitualImpl,
 } from '../../../interfaces';
 import { defaultRitual } from '../defaults/ritual';
 import { drawCard } from '../turn';

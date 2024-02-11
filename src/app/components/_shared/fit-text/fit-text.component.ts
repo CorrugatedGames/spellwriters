@@ -1,8 +1,8 @@
 import {
-  AfterViewInit,
+  type AfterViewInit,
   Component,
-  ElementRef,
-  Renderer2,
+  type ElementRef,
+  type Renderer2,
   ViewChild,
   input,
 } from '@angular/core';

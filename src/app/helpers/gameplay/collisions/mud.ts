@@ -1,11 +1,11 @@
 import {
-  CollideOpts,
-  CollisionWinnerOpts,
-  ElementalCollision,
-  FieldSpell,
-  HasCollisionReactionOpts,
-  OnSpellEnterOpts,
-  OnSpellExitOpts,
+  type CollideOpts,
+  type CollisionWinnerOpts,
+  type ElementalCollision,
+  type FieldSpell,
+  type HasCollisionReactionOpts,
+  type OnSpellEnterOpts,
+  type OnSpellExitOpts,
 } from '../../../interfaces';
 import { getElementKey } from '../../lookup/elements';
 import { defaultElementalCollision } from '../defaults/collisions';

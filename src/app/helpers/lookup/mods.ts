@@ -1,5 +1,5 @@
-import { WritableSignal, signal } from '@angular/core';
-import { ContentMod, ContentModImage } from '../../interfaces';
+import { type WritableSignal, signal } from '@angular/core';
+import { type ContentMod, type ContentModImage } from '../../interfaces';
 import { clone } from '../static/object';
 
 export const modData: WritableSignal<Record<string, ContentMod>> = signal({});

@@ -1,5 +1,5 @@
-import { WritableSignal, signal } from '@angular/core';
-import { AIPattern, AIPatternImpl } from '../../interfaces';
+import { type WritableSignal, signal } from '@angular/core';
+import { type AIPattern, type AIPatternImpl } from '../../interfaces';
 
 import * as AIPatterns from '../gameplay/ai-patterns';
 import { clone } from '../static/object';

@@ -1,7 +1,7 @@
 import {
-  RitualCurrentContextRelicArgs,
-  RitualImpl,
-  RitualSpellDefaultArgs,
+  type RitualCurrentContextRelicArgs,
+  type RitualImpl,
+  type RitualSpellDefaultArgs,
   SpellStatImpl,
 } from '../../../interfaces';
 import { defaultRitual } from '../defaults/ritual';

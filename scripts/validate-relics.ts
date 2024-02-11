@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { Rarity, Relic } from '../src/app/interfaces';
+import { type Rarity, type Relic } from '../src/app/interfaces';
 import { numFilesInFolder } from './helpers/files-in-folder';
 
 const validate = async () => {

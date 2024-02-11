@@ -1,5 +1,5 @@
-import { WritableSignal, signal } from '@angular/core';
-import { SpellPattern, SpellPatternImpl } from '../../interfaces';
+import { type WritableSignal, signal } from '@angular/core';
+import { type SpellPattern, type SpellPatternImpl } from '../../interfaces';
 
 import * as SpellPatterns from '../gameplay/spell-patterns';
 import { clone } from '../static/object';

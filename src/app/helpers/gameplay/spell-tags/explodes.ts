@@ -1,7 +1,7 @@
 import {
-  RitualCurrentContextSpellArgs,
-  RitualImpl,
-  SpellTagCollisionArgs,
+  type RitualCurrentContextSpellArgs,
+  type RitualImpl,
+  type SpellTagCollisionArgs,
 } from '../../../interfaces';
 import { getSpellByName } from '../../lookup/spells';
 import { defaultRitual } from '../defaults/ritual';

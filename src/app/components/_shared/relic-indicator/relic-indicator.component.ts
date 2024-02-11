@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { getRarityById } from '../../../helpers/lookup/rarities';
-import { Relic } from '../../../interfaces';
+import { type Relic } from '../../../interfaces';
 
 @Component({
   selector: 'sw-relic-indicator',

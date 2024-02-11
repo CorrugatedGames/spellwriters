@@ -1,6 +1,6 @@
 import Rollbar from 'rollbar';
 
-import { ErrorHandler, Injectable } from '@angular/core';
+import { type ErrorHandler, Injectable } from '@angular/core';
 
 import { environment } from '../../environment';
 

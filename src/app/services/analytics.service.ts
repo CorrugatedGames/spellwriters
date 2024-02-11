@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import gameanalytics from 'gameanalytics';
 import { environment } from '../../environment';
-import { MetaService } from './meta.service';
+import { type MetaService } from './meta.service';
 
 @Injectable({
   providedIn: 'root',

@@ -6,8 +6,8 @@ import {
   input,
 } from '@angular/core';
 import { getSpellById } from '../../../helpers';
-import { PlayableCard } from '../../../interfaces';
-import { ContentService } from '../../../services/content.service';
+import { type PlayableCard } from '../../../interfaces';
+import { type ContentService } from '../../../services/content.service';
 
 @Component({
   selector: 'sw-deck',

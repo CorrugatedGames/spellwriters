@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { gamestate } from '../../helpers';
-import { MetaService } from '../../services/meta.service';
+import { type MetaService } from '../../services/meta.service';
 
 @Component({
   selector: 'sw-home',

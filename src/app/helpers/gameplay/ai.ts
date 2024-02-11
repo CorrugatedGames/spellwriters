@@ -1,4 +1,4 @@
-import { AIOpts, ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
+import { type AIOpts, type ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
 import { nextPhase } from './meta';
 import { gamestate } from './signal';
 import { drawCard } from './turn';

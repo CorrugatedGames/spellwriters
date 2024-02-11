@@ -1,8 +1,8 @@
 import {
-  RitualCurrentContextSpellArgs,
-  RitualImpl,
+  type RitualCurrentContextSpellArgs,
+  type RitualImpl,
   SpellStatImpl,
-  SpellTagSpaceArgs,
+  type SpellTagSpaceArgs,
 } from '../../../interfaces';
 import { defaultRitual } from '../defaults/ritual';
 import { isCurrentSpellContextSpell } from '../ritual';

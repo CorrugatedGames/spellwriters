@@ -1,6 +1,6 @@
-import { WritableSignal, signal } from '@angular/core';
+import { type WritableSignal, signal } from '@angular/core';
 import { clone } from 'lodash';
-import { RitualImpl, Spell } from '../../interfaces';
+import { type RitualImpl, type Spell } from '../../interfaces';
 
 import * as Spells from '../gameplay/spells';
 const AllSpells: Record<string, RitualImpl> = Spells;

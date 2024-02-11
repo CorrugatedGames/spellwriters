@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { getModAssetInformationByName } from '../../../helpers';
 import { spriteIterationCount } from '../../../helpers/static/sprite';
-import { Spritable } from '../../../interfaces';
+import { type Spritable } from '../../../interfaces';
 
 @Component({
   selector: 'sw-sprite',

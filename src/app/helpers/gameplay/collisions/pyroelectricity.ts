@@ -1,9 +1,9 @@
 import {
-  CollideOpts,
-  CollisionWinnerOpts,
-  ElementalCollision,
-  FieldSpell,
-  HasCollisionReactionOpts,
+  type CollideOpts,
+  type CollisionWinnerOpts,
+  type ElementalCollision,
+  type FieldSpell,
+  type HasCollisionReactionOpts,
 } from '../../../interfaces';
 import { getElementByKey, getElementKey } from '../../lookup/elements';
 import { getSpellByName } from '../../lookup/spells';

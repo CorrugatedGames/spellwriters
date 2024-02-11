@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, input } from '@angular/core';
+import { Directive, type ElementRef, HostListener, input } from '@angular/core';
 
 @Directive({
   selector: '[swHoverClass]',

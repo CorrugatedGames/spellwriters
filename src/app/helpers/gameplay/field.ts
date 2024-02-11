@@ -1,9 +1,9 @@
 import {
-  FieldElement,
-  FieldNode,
-  FieldSpell,
-  Spell,
-  SpellElement,
+  type FieldElement,
+  type FieldNode,
+  type FieldSpell,
+  type Spell,
+  type SpellElement,
   SpellStatImpl,
   TurnOrder,
 } from '../../interfaces';

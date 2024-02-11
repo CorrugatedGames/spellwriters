@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { SpellPattern } from '../src/app/interfaces';
+import { type SpellPattern } from '../src/app/interfaces';
 
 const validate = async () => {
   const patterns = (await fs.readJson(

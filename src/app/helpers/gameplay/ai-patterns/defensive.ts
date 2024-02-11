@@ -1,4 +1,4 @@
-import { AIOpts, AIPatternImpl, TurnOrder } from '../../../interfaces';
+import { type AIOpts, type AIPatternImpl, TurnOrder } from '../../../interfaces';
 import { getSpellById } from '../../lookup/spells';
 import { groupArray, sortArray } from '../../static/array';
 import { defaultAIPattern } from '../defaults/ai-patterns';

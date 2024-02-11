@@ -5,7 +5,7 @@ import {
   input,
 } from '@angular/core';
 import { getElementById, getElementByKey } from '../../../helpers';
-import { SpellElement } from '../../../interfaces';
+import { type SpellElement } from '../../../interfaces';
 
 @Component({
   selector: 'sw-element-card',

@@ -1,4 +1,4 @@
-import seedrandom, { PRNG } from 'seedrandom';
+import seedrandom, { type PRNG } from 'seedrandom';
 import { gamestate } from '../gameplay/signal';
 
 export function rng(seed: string): PRNG {

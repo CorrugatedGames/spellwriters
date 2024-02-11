@@ -1,5 +1,5 @@
-import { WritableSignal, signal } from '@angular/core';
-import { Character } from '../../interfaces';
+import { type WritableSignal, signal } from '@angular/core';
+import { type Character } from '../../interfaces';
 import { clone } from '../static/object';
 
 export const characterData: WritableSignal<Record<string, Character>> = signal(

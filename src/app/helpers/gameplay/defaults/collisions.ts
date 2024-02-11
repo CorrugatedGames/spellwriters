@@ -1,4 +1,4 @@
-import { ElementalCollision } from '../../../interfaces';
+import { type ElementalCollision } from '../../../interfaces';
 
 export const defaultElementalCollision: ElementalCollision = {
   collide: () => {},

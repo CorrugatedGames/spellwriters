@@ -1,15 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import fs from 'fs-extra';
 import yaml from 'js-yaml';
 import readdir from 'recursive-readdir';
 import {
-  AIPattern,
-  Character,
-  Rarity,
-  Relic,
-  Spell,
-  SpellElement,
-  SpellPattern,
-  SpellTag,
+  type AIPattern,
+  type Character,
+  type Rarity,
+  type Relic,
+  type Spell,
+  type SpellElement,
+  type SpellPattern,
+  type SpellTag,
 } from '../src/app/interfaces';
 
 const contentType = process.argv.slice(2)[0];

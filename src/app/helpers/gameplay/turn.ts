@@ -1,8 +1,8 @@
 import {
-  ActivePlayer,
+  type ActivePlayer,
   GamePhase,
-  PlayableCard,
-  TurnOrder,
+  type PlayableCard,
+  type TurnOrder,
 } from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
 import { seededrng } from '../static/rng';

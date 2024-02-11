@@ -1,4 +1,4 @@
-import { IDiscordPresenceOpts } from '../../interfaces';
+import { type IDiscordPresenceOpts } from '../../interfaces';
 
 export function isInElectron() {
   return navigator.userAgent.toLowerCase().includes(' electron/');

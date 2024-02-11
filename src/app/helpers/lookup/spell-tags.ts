@@ -1,5 +1,5 @@
-import { WritableSignal, signal } from '@angular/core';
-import { RitualImpl, SpellTag } from '../../interfaces';
+import { type WritableSignal, signal } from '@angular/core';
+import { type RitualImpl, type SpellTag } from '../../interfaces';
 
 import { clone } from 'lodash';
 import * as SpellTags from '../gameplay/spell-tags';

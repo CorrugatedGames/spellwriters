@@ -1,6 +1,6 @@
 import { Component, effect } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { type Router } from '@angular/router';
+import { type NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPauseComponent } from '../../components/play/modal-pause/modal-pause.component';
 import {
   createBlankGameState,
@@ -26,17 +26,17 @@ import {
   stateMachineMapFromGameState,
 } from '../../helpers';
 import {
-  CurrentPhase,
-  FieldNode,
+  type CurrentPhase,
+  type FieldNode,
   GamePhase,
-  GameState,
-  GameStateInitOpts,
-  Relic,
-  SelectedCard,
-  Spell,
+  type GameState,
+  type GameStateInitOpts,
+  type Relic,
+  type SelectedCard,
+  type Spell,
   TurnOrder,
 } from '../../interfaces';
-import { ContentService } from '../../services/content.service';
+import { type ContentService } from '../../services/content.service';
 
 @Component({
   selector: 'sw-play',

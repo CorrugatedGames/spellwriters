@@ -1,7 +1,7 @@
 import {
-  RitualCurrentContextSpellArgs,
-  RitualImpl,
-  SpellTagSpaceArgs,
+  type RitualCurrentContextSpellArgs,
+  type RitualImpl,
+  type SpellTagSpaceArgs,
 } from '../../../interfaces';
 import { getSpellTagByKey } from '../../lookup/spell-tags';
 import { defaultRitual } from '../defaults/ritual';

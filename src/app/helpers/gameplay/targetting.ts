@@ -1,4 +1,4 @@
-import { PlayableCard, TurnOrder } from '../../interfaces';
+import { type PlayableCard, TurnOrder } from '../../interfaces';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getSpellById } from '../lookup/spells';
 import { gamestate } from './signal';

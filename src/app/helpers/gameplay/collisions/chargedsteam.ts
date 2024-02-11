@@ -1,4 +1,4 @@
-import { ElementalCollision, OnSpellEnterOpts } from '../../../interfaces';
+import { type ElementalCollision, type OnSpellEnterOpts } from '../../../interfaces';
 import { getElementIdByKey } from '../../lookup/elements';
 import { defaultElementalCollision } from '../defaults/collisions';
 import { elementKeyToFieldElement, setFieldElement } from '../field';

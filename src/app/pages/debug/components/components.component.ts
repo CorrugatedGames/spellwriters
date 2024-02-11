@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, type OnInit } from '@angular/core';
+import { type ActivatedRoute } from '@angular/router';
 import {
   allElements,
   allRelics,
@@ -7,8 +7,8 @@ import {
   allStats,
   getSpellById,
 } from '../../../helpers';
-import { FieldSpell } from '../../../interfaces';
-import { ContentService } from '../../../services/content.service';
+import { type FieldSpell } from '../../../interfaces';
+import { type ContentService } from '../../../services/content.service';
 
 @Component({
   selector: 'sw-components',

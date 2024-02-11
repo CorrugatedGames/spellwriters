@@ -1,4 +1,4 @@
-import { SpellPatternImpl } from '../../../interfaces';
+import { type SpellPatternImpl } from '../../../interfaces';
 import { defaultSpellPattern } from '../defaults/spell-patterns';
 
 function chooseTargetableTiles(opts: {

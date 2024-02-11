@@ -6,8 +6,8 @@ import {
   getSpellTagById,
 } from '../../../helpers';
 import { getRarityKey } from '../../../helpers/lookup/rarities';
-import { Spell, SpellStat } from '../../../interfaces';
-import { ContentService } from '../../../services/content.service';
+import { type Spell, SpellStat } from '../../../interfaces';
+import { type ContentService } from '../../../services/content.service';
 
 @Component({
   selector: 'sw-spell-card',

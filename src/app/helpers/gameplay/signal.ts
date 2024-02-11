@@ -1,5 +1,5 @@
-import { WritableSignal, signal } from '@angular/core';
-import { GameState, GameStateInitOpts } from '../../interfaces';
+import { type WritableSignal, signal } from '@angular/core';
+import { type GameState, type GameStateInitOpts } from '../../interfaces';
 import { createBlankGameState } from './init';
 
 export const gamestate: WritableSignal<GameState> = signal(

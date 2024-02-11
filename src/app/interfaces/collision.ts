@@ -1,4 +1,4 @@
-import { FieldSpell } from './spell';
+import { type FieldSpell } from './spell';
 
 export interface HasCollisionReactionOpts {
   collider: FieldSpell;

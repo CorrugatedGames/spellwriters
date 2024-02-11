@@ -1,4 +1,4 @@
-import { SpellPatternImpl } from '../../../interfaces';
+import { type SpellPatternImpl } from '../../../interfaces';
 
 export const defaultSpellPattern: SpellPatternImpl = {
   chooseTargetableTiles: () => [],

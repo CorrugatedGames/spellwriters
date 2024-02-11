@@ -1,5 +1,5 @@
-import { WritableSignal, signal } from '@angular/core';
-import { Subscription, timer } from 'rxjs';
+import { type WritableSignal, signal } from '@angular/core';
+import { type Subscription, timer } from 'rxjs';
 
 let existingTimer: Subscription | undefined;
 

@@ -1,7 +1,7 @@
 import {
-  RitualCurrentContextRelicArgs,
-  RitualDefaultArgs,
-  RitualImpl,
+  type RitualCurrentContextRelicArgs,
+  type RitualDefaultArgs,
+  type RitualImpl,
 } from '../../../interfaces';
 import { allElements } from '../../lookup/elements';
 import { randomChoice } from '../../static/rng';

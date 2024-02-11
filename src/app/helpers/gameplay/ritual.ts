@@ -1,10 +1,10 @@
 import {
-  ActivePlayer,
-  FieldSpell,
-  RitualCurrentContextRelicArgs,
-  RitualCurrentContextSpellArgs,
-  RitualImpl,
-  RitualSpellDefaultArgs,
+  type ActivePlayer,
+  type FieldSpell,
+  type RitualCurrentContextRelicArgs,
+  type RitualCurrentContextSpellArgs,
+  type RitualImpl,
+  type RitualSpellDefaultArgs,
 } from '../../interfaces';
 import { getRelicImpl, getRelicKey } from '../lookup/relics';
 import { getSpellTagImpl } from '../lookup/spell-tags';

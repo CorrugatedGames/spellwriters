@@ -26,7 +26,8 @@
     "useDefineForClassFields": false,
     "lib": ["ES2022", "dom"],
     "noErrorTruncation": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

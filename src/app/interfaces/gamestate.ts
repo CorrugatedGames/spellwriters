@@ -1,7 +1,7 @@
-import { Character } from './character';
-import { FieldElement } from './element';
-import { FieldSpell } from './spell';
-import { Spritable } from './sprite';
+import { type Character } from './character';
+import { type FieldElement } from './element';
+import { type FieldSpell } from './spell';
+import { type Spritable } from './sprite';
 
 export interface FieldNode {
   containedSpell?: FieldSpell;

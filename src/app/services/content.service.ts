@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SvgIconRegistryService } from 'angular-svg-icon';
+import { type SvgIconRegistryService } from 'angular-svg-icon';
 import {
   aiPatternData,
   characterData,
@@ -12,7 +12,7 @@ import {
   spellTagData,
 } from '../helpers';
 import { rarityData } from '../helpers/lookup/rarities';
-import { ContentMod } from '../interfaces';
+import { type ContentMod } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',

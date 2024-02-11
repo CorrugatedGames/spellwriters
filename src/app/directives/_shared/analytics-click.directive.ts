@@ -1,5 +1,5 @@
 import { Directive, HostListener, input } from '@angular/core';
-import { AnalyticsService } from '../../services/analytics.service';
+import { type AnalyticsService } from '../../services/analytics.service';
 
 @Directive({
   selector: '[swAnalyticsClick]',

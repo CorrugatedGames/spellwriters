@@ -1,5 +1,5 @@
-import { WritableSignal, signal } from '@angular/core';
-import { Rarity } from '../../interfaces';
+import { type WritableSignal, signal } from '@angular/core';
+import { type Rarity } from '../../interfaces';
 
 import { clone } from '../static/object';
 
