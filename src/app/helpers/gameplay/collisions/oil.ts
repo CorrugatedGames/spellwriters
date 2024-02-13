@@ -86,7 +86,7 @@ function onSpellExit(opts: OnSpellExitOpts): void {
 }
 
 export const oil: ElementalCollision = {
-  ...defaultElementalCollision,
+  ...defaultElementalCollision(),
   hasCollisionReaction,
   collide,
   collisionWinner,

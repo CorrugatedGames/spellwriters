@@ -89,7 +89,7 @@ function onSpellExit(opts: OnSpellExitOpts): void {
 }
 
 export const steam: ElementalCollision = {
-  ...defaultElementalCollision,
+  ...defaultElementalCollision(),
   hasCollisionReaction,
   collide,
   collisionWinner,

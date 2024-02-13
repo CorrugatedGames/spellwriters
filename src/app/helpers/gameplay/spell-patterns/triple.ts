@@ -27,7 +27,7 @@ function getFieldNodesBasedOnTarget(opts: { x: number; y: number }) {
 }
 
 export const triple: SpellPatternImpl = {
-  ...defaultSpellPattern,
+  ...defaultSpellPattern(),
   chooseTargetableTiles,
   getFieldNodesBasedOnTarget,
 };

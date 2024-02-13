@@ -1,6 +1,10 @@
 import { type AIPatternImpl } from '../../../interfaces';
 
-export const defaultAIPattern: AIPatternImpl = {
+export const plainAIPattern: AIPatternImpl = {
   canMakeDecision: () => false,
   makeDecision: () => {},
 };
+
+export const defaultAIPattern: () => AIPatternImpl = () => ({
+  ...plainAIPattern,
+});

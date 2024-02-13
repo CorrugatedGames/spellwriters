@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "./data/mod/scripts",
+    "esModuleInterop": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "types": []
+  },
+  "files": [
+    "data/scripts/ai-patterns/index.ts",
+    "data/scripts/collisions/index.ts",
+    "data/scripts/relics/index.ts",
+    "data/scripts/spell-patterns/index.ts",
+    "data/scripts/spell-tags/index.ts",
+    "data/scripts/spells/index.ts"
+  ],
+  "exclude": ["node_modules/**/*.d.ts"],
+  "include": ["src/global.d.ts"]
+}

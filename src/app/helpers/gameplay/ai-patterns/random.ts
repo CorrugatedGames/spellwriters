@@ -28,7 +28,7 @@ function makeDecision(opts: AIOpts): void {
 }
 
 export const random: AIPatternImpl = {
-  ...defaultAIPattern,
+  ...defaultAIPattern(),
   canMakeDecision,
   makeDecision,
 };

@@ -1,4 +1,8 @@
-import { type AIOpts, type AIPatternImpl, TurnOrder } from '../../../interfaces';
+import {
+  TurnOrder,
+  type AIOpts,
+  type AIPatternImpl,
+} from '../../../interfaces';
 import { getSpellById } from '../../lookup/spells';
 import { groupArray, sortArray } from '../../static/array';
 import { defaultAIPattern } from '../defaults/ai-patterns';
@@ -53,7 +57,7 @@ function makeDecision(opts: AIOpts): void {
 }
 
 export const defensive: AIPatternImpl = {
-  ...defaultAIPattern,
+  ...defaultAIPattern(),
   canMakeDecision,
   makeDecision,
 };

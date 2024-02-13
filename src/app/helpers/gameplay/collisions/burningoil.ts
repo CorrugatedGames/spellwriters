@@ -1,4 +1,7 @@
-import { type ElementalCollision, type OnSpellEnterOpts } from '../../../interfaces';
+import {
+  type ElementalCollision,
+  type OnSpellEnterOpts,
+} from '../../../interfaces';
 import { defaultElementalCollision } from '../defaults/collisions';
 import { elementKeyToFieldElement, setFieldElement } from '../field';
 import { isSpellElement, setSpellDamage } from '../spell';
@@ -25,6 +28,6 @@ function onSpellEnter(opts: OnSpellEnterOpts): void {
 }
 
 export const burningoil: ElementalCollision = {
-  ...defaultElementalCollision,
+  ...defaultElementalCollision(),
   onSpellEnter,
 };

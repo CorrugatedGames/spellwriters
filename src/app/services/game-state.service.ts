@@ -6,7 +6,6 @@ import {
   aiAttemptAction,
   createBlankGameState,
   declareVictory,
-  delay,
   gamestate,
   gamestateInitOptions,
   handleEndOfTurnSpellActions,
@@ -16,6 +15,7 @@ import {
   setPhaseBannerString,
 } from '../helpers';
 import { spriteIterationCount } from '../helpers/static/sprite';
+import { delay } from '../helpers/static/time';
 import { GamePhase, TurnOrder, type GameState } from '../interfaces';
 
 @Injectable({

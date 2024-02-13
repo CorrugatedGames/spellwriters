@@ -69,7 +69,7 @@ function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
 }
 
 export const pyroelectricity: ElementalCollision = {
-  ...defaultElementalCollision,
+  ...defaultElementalCollision(),
   hasCollisionReaction,
   collide,
   collisionWinner,
