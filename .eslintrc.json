@@ -1,6 +1,11 @@
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*", "electron/**/*", "data/**/*"],
+  "ignorePatterns": [
+    "projects/**/*",
+    "electron/**/*",
+    "data/**/*",
+    "typings/**/*"
+  ],
   "overrides": [
     {
       "files": ["*.ts"],
