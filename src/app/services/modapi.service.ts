@@ -8,6 +8,6 @@ export class ModAPIService {
   constructor() {}
 
   init() {
-    window.api = Object.assign({}, AllHelpers);
+    window.api = Object.assign({}, AllHelpers) as typeof AllHelpers;
   }
 }

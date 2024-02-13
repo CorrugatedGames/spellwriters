@@ -65,6 +65,10 @@ export function elementKeyToFieldElement(opts: {
   return elementToFieldElement({ element, caster });
 }
 
+export function clearFieldSpell(opts: { x: number; y: number }): void {
+  setFieldSpell({ x: opts.x, y: opts.y, spell: undefined });
+}
+
 export function setFieldSpell(opts: {
   x: number;
   y: number;

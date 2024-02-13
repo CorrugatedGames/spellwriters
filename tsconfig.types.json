@@ -7,6 +7,7 @@
     "declarationDir": "./typings",
     "moduleResolution": "Node",
     "module": "CommonJS",
+    "strict": true,
     "types": []
   },
   "files": ["src/app/helpers/index.ts", "src/app/interfaces/index.ts"]
