@@ -4,7 +4,10 @@
     "target": "ES2022",
     "declaration": true,
     "emitDeclarationOnly": true,
-    "declarationDir": "./typings"
+    "declarationDir": "./typings",
+    "moduleResolution": "Node",
+    "module": "ES2022",
+    "types": []
   },
   "files": ["src/app/helpers/index.ts", "src/app/interfaces/index.ts"]
 }
