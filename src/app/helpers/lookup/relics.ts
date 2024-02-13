@@ -1,15 +1,17 @@
-import { type WritableSignal, signal } from '@angular/core';
+import { signal, type WritableSignal } from '@angular/core';
 import { type Relic, type RitualImpl } from '../../interfaces';
 import { clone } from '../static/object';
 
-import * as Relics from '../gameplay/relics';
-
-const AllRelics: Record<string, RitualImpl> = Relics;
+const AllRelics: Record<string, RitualImpl> = {};
 
 export const relicData: WritableSignal<Record<string, Relic>> = signal({});
 
 export function allRelics() {
   return clone(Object.values(relicData()));
+}
+
+export function addRelicImpl(key: string, relic: RitualImpl) {
+  AllRelics[key] = relic;
 }
 
 export function getRelicById(id: string): Relic | undefined {

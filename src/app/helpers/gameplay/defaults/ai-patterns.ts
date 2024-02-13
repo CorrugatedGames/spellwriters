@@ -1,6 +1,11 @@
-import { type AIPatternImpl } from '../../../interfaces';
+import { type AIPatternImpl, type ContentItem } from '../../../interfaces';
 
-export const defaultAIPattern: AIPatternImpl = {
+export const plainAIPattern: AIPatternImpl & ContentItem = {
+  __contentType: 'AIPattern',
   canMakeDecision: () => false,
   makeDecision: () => {},
 };
+
+export const defaultAIPattern: () => AIPatternImpl = () => ({
+  ...plainAIPattern,
+});

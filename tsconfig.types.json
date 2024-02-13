@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "target": "ES2022",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "./typings",
+    "moduleResolution": "Node",
+    "module": "CommonJS",
+    "types": []
+  },
+  "files": ["src/app/helpers/index.ts", "src/app/interfaces/index.ts"]
+}

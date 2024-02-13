@@ -38,5 +38,6 @@ export interface ContentMod {
     colors: Record<string, string>;
     images: Record<string, ContentModImage>;
     svgs: ContentModSvg[];
+    scripts: string[];
   };
 }

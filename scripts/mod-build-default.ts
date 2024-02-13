@@ -3,6 +3,7 @@ import type { ContentMod, ContentModImage } from '../src/app/interfaces';
 
 const contentpath = './data/mod/content';
 const spritesheetpath = './data/mod/spritesheets';
+const scriptpath = './data/mod/scripts';
 
 const savedir = './src/assets/mods/default';
 
@@ -51,10 +52,17 @@ const load = async () => {
       colors: iconColors,
       images: {},
       svgs: [],
+      scripts: [],
     },
   };
 
   fs.ensureDirSync(savedir);
+
+  const allScripts = await fs.readdir(scriptpath);
+  allScripts.forEach((script) => {
+    fs.copyFile(`${scriptpath}/${script}`, `${savedir}/${script}`);
+    mod.preload.scripts.push(script);
+  });
 
   Object.values(images).forEach((imageData) => {
     const image: ContentModImage = imageData as ContentModImage;

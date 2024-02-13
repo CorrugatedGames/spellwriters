@@ -1,7 +1,8 @@
 import {
+  TurnOrder,
+  type ContentItem,
   type RitualCurrentContextArgs,
   type RitualImpl,
-  TurnOrder,
 } from '../../../interfaces';
 
 function debugLog(func: string, opts: { args: unknown; context: unknown }) {
@@ -129,6 +130,21 @@ export const plainRitual: RitualImpl = {
   onPlayerLoseMana: () => {},
 };
 
-export const defaultRitual: () => RitualImpl = () => ({
+const defaultRitual: () => RitualImpl = () => ({
   ...plainRitual,
+});
+
+export const defaultRitualRelic: () => RitualImpl & ContentItem = () => ({
+  __contentType: 'Relic',
+  ...defaultRitual(),
+});
+
+export const defaultRitualSpell: () => RitualImpl & ContentItem = () => ({
+  __contentType: 'Spell',
+  ...defaultRitual(),
+});
+
+export const defaultRitualSpellTag: () => RitualImpl & ContentItem = () => ({
+  __contentType: 'SpellTag',
+  ...defaultRitual(),
 });

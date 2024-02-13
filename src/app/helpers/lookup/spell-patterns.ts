@@ -1,16 +1,19 @@
-import { type WritableSignal, signal } from '@angular/core';
+import { signal, type WritableSignal } from '@angular/core';
 import { type SpellPattern, type SpellPatternImpl } from '../../interfaces';
 
-import * as SpellPatterns from '../gameplay/spell-patterns';
 import { clone } from '../static/object';
 
-const AllSpellPatterns: Record<string, SpellPatternImpl> = SpellPatterns;
+const AllSpellPatterns: Record<string, SpellPatternImpl> = {};
 
 export const spellPatternData: WritableSignal<Record<string, SpellPattern>> =
   signal({});
 
 export function allSpellPatterns() {
   return clone(Object.values(spellPatternData()));
+}
+
+export function addSpellPatternImpl(key: string, pattern: SpellPatternImpl) {
+  AllSpellPatterns[key] = pattern;
 }
 
 export function getSpellPatternById(id: string): SpellPattern | undefined {

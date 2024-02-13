@@ -1,6 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { SvgIconRegistryService } from 'angular-svg-icon';
 import {
+  addAIPatternImpl,
+  addElementalCollisionImpl,
+  addRelicImpl,
+  addSpellImpl,
+  addSpellPatternImpl,
+  addSpellTagImpl,
   aiPatternData,
   characterData,
   elementData,
@@ -12,13 +18,44 @@ import {
   spellTagData,
 } from '../helpers';
 import { rarityData } from '../helpers/lookup/rarities';
-import { type ContentMod } from '../interfaces';
+import {
+  type AIPatternImpl,
+  type ContentItem,
+  type ContentMod,
+  type ContentType,
+  type ElementalCollisionImpl,
+  type RitualImpl,
+  type SpellPatternImpl,
+} from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContentService {
   private iconReg = inject(SvgIconRegistryService);
+
+  private scriptLoaders: Record<
+    ContentType,
+    (key: string, item: unknown) => void
+  > = {
+    AIPattern: (lookupKey: string, item: unknown) =>
+      addAIPatternImpl(lookupKey, item as AIPatternImpl),
+
+    ElementalCollision: (lookupKey: string, item: unknown) =>
+      addElementalCollisionImpl(lookupKey, item as ElementalCollisionImpl),
+
+    Relic: (lookupKey: string, item: unknown) =>
+      addRelicImpl(lookupKey, item as RitualImpl),
+
+    Spell: (lookupKey: string, item: unknown) =>
+      addSpellImpl(lookupKey, item as RitualImpl),
+
+    SpellTag: (lookupKey: string, item: unknown) =>
+      addSpellTagImpl(lookupKey, item as RitualImpl),
+
+    SpellPattern: (lookupKey: string, item: unknown) =>
+      addSpellPatternImpl(lookupKey, item as SpellPatternImpl),
+  };
 
   async init() {
     await this.loadModByName('core');
@@ -147,5 +184,29 @@ export class ContentService {
         mod.preload?.colors[colorName],
       );
     });
+
+    const allScripts = mod.preload?.scripts ?? [];
+    await Promise.all(
+      allScripts.map(async (script) => {
+        const modScriptData = await import(
+          /* @vite-ignore */ `/assets/mods/${mod.name}/${script}`
+        );
+
+        console.groupCollapsed(`[Mod] ${mod.name}`);
+
+        Object.keys(modScriptData).forEach((key) => {
+          const lookupKey = key;
+          const item = modScriptData[key] as ContentItem;
+
+          console.info(`Loading ${item.__contentType} ${lookupKey}`, item);
+
+          this.scriptLoaders[item.__contentType]?.(lookupKey, item);
+        });
+
+        console.groupEnd();
+
+        return modScriptData;
+      }),
+    );
   }
 }

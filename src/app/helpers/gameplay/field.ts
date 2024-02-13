@@ -1,11 +1,11 @@
 import {
+  SpellStatImpl,
+  TurnOrder,
   type FieldElement,
   type FieldNode,
   type FieldSpell,
   type Spell,
   type SpellElement,
-  SpellStatImpl,
-  TurnOrder,
 } from '../../interfaces';
 import { delay } from '../static/time';
 import { loseHealth } from './stats';
@@ -74,6 +74,10 @@ export function setFieldSpell(opts: {
   const { field } = gamestate();
 
   field[y][x].containedSpell = spell;
+}
+
+export function clearFieldElement(opts: { x: number; y: number }): void {
+  setFieldElement({ x: opts.x, y: opts.y, element: undefined });
 }
 
 export function setFieldElement(opts: {

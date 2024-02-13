@@ -33,14 +33,10 @@ export interface OnSpellExitOpts {
   spell: FieldSpell;
 }
 
-export interface ElementalCollision {
+export interface ElementalCollisionImpl {
   hasCollisionReaction(opts: HasCollisionReactionOpts): boolean;
-
   collide(opts: CollideOpts): void;
-
   collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined;
-
   onSpellEnter(opts: OnSpellEnterOpts): void;
-
   onSpellExit(opts: OnSpellExitOpts): void;
 }
