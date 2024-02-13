@@ -1,4 +1,4 @@
-import type { AllHelpers } from './app/helpers';
+import type { AllHelpers } from '../typings/helpers';
 
 declare global {
   interface Window {
