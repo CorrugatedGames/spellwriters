@@ -41,6 +41,7 @@ const load = async () => {
       colors: iconColors,
       images: {},
       svgs: [],
+      scripts: [],
     },
   };
 

@@ -33,26 +33,26 @@ import {
         MetaService,
         AnalyticsService,
         RollbarService,
+        ModAPIService,
         ContentService,
         GameStateService,
-        ModAPIService,
       ],
       useFactory:
         (
           metaService: MetaService,
           analyticsService: AnalyticsService,
           rollbarService: RollbarService,
+          modApiService: ModAPIService,
           contentService: ContentService,
           gameStateService: GameStateService,
-          modApiService: ModAPIService,
         ) =>
         async () => {
           await metaService.init();
           await analyticsService.init();
           await rollbarService.init();
+          await modApiService.init();
           await contentService.init();
           await gameStateService.init();
-          await modApiService.init();
         },
     },
 

@@ -1,10 +1,9 @@
-import { type WritableSignal, signal } from '@angular/core';
+import { signal, type WritableSignal } from '@angular/core';
 import { type AIPattern, type AIPatternImpl } from '../../interfaces';
 
-import * as AIPatterns from '../gameplay/ai-patterns';
 import { clone } from '../static/object';
 
-const AllAIPatterns: Record<string, AIPatternImpl> = AIPatterns;
+const AllAIPatterns: Record<string, AIPatternImpl> = {};
 
 export const aiPatternData: WritableSignal<Record<string, AIPattern>> = signal(
   {},
@@ -12,6 +11,10 @@ export const aiPatternData: WritableSignal<Record<string, AIPattern>> = signal(
 
 export function allAIPatterns() {
   return clone(Object.values(aiPatternData()));
+}
+
+export function addAIPatternImpl(key: string, pattern: AIPatternImpl) {
+  AllAIPatterns[key] = pattern;
 }
 
 export function getAIPatternById(id: string): AIPattern | undefined {

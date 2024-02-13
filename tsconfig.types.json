@@ -6,7 +6,7 @@
     "emitDeclarationOnly": true,
     "declarationDir": "./typings",
     "moduleResolution": "Node",
-    "module": "ES2022",
+    "module": "CommonJS",
     "types": []
   },
   "files": ["src/app/helpers/index.ts", "src/app/interfaces/index.ts"]

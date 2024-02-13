@@ -1,14 +1,17 @@
-import { type WritableSignal, signal } from '@angular/core';
+import { signal, type WritableSignal } from '@angular/core';
 import { type RitualImpl, type SpellTag } from '../../interfaces';
 
 import { clone } from 'lodash';
-import * as SpellTags from '../gameplay/spell-tags';
 
-const AllSpellTags: Record<string, RitualImpl> = SpellTags;
+const AllSpellTags: Record<string, RitualImpl> = {};
 
 export const spellTagData: WritableSignal<Record<string, SpellTag>> = signal(
   {},
 );
+
+export function addSpellTagImpl(key: string, tag: RitualImpl) {
+  AllSpellTags[key] = tag;
+}
 
 export function allSpellTags() {
   return clone(Object.values(spellTagData()));

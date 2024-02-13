@@ -1,6 +1,10 @@
-import { type ElementalCollision } from '../../../interfaces';
+import {
+  type ContentItem,
+  type ElementalCollisionImpl,
+} from '../../../interfaces';
 
-export const plainElementalCollision: ElementalCollision = {
+export const plainElementalCollision: ElementalCollisionImpl & ContentItem = {
+  __contentType: 'ElementalCollision',
   collide: () => {},
   collisionWinner: () => undefined,
   hasCollisionReaction: () => false,
@@ -8,6 +12,6 @@ export const plainElementalCollision: ElementalCollision = {
   onSpellExit: () => {},
 };
 
-export const defaultElementalCollision: () => ElementalCollision = () => ({
+export const defaultElementalCollision: () => ElementalCollisionImpl = () => ({
   ...plainElementalCollision,
 });

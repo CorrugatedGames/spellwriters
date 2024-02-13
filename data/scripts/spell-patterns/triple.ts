@@ -1,16 +1,17 @@
-import { type SpellPatternImpl } from '../../../interfaces';
-import { defaultSpellPattern } from '../defaults/spell-patterns';
-import { getSpaceFromField } from '../field';
+import type { SpellPatternImpl } from '../../../typings/interfaces';
 
 function chooseTargetableTiles(opts: {
   allTargettableNodes: Array<{ x: number; y: number }>;
 }) {
   const { allTargettableNodes } = opts;
   return allTargettableNodes.filter((node) => {
-    const leftNode = getSpaceFromField({ x: node.x - 1, y: node.y });
+    const leftNode = window.api.getSpaceFromField({ x: node.x - 1, y: node.y });
     if (!leftNode) return false;
 
-    const rightNode = getSpaceFromField({ x: node.x + 1, y: node.y });
+    const rightNode = window.api.getSpaceFromField({
+      x: node.x + 1,
+      y: node.y,
+    });
     if (!rightNode) return false;
 
     return !leftNode.containedSpell && !rightNode.containedSpell;
@@ -27,7 +28,7 @@ function getFieldNodesBasedOnTarget(opts: { x: number; y: number }) {
 }
 
 export const triple: SpellPatternImpl = {
-  ...defaultSpellPattern(),
+  ...window.api.defaultSpellPattern(),
   chooseTargetableTiles,
   getFieldNodesBasedOnTarget,
 };

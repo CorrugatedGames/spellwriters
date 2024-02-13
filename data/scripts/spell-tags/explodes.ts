@@ -5,7 +5,7 @@ import {
 } from '../../../typings/interfaces';
 
 export const explodes: RitualImpl = {
-  ...window.api.defaultRitual(),
+  ...window.api.defaultRitualSpellTag(),
 
   onSpellCollision: (
     opts: SpellTagCollisionArgs & { collisionX: number; collisionY: number },

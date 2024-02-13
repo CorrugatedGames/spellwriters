@@ -1,38 +1,34 @@
-import {
-  type CollideOpts,
-  type CollisionWinnerOpts,
-  type ElementalCollision,
-  type FieldSpell,
-  type HasCollisionReactionOpts,
-} from '../../../interfaces';
-import { getElementByKey, getElementKey } from '../../lookup/elements';
-import { getSpellByName } from '../../lookup/spells';
-import { defaultElementalCollision } from '../defaults/collisions';
-import { moveSpellToPosition, spellToFieldSpell } from '../field';
-import { defaultShouldFieldElementBeCreated } from '../spell';
+import type {
+  CollideOpts,
+  CollisionWinnerOpts,
+  ElementalCollisionImpl,
+  FieldSpell,
+  HasCollisionReactionOpts,
+} from '../../../typings/interfaces';
 
 function hasCollisionReaction(opts: HasCollisionReactionOpts): boolean {
   const { collider, collidee } = opts;
   const elements = [
-    getElementKey(collider.element),
-    getElementKey(collidee.element),
+    window.api.getElementKey(collider.element),
+    window.api.getElementKey(collidee.element),
   ];
 
-  return elements.includes('earth') && elements.includes('electric');
+  return elements.includes('water') && elements.includes('electric');
 }
 
 function collide(opts: CollideOpts): void {
   const { collider, collidee, collisionX, collisionY } = opts;
-  if (!defaultShouldFieldElementBeCreated({ collider, collidee })) return;
+  if (!window.api.defaultShouldFieldElementBeCreated({ collider, collidee }))
+    return;
 
   const hitNearbyTile = (x: number, y: number): void => {
-    const spellInst = getSpellByName('Electric Explosion');
+    const spellInst = window.api.getSpellByName('Electric Explosion');
     if (!spellInst) return;
 
-    const elementRef = getElementByKey('earth');
+    const elementRef = window.api.getElementByKey('water');
     if (!elementRef) return;
 
-    const fieldSpellInst = spellToFieldSpell({
+    const fieldSpellInst = window.api.spellToFieldSpell({
       spell: {
         ...spellInst,
         element: elementRef.id,
@@ -40,7 +36,7 @@ function collide(opts: CollideOpts): void {
       caster: collider.caster,
     });
 
-    moveSpellToPosition({
+    window.api.moveSpellToPosition({
       spell: fieldSpellInst,
       currentX: collisionX,
       currentY: collisionY,
@@ -56,8 +52,8 @@ function collide(opts: CollideOpts): void {
 
 function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
   const { collider, collidee } = opts;
-  const colliderElement = getElementKey(collider.element);
-  const collideeElement = getElementKey(collidee.element);
+  const colliderElement = window.api.getElementKey(collider.element);
+  const collideeElement = window.api.getElementKey(collidee.element);
 
   if (colliderElement === 'electric' && collideeElement === 'electric')
     return undefined;
@@ -68,8 +64,8 @@ function collisionWinner(opts: CollisionWinnerOpts): FieldSpell | undefined {
   return undefined;
 }
 
-export const terraelectricity: ElementalCollision = {
-  ...defaultElementalCollision(),
+export const hydroelectricity: ElementalCollisionImpl = {
+  ...window.api.defaultElementalCollision(),
   hasCollisionReaction,
   collide,
   collisionWinner,

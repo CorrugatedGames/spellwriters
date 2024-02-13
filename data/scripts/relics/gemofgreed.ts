@@ -5,7 +5,7 @@ import {
 } from '../../../typings/interfaces';
 
 export const gemofgreed: RitualImpl = {
-  ...window.api.defaultRitual(),
+  ...window.api.defaultRitualRelic(),
 
   onCombatStart: (
     opts: RitualDefaultArgs,

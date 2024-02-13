@@ -6,7 +6,7 @@ import {
 } from '../../../typings/interfaces';
 
 export const debugspell: RitualImpl = {
-  ...window.api.defaultRitual(),
+  ...window.api.defaultRitualSpell(),
 
   onSpellPlacement: (
     opts: SpellTagSpaceArgs,

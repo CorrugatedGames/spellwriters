@@ -56,7 +56,9 @@ export function isCurrentSpellOwnedByRelicOwner(opts: {
   return spell.caster === context.relicContext.owner.turnOrder;
 }
 
-export function callRitualGlobalFunction<T extends keyof RitualImpl>(opts: {
+type RitualImplGeneric = keyof RitualImpl;
+
+export function callRitualGlobalFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
 }): undefined | boolean[] {
@@ -86,7 +88,7 @@ export function callRitualGlobalFunction<T extends keyof RitualImpl>(opts: {
   return returnValsTF.length > 0 ? returnValsTF : undefined;
 }
 
-export function callRitualSpellFunction<T extends keyof RitualImpl>(opts: {
+export function callRitualSpellFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
   context: RitualCurrentContextSpellArgs;
@@ -112,7 +114,7 @@ export function callRitualSpellFunction<T extends keyof RitualImpl>(opts: {
   return returnValsTF.length > 0 ? returnValsTF : undefined;
 }
 
-export function callRitualRelicFunction<T extends keyof RitualImpl>(opts: {
+export function callRitualRelicFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
   context: RitualCurrentContextRelicArgs;
