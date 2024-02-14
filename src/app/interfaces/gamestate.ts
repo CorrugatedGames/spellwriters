@@ -28,6 +28,7 @@ export interface ActivePlayer extends Spritable {
   discard: PlayableCard[];
 
   spellsCastThisTurn: number;
+  cardsDrawnThisTurn: number;
 
   behaviors: Record<string, number>;
   relics: Record<string, number>;

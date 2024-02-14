@@ -1,12 +1,12 @@
 import {
+  GamePhase,
+  GamePlayer,
+  TurnOrder,
   type ActivePlayer,
   type Character,
   type CurrentPhase,
-  GamePhase,
-  GamePlayer,
   type GameState,
   type PlayableCard,
-  TurnOrder,
 } from '../../interfaces';
 import { drawCard, shuffleDeck } from './turn';
 
@@ -81,6 +81,7 @@ export function turnCharacterIntoActivePlayer(opts: {
     deck,
     discard: [],
     spellsCastThisTurn: 0,
+    cardsDrawnThisTurn: 0,
     behaviors: character.behaviors,
     relics: character.relics,
   };

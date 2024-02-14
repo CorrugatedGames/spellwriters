@@ -18,6 +18,7 @@ import { SpellCardComponent } from './components/_shared/spell-card/spell-card.c
 import { SpriteComponent } from './components/_shared/sprite/sprite.component';
 import { DeckComponent } from './components/play/deck/deck.component';
 import { ErrorBannerComponent } from './components/play/error-banner/error-banner.component';
+import { ExtraDrawComponent } from './components/play/extradraw/extradraw.component';
 import { FieldElementComponent } from './components/play/field-element/field-element.component';
 import { FieldSpellComponent } from './components/play/field-spell/field-spell.component';
 import { HandComponent } from './components/play/hand/hand.component';
@@ -44,6 +45,7 @@ const components = [
   DeckComponent,
   HandComponent,
   NextTurnComponent,
+  ExtraDrawComponent,
   PauseGameComponent,
   PhaseBannerComponent,
   ErrorBannerComponent,

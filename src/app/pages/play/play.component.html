@@ -1,5 +1,5 @@
 <div class="field" (contextmenu)="$event.preventDefault()">
-  <sw-pausegame class="pause" (pauseGame)="pauseGame()"></sw-pausegame>
+  <sw-pausegame class="pause" (pauseGame)="pauseGame()" ngbTooltip="Open the game pause menu."></sw-pausegame>
 
   <sw-phase-banner class="phase-banner" [class.hidden-animate]="!phaseBannerString()" [text]="phaseBannerString()"
     [actions]="victoryActions"></sw-phase-banner>
@@ -60,7 +60,8 @@
       <sw-error-banner class="error-banner" [text]="errorMessageString()"></sw-error-banner>
     </div>
 
-    <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck" [isGlowing]="gamephase.PlayerDraw"></sw-deck>
+    <sw-deck class="deck" (drawCard)="drawCard()" [deck]="player.deck" [isGlowing]="gamephase.PlayerDraw"
+      ngbTooltip="Draw a card. You can only draw once per turn unless you use the Knife."></sw-deck>
 
     <div class="relics">
       @for(relicData of relics; track $index) {
@@ -79,8 +80,11 @@
     </div>
 
     @if(gamephase.PlayerTurn) {
-    <sw-nextturn class="pass" (nextTurn)="nextTurn()" [isDisabled]="!!activeCardData"
-      [isGlowing]="gamephase.PlayerTurn"></sw-nextturn>
+    <sw-nextturn class="pass" (nextTurn)="nextTurn()" [isDisabled]="!!activeCardData" [isGlowing]="gamephase.PlayerTurn"
+      ngbTooltip="End your current turn, causing your spells to advance."></sw-nextturn>
+
+    <sw-extradraw class="extradraw" (extraDraw)="extraDraw()" [isDisabled]="!canDoExtraDraw()"
+      [ngbTooltip]="'Draw an extra card for the cost of ' + extraDrawCost() + ' HP.'"></sw-extradraw>
     }
 
     <sw-hand class="hand" (selectCard)="selectCard($event)" (unselectCard)="selectCard(undefined)" [hand]="player.hand"

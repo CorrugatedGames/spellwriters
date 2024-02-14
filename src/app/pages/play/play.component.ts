@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPauseComponent } from '../../components/play/modal-pause/modal-pause.component';
 import {
+  canDrawExtraCard,
   createBlankGameState,
   createBlankStateMachineMap,
+  doExtraCardDraw,
   drawCardAndPassPhase,
   endTurnAndPassPhase,
   gamestate,
@@ -15,6 +17,7 @@ import {
   getTargetableTilesForCard,
   getTargettableSpacesForSpellAroundPosition,
   handleEntireSpellcastSequence,
+  healthCostForDraw,
   ingameErrorMessage,
   isFieldSpaceEmpty,
   manaCostForSpell,
@@ -254,5 +257,17 @@ export class PlayComponent {
       backdrop: 'static',
       windowClass: 'modal-gamepause',
     });
+  }
+
+  extraDraw() {
+    doExtraCardDraw(this.player);
+  }
+
+  extraDrawCost() {
+    return healthCostForDraw({ character: this.player });
+  }
+
+  canDoExtraDraw() {
+    return canDrawExtraCard(this.player);
   }
 }

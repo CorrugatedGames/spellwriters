@@ -1,4 +1,4 @@
-import { type ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
+import { GamePhase, TurnOrder, type ActivePlayer } from '../../interfaces';
 import { callRitualGlobalFunction } from './ritual';
 import { gamestate } from './signal';
 import { gainMana } from './stats';
@@ -66,6 +66,7 @@ export async function nextPhase(): Promise<void> {
 
       gainMana({ character: newPlayer, amount: state.currentRound + 1 });
       newPlayer.spellsCastThisTurn = 0;
+      newPlayer.cardsDrawnThisTurn = 0;
 
       break;
   }

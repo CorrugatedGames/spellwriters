@@ -36,6 +36,11 @@ export function spendMana(opts: {
   });
 }
 
+export function healthCostForDraw(opts: { character: ActivePlayer }): number {
+  const { character } = opts;
+  return character.cardsDrawnThisTurn + 1;
+}
+
 export function manaCostForSpell(opts: {
   character: ActivePlayer;
   spell: Spell;

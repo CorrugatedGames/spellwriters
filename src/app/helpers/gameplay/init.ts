@@ -1,10 +1,10 @@
 import {
+  GamePhase,
+  TurnOrder,
   type ActivePlayer,
   type FieldNode,
-  GamePhase,
   type GameState,
   type GameStateInitOpts,
-  TurnOrder,
 } from '../../interfaces';
 import { getId } from '../static/uuid';
 import { saveGamestate } from './signal';
@@ -70,6 +70,7 @@ export function createBlankActivePlayer(): ActivePlayer {
     discard: [],
 
     spellsCastThisTurn: 0,
+    cardsDrawnThisTurn: 0,
 
     behaviors: { random: 1 },
     relics: {},

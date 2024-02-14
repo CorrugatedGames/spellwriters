@@ -1,6 +1,6 @@
 import {
-  type ActivePlayer,
   GamePhase,
+  type ActivePlayer,
   type PlayableCard,
   type TurnOrder,
 } from '../../interfaces';
@@ -16,7 +16,12 @@ import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
 import { callRitualGlobalFunction } from './ritual';
 import { gamestate } from './signal';
-import { manaCostForSpell, spendMana } from './stats';
+import {
+  healthCostForDraw,
+  loseHealth,
+  manaCostForSpell,
+  spendMana,
+} from './stats';
 
 export function shuffleDeck(character: ActivePlayer): void {
   const rng = seededrng();
@@ -40,11 +45,17 @@ export function canDrawCard(character: ActivePlayer): boolean {
   );
 }
 
-export function drawCard(character: ActivePlayer): void {
-  if (!canDrawCard(character)) {
-    return;
-  }
+export function canDrawExtraCard(character: ActivePlayer): boolean {
+  const state = gamestate();
 
+  return (
+    [GamePhase.Turn].includes(state.currentPhase) &&
+    character.deck.length > 0 &&
+    character.health > healthCostForDraw({ character })
+  );
+}
+
+export function drawCard(character: ActivePlayer): void {
   const card = character.deck.pop();
 
   if (card) {
@@ -59,12 +70,24 @@ export function drawCardAndPassPhase(character: ActivePlayer): void {
   nextPhase();
 }
 
+export function doExtraCardDraw(character: ActivePlayer): void {
+  if (!canDrawExtraCard(character)) return;
+
+  loseHealth({ character, amount: healthCostForDraw({ character }) });
+  drawCard(character);
+  addCardDraw(character);
+}
+
 export function endTurnAndPassPhase(): void {
   nextPhase();
 }
 
 export function addSpellCast(character: ActivePlayer): void {
   character.spellsCastThisTurn++;
+}
+
+export function addCardDraw(character: ActivePlayer): void {
+  character.cardsDrawnThisTurn++;
 }
 
 export function handleEntireSpellcastSequence(props: {
