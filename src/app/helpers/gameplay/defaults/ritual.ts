@@ -26,6 +26,7 @@ function debugLog(func: string, opts: { args: unknown; context: unknown }) {
   if ('spellContext' in ritualContext) type = 'SPELL';
   if ('spellTagContext' in ritualContext) type = 'SPELLTAG';
   if ('relicContext' in ritualContext) type = 'RELIC';
+  if ('tileContext' in ritualContext) type = 'TILESTATUS';
 
   let contentType = 'UNKNOWN';
   if ('spellContext' in ritualContext)
@@ -34,6 +35,8 @@ function debugLog(func: string, opts: { args: unknown; context: unknown }) {
     contentType = ritualContext.spellTagContext.key ?? 'UNKNOWN';
   if ('relicContext' in ritualContext)
     contentType = ritualContext.relicContext.key ?? 'UNKNOWN';
+  if ('tileContext' in ritualContext)
+    contentType = ritualContext.tileContext.key ?? 'UNKNOWN';
 
   console.info(`[${owner}-${type}:${contentType}]`, func, { args, context });
 }
@@ -146,5 +149,10 @@ export const defaultRitualSpell: () => RitualImpl & ContentItem = () => ({
 
 export const defaultRitualSpellTag: () => RitualImpl & ContentItem = () => ({
   __contentType: 'SpellTag',
+  ...defaultRitual(),
+});
+
+export const defaultRitualTileStatus: () => RitualImpl & ContentItem = () => ({
+  __contentType: 'TileStatus',
   ...defaultRitual(),
 });

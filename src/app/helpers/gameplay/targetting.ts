@@ -1,4 +1,4 @@
-import { type PlayableCard, TurnOrder } from '../../interfaces';
+import { TurnOrder, type PlayableCard } from '../../interfaces';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getSpellById } from '../lookup/spells';
 import { gamestate } from './signal';
@@ -22,7 +22,11 @@ export function getTargetableTilesForCard(opts: {
     targetableTiles[y] = targetableTiles[y] || {};
 
     row.forEach((node, x) => {
-      if (node.containedElement || node.containedSpell) {
+      if (
+        node.containedElement ||
+        node.containedSpell ||
+        node.containedStatus
+      ) {
         return;
       }
 

@@ -1,14 +1,15 @@
 import {
-  type ActivePlayer,
   type FieldSpell,
   type RitualCurrentContextRelicArgs,
   type RitualCurrentContextSpellArgs,
+  type RitualCurrentContextTileArgs,
   type RitualImpl,
   type RitualSpellDefaultArgs,
 } from '../../interfaces';
 import { getRelicImpl, getRelicKey } from '../lookup/relics';
 import { getSpellTagImpl } from '../lookup/spell-tags';
 import { getSpellImpl } from '../lookup/spells';
+import { getTileStatusImpl } from '../lookup/tile-status';
 import { freeze } from '../static/object';
 import { findSpellOnField } from './field';
 import { gamestate } from './signal';
@@ -24,12 +25,7 @@ function getAllFieldSpells(): FieldSpell[] {
     .filter(Boolean) as FieldSpell[];
 }
 
-function getAllRelics(): Array<{
-  id: string;
-  key: string | undefined;
-  stacks: number;
-  owner: ActivePlayer;
-}> {
+function getAllRelics(): RitualCurrentContextRelicArgs['relicContext'][] {
   return gamestate().players.flatMap((player) =>
     Object.keys(player.relics ?? {}).map((relicId) => ({
       id: relicId,
@@ -38,6 +34,25 @@ function getAllRelics(): Array<{
       owner: player,
     })),
   );
+}
+
+function getAllTileStatuses(): RitualCurrentContextTileArgs['tileContext'][] {
+  return gamestate()
+    .field.flatMap((row, y) =>
+      row.map((tile, x) => {
+        const status = tile.containedStatus;
+        if (!status) return undefined;
+
+        return {
+          id: status.id,
+          key: status.key,
+          tileStatus: status,
+          x,
+          y,
+        };
+      }),
+    )
+    .filter(Boolean) as RitualCurrentContextTileArgs['tileContext'][];
 }
 
 export function isCurrentSpellContextSpell(opts: {
@@ -66,6 +81,7 @@ export function callRitualGlobalFunction<T extends RitualImplGeneric>(opts: {
 
   const allSpells = getAllFieldSpells();
   const allRelics = getAllRelics();
+  const allTiles = getAllTileStatuses();
 
   const returnVals = [
     allRelics.map((relic) =>
@@ -80,6 +96,13 @@ export function callRitualGlobalFunction<T extends RitualImplGeneric>(opts: {
         func,
         funcOpts,
         context: { spellContext: freeze({ spell }) },
+      }),
+    ),
+    allTiles.map((tile) =>
+      callRitualTileFunction({
+        func,
+        funcOpts,
+        context: { tileContext: freeze(tile) },
       }),
     ),
   ].flat(Infinity) as boolean[];
@@ -122,5 +145,16 @@ export function callRitualRelicFunction<T extends RitualImplGeneric>(opts: {
   const { func, funcOpts, context } = opts;
 
   const relicImpl = getRelicImpl(context.relicContext.id);
-  return relicImpl?.[func]?.(funcOpts as never, context) ? true : undefined;
+  return relicImpl?.[func]?.(funcOpts as never, context) ?? undefined;
+}
+
+export function callRitualTileFunction<T extends RitualImplGeneric>(opts: {
+  func: T;
+  funcOpts: Parameters<RitualImpl[T]>[0];
+  context: RitualCurrentContextTileArgs;
+}): undefined | boolean {
+  const { func, funcOpts, context } = opts;
+
+  const tileStatusImpl = getTileStatusImpl(context.tileContext.id);
+  return tileStatusImpl?.[func]?.(funcOpts as never, context) ?? undefined;
 }

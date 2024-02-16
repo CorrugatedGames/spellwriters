@@ -5,6 +5,7 @@ import {
   allRelics,
   allSpells,
   allStats,
+  allTileStatuses,
   getSpellById,
 } from '../../../helpers';
 import { type FieldSpell } from '../../../interfaces';
@@ -37,30 +38,35 @@ export class DebugComponentsComponent implements OnInit {
   public elementList = allElements();
   public statList = allStats();
   public relicList = allRelics();
+  public tileStatusList = allTileStatuses();
 
   public fieldSpells: FieldSpell[] = [
     {
       ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       caster: 0,
       castId: '',
+      extraData: {},
     },
     {
       ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       castTime: 2,
       caster: 0,
       castId: '',
+      extraData: {},
     },
     {
       ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       damage: 3,
       caster: 1,
       castId: '',
+      extraData: {},
     },
     {
       ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       castTime: 7,
       caster: 1,
       castId: '',
+      extraData: {},
     },
   ];
 

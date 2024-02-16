@@ -4,3 +4,4 @@ export * from './relics';
 export * from './spell-patterns';
 export * from './spell-tags';
 export * from './spells';
+export * from './tile-status';

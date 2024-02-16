@@ -3,6 +3,9 @@ import * as Electron from './electron/in-electron';
 import * as GameplayAI from './gameplay/ai';
 import * as GameplayError from './gameplay/error';
 import * as GameplayField from './gameplay/field';
+import * as GameplayFieldElement from './gameplay/field-element';
+import * as GameplayFieldSpell from './gameplay/field-spell';
+import * as GameplayFieldStatus from './gameplay/field-status';
 import * as GameplayHand from './gameplay/hand';
 import * as GameplayInit from './gameplay/init';
 import * as GameplayMeta from './gameplay/meta';
@@ -29,6 +32,7 @@ import * as LookupSpellPatterns from './lookup/spell-patterns';
 import * as LookupSpellTags from './lookup/spell-tags';
 import * as LookupSpells from './lookup/spells';
 import * as LookupStats from './lookup/stats';
+import * as LookupTileStatus from './lookup/tile-status';
 
 import * as StaticArray from './static/array';
 import * as StaticObject from './static/object';
@@ -41,6 +45,9 @@ export const AllHelpers = {
   ...Electron,
   ...GameplayAI,
   ...GameplayError,
+  ...GameplayFieldElement,
+  ...GameplayFieldSpell,
+  ...GameplayFieldStatus,
   ...GameplayField,
   ...GameplayHand,
   ...GameplayInit,
@@ -66,6 +73,7 @@ export const AllHelpers = {
   ...LookupSpellTags,
   ...LookupSpells,
   ...LookupStats,
+  ...LookupTileStatus,
   ...StaticArray,
   ...StaticObject,
   ...StaticRNG,
@@ -82,6 +90,9 @@ export * from './gameplay/defaults/ritual';
 export * from './gameplay/defaults/spell-patterns';
 export * from './gameplay/error';
 export * from './gameplay/field';
+export * from './gameplay/field-element';
+export * from './gameplay/field-spell';
+export * from './gameplay/field-status';
 export * from './gameplay/hand';
 export * from './gameplay/init';
 export * from './gameplay/meta';
@@ -102,6 +113,7 @@ export * from './lookup/spell-patterns';
 export * from './lookup/spell-tags';
 export * from './lookup/spells';
 export * from './lookup/stats';
+export * from './lookup/tile-status';
 export * from './static/array';
 export * from './static/object';
 export * from './static/rng';

@@ -39,6 +39,11 @@
           }
           }
 
+          @if(col.containedStatus) {
+          <sw-field-status class="grid-item status" [class.should-dim]="col.containedSpell || col.containedElement"
+            [status]="col.containedStatus"></sw-field-status>
+          }
+
           @if(col.containedSpell) {
           <sw-field-spell class="grid-item spell" [spell]="col.containedSpell"
             [element]="col.containedElement"></sw-field-spell>
@@ -70,6 +75,10 @@
     </div>
 
     <div class="tile-info">
+      @if(hoveringTile?.containedStatus; as status) {
+      <sw-tile-status-card class="hover-status" [tileStatus]="status"></sw-tile-status-card>
+      }
+
       @if(hoveringTile?.containedElement; as element) {
       <sw-element-card class="hover-element" [element]="element"></sw-element-card>
       }

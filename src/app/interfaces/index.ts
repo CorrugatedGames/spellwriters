@@ -13,3 +13,4 @@ export * from './ritual';
 export * from './spell';
 export * from './sprite';
 export * from './tag';
+export * from './tile';

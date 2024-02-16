@@ -13,6 +13,7 @@ import {
   type SpellPattern,
   type SpellTag,
 } from '../src/app/interfaces';
+import type { TileStatus } from '../typings/interfaces';
 
 const contentType = process.argv.slice(2)[0];
 
@@ -23,6 +24,13 @@ const filename = `${contentType}.json`;
 fs.ensureDirSync(filepath);
 
 const postprocess: Record<string, (items: any[]) => Promise<void>> = {
+  'tile-status': async (items: TileStatus[]) => {
+    items.forEach((item) => {
+      item.mod = 'default';
+      item.asset = `tile-status.webp`;
+    });
+  },
+
   elements: async (items: SpellElement[]) => {
     const elementsByKey = items.reduce(
       (acc: Record<string, SpellElement>, spell: any) => {

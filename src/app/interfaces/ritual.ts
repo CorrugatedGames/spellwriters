@@ -1,5 +1,6 @@
 import { type ActivePlayer, type GamePhase, type TurnOrder } from './gamestate';
 import { type FieldSpell, type SpellStatImpl } from './spell';
+import type { FieldStatus } from './tile';
 
 export interface RitualDefaultArgs {}
 
@@ -13,17 +14,66 @@ export interface RitualSpellDefaultArgs extends RitualDefaultArgs {
   spell: FieldSpell;
 }
 
-export interface SpellTagSpaceArgs extends RitualSpellDefaultArgs {
+export interface RitualSpellTagSpaceArgs extends RitualSpellDefaultArgs {
   x: number;
   y: number;
 }
 
-export interface SpellTagCollisionArgs extends RitualSpellDefaultArgs {
+export interface RitualSpellTagSpacePlacementArgs
+  extends RitualSpellTagSpaceArgs {
+  placeNum: number;
+}
+
+export interface RitualSpellTagCollisionArgs extends RitualSpellDefaultArgs {
   collidedWith: FieldSpell;
+}
+
+export interface RitualSpellTagCollisionSpaceArgs
+  extends RitualSpellTagCollisionArgs {
+  collisionX: number;
+  collisionY: number;
 }
 
 export interface RitualCharacterArgs extends RitualDefaultArgs {
   character: ActivePlayer;
+}
+
+export interface RitualCharacterManaArgs extends RitualCharacterArgs {
+  mana: number;
+}
+
+export interface RitualCharacterHealthArgs extends RitualCharacterArgs {
+  health: number;
+}
+
+export interface RitualSpellCancelArgs extends RitualSpellDefaultArgs {
+  canceledSpell: FieldSpell;
+}
+
+export interface RitualSpellCanceledArgs extends RitualSpellDefaultArgs {
+  canceledBySpell: FieldSpell;
+}
+
+export interface RitualSpellDestroyArgs extends RitualSpellDefaultArgs {
+  destroyedSpell: FieldSpell;
+}
+
+export interface RitualSpellDestroyedArgs extends RitualSpellDefaultArgs {
+  destroyedBySpell: FieldSpell;
+}
+
+export interface RitualSpellDamageArgs extends RitualSpellDefaultArgs {
+  damage: number;
+}
+
+export interface RitualSpellTagChangeArgs extends RitualSpellDefaultArgs {
+  tag: string;
+  newValue: number;
+}
+
+export interface RitualPhaseChangeArgs extends RitualDefaultArgs {
+  newPhase: GamePhase;
+  newTurn: TurnOrder;
 }
 
 export interface RitualCurrentContextSpellArgs {
@@ -49,16 +99,27 @@ export interface RitualCurrentContextRelicArgs {
   };
 }
 
+export interface RitualCurrentContextTileArgs {
+  tileContext: {
+    id: string;
+    key: string | undefined;
+    tileStatus: FieldStatus;
+    x: number;
+    y: number;
+  };
+}
+
 export type RitualCurrentContextArgs =
   | RitualCurrentContextSpellArgs
   | RitualCurrentContextSpellTagArgs
-  | RitualCurrentContextRelicArgs;
+  | RitualCurrentContextRelicArgs
+  | RitualCurrentContextTileArgs;
 
 export interface RitualImpl {
   // fired once per space the spell is placed in (for example, wider spells)
   // ✅ implemented in handleEntireSpellcastSequence
   onSpellPlacement(
-    opts: RitualSpellDefaultArgs & { x: number; y: number; placeNum: number },
+    opts: RitualSpellTagSpacePlacementArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
@@ -72,35 +133,35 @@ export interface RitualImpl {
   // fired if the spell cancels the casting of another spell
   // ✅ implemented in defaultCollisionDamageReduction
   onSpellCancel(
-    opts: RitualSpellDefaultArgs & { canceledSpell: FieldSpell },
+    opts: RitualSpellCancelArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // fired if the spell is canceled while casting
   // ✅ implemented in defaultCollisionDamageReduction
   onSpellCanceled(
-    opts: RitualSpellDefaultArgs & { canceledBySpell: FieldSpell },
+    opts: RitualSpellCanceledArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // fired when the attached spell destroys another spell
   // ✅ implemented in defaultCollisionDamageReduction
   onSpellDestroy(
-    opts: RitualSpellDefaultArgs & { destroyedSpell: FieldSpell },
+    opts: RitualSpellDestroyArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // fired once per spell instance destroyed
   // ✅ implemented in defaultCollisionDamageReduction
   onSpellDestroyed(
-    opts: RitualSpellDefaultArgs & { destroyedBySpell: FieldSpell },
+    opts: RitualSpellDestroyedArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // fired once per spell dealing damage to the opponent
   // ✅ implemented in moveSpellToPosition
   onSpellDealDamage(
-    opts: RitualSpellDefaultArgs & { damage: number },
+    opts: RitualSpellDamageArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
@@ -108,14 +169,14 @@ export interface RitualImpl {
   // if any tag, spell, or relic returns false, the space cannot be entered
   // ✅ implemented in moveSpellToPosition
   onSpellSpaceEnter(
-    opts: SpellTagSpaceArgs,
+    opts: RitualSpellTagSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): boolean;
 
   // called after entering a space
   // ✅ implemented in moveSpellToPosition
   onSpellSpaceEntered(
-    opts: SpellTagSpaceArgs,
+    opts: RitualSpellTagSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
@@ -123,39 +184,39 @@ export interface RitualImpl {
   // if any tag, spell, or relic returns false, the space cannot be exited
   // ✅ implemented in moveSpellToPosition
   onSpellSpaceExit(
-    opts: SpellTagSpaceArgs,
+    opts: RitualSpellTagSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): boolean;
 
   // called after exiting a space
   // ✅ implemented in moveSpellToPosition
   onSpellSpaceExited(
-    opts: SpellTagSpaceArgs,
+    opts: RitualSpellTagSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // called before the real collision happens
   // ✅ implemented in moveSpellToPosition
   onSpellCollision(
-    opts: SpellTagCollisionArgs & { collisionX: number; collisionY: number },
+    opts: RitualSpellTagCollisionSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // ✅ implemented in defaultCollisionWinner
   onSpellCollisionWin(
-    opts: SpellTagCollisionArgs,
+    opts: RitualSpellTagCollisionArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // ✅ implemented in defaultCollisionWinner
   onSpellCollisionLose(
-    opts: SpellTagCollisionArgs,
+    opts: RitualSpellTagCollisionArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // ✅ implemented in defaultCollisionWinner
   onSpellCollisionTie(
-    opts: SpellTagCollisionArgs,
+    opts: RitualSpellTagCollisionArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
@@ -171,7 +232,7 @@ export interface RitualImpl {
 
   // ✅ implemented in setSpellTag
   onSpellTagChange(
-    opts: RitualSpellDefaultArgs & { tag: string; newValue: number },
+    opts: RitualSpellTagChangeArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
@@ -189,35 +250,35 @@ export interface RitualImpl {
 
   // ✅ implemented in nextPhase
   onCombatPhaseChange(
-    opts: RitualDefaultArgs & { newPhase: GamePhase; newTurn: TurnOrder },
+    opts: RitualPhaseChangeArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // called on all spells any time any player gains mana
   // ✅ implemented in gainMana
   onPlayerGainMana(
-    opts: RitualCharacterArgs & { mana: number },
+    opts: RitualCharacterManaArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // called on all spells any time any player loses mana
   // ✅ implemented in loseMana
   onPlayerLoseMana(
-    opts: RitualCharacterArgs & { mana: number },
+    opts: RitualCharacterManaArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // called on all spells any time any player gains health
   // ✅ implemented in gainHealth
   onPlayerGainHealth(
-    opts: RitualCharacterArgs & { health: number },
+    opts: RitualCharacterHealthArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // called on all spells any time any player loses health
   // ✅ implemented in loseHealth
   onPlayerLoseHealth(
-    opts: RitualCharacterArgs & { health: number },
+    opts: RitualCharacterHealthArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 }

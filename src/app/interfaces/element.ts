@@ -18,4 +18,6 @@ export interface SpellElement extends Spritable {
 export interface FieldElement extends SpellElement {
   castId: string;
   caster: TurnOrder;
+
+  extraData: Record<string, unknown>;
 }

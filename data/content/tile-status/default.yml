@@ -1,0 +1,20 @@
+- name: Warm
+  key: warm
+  id: 0090e059-be91-4736-8abb-9723b50b1c13
+  sprite: 0
+  description: >
+    This tile is heating up, and will become Devastated soon.
+
+- name: Devastated
+  key: devastated
+  id: 1723c227-088e-4f7a-b6b9-407dade867e8
+  sprite: 1
+  description: >
+    This tile has been on fire for too long, and has become unstable. Spells cannot occupy a devastated tile. It will soon return to normal.
+
+- name: Fertile
+  key: fertile
+  id: 684b803c-c5d7-4870-96e7-b4755bae26a0
+  sprite: 2
+  description: >
+    Fire spells gain +1 damage when passing through this tile.

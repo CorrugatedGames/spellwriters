@@ -4,7 +4,8 @@ export type ContentType =
   | 'Relic'
   | 'SpellPattern'
   | 'SpellTag'
-  | 'Spell';
+  | 'Spell'
+  | 'TileStatus';
 
 export interface ContentItem {
   __contentType: ContentType;

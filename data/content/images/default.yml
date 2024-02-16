@@ -17,3 +17,8 @@
   spritesPerRow: 20
   spriteSize: 64
   framesPerAnimation: 1
+
+- name: tile-status.webp
+  spritesPerRow: 20
+  spriteSize: 64
+  framesPerAnimation: 1

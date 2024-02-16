@@ -7,6 +7,7 @@ import {
   addSpellImpl,
   addSpellPatternImpl,
   addSpellTagImpl,
+  addTileStatusImpl,
   aiPatternData,
   characterData,
   elementData,
@@ -16,6 +17,7 @@ import {
   spellData,
   spellPatternData,
   spellTagData,
+  tileStatusData,
 } from '../helpers';
 import { rarityData } from '../helpers/lookup/rarities';
 import {
@@ -55,6 +57,9 @@ export class ContentService {
 
     SpellPattern: (lookupKey: string, item: unknown) =>
       addSpellPatternImpl(lookupKey, item as SpellPatternImpl),
+
+    TileStatus: (lookupKey: string, item: unknown) =>
+      addTileStatusImpl(lookupKey, item as RitualImpl),
   };
 
   async init() {
@@ -167,6 +172,16 @@ export class ContentService {
         ...existingHash,
         ...Object.values(mod.relics ?? {}).reduce(
           (acc, relic) => ({ ...acc, [relic.id]: relic }),
+          {},
+        ),
+      };
+    });
+
+    tileStatusData.update((existingHash) => {
+      return {
+        ...existingHash,
+        ...Object.values(mod.tileStatuses ?? {}).reduce(
+          (acc, status) => ({ ...acc, [status.id]: status }),
           {},
         ),
       };

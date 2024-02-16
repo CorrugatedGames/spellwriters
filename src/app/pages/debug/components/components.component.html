@@ -157,6 +157,16 @@
     </div>
   </div>
 
+  <h1 id="tilestatuscards"><a [routerLink]="['/debug/components']" fragment="tilestatuscards">Tile Status Cards</a></h1>
+
+  <div class="sprite-container">
+    @for(status of tileStatusList; track status) {
+    <div class="sprite" [ngbTooltip]="'Tile Status: ' + status.name">
+      <sw-tile-status-card [tileStatus]="status"></sw-tile-status-card>
+    </div>
+    }
+  </div>
+
   <h1 id="relicindicators"><a [routerLink]="['/debug/components']" fragment="relicindicators">Relic Indicators</a></h1>
 
   <div class="sprite-container">

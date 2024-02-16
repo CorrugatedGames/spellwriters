@@ -43,4 +43,6 @@ export interface Spell extends Spritable {
 export interface FieldSpell extends Spell {
   caster: TurnOrder;
   castId: string;
+
+  extraData: Record<string, unknown>;
 }

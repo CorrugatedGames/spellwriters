@@ -1,22 +1,19 @@
 import {
   SpellStatImpl,
   TurnOrder,
-  type FieldElement,
   type FieldNode,
   type FieldSpell,
   type Spell,
-  type SpellElement,
 } from '../../interfaces';
 import { delay } from '../static/time';
 import { loseHealth } from './stats';
 
 import {
   getAllElementalCollisionImpls,
-  getElementByKey,
   getElementCollisionImplByKey,
 } from '../lookup/elements';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
-import { getId } from '../static/uuid';
+import { setFieldSpell } from './field-spell';
 import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
 import { callRitualGlobalFunction } from './ritual';
@@ -26,86 +23,6 @@ import {
   isSpellDead,
   setSpellStat,
 } from './spell';
-
-export function spellToFieldSpell(opts: {
-  spell: Spell;
-  caster: TurnOrder;
-}): FieldSpell {
-  const { spell, caster } = opts;
-
-  return {
-    ...spell,
-    castId: getId(),
-    caster,
-  };
-}
-
-export function elementToFieldElement(opts: {
-  element: SpellElement;
-  caster: TurnOrder;
-}): FieldElement {
-  const { element, caster } = opts;
-
-  return {
-    ...element,
-    castId: getId(),
-    caster,
-  };
-}
-
-export function elementKeyToFieldElement(opts: {
-  elementKey: string;
-  caster: TurnOrder;
-}): FieldElement {
-  const { elementKey, caster } = opts;
-
-  const element = getElementByKey(elementKey);
-  if (!element) throw new Error(`No element for ${elementKey}`);
-
-  return elementToFieldElement({ element, caster });
-}
-
-export function clearFieldSpell(opts: { x: number; y: number }): void {
-  setFieldSpell({ x: opts.x, y: opts.y, spell: undefined });
-}
-
-export function setFieldSpell(opts: {
-  x: number;
-  y: number;
-  spell: FieldSpell | undefined;
-}): void {
-  const { x, y, spell } = opts;
-  const { field } = gamestate();
-
-  field[y][x].containedSpell = spell;
-}
-
-export function clearFieldElement(opts: { x: number; y: number }): void {
-  setFieldElement({ x: opts.x, y: opts.y, element: undefined });
-}
-
-export function setFieldElement(opts: {
-  x: number;
-  y: number;
-  element: FieldElement | undefined;
-}): void {
-  const { x, y, element } = opts;
-  const { field } = gamestate();
-
-  if (!element) {
-    field[y][x].containedElement = undefined;
-    return;
-  }
-
-  field[y][x].containedElement = element;
-}
-
-export function addSpellToQueue(opts: { spell: FieldSpell }): void {
-  const { spell } = opts;
-  const { spellQueue } = gamestate();
-
-  spellQueue.push(spell.castId);
-}
 
 export function findSpellsOnField(): Array<{
   x: number;

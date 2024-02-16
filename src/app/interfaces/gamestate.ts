@@ -2,10 +2,12 @@ import { type Character } from './character';
 import { type FieldElement } from './element';
 import { type FieldSpell } from './spell';
 import { type Spritable } from './sprite';
+import type { FieldStatus } from './tile';
 
 export interface FieldNode {
   containedSpell?: FieldSpell;
   containedElement?: FieldElement;
+  containedStatus?: FieldStatus;
 }
 
 export interface PlayableCard {

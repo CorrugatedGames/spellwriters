@@ -36,6 +36,7 @@ const load = async () => {
     spellTags: {},
     rarities: {},
     relics: {},
+    tileStatuses: {},
 
     preload: {
       colors: iconColors,

@@ -1,6 +1,10 @@
 :root {
   --font: 'OtherText', sans-serif;
 
+  --color-info-background: #133042;
+  --color-info-foreground: #fff;
+  --color-warning-background: #a61c00;
+
   --rarity-common: #0b5394;
   --rarity-uncommon: #4f803a;
   --rarity-rare: #a1801e;
@@ -15,23 +19,28 @@
 
   --element-card-width: 275px;
   --element-card-height: 200px;
-  --element-card-background: #133042;
-  --element-card-foreground: #fff;
+  --element-card-background: var(--color-info-background);
+  --element-card-foreground: var(--color-info-foreground);
 
   --relic-card-width: 275px;
   --relic-card-height: 200px;
-  --relic-card-background: #133042;
-  --relic-card-foreground: #fff;
+  --relic-card-background: var(--color-info-background);
+  --relic-card-foreground: var(--color-info-foreground);
+
+  --tile-status-card-width: 275px;
+  --tile-status-card-height: 200px;
+  --tile-status-card-background: var(--color-info-background);
+  --tile-status-card-foreground: var(--color-info-foreground);
 
   --spell-card-width: 275px;
   --spell-card-height: 400px;
   --spell-card-width-small: calc(var(--spell-card-width) / 2);
   --spell-card-height-small: calc(var(--spell-card-height) / 2);
-  --spell-card-background: #133042;
-  --spell-card-foreground: #fff;
+  --spell-card-background: var(--color-info-background);
+  --spell-card-foreground: var(--color-info-foreground);
 
-  --action-background-default: #133042;
-  --action-background-warning: #a61c00;
+  --action-background-default: var(--color-info-background);
+  --action-background-warning: var(--color-warning-background);
 
   --mana-color-inactive: linear-gradient(
     45deg,

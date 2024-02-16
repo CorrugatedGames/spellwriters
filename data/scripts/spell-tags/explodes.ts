@@ -1,14 +1,14 @@
 import {
   type RitualCurrentContextSpellArgs,
   type RitualImpl,
-  type SpellTagCollisionArgs,
+  type RitualSpellTagCollisionSpaceArgs,
 } from '../../../typings/interfaces';
 
 export const explodes: RitualImpl = {
   ...window.api.defaultRitualSpellTag(),
 
   onSpellCollision: (
-    opts: SpellTagCollisionArgs & { collisionX: number; collisionY: number },
+    opts: RitualSpellTagCollisionSpaceArgs,
     context: RitualCurrentContextSpellArgs,
   ) => {
     if (!context) return;

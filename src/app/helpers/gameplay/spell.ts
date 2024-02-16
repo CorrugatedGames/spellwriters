@@ -1,8 +1,16 @@
-import { type FieldSpell, SpellStatImpl } from '../../interfaces';
+import { SpellStatImpl, type FieldSpell } from '../../interfaces';
 import { getElementKey } from '../lookup/elements';
 import { getSpellTagKey } from '../lookup/spell-tags';
 import { removeSpellFromField } from './field';
 import { callRitualGlobalFunction } from './ritual';
+import { gamestate } from './signal';
+
+export function addSpellToQueue(opts: { spell: FieldSpell }): void {
+  const { spell } = opts;
+  const { spellQueue } = gamestate();
+
+  spellQueue.push(spell.castId);
+}
 
 export function isSpellDead(opts: { spell: FieldSpell }): boolean {
   const { spell } = opts;

@@ -30,3 +30,11 @@
   rarity: uncommon
 
   sprite: 7
+
+- name: Band of Heat
+  key: bandofheat
+  id: 8990fd65-26b6-407a-8bcf-25c387ed08e4
+  description: 'A band that incites rampant warmth. Your Fire spells can make tiles Warm.'
+  rarity: rare
+
+  sprite: 0

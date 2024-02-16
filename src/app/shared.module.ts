@@ -16,11 +16,13 @@ import { RelicCardComponent } from './components/_shared/relic-card/relic-card.c
 import { RelicIndicatorComponent } from './components/_shared/relic-indicator/relic-indicator.component';
 import { SpellCardComponent } from './components/_shared/spell-card/spell-card.component';
 import { SpriteComponent } from './components/_shared/sprite/sprite.component';
+import { TileStatusCardComponent } from './components/_shared/tile-status-card/tile-status-card.component';
 import { DeckComponent } from './components/play/deck/deck.component';
 import { ErrorBannerComponent } from './components/play/error-banner/error-banner.component';
 import { ExtraDrawComponent } from './components/play/extradraw/extradraw.component';
 import { FieldElementComponent } from './components/play/field-element/field-element.component';
 import { FieldSpellComponent } from './components/play/field-spell/field-spell.component';
+import { FieldStatusComponent } from './components/play/field-status/field-status.component';
 import { HandComponent } from './components/play/hand/hand.component';
 import { HealthBarComponent } from './components/play/health-bar/health-bar.component';
 import { ManaBarComponent } from './components/play/mana-bar/mana-bar.component';
@@ -51,8 +53,10 @@ const components = [
   ErrorBannerComponent,
   FieldSpellComponent,
   FieldElementComponent,
+  FieldStatusComponent,
   RelicCardComponent,
   RelicIndicatorComponent,
+  TileStatusCardComponent,
 ];
 
 @NgModule({
