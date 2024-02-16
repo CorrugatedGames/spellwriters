@@ -12,8 +12,8 @@ import {
   type SpellElement,
   type SpellPattern,
   type SpellTag,
+  type TileStatus,
 } from '../src/app/interfaces';
-import type { TileStatus } from '../typings/interfaces';
 
 const contentType = process.argv.slice(2)[0];
 
