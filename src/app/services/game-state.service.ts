@@ -1,16 +1,18 @@
-import { Injectable, effect, inject } from '@angular/core';
+import { Injectable, effect, inject, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { interval } from 'rxjs';
 import {
   DEFAULT_DELAY,
   aiAttemptAction,
   createBlankGameState,
+  debugGamestate,
   declareVictory,
   gamestate,
   gamestateInitOptions,
   handleEndOfTurnSpellActions,
   hasAnyoneWon,
   nextPhase,
+  saveDebugGamestate,
   saveGamestate,
   setPhaseBannerString,
 } from '../helpers';
@@ -24,18 +26,31 @@ import { GamePhase, TurnOrder, type GameState } from '../interfaces';
 export class GameStateService {
   private localStorage = inject(LocalStorageService);
 
+  private hasLoaded = signal<boolean>(false);
+
   private state: GameState = createBlankGameState();
   private previousPhase!: GamePhase;
   private movingSpells = false;
 
   constructor() {
     effect(() => {
+      if (!this.hasLoaded()) return;
+
       this.state = gamestate();
       console.info('[State Update]', this.state);
-      this.save(this.state);
+      this.saveGamestate(this.state);
     });
 
     effect(() => {
+      if (!this.hasLoaded()) return;
+
+      const debugState = debugGamestate();
+      this.localStorage.store('debuggamestate', debugState);
+    });
+
+    effect(() => {
+      if (!this.hasLoaded()) return;
+
       const initOpts = gamestateInitOptions();
       if (initOpts) {
         this.localStorage.store('initopts', initOpts);
@@ -55,18 +70,26 @@ export class GameStateService {
       saveGamestate(state);
     }
 
-    console.log(state);
+    const debugstate = this.localStorage.retrieve('debuggamestate');
+    if (debugstate.id) {
+      saveGamestate(debugstate);
+      saveDebugGamestate(debugstate);
+    }
 
     const initOpts = this.localStorage.retrieve('initopts');
     if (initOpts) {
       gamestateInitOptions.set(initOpts);
     }
+
+    this.hasLoaded.set(true);
   }
 
-  save(saveState: GameState) {
-    if (!saveState.id) return;
-
+  saveGamestate(saveState: GameState) {
     this.localStorage.store('gamestate', saveState);
+  }
+
+  saveDebugGamestate(saveState: GameState) {
+    this.localStorage.store('debuggamestate', saveState);
   }
 
   handleSpriteLoop() {
