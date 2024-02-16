@@ -1,7 +1,7 @@
 import { TurnOrder, type PlayableCard } from '../../interfaces';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getSpellById } from '../lookup/spells';
-import { gamestate } from './signal';
+import { gamestate } from './gamestate';
 
 export function getTargetableTilesForCard(opts: {
   turn: TurnOrder;

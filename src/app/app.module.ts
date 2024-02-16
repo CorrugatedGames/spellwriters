@@ -22,7 +22,9 @@ import {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxWebstorageModule.forRoot(),
+    NgxWebstorageModule.forRoot({
+      prefix: 'spellwriters',
+    }),
     AngularSvgIconModule.forRoot(),
   ],
   providers: [

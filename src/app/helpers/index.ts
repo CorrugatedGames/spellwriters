@@ -6,11 +6,11 @@ import * as GameplayField from './gameplay/field';
 import * as GameplayFieldElement from './gameplay/field-element';
 import * as GameplayFieldSpell from './gameplay/field-spell';
 import * as GameplayFieldStatus from './gameplay/field-status';
+import * as GameplayGamestate from './gameplay/gamestate';
 import * as GameplayHand from './gameplay/hand';
 import * as GameplayInit from './gameplay/init';
 import * as GameplayMeta from './gameplay/meta';
 import * as GameplayRitual from './gameplay/ritual';
-import * as GameplaySignal from './gameplay/signal';
 import * as GameplaySpell from './gameplay/spell';
 import * as GameplayStats from './gameplay/stats';
 import * as GameplayTargetting from './gameplay/targetting';
@@ -53,7 +53,7 @@ export const AllHelpers = {
   ...GameplayInit,
   ...GameplayMeta,
   ...GameplayRitual,
-  ...GameplaySignal,
+  ...GameplayGamestate,
   ...GameplaySpell,
   ...GameplayStats,
   ...GameplayTargetting,
@@ -93,11 +93,11 @@ export * from './gameplay/field';
 export * from './gameplay/field-element';
 export * from './gameplay/field-spell';
 export * from './gameplay/field-status';
+export * from './gameplay/gamestate';
 export * from './gameplay/hand';
 export * from './gameplay/init';
 export * from './gameplay/meta';
 export * from './gameplay/ritual';
-export * from './gameplay/signal';
 export * from './gameplay/spell';
 export * from './gameplay/stats';
 export * from './gameplay/targetting';

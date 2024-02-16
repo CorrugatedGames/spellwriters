@@ -12,7 +12,7 @@ import { getSpellImpl } from '../lookup/spells';
 import { getTileStatusImpl } from '../lookup/tile-status';
 import { freeze } from '../static/object';
 import { findSpellOnField } from './field';
-import { gamestate } from './signal';
+import { gamestate } from './gamestate';
 import { getSpellTags } from './spell';
 
 function isTF(t: boolean | undefined): boolean {

@@ -1,6 +1,11 @@
-import { type AIOpts, type ActivePlayer, GamePhase, TurnOrder } from '../../interfaces';
+import {
+  GamePhase,
+  TurnOrder,
+  type AIOpts,
+  type ActivePlayer,
+} from '../../interfaces';
+import { gamestate } from './gamestate';
 import { nextPhase } from './meta';
-import { gamestate } from './signal';
 import { drawCard } from './turn';
 
 import { getAIPatternImpl } from '../lookup/ai-patterns';
@@ -71,10 +76,13 @@ export async function aiSpendPhase(opts: {
 
       if (applicableBehaviors.length === 0) break;
 
-      const behaviorWeights = applicableBehaviors.reduce((acc, cur) => {
-        acc[cur] = character.behaviors[cur];
-        return acc;
-      }, {} as Record<string, number>);
+      const behaviorWeights = applicableBehaviors.reduce(
+        (acc, cur) => {
+          acc[cur] = character.behaviors[cur];
+          return acc;
+        },
+        {} as Record<string, number>,
+      );
 
       const chosenBehavior = weighted(behaviorWeights);
 

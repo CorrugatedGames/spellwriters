@@ -1,6 +1,6 @@
 import type { FieldSpell, Spell, TurnOrder } from '../../interfaces';
 import { getId } from '../static/uuid';
-import { gamestate } from './signal';
+import { gamestate } from './gamestate';
 
 export function getExtraDataForFieldSpell(opts: {
   spell: FieldSpell;

@@ -8,10 +8,10 @@ import { getSpellById } from '../lookup/spells';
 import { seededrng } from '../static/rng';
 import { getTargettableSpacesForSpellAroundPosition } from './field';
 import { setFieldSpell, spellToFieldSpell } from './field-spell';
+import { gamestate } from './gamestate';
 import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
 import { callRitualGlobalFunction } from './ritual';
-import { gamestate } from './signal';
 import { addSpellToQueue } from './spell';
 import {
   healthCostForDraw,

@@ -55,6 +55,8 @@ export class GameStateService {
       saveGamestate(state);
     }
 
+    console.log(state);
+
     const initOpts = this.localStorage.retrieve('initopts');
     if (initOpts) {
       gamestateInitOptions.set(initOpts);

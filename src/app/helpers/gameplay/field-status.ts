@@ -1,7 +1,7 @@
 import type { FieldStatus, TileStatus, TurnOrder } from '../../interfaces';
 import { getTileStatusByKey } from '../lookup/tile-status';
 import { getId } from '../static/uuid';
-import { gamestate } from './signal';
+import { gamestate } from './gamestate';
 
 export function getExtraDataForFieldStatus(opts: {
   status: FieldStatus;

@@ -14,10 +14,10 @@ import {
 } from '../lookup/elements';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { setFieldSpell } from './field-spell';
+import { gamestate } from './gamestate';
 import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
 import { callRitualGlobalFunction } from './ritual';
-import { gamestate } from './signal';
 import {
   defaultCollisionDamageReduction,
   isSpellDead,

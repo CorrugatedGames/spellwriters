@@ -1,7 +1,7 @@
 import type { FieldElement, SpellElement, TurnOrder } from '../../interfaces';
 import { getElementByKey } from '../lookup/elements';
 import { getId } from '../static/uuid';
-import { gamestate } from './signal';
+import { gamestate } from './gamestate';
 
 export function elementToFieldElement(opts: {
   element: SpellElement;

@@ -1,5 +1,5 @@
 import seedrandom, { type PRNG } from 'seedrandom';
-import { gamestate } from '../gameplay/signal';
+import { gamestate } from '../gameplay/gamestate';
 
 export function rng(seed: string): PRNG {
   return seedrandom(seed);

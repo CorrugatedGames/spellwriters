@@ -1,6 +1,6 @@
 import { GamePhase, TurnOrder, type ActivePlayer } from '../../interfaces';
+import { gamestate, saveGamestate } from './gamestate';
 import { callRitualGlobalFunction } from './ritual';
-import { gamestate } from './signal';
 import { gainMana } from './stats';
 import { reshuffleDeck } from './turn';
 import { setPhaseBannerString } from './vfx';
@@ -71,13 +71,11 @@ export async function nextPhase(): Promise<void> {
       break;
   }
 
-  gamestate.update((state) => {
-    return {
-      ...state,
-      currentPhase: newPhase,
-      currentTurn: newTurn,
-      currentRound: newRound,
-    };
+  saveGamestate({
+    ...state,
+    currentPhase: newPhase,
+    currentTurn: newTurn,
+    currentRound: newRound,
   });
 
   callRitualGlobalFunction({
@@ -129,11 +127,9 @@ export function declareVictory(): void {
     return;
   }
 
-  gamestate.update((state) => {
-    return {
-      ...state,
-      currentTurn: winner,
-      currentPhase: GamePhase.Victory,
-    };
+  saveGamestate({
+    ...state,
+    currentTurn: winner,
+    currentPhase: GamePhase.Victory,
   });
 }

@@ -7,7 +7,7 @@ import {
   type GameStateInitOpts,
 } from '../../interfaces';
 import { getId } from '../static/uuid';
-import { saveGamestate } from './signal';
+import { saveGamestate } from './gamestate';
 import { turnCharacterIntoActivePlayer } from './transform';
 
 export function createBlankFieldRecord(opts: {
