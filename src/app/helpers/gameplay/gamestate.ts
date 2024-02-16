@@ -29,3 +29,7 @@ export function saveDebugGamestate(state: GameState): void {
 export function resetDebugGamestate(): void {
   _debugGamestate.set(createBlankGameState());
 }
+
+export function storeCurrentStateAsDebugState(): void {
+  saveDebugGamestate(gamestate());
+}
