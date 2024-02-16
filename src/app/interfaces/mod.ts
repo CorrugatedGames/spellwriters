@@ -25,6 +25,7 @@ export interface ContentMod {
   version: string;
   gameVersion: string;
   author: string;
+  dependsOn: string[];
 
   characters: Record<string, Character>;
   spells: Record<string, Spell>;

@@ -39,6 +39,7 @@ const load = async () => {
     version: '0.0.0',
     gameVersion: packageJson.version,
     author: 'Spellwriters',
+    dependsOn: [],
 
     characters,
     spells,
