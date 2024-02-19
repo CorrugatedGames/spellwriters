@@ -2,11 +2,25 @@ import {
   type RitualCurrentContextTileArgs,
   type RitualImpl,
   type RitualPhaseChangeArgs,
+  type RitualSpellPlaceCheckArgs,
   type RitualSpellTagSpaceArgs,
 } from '../../../typings/interfaces';
 
 export const devastated: RitualImpl = {
   ...window.api.defaultRitualTileStatus(),
+
+  onSpellPlace(
+    opts: RitualSpellPlaceCheckArgs,
+    context: RitualCurrentContextTileArgs,
+  ) {
+    const { x, y } = opts;
+    const {
+      tileContext: { x: tileX, y: tileY, key },
+    } = context;
+
+    if (x === tileX && y === tileY && key === 'devastated') return false;
+    return true;
+  },
 
   onSpellSpaceEnter(
     opts: RitualSpellTagSpaceArgs,

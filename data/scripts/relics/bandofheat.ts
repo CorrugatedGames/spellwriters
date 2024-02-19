@@ -24,7 +24,7 @@ const makeSpaceWarm = (x: number, y: number, owner: ActivePlayer) => {
 export const bandofheat: RitualImpl = {
   ...window.api.defaultRitualRelic(),
 
-  onSpellPlacement(
+  onSpellPlaced(
     opts: SpellTagSpaceArgs,
     context: RitualCurrentContextRelicArgs,
   ) {

@@ -122,7 +122,7 @@ export function handleEntireSpellcastSequence(props: {
       setFieldSpell({ x, y, spell: newlyCastSpell });
 
       callRitualGlobalFunction({
-        func: 'onSpellPlacement',
+        func: 'onSpellPlaced',
         funcOpts: { spell: newlyCastSpell, x, y, placeNum: placeNum++ },
       });
     }

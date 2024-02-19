@@ -8,7 +8,7 @@ import {
 export const debugspell: RitualImpl = {
   ...window.api.defaultRitualSpell(),
 
-  onSpellPlacement: (
+  onSpellPlaced: (
     opts: SpellTagSpaceArgs,
     context: RitualCurrentContextSpellArgs,
   ) => {

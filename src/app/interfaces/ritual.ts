@@ -1,5 +1,5 @@
 import { type ActivePlayer, type GamePhase, type TurnOrder } from './gamestate';
-import { type FieldSpell, type SpellStatImpl } from './spell';
+import { type FieldSpell, type Spell, type SpellStatImpl } from './spell';
 import type { FieldStatus } from './tile';
 
 export interface RitualDefaultArgs {}
@@ -8,6 +8,12 @@ export interface RitualRelicDefaultArgs extends RitualDefaultArgs {
   relicId: string;
   stacks: number;
   owner: ActivePlayer;
+}
+
+export interface RitualSpellPlaceCheckArgs {
+  spell: Spell;
+  x: number;
+  y: number;
 }
 
 export interface RitualSpellDefaultArgs extends RitualDefaultArgs {
@@ -116,16 +122,23 @@ export type RitualCurrentContextArgs =
   | RitualCurrentContextTileArgs;
 
 export interface RitualImpl {
+  // fired when figuring out valid spell placement locations
+  // ✅ implemented in getTargettableSpacesForSpellAroundPosition
+  onSpellPlace(
+    opts: RitualSpellPlaceCheckArgs,
+    context?: RitualCurrentContextArgs,
+  ): boolean;
+
   // fired once per space the spell is placed in (for example, wider spells)
   // ✅ implemented in handleEntireSpellcastSequence
-  onSpellPlacement(
+  onSpellPlaced(
     opts: RitualSpellTagSpacePlacementArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
   // fired when the spell is removed
   // ✅ implemented in removeSpellFromField
-  onSpellRemoval(
+  onSpellRemoved(
     opts: RitualSpellDefaultArgs,
     context?: RitualCurrentContextArgs,
   ): void;

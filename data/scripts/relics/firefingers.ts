@@ -8,7 +8,7 @@ import type {
 export const firefingers: RitualImpl = {
   ...window.api.defaultRitualRelic(),
 
-  onSpellPlacement(
+  onSpellPlaced(
     opts: RitualSpellDefaultArgs,
     context: RitualCurrentContextRelicArgs,
   ) {

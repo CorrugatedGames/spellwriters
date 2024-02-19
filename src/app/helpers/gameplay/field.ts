@@ -147,6 +147,15 @@ export function getTargettableSpacesForSpellAroundPosition(opts: {
       y,
     }) ?? [];
   allTiles.forEach((tile) => {
+    const canPlaceHere = (
+      callRitualGlobalFunction({
+        func: 'onSpellPlace',
+        funcOpts: { spell, x: tile.x, y: tile.y },
+      }) as boolean[]
+    ).every(Boolean);
+
+    if (!canPlaceHere) return;
+
     setInTargetField(tile.x, tile.y);
   });
 
@@ -177,7 +186,7 @@ export function removeSpellFromField(opts: {
     removeSpellFromQueue({ spellId });
 
     callRitualGlobalFunction({
-      func: 'onSpellRemoval',
+      func: 'onSpellRemoved',
       funcOpts: { spell: fieldSpell },
     });
   }

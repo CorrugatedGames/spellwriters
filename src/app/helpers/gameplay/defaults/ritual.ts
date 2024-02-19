@@ -42,10 +42,14 @@ function debugLog(func: string, opts: { args: unknown; context: unknown }) {
 }
 
 export const debugRitual: RitualImpl = {
-  onSpellPlacement: (args, context) =>
-    debugLog('onSpellPlacement', { args, context }),
-  onSpellRemoval: (args, context) =>
-    debugLog('onSpellRemoval', { args, context }),
+  onSpellPlace: (args, context) => {
+    debugLog('onSpellPlace', { args, context });
+    return true;
+  },
+  onSpellPlaced: (args, context) =>
+    debugLog('onSpellPlaced', { args, context }),
+  onSpellRemoved: (args, context) =>
+    debugLog('onSpellRemoved', { args, context }),
   onSpellDestroy: (args, context) =>
     debugLog('onSpellDestroy', { args, context }),
   onSpellCancel: (args, context) =>
@@ -102,8 +106,9 @@ export const debugRitual: RitualImpl = {
 };
 
 export const plainRitual: RitualImpl = {
-  onSpellPlacement: () => {},
-  onSpellRemoval: () => {},
+  onSpellPlace: () => true,
+  onSpellPlaced: () => {},
+  onSpellRemoved: () => {},
   onSpellDestroy: () => {},
   onSpellCancel: () => {},
   onSpellCanceled: () => {},
