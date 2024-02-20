@@ -67,6 +67,11 @@ img {
 .btn:not(.btn-untextured) {
   background: url('../assets/bg/texture-button.png'),
     linear-gradient(to bottom, var(--bs-btn-bg), var(--bs-btn-bg));
+
+  &:hover {
+    background: url('../assets/bg/texture-button.png'),
+      linear-gradient(to bottom, var(--bs-btn-hover-bg), var(--bs-btn-hover-bg));
+  }
 }
 
 .card:not(.card-untextured) {
