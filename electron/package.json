@@ -3,7 +3,7 @@
   "description": "Spellwriters is a 1v1 roguelite deckbuilder about flinging spells around!",
   "author": "Spellwriters Team <hi@spellwritersgame.com>",
   "license": "UNLICENSED",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "src/index.js",
   "scripts": {
     "start": "npm run start:localref",
