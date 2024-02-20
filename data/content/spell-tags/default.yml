@@ -13,3 +13,7 @@
 - name: Oily
   id: d84673f4-a0ef-40b8-9e93-d01e934391b5
   key: oily
+
+- name: Stationary
+  id: c8361fa6-a435-499d-ab50-c87c0e15c3d1
+  key: stationary

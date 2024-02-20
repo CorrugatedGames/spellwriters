@@ -19,7 +19,6 @@ export const speedyshoes: RitualImpl = {
     if (!window.api.isCurrentSpellOwnedByRelicOwner({ spell, context })) return;
 
     const currentSpeed = spell.speed;
-    if (currentSpeed <= 0) return;
 
     window.api.setSpellStat({
       spell,

@@ -32,6 +32,9 @@
   depthMax: 1
   pattern: double
 
+  tags:
+    stationary: 1
+
 - name: Glycerine
   key: earth3
   id: 579c177e-93ed-413f-85d0-773fa31afd5e

@@ -77,6 +77,12 @@ export interface RitualSpellTagChangeArgs extends RitualSpellDefaultArgs {
   newValue: number;
 }
 
+export interface RitualSpellStatChangeArgs extends RitualSpellDefaultArgs {
+  stat: SpellStatImpl;
+  oldValue: string | number;
+  newValue: string | number;
+}
+
 export interface RitualPhaseChangeArgs extends RitualDefaultArgs {
   newPhase: GamePhase;
   newTurn: TurnOrder;
@@ -235,11 +241,7 @@ export interface RitualImpl {
 
   // ✅ implemented in setSpellStat
   onSpellStatChange(
-    opts: RitualSpellDefaultArgs & {
-      stat: SpellStatImpl;
-      oldValue: string | number;
-      newValue: string | number;
-    },
+    opts: RitualSpellStatChangeArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 

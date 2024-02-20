@@ -32,6 +32,9 @@
   depthMax: 2
   pattern: single
 
+  tags:
+    stationary: 1
+
 - name: Rain
   key: water3
   id: dc05162f-a29f-489f-8d97-f96f431f5d50
