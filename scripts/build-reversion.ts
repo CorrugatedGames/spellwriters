@@ -1,11 +1,13 @@
 import child from 'child_process';
+import fs from 'fs-extra';
 import { promisify } from 'util';
-
-import { version } from '../package.json' assert { type: 'json' };
 
 const exec = promisify(child.exec);
 
 async function rewriteVersion() {
+  const packageFile = await fs.readJsonSync('package.json');
+  const version = packageFile.version;
+
   await exec(`git tag -d v${version}`);
   await exec(`git tag v${version}`);
 }
