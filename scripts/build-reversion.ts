@@ -1,7 +1,7 @@
 import child from 'child_process';
 import { promisify } from 'util';
 
-import { version } from '../package.json';
+import { version } from '../package.json' with { type: 'json' };
 
 const exec = promisify(child.exec);
 
