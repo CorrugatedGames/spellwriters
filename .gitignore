@@ -45,6 +45,7 @@ src/assets/spritesheets
 src/assets/content
 src/assets/mods
 src/assets/version.json
+src/assets/*.md
 data/mod
 
 electron/node_modules
