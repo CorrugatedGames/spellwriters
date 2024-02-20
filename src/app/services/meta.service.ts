@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { marked } from 'marked';
 import { isInElectron } from '../helpers';
 
 interface VersionInfo {
@@ -46,6 +47,14 @@ export class MetaService {
     return this.newVersion;
   }
 
+  public get hasChangelogs() {
+    return !!this.changelogCurrent && !!this.changelogAll;
+  }
+
+  public get changelogAllText() {
+    return this.changelogAll;
+  }
+
   constructor() {}
 
   async init() {
@@ -62,7 +71,7 @@ export class MetaService {
     try {
       const changelog = await fetch('assets/CHANGELOG.md');
       const changelogData = await changelog.text();
-      this.changelogAll = changelogData;
+      this.changelogAll = await marked(changelogData);
     } catch {
       console.error('Could not load changelog (all) - probably on local.');
     }
@@ -70,7 +79,7 @@ export class MetaService {
     try {
       const changelog = await fetch('assets/CHANGELOG-current.md');
       const changelogData = await changelog.text();
-      this.changelogCurrent = changelogData;
+      this.changelogCurrent = await marked(changelogData);
     } catch {
       console.error('Could not load changelog (current) - probably on local.');
     }
@@ -111,5 +120,11 @@ export class MetaService {
       versionInfo.raw ||
       versionInfo.hash
     );
+  }
+
+  public showChangelogs() {
+    if (!this.hasChangelogs) {
+      return;
+    }
   }
 }

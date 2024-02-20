@@ -100,5 +100,29 @@
     @if(metaService.hasVersionMismatch) {
     <span class="badge bg-info ms-3">Update Available ({{ metaService.latestLiveVersion }})</span>
     }
+
+    @if(metaService.hasChangelogs) {
+    <button class="btn btn-link btn-inline btn-untextured ms-3"
+      (click)="openChangelogs(changelogModal)">Changelog</button>
+    }
   </div>
 </div>
+
+<ng-template #changelogModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Changelog</h4>
+    <button type="button" class="btn-close btn-dark" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <div class="card bg-dark text-white">
+      <div class="card-body limit-size">
+        <div class="changelog-html" [innerHTML]="metaService.changelogAllText"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>

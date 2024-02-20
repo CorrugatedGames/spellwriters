@@ -6,6 +6,7 @@ $warning: #777505;
 $danger: #7e0a02;
 $light: #e0d4bd;
 $dark: #121710;
+
 $health: #2e5e2e;
 
 $theme-colors: (
@@ -19,3 +20,15 @@ $theme-colors: (
   'dark': $dark,
   'health': $health,
 );
+
+a,
+.btn-link {
+  --bs-link-color: #1983ca;
+  --bs-link-hover-color: #146194;
+
+  color: var(--bs-link-color) !important;
+
+  &:hover {
+    color: var(--bs-link-hover-color) !important;
+  }
+}

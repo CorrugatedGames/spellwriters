@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, type TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { gamestate } from '../../helpers';
 import { MetaService } from '../../services/meta.service';
 
@@ -9,6 +10,7 @@ import { MetaService } from '../../services/meta.service';
 })
 export class HomeComponent {
   public metaService = inject(MetaService);
+  public modalService = inject(NgbModal);
 
   public links = [
     {
@@ -57,5 +59,14 @@ export class HomeComponent {
 
   public get hasRun(): boolean {
     return !!gamestate().id;
+  }
+
+  public openChangelogs(template: TemplateRef<unknown>) {
+    this.modalService.open(template, {
+      size: 'lg',
+      centered: true,
+      backdrop: 'static',
+      windowClass: 'modal-changelogs',
+    });
   }
 }
