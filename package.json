@@ -18,7 +18,6 @@
     "bump:major": "npm version major -m \"chore(release): Major %s\"",
     "bump:minor": "npm version minor -m \"chore(release): Minor %s\"",
     "bump:patch": "npm version patch -m \"chore(release): Patch %s\"",
-    "changelog:commit": "git commit CHANGELOG.md CHANGELOG-current.md -m \"Update changelog\" || true",
     "changelog:generate": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "changelog:generate:current": "conventional-changelog -p angular -o CHANGELOG-current.md -r 2",
     "clean": "rimraf data/mod && rimraf typings && rimraf src/assets/mods && rimraf dist && rimraf electron/browser && rimraf electron/icons && rimraf electron/out",
@@ -49,7 +48,7 @@
     "mod:build:core": "ts-node scripts/mod-build-core",
     "mod:build:default": "ts-node scripts/mod-build-default",
     "postinstall": "npm run typescript:types",
-    "postversion": "npm run changelog:generate && npm run changelog:generate:current && npm run changelog:commit && npm run build:reversion && npm run push",
+    "postversion": "npm run changelog:generate && npm run changelog:generate:current && npm run version:commit && npm run build:reversion && npm run push",
     "premod": "npm run typescript:types && npm run typescript:mods",
     "preversion": "npm run build:dirtycheck && npm run lint && npm run build",
     "push": "git push && git push --tags",
@@ -70,7 +69,8 @@
     "validate:spells": "ts-node scripts/validate-spells",
     "validate:spelltags": "ts-node scripts/validate-spelltags",
     "validate:tilestatus": "ts-node scripts/validate-tilestatus",
-    "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md && npm run build:syncversion"
+    "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md && npm run build:syncversion",
+    "version:commit": "git commit CHANGELOG.md CHANGELOG-current.md electron/package.json -m \"Update version\" || true"
   },
   "private": true,
   "dependencies": {
