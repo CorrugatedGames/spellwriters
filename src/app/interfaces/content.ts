@@ -5,6 +5,7 @@ export type ContentType =
   | 'SpellPattern'
   | 'SpellTag'
   | 'Spell'
+  | 'StatusEffect'
   | 'TileStatus';
 
 export interface ContentItem {

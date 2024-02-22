@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, type WritableSignal } from '@angular/core';
 import { SvgIconRegistryService } from 'angular-svg-icon';
 import {
   addAIPatternImpl,
@@ -7,20 +7,22 @@ import {
   addSpellImpl,
   addSpellPatternImpl,
   addSpellTagImpl,
+  addStatusEffectImpl,
   addTileStatusImpl,
   aiPatternData,
   characterData,
   elementData,
-  elementKeyIds,
   modData,
   relicData,
   spellData,
   spellPatternData,
   spellTagData,
+  statusEffectData,
   tileStatusData,
 } from '../helpers';
 import { rarityData } from '../helpers/lookup/rarities';
 import {
+  ContentModContentKey,
   type AIPatternImpl,
   type ContentItem,
   type ContentMod,
@@ -58,8 +60,27 @@ export class ContentService {
     SpellPattern: (lookupKey: string, item: unknown) =>
       addSpellPatternImpl(lookupKey, item as SpellPatternImpl),
 
+    StatusEffect: (lookupKey: string, item: unknown) =>
+      addStatusEffectImpl(lookupKey, item as RitualImpl),
+
     TileStatus: (lookupKey: string, item: unknown) =>
       addTileStatusImpl(lookupKey, item as RitualImpl),
+  };
+
+  private contentSignals: Record<
+    ContentModContentKey,
+    WritableSignal<unknown>
+  > = {
+    [ContentModContentKey.AIPattern]: aiPatternData,
+    [ContentModContentKey.Character]: characterData,
+    [ContentModContentKey.Element]: elementData,
+    [ContentModContentKey.Rarity]: rarityData,
+    [ContentModContentKey.Relic]: relicData,
+    [ContentModContentKey.Spell]: spellData,
+    [ContentModContentKey.SpellPattern]: spellPatternData,
+    [ContentModContentKey.SpellTag]: spellTagData,
+    [ContentModContentKey.StatusEffect]: statusEffectData,
+    [ContentModContentKey.TileStatus]: tileStatusData,
   };
 
   async init() {
@@ -69,6 +90,7 @@ export class ContentService {
 
   async loadModByName(name: string) {
     try {
+      console.info(`Loading mod: ${name}`);
       const mod = await fetch(`assets/mods/${name}/content.json`);
       const modContent = await mod.json();
 
@@ -80,6 +102,8 @@ export class ContentService {
   }
 
   async loadMod(mod: ContentMod) {
+    console.groupCollapsed(`[Mod] ${mod.name}`);
+
     modData.update((existingHash) => {
       return {
         ...existingHash,
@@ -87,119 +111,46 @@ export class ContentService {
       };
     });
 
-    characterData.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.characters ?? {}).reduce(
-          (acc, character) => ({ ...acc, [character.id]: character }),
-          {},
-        ),
-      };
+    console.groupCollapsed('[Content]');
+    Object.values(ContentModContentKey).forEach((key) => {
+      Object.values(mod[key] ?? {}).forEach((item) => {
+        console.info(`[${key}] ${item.name}`, item);
+        this.contentSignals[key].update((existingHash) => {
+          return {
+            ...(existingHash ?? {}),
+            [item.id]: item,
+          };
+        });
+      });
     });
+    console.groupEnd();
 
-    spellData.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.spells ?? {}).reduce(
-          (acc, spell) => ({ ...acc, [spell.id]: spell }),
-          {},
-        ),
-      };
-    });
+    const svgs = mod.preload?.svgs ?? [];
+    if (svgs.length > 0) {
+      console.groupCollapsed('[SVG]');
+      svgs.forEach((svg) => {
+        console.info(svg.name);
+        this.iconReg
+          .loadSvg(`assets/mods/${mod.name}/${svg.name}.svg`, svg.name)
+          ?.subscribe();
+      });
+      console.groupEnd();
+    }
 
-    elementData.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.elements ?? {}).reduce(
-          (acc, element) => ({ ...acc, [element.id]: element }),
-          {},
-        ),
-      };
-    });
+    const colors = Object.keys(mod.preload?.colors ?? {});
+    if (colors.length > 0) {
+      console.groupCollapsed('[Colors]');
+      colors.forEach((colorName) => {
+        console.info(colorName, mod.preload?.colors[colorName]);
+        document.documentElement.style.setProperty(
+          `--${colorName}`,
+          mod.preload?.colors[colorName],
+        );
+      });
+      console.groupEnd();
+    }
 
-    elementKeyIds.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.elements ?? {}).reduce(
-          (acc, element) => ({ ...acc, [element.key]: element.id }),
-          {},
-        ),
-      };
-    });
-
-    spellPatternData.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.spellPatterns ?? {}).reduce(
-          (acc, pattern) => ({ ...acc, [pattern.id]: pattern }),
-          {},
-        ),
-      };
-    });
-
-    spellTagData.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.spellTags ?? {}).reduce(
-          (acc, tag) => ({ ...acc, [tag.id]: tag }),
-          {},
-        ),
-      };
-    });
-
-    aiPatternData.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.aiPatterns ?? {}).reduce(
-          (acc, pattern) => ({ ...acc, [pattern.id]: pattern }),
-          {},
-        ),
-      };
-    });
-
-    rarityData.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.rarities ?? {}).reduce(
-          (acc, rarity) => ({ ...acc, [rarity.id]: rarity }),
-          {},
-        ),
-      };
-    });
-
-    relicData.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.relics ?? {}).reduce(
-          (acc, relic) => ({ ...acc, [relic.id]: relic }),
-          {},
-        ),
-      };
-    });
-
-    tileStatusData.update((existingHash) => {
-      return {
-        ...existingHash,
-        ...Object.values(mod.tileStatuses ?? {}).reduce(
-          (acc, status) => ({ ...acc, [status.id]: status }),
-          {},
-        ),
-      };
-    });
-
-    mod.preload?.svgs?.forEach((svg) => {
-      this.iconReg
-        .loadSvg(`assets/mods/${mod.name}/${svg.name}.svg`, svg.name)
-        ?.subscribe();
-    });
-
-    Object.keys(mod.preload?.colors ?? {}).forEach((colorName) => {
-      document.documentElement.style.setProperty(
-        `--${colorName}`,
-        mod.preload?.colors[colorName],
-      );
-    });
-
+    console.groupCollapsed('[Impl]');
     const allScripts = mod.preload?.scripts ?? [];
     await Promise.all(
       allScripts.map(async (script) => {
@@ -207,21 +158,20 @@ export class ContentService {
           /* @vite-ignore */ `/assets/mods/${mod.name}/${script}`
         );
 
-        console.groupCollapsed(`[Mod] ${mod.name}`);
-
         Object.keys(modScriptData).forEach((key) => {
           const lookupKey = key;
           const item = modScriptData[key] as ContentItem;
 
-          console.info(`Loading ${item.__contentType} ${lookupKey}`, item);
+          console.info(`[${item.__contentType}] ${lookupKey}`, item);
 
           this.scriptLoaders[item.__contentType]?.(lookupKey, item);
         });
 
-        console.groupEnd();
-
         return modScriptData;
       }),
     );
+    console.groupEnd();
+
+    console.groupEnd();
   }
 }

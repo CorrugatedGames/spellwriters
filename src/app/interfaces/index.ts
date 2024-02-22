@@ -12,5 +12,6 @@ export * from './relic';
 export * from './ritual';
 export * from './spell';
 export * from './sprite';
+export * from './statuseffect';
 export * from './tag';
 export * from './tile';

@@ -38,6 +38,7 @@ const load = async () => {
     rarities: {},
     relics: {},
     tileStatuses: {},
+    statusEffects: {},
 
     preload: {
       colors: iconColors,

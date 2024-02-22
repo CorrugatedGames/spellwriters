@@ -20,6 +20,7 @@ const load = async () => {
   const rarities = await fs.readJson(`${contentpath}/rarities.json`);
   const relics = await fs.readJson(`${contentpath}/relics.json`);
   const tileStatuses = await fs.readJson(`${contentpath}/tile-status.json`);
+  const statusEffects = await fs.readJson(`${contentpath}/status-effects.json`);
 
   const iconColorHash = await fs.readJsonSync(
     './data/mod/content/colors-default.json',
@@ -50,6 +51,7 @@ const load = async () => {
     rarities,
     relics,
     tileStatuses,
+    statusEffects,
 
     preload: {
       colors: iconColors,

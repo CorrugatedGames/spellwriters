@@ -32,6 +32,7 @@ import * as LookupSpellPatterns from './lookup/spell-patterns';
 import * as LookupSpellTags from './lookup/spell-tags';
 import * as LookupSpells from './lookup/spells';
 import * as LookupStats from './lookup/stats';
+import * as LookupStatusEffects from './lookup/status-effect';
 import * as LookupTileStatus from './lookup/tile-status';
 
 import * as StaticArray from './static/array';
@@ -73,6 +74,7 @@ export const AllHelpers = {
   ...LookupSpellTags,
   ...LookupSpells,
   ...LookupStats,
+  ...LookupStatusEffects,
   ...LookupTileStatus,
   ...StaticArray,
   ...StaticObject,
@@ -113,6 +115,7 @@ export * from './lookup/spell-patterns';
 export * from './lookup/spell-tags';
 export * from './lookup/spells';
 export * from './lookup/stats';
+export * from './lookup/status-effect';
 export * from './lookup/tile-status';
 export * from './static/array';
 export * from './static/object';

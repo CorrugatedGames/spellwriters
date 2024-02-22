@@ -157,6 +157,12 @@ export const defaultRitualSpellTag: () => RitualImpl & ContentItem = () => ({
   ...defaultRitual(),
 });
 
+export const defaultRitualStatusEffect: () => RitualImpl &
+  ContentItem = () => ({
+  __contentType: 'StatusEffect',
+  ...defaultRitual(),
+});
+
 export const defaultRitualTileStatus: () => RitualImpl & ContentItem = () => ({
   __contentType: 'TileStatus',
   ...defaultRitual(),
