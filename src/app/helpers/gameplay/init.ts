@@ -74,6 +74,7 @@ export function createBlankActivePlayer(): ActivePlayer {
 
     behaviors: { random: 1 },
     relics: {},
+    statusEffects: {},
   };
 }
 

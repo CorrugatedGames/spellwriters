@@ -2,7 +2,7 @@ import type {
   ActivePlayer,
   RitualCurrentContextRelicArgs,
   RitualImpl,
-  SpellTagSpaceArgs,
+  RitualSpellTagSpaceArgs,
 } from '../../../typings/interfaces';
 
 const makeSpaceWarm = (x: number, y: number, owner: ActivePlayer) => {
@@ -25,7 +25,7 @@ export const bandofheat: RitualImpl = {
   ...window.api.defaultRitualRelic(),
 
   onSpellPlaced(
-    opts: SpellTagSpaceArgs,
+    opts: RitualSpellTagSpaceArgs,
     context: RitualCurrentContextRelicArgs,
   ) {
     if (!context) return;
@@ -35,14 +35,14 @@ export const bandofheat: RitualImpl = {
 
     const { spell, x, y } = opts;
 
-    if (!window.api.isCurrentSpellOwnedByRelicOwner({ spell, context })) return;
+    if (!window.api.isSpellOwnedBy({ spell, owner })) return;
     if (!window.api.isSpellElement({ spell, element: 'fire' })) return;
 
     makeSpaceWarm(x, y, owner);
   },
 
   onSpellSpaceEntered: (
-    opts: SpellTagSpaceArgs,
+    opts: RitualSpellTagSpaceArgs,
     context: RitualCurrentContextRelicArgs,
   ) => {
     const {
@@ -51,7 +51,7 @@ export const bandofheat: RitualImpl = {
 
     const { spell, x, y } = opts;
 
-    if (!window.api.isCurrentSpellOwnedByRelicOwner({ spell, context })) return;
+    if (!window.api.isSpellOwnedBy({ spell, owner })) return;
     if (!window.api.isSpellElement({ spell, element: 'fire' })) return;
 
     makeSpaceWarm(x, y, owner);

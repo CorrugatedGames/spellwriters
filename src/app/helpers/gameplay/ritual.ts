@@ -1,7 +1,9 @@
 import {
+  type ActivePlayer,
   type FieldSpell,
   type RitualCurrentContextRelicArgs,
   type RitualCurrentContextSpellArgs,
+  type RitualCurrentContextStatusEffectArgs,
   type RitualCurrentContextTileArgs,
   type RitualImpl,
   type RitualSpellDefaultArgs,
@@ -9,6 +11,10 @@ import {
 import { getRelicImpl, getRelicKey } from '../lookup/relics';
 import { getSpellTagImpl } from '../lookup/spell-tags';
 import { getSpellImpl } from '../lookup/spells';
+import {
+  getStatusEffectImpl,
+  getStatusEffectKey,
+} from '../lookup/status-effect';
 import { getTileStatusImpl } from '../lookup/tile-status';
 import { freeze } from '../static/object';
 import { findSpellOnField } from './field';
@@ -31,6 +37,17 @@ function getAllRelics(): RitualCurrentContextRelicArgs['relicContext'][] {
       id: relicId,
       key: getRelicKey(relicId),
       stacks: player.relics[relicId],
+      owner: player,
+    })),
+  );
+}
+
+function getAllStatusEffects(): RitualCurrentContextStatusEffectArgs['statusEffectContext'][] {
+  return gamestate().players.flatMap((player) =>
+    Object.keys(player.statusEffects ?? {}).map((statusEffectId) => ({
+      id: statusEffectId,
+      key: getStatusEffectKey(statusEffectId),
+      stacks: player.statusEffects[statusEffectId],
       owner: player,
     })),
   );
@@ -63,12 +80,18 @@ export function isCurrentSpellContextSpell(opts: {
   return funcOpts.spell.castId === context.spellContext.spell.castId;
 }
 
-export function isCurrentSpellOwnedByRelicOwner(opts: {
+export function isCurrentTurn(opts: { player: ActivePlayer }): boolean {
+  const { player } = opts;
+  const state = gamestate();
+  return state.currentTurn === player.turnOrder;
+}
+
+export function isSpellOwnedBy(opts: {
   spell: FieldSpell;
-  context: RitualCurrentContextRelicArgs;
+  owner: ActivePlayer;
 }): boolean {
-  const { spell, context } = opts;
-  return spell.caster === context.relicContext.owner.turnOrder;
+  const { spell, owner } = opts;
+  return spell.caster === owner.turnOrder;
 }
 
 type RitualImplGeneric = keyof RitualImpl;
@@ -82,6 +105,7 @@ export function callRitualGlobalFunction<T extends RitualImplGeneric>(opts: {
   const allSpells = getAllFieldSpells();
   const allRelics = getAllRelics();
   const allTiles = getAllTileStatuses();
+  const allStatusEffects = getAllStatusEffects();
 
   const returnVals = [
     allRelics.map((relic) =>
@@ -103,6 +127,13 @@ export function callRitualGlobalFunction<T extends RitualImplGeneric>(opts: {
         func,
         funcOpts,
         context: { tileContext: freeze(tile) },
+      }),
+    ),
+    allStatusEffects.map((statusEffect) =>
+      callRitualStatusEffectFunction({
+        func,
+        funcOpts,
+        context: { statusEffectContext: freeze(statusEffect) },
       }),
     ),
   ].flat(Infinity) as boolean[];
@@ -146,6 +177,19 @@ export function callRitualRelicFunction<T extends RitualImplGeneric>(opts: {
 
   const relicImpl = getRelicImpl(context.relicContext.id);
   return relicImpl?.[func]?.(funcOpts as never, context) ?? undefined;
+}
+
+export function callRitualStatusEffectFunction<
+  T extends RitualImplGeneric,
+>(opts: {
+  func: T;
+  funcOpts: Parameters<RitualImpl[T]>[0];
+  context: RitualCurrentContextStatusEffectArgs;
+}): undefined | boolean {
+  const { func, funcOpts, context } = opts;
+
+  const statusEffectImpl = getStatusEffectImpl(context.statusEffectContext.id);
+  return statusEffectImpl?.[func]?.(funcOpts as never, context) ?? undefined;
 }
 
 export function callRitualTileFunction<T extends RitualImplGeneric>(opts: {

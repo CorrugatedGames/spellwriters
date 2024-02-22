@@ -1,0 +1,17 @@
+.status-effect-indicator-container {
+  position: relative;
+
+  .status-effect-stack-value {
+    position: absolute;
+    min-width: 24px;
+    border-radius: 50%;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    top: 0;
+    right: 0;
+  }
+}

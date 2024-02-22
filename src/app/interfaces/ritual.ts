@@ -111,6 +111,15 @@ export interface RitualCurrentContextRelicArgs {
   };
 }
 
+export interface RitualCurrentContextStatusEffectArgs {
+  statusEffectContext: {
+    id: string;
+    key: string | undefined;
+    stacks: number;
+    owner: ActivePlayer;
+  };
+}
+
 export interface RitualCurrentContextTileArgs {
   tileContext: {
     id: string;
@@ -125,6 +134,7 @@ export type RitualCurrentContextArgs =
   | RitualCurrentContextSpellArgs
   | RitualCurrentContextSpellTagArgs
   | RitualCurrentContextRelicArgs
+  | RitualCurrentContextStatusEffectArgs
   | RitualCurrentContextTileArgs;
 
 export interface RitualImpl {

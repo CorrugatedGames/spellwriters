@@ -187,6 +187,28 @@
     }
   </div>
 
+  <h1 id="statuseffectindicators"><a [routerLink]="['/debug/components']" fragment="statuseffectindicators">Status
+      Effect Indicators</a></h1>
+
+  <div class="sprite-container">
+    @for(statusEffect of statusEffectList; track statusEffect) {
+    <div class="sprite">
+      <sw-status-effect-indicator [statusEffect]="statusEffect" [stacks]="4"></sw-status-effect-indicator>
+    </div>
+    }
+  </div>
+
+  <h1 id="statuseffectcards"><a [routerLink]="['/debug/components']" fragment="statuseffectcards">Status Effect
+      Cards</a></h1>
+
+  <div class="sprite-container">
+    @for(statusEffect of statusEffectList; track statusEffect) {
+    <div class="sprite" [ngbTooltip]="'Status Effect: ' + statusEffect.name">
+      <sw-status-effect-card [statusEffect]="statusEffect"></sw-status-effect-card>
+    </div>
+    }
+  </div>
+
   <h1 id="spellcards"><a [routerLink]="['/debug/components']" fragment="spellcards">Spell Cards</a></h1>
 
   <div class="sprite-container">
@@ -254,6 +276,17 @@
     @for(relicId of numRelics; track relicId) {
     <div class="sprite" [ngbTooltip]="'Id: ' + relicId">
       <sw-sprite [spritable]="{ sprite: relicId, mod: 'default', asset: 'relics.webp' }"></sw-sprite>
+    </div>
+    }
+  </div>
+
+  <h1 id="statuseffectsprites"><a [routerLink]="['/debug/components']" fragment="statuseffectsprites">Status Effect
+      Sprites</a></h1>
+
+  <div class="sprite-container">
+    @for(statusEffectId of numStatusEffects; track statusEffectId) {
+    <div class="sprite" [ngbTooltip]="'Id: ' + statusEffectId">
+      <sw-sprite [spritable]="{ sprite: statusEffectId, mod: 'default', asset: 'status-effects.webp' }"></sw-sprite>
     </div>
     }
   </div>

@@ -14,6 +14,7 @@ import {
   getRelicById,
   getSpaceFromField,
   getSpellById,
+  getStatusEffectById,
   getTargetableTilesForCard,
   getTargettableSpacesForSpellAroundPosition,
   handleEntireSpellcastSequence,
@@ -38,6 +39,7 @@ import {
   type Relic,
   type SelectedCard,
   type Spell,
+  type StatusEffect,
 } from '../../interfaces';
 import { ContentService } from '../../services/content.service';
 
@@ -64,6 +66,8 @@ export class PlayComponent {
   public victoryActions: Array<{ text: string; action: () => void }> = [];
 
   public relics: Array<{ relic: Relic; count: number }> = [];
+  public statusEffects: Array<{ statusEffect: StatusEffect; count: number }> =
+    [];
 
   public readonly phaseBannerString = phaseBannerString.asReadonly();
   public readonly errorMessageString = ingameErrorMessage.asReadonly();
@@ -73,6 +77,7 @@ export class PlayComponent {
     this.gamephase = stateMachineMapFromGameState({ state: this.gamestate });
 
     this.parseRelics();
+    this.parseStatusEffects();
 
     if (this.gamestate.currentPhase === GamePhase.Victory) {
       this.createVictoryActions();
@@ -107,6 +112,16 @@ export class PlayComponent {
       const relic = getRelicById(relicId);
       return { relic, count: relicHash[relicId] };
     }) as Array<{ relic: Relic; count: number }>;
+  }
+
+  private parseStatusEffects() {
+    const player = this.gamestate.players[TurnOrder.Player];
+    const statusEffectHash = player.statusEffects;
+
+    this.statusEffects = Object.keys(statusEffectHash).map((statusEffectId) => {
+      const statusEffect = getStatusEffectById(statusEffectId);
+      return { statusEffect, count: statusEffectHash[statusEffectId] };
+    }) as Array<{ statusEffect: StatusEffect; count: number }>;
   }
 
   public drawCard() {

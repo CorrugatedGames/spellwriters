@@ -1,0 +1,49 @@
+:host {
+  pointer-events: none;
+  user-select: none;
+}
+
+.status-effect-card-container {
+  width: var(--relic-card-width);
+  height: var(--relic-card-height);
+
+  color: var(--relic-card-foreground);
+  background-color: var(--relic-card-background);
+
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 4px;
+  border-color: var(--rarity-color);
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .name-row {
+    height: 44px;
+    position: relative;
+
+    .name {
+      padding: 4px;
+      padding-left: 48px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .status-effect-sprite {
+      position: absolute;
+      top: -8px;
+      left: 4px;
+      transform: scale(0.5);
+    }
+  }
+
+  .description-row {
+    flex: 1;
+
+    .description {
+      padding: 4px;
+      padding-left: 8px;
+    }
+  }
+}

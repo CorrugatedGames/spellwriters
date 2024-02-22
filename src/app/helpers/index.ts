@@ -13,6 +13,7 @@ import * as GameplayMeta from './gameplay/meta';
 import * as GameplayRitual from './gameplay/ritual';
 import * as GameplaySpell from './gameplay/spell';
 import * as GameplayStats from './gameplay/stats';
+import * as GameplayStatusEffects from './gameplay/status-effects';
 import * as GameplayTargetting from './gameplay/targetting';
 import * as GameplayTransform from './gameplay/transform';
 import * as GameplayTurn from './gameplay/turn';
@@ -57,6 +58,7 @@ export const AllHelpers = {
   ...GameplayGamestate,
   ...GameplaySpell,
   ...GameplayStats,
+  ...GameplayStatusEffects,
   ...GameplayTargetting,
   ...GameplayTransform,
   ...GameplayTurn,
@@ -102,6 +104,7 @@ export * from './gameplay/meta';
 export * from './gameplay/ritual';
 export * from './gameplay/spell';
 export * from './gameplay/stats';
+export * from './gameplay/status-effects';
 export * from './gameplay/targetting';
 export * from './gameplay/transform';
 export * from './gameplay/turn';

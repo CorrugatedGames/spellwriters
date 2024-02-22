@@ -84,6 +84,7 @@ export function turnCharacterIntoActivePlayer(opts: {
     cardsDrawnThisTurn: 0,
     behaviors: character.behaviors,
     relics: character.relics,
+    statusEffects: {},
   };
 
   shuffleDeck(player);

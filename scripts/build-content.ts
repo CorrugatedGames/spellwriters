@@ -12,6 +12,7 @@ import {
   type SpellElement,
   type SpellPattern,
   type SpellTag,
+  type StatusEffect,
   type TileStatus,
 } from '../src/app/interfaces';
 
@@ -24,6 +25,13 @@ const filename = `${contentType}.json`;
 fs.ensureDirSync(filepath);
 
 const postprocess: Record<string, (items: any[]) => Promise<void>> = {
+  'status-effects': async (items: StatusEffect[]) => {
+    items.forEach((item) => {
+      item.mod = 'default';
+      item.asset = `status-effects.webp`;
+    });
+  },
+
   'tile-status': async (items: TileStatus[]) => {
     items.forEach((item) => {
       item.mod = 'default';

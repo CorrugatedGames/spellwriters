@@ -1,7 +1,7 @@
 import {
   type CollideOpts,
   type CollisionWinnerOpts,
-  type ElementalCollision,
+  type ElementalCollisionImpl,
   type FieldSpell,
   type HasCollisionReactionOpts,
   type OnSpellEnterOpts,
@@ -74,7 +74,7 @@ function onSpellExit(opts: OnSpellExitOpts): void {
   }
 }
 
-export const mud: ElementalCollision = {
+export const mud: ElementalCollisionImpl = {
   ...window.api.defaultElementalCollision(),
   hasCollisionReaction,
   collide,

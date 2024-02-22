@@ -1,4 +1,5 @@
 - name: Overcharge
   id: 367eca8d-f819-4f51-bc29-5ca496d8c491
   key: overcharge
-  description: Building up charge. Every stack adds +1 damage to outgoing Electric spells.
+  description: Building up charge. At 3 stacks, your next Electric spell gets +2 damage, and 3 stacks are removed.
+  sprite: 8

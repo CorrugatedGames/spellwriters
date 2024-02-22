@@ -1,0 +1,25 @@
+@if(statusEffect(); as statusEffectData) {
+<div class="status-effect-card-container">
+  <div class="name-row row">
+    <div class="col-12">
+      <div class="status-effect-sprite">
+        <sw-sprite [spritable]="statusEffectData"></sw-sprite>
+      </div>
+
+      <div class="name">
+        <sw-fit-text height="44px" width="200px">
+          {{ statusEffectData.name }}
+        </sw-fit-text>
+      </div>
+    </div>
+  </div>
+
+  <div class="description-row row">
+    <div class="col-12">
+      <div class="description">
+        {{ formattedDescription }}
+      </div>
+    </div>
+  </div>
+</div>
+}

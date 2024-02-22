@@ -74,6 +74,13 @@
       }
     </div>
 
+    <div class="status-effects">
+      @for(statusEffectData of statusEffects; track $index) {
+      <sw-status-effect-indicator [statusEffect]="statusEffectData.statusEffect"
+        [stacks]="statusEffectData.count"></sw-status-effect-indicator>
+      }
+    </div>
+
     <div class="tile-info">
       @if(hoveringTile?.containedStatus; as status) {
       <sw-tile-status-card class="hover-status" [tileStatus]="status"></sw-tile-status-card>

@@ -15,8 +15,11 @@ export const firefingers: RitualImpl = {
     if (!context) return;
 
     const { spell } = opts;
+    const {
+      relicContext: { owner },
+    } = context;
 
-    if (!window.api.isCurrentSpellOwnedByRelicOwner({ spell, context })) return;
+    if (!window.api.isSpellOwnedBy({ spell, owner })) return;
     if (!window.api.isSpellElement({ spell, element: 'fire' })) return;
 
     const {

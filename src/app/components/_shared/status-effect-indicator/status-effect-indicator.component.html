@@ -1,0 +1,18 @@
+@if(statusEffect(); as statusEffectData) {
+<div class="status-effect-indicator-container" [ngbTooltip]="statusEffectTooltip"
+  tooltipClass="tooltip-normalize tooltip-relic">
+  <div class="status-effect-sprite">
+    <sw-sprite [spritable]="statusEffectData"></sw-sprite>
+  </div>
+
+  @if(stacks() > 0) {
+  <div class="status-effect-stack-value">
+    {{ stacks() }}
+  </div>
+  }
+</div>
+}
+
+<ng-template #statusEffectTooltip>
+  <sw-status-effect-card [statusEffect]="statusEffect()" [stacks]="stacks()"></sw-status-effect-card>
+</ng-template>

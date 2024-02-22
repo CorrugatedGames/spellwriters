@@ -5,6 +5,7 @@ import {
   allRelics,
   allSpells,
   allStats,
+  allStatusEffects,
   allTileStatuses,
   getSpellById,
 } from '../../../helpers';
@@ -28,7 +29,10 @@ export class DebugComponentsComponent implements OnInit {
   public numSpells = Array(140)
     .fill(0)
     .map((_, i) => i);
-  public numRelics = Array(9)
+  public numRelics = Array(10)
+    .fill(0)
+    .map((_, i) => i);
+  public numStatusEffects = Array(32)
     .fill(0)
     .map((_, i) => i);
 
@@ -39,6 +43,7 @@ export class DebugComponentsComponent implements OnInit {
   public statList = allStats();
   public relicList = allRelics();
   public tileStatusList = allTileStatuses();
+  public statusEffectList = allStatusEffects();
 
   public fieldSpells: FieldSpell[] = [
     {

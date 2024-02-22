@@ -1,15 +1,15 @@
 import {
   type RitualCurrentContextSpellArgs,
   type RitualImpl,
+  type RitualSpellTagSpaceArgs,
   type SpellStatImpl,
-  type SpellTagSpaceArgs,
 } from '../../../typings/interfaces';
 
 export const debugspell: RitualImpl = {
   ...window.api.defaultRitualSpell(),
 
   onSpellPlaced: (
-    opts: SpellTagSpaceArgs,
+    opts: RitualSpellTagSpaceArgs,
     context: RitualCurrentContextSpellArgs,
   ) => {
     if (!context) return;

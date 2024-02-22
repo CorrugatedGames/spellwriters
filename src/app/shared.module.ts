@@ -16,6 +16,8 @@ import { RelicCardComponent } from './components/_shared/relic-card/relic-card.c
 import { RelicIndicatorComponent } from './components/_shared/relic-indicator/relic-indicator.component';
 import { SpellCardComponent } from './components/_shared/spell-card/spell-card.component';
 import { SpriteComponent } from './components/_shared/sprite/sprite.component';
+import { StatusEffectCardComponent } from './components/_shared/status-effect-card/status-effect-card.component';
+import { StatusEffectIndicatorComponent } from './components/_shared/status-effect-indicator/status-effect-indicator.component';
 import { TileStatusCardComponent } from './components/_shared/tile-status-card/tile-status-card.component';
 import { DeckComponent } from './components/play/deck/deck.component';
 import { ErrorBannerComponent } from './components/play/error-banner/error-banner.component';
@@ -57,6 +59,8 @@ const components = [
   RelicCardComponent,
   RelicIndicatorComponent,
   TileStatusCardComponent,
+  StatusEffectCardComponent,
+  StatusEffectIndicatorComponent,
 ];
 
 @NgModule({

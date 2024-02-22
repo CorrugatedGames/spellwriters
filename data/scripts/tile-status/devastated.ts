@@ -47,7 +47,7 @@ export const devastated: RitualImpl = {
 
     if (newPhase === 'End') {
       const turnsDevastated: number =
-        (tileStatus.extraData['turnsDevastated'] as number) ?? 3;
+        (tileStatus.extraData['turnsDevastated'] as number) ?? 2;
 
       if (turnsDevastated > 0) {
         tileStatus.extraData['turnsDevastated'] = turnsDevastated - 1;

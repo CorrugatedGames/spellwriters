@@ -175,6 +175,16 @@
     bottom: 818px;
     right: 16px;
   }
+
+  .status-effects {
+    display: flex;
+    flex-direction: row-reverse;
+    max-width: 640px;
+
+    position: absolute;
+    bottom: 16px;
+    right: 436px;
+  }
 }
 
 .play-grid-container {

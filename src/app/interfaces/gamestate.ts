@@ -34,6 +34,7 @@ export interface ActivePlayer extends Spritable {
 
   behaviors: Record<string, number>;
   relics: Record<string, number>;
+  statusEffects: Record<string, number>;
 }
 
 export enum GamePlayer {

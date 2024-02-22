@@ -23,7 +23,7 @@
   spriteSize: 64
   framesPerAnimation: 1
 
-- name: status-effect.webp
+- name: status-effects.webp
   spritesPerRow: 20
   spriteSize: 64
   framesPerAnimation: 1
