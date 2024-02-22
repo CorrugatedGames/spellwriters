@@ -57,7 +57,7 @@
     "start:app:web": "ng serve --watch --configuration development -o --port 9104",
     "start:app:both": "concurrently --kill-others -n angular,electron \"npm start:app:web\" \"npm run start:app:electron\"",
     "start:app:electron": "wait-on http://localhost:9335/ && cd electron && npm start",
-    "typescript:mods": "rimraf data/mod/scripts && esbuild --bundle --platform=browser --tsconfig=tsconfig.mods.json --format=esm --outfile=data/mod/scripts/mod.js data/scripts/index.ts",
+    "typescript:mods": "rimraf data/mod/scripts && tsc -noEmit --project tsconfig.mods.json && esbuild --bundle --platform=browser --tsconfig=tsconfig.mods.json --format=esm --outfile=data/mod/scripts/mod.js data/scripts/index.ts",
     "typescript:types": "rimraf typings && tsc --project tsconfig.types.json",
     "validate": "concurrently \"npm run validate:*\"",
     "validate:aipatterns": "ts-node scripts/validate-aipatterns",
