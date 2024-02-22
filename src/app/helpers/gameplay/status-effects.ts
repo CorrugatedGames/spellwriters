@@ -1,11 +1,13 @@
 import type { ActivePlayer } from '../../interfaces';
 import { getStatusEffectByKey } from '../lookup/status-effect';
 
-export function addStatusEffectToPlayer(
-  player: ActivePlayer,
-  statusEffectKey: string,
-  value = 1,
-): void {
+export function addStatusEffectToPlayer(opts: {
+  player: ActivePlayer;
+  statusEffectKey: string;
+  value: number;
+}): void {
+  const { player, statusEffectKey, value } = opts;
+
   const statusEffectId = getStatusEffectByKey(statusEffectKey)?.id;
   if (!statusEffectId) return;
 
@@ -17,30 +19,30 @@ export function addStatusEffectToPlayer(
   }
 }
 
-export function removeStatusEffectFromPlayer(
-  player: ActivePlayer,
-  statusEffectKey: string,
-  value = 1,
-): void {
-  addStatusEffectToPlayer(player, statusEffectKey, -value);
+export function removeStatusEffectFromPlayer(opts: {
+  player: ActivePlayer;
+  statusEffectKey: string;
+  value: number;
+}): void {
+  const { player, statusEffectKey, value } = opts;
+  addStatusEffectToPlayer({ player, statusEffectKey, value: -value });
 }
 
-export function statusEffectStacks(
-  player: ActivePlayer,
-  statusEffectKey: string,
-): number {
+export function statusEffectStacks(opts: {
+  player: ActivePlayer;
+  statusEffectKey: string;
+}): number {
+  const { player, statusEffectKey } = opts;
+
   const statusEffectId = getStatusEffectByKey(statusEffectKey)?.id;
   if (!statusEffectId) return -1;
 
   return player.statusEffects[statusEffectId];
 }
 
-export function hasStatusEffect(
-  player: ActivePlayer,
-  statusEffectKey: string,
-): boolean {
-  const statusEffectId = getStatusEffectByKey(statusEffectKey)?.id;
-  if (!statusEffectId) return false;
-
-  return player.statusEffects[statusEffectId] > 0;
+export function hasStatusEffect(opts: {
+  player: ActivePlayer;
+  statusEffectKey: string;
+}): boolean {
+  return statusEffectStacks(opts) > 0;
 }

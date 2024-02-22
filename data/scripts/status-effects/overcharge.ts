@@ -22,7 +22,10 @@ export const overcharge: RitualImpl = {
     if (!window.api.isSpellOwnedBy({ spell, owner })) return;
     if (!window.api.isSpellElement({ spell, element: 'electric' })) return;
 
-    const stacks = window.api.statusEffectStacks(owner, 'overcharge');
+    const stacks = window.api.statusEffectStacks({
+      player: owner,
+      statusEffectKey: 'overcharge',
+    });
     if (stacks < 3) return;
 
     window.api.setSpellStat({
@@ -31,6 +34,10 @@ export const overcharge: RitualImpl = {
       value: spell.damage + 2,
     });
 
-    window.api.removeStatusEffectFromPlayer(owner, 'overcharge', 3);
+    window.api.removeStatusEffectFromPlayer({
+      player: owner,
+      statusEffectKey: 'overcharge',
+      value: 3,
+    });
   },
 };

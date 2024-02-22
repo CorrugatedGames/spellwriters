@@ -20,20 +20,24 @@ import {
   spendMana,
 } from './stats';
 
-export function shuffleDeck(character: ActivePlayer): void {
+export function shuffleDeck(opts: { character: ActivePlayer }): void {
+  const { character } = opts;
   const rng = seededrng();
 
   character.deck.sort(() => rng() - 0.5);
 }
 
-export function reshuffleDeck(character: ActivePlayer): void {
+export function reshuffleDeck(opts: { character: ActivePlayer }): void {
+  const { character } = opts;
+
   character.deck.push(...character.discard);
   character.discard = [];
 
-  shuffleDeck(character);
+  shuffleDeck({ character });
 }
 
-export function canDrawCard(character: ActivePlayer): boolean {
+export function canDrawCard(opts: { character: ActivePlayer }): boolean {
+  const { character } = opts;
   const state = gamestate();
 
   return (
@@ -42,7 +46,8 @@ export function canDrawCard(character: ActivePlayer): boolean {
   );
 }
 
-export function canDrawExtraCard(character: ActivePlayer): boolean {
+export function canDrawExtraCard(opts: { character: ActivePlayer }): boolean {
+  const { character } = opts;
   const state = gamestate();
 
   return (
@@ -52,7 +57,8 @@ export function canDrawExtraCard(character: ActivePlayer): boolean {
   );
 }
 
-export function drawCard(character: ActivePlayer): void {
+export function drawCard(opts: { character: ActivePlayer }): void {
+  const { character } = opts;
   const card = character.deck.pop();
 
   if (card) {
@@ -60,34 +66,38 @@ export function drawCard(character: ActivePlayer): void {
   }
 }
 
-export function drawCardAndPassPhase(character: ActivePlayer): void {
-  if (!canDrawCard(character)) return;
+export function drawCardAndPassPhase(opts: { character: ActivePlayer }): void {
+  const { character } = opts;
+  if (!canDrawCard({ character })) return;
 
-  drawCard(character);
+  drawCard({ character });
   nextPhase();
 }
 
-export function doExtraCardDraw(character: ActivePlayer): void {
-  if (!canDrawExtraCard(character)) return;
+export function doExtraCardDraw(opts: { character: ActivePlayer }): void {
+  const { character } = opts;
+  if (!canDrawExtraCard({ character })) return;
 
   loseHealth({ character, amount: healthCostForDraw({ character }) });
-  drawCard(character);
-  addCardDraw(character);
+  drawCard({ character });
+  addCardDraw({ character });
 }
 
 export function endTurnAndPassPhase(): void {
   nextPhase();
 }
 
-export function addSpellCast(character: ActivePlayer): void {
+export function addSpellCast(opts: { character: ActivePlayer }): void {
+  const { character } = opts;
   character.spellsCastThisTurn++;
 }
 
-export function addCardDraw(character: ActivePlayer): void {
+export function addCardDraw(opts: { character: ActivePlayer }): void {
+  const { character } = opts;
   character.cardsDrawnThisTurn++;
 }
 
-export function handleEntireSpellcastSequence(props: {
+export function handleEntireSpellcastSequence(opts: {
   character: ActivePlayer;
   spellQueue: string[];
   x: number;
@@ -97,7 +107,7 @@ export function handleEntireSpellcastSequence(props: {
 }): void {
   const { field } = gamestate();
 
-  const { character, x, y, card, turnOrder } = props;
+  const { character, x, y, card, turnOrder } = opts;
 
   const spellData = getSpellById(card.id);
   if (!spellData) return;
@@ -133,5 +143,5 @@ export function handleEntireSpellcastSequence(props: {
     character,
     amount: manaCostForSpell({ character, spell: spellData }),
   });
-  addSpellCast(character);
+  addSpellCast({ character });
 }

@@ -23,6 +23,10 @@ export const staticnecklace: RitualImpl = {
     const spellsCast = owner.spellsCastThisTurn;
     if (spellsCast !== 0) return;
 
-    window.api.addStatusEffectToPlayer(owner, 'overcharge', 1);
+    window.api.addStatusEffectToPlayer({
+      player: owner,
+      statusEffectKey: 'overcharge',
+      value: 1,
+    });
   },
 };

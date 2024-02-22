@@ -87,10 +87,10 @@ export function turnCharacterIntoActivePlayer(opts: {
     statusEffects: {},
   };
 
-  shuffleDeck(player);
+  shuffleDeck({ character: player });
 
   for (let i = 0; i < 3; i++) {
-    drawCard(player);
+    drawCard({ character: player });
   }
 
   return player;

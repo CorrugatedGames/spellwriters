@@ -67,13 +67,13 @@ export class GameStateService {
   load() {
     const state = this.localStorage.retrieve('gamestate');
     if (state) {
-      saveGamestate(state);
+      saveGamestate({ state });
     }
 
     const debugstate = this.localStorage.retrieve('debuggamestate');
     if (debugstate?.id) {
-      saveGamestate(debugstate);
-      saveDebugGamestate(debugstate);
+      saveGamestate({ state: debugstate });
+      saveDebugGamestate({ state: debugstate });
     }
 
     const initOpts = this.localStorage.retrieve('initopts');

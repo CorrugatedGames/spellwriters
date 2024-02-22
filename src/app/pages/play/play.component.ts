@@ -125,7 +125,7 @@ export class PlayComponent {
   }
 
   public drawCard() {
-    drawCardAndPassPhase(this.player);
+    drawCardAndPassPhase({ character: this.player });
   }
 
   public selectCard($event: SelectedCard | undefined) {
@@ -275,7 +275,7 @@ export class PlayComponent {
   }
 
   extraDraw() {
-    doExtraCardDraw(this.player);
+    doExtraCardDraw({ character: this.player });
   }
 
   extraDrawCost() {
@@ -283,6 +283,6 @@ export class PlayComponent {
   }
 
   canDoExtraDraw() {
-    return canDrawExtraCard(this.player);
+    return canDrawExtraCard({ character: this.player });
   }
 }

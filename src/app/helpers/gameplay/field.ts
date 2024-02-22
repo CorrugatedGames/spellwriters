@@ -388,7 +388,9 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
   });
 }
 
-export function lowerSpellTimer(spell: FieldSpell): void {
+export function lowerSpellTimer(opts: { spell: FieldSpell }): void {
+  const { spell } = opts;
+
   setSpellStat({
     spell,
     stat: SpellStatImpl.CastTime,
@@ -415,7 +417,7 @@ export async function handleEndOfTurnSpellActions(): Promise<void> {
       if (!spell) return;
 
       if (spell.castTime > 0) {
-        lowerSpellTimer(spell);
+        lowerSpellTimer({ spell });
         return;
       }
 

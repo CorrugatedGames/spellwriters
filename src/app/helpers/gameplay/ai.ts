@@ -52,7 +52,7 @@ export async function aiDrawPhase(opts: {
 }): Promise<void> {
   const { character } = opts;
 
-  drawCard(character);
+  drawCard({ character });
   await delay(DEFAULT_DELAY);
   await nextPhase();
 }

@@ -61,7 +61,7 @@ export async function nextPhase(): Promise<void> {
       newPlayer = state.players[newTurn];
 
       if (newPlayer.deck.length === 0) {
-        reshuffleDeck(newPlayer);
+        reshuffleDeck({ character: newPlayer });
       }
 
       gainMana({ character: newPlayer, amount: state.currentRound + 1 });
@@ -72,10 +72,12 @@ export async function nextPhase(): Promise<void> {
   }
 
   saveGamestate({
-    ...state,
-    currentPhase: newPhase,
-    currentTurn: newTurn,
-    currentRound: newRound,
+    state: {
+      ...state,
+      currentPhase: newPhase,
+      currentTurn: newTurn,
+      currentRound: newRound,
+    },
   });
 
   callRitualGlobalFunction({
@@ -128,8 +130,10 @@ export function declareVictory(): void {
   }
 
   saveGamestate({
-    ...state,
-    currentTurn: winner,
-    currentPhase: GamePhase.Victory,
+    state: {
+      ...state,
+      currentTurn: winner,
+      currentPhase: GamePhase.Victory,
+    },
   });
 }

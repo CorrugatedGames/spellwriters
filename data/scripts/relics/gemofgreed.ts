@@ -15,7 +15,7 @@ export const gemofgreed: RitualImpl = {
       relicContext: { owner },
     } = context;
 
-    window.api.drawCard(owner);
-    window.api.drawCard(owner);
+    window.api.drawCard({ character: owner });
+    window.api.drawCard({ character: owner });
   },
 };

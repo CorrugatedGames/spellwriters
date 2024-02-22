@@ -14,7 +14,8 @@ export const gamestateInitOptions: WritableSignal<
   GameStateInitOpts | undefined
 > = signal(undefined);
 
-export function saveGamestate(state: GameState): void {
+export function saveGamestate(opts: { state: GameState }): void {
+  const { state } = opts;
   _gamestate.set(state);
 }
 
@@ -22,7 +23,8 @@ export function resetGamestate(): void {
   _gamestate.set(createBlankGameState());
 }
 
-export function saveDebugGamestate(state: GameState): void {
+export function saveDebugGamestate(opts: { state: GameState }): void {
+  const { state } = opts;
   _debugGamestate.set(state);
 }
 
@@ -31,5 +33,5 @@ export function resetDebugGamestate(): void {
 }
 
 export function storeCurrentStateAsDebugState(): void {
-  saveDebugGamestate(gamestate());
+  saveDebugGamestate({ state: gamestate() });
 }

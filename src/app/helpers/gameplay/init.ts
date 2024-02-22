@@ -135,8 +135,8 @@ export function startCombat(opts: {
 
   const blankState = createBlankGameState();
   blankState.id = id;
-  saveGamestate(blankState);
+  saveGamestate({ state: blankState });
 
   const freshState = createFreshGameState({ id, gamestateInitOpts });
-  saveGamestate(freshState);
+  saveGamestate({ state: freshState });
 }
