@@ -71,7 +71,7 @@ export class GameStateService {
     }
 
     const debugstate = this.localStorage.retrieve('debuggamestate');
-    if (debugstate.id) {
+    if (debugstate?.id) {
       saveGamestate(debugstate);
       saveDebugGamestate(debugstate);
     }
