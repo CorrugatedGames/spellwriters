@@ -83,9 +83,14 @@ img {
   --bs-tooltip-font-size: 1rem;
 }
 
-.tooltip-relic {
+.tooltip-relic,
+.tooltip-status-effect {
   --bs-tooltip-max-width: auto;
   --bs-tooltip-bg: transparent;
+
+  .tooltip-inner {
+    text-align: left;
+  }
 }
 
 .modal {
