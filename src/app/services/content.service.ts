@@ -90,7 +90,6 @@ export class ContentService {
 
   async loadModByName(name: string) {
     try {
-      console.info(`Loading mod: ${name}`);
       const mod = await fetch(`assets/mods/${name}/content.json`);
       const modContent = await mod.json();
 
