@@ -19,6 +19,11 @@ export function saveGamestate(opts: { state: GameState }): void {
   _gamestate.set(state);
 }
 
+export function triggerGamestateUpdate(): void {
+  const currentState = gamestate();
+  saveGamestate({ state: { ...currentState } });
+}
+
 export function resetGamestate(): void {
   _gamestate.set(createBlankGameState());
 }

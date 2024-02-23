@@ -1,5 +1,6 @@
 import type { ActivePlayer } from '../../interfaces';
 import { getStatusEffectByKey } from '../lookup/status-effect';
+import { triggerGamestateUpdate } from './gamestate';
 
 export function addStatusEffectToPlayer(opts: {
   player: ActivePlayer;
@@ -17,6 +18,8 @@ export function addStatusEffectToPlayer(opts: {
   if (player.statusEffects[statusEffectId] === 0) {
     delete player.statusEffects[statusEffectId];
   }
+
+  triggerGamestateUpdate();
 }
 
 export function removeStatusEffectFromPlayer(opts: {
