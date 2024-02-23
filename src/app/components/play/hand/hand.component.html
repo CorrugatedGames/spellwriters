@@ -1,5 +1,5 @@
 <div class="hand-card-container">
-  @for(card of hand(); track $index) {
+  @for(card of hand(); track $index + card.id) {
   <div class="hand-card-position" [style.--card-index]="$index" (mouseenter)="focusHandCard($index)"
     (mouseleave)="unfocusHandCard()" (contextmenu)="unselectCardFromHand($index); $event.preventDefault()"
     (click)="selectCard.emit({ card, index: $index })" (keyup.enter)="selectCard.emit({ card, index: $index })"

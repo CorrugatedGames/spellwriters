@@ -7,6 +7,7 @@ import {
   input,
   type AfterViewInit,
 } from '@angular/core';
+import { delay } from '../../../helpers';
 
 // shoutout to https://github.com/pikselinweb/ngx-fittext for rough implementation
 // it had bugs :(
@@ -45,8 +46,10 @@ export class FitTextComponent implements AfterViewInit {
     this.fitTextToBox();
   }
 
-  fitTextToBox() {
+  async fitTextToBox() {
     this.renderer.setStyle(this.controllerDiv.nativeElement, 'opacity', 0);
+
+    await delay(20);
 
     this.renderer.setStyle(
       this.el.nativeElement,
