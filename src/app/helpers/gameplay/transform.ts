@@ -8,6 +8,7 @@ import {
   type GameState,
   type PlayableCard,
 } from '../../interfaces';
+import { getId } from '../static/uuid';
 import { drawCard, shuffleDeck } from './turn';
 
 export function createBlankStateMachineMap(): CurrentPhase {
@@ -54,7 +55,7 @@ export function stateMachineMapFromGameState(opts: {
 
 export function turnCardIntoPlayableCard(opts: { id: string }): PlayableCard {
   const { id } = opts;
-  return { id };
+  return { spellId: id, instanceId: getId() };
 }
 
 export function turnCharacterIntoActivePlayer(opts: {

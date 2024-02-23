@@ -11,7 +11,8 @@ export interface FieldNode {
 }
 
 export interface PlayableCard {
-  id: string;
+  spellId: string;
+  instanceId: string;
 }
 
 export interface ActivePlayer extends Spritable {

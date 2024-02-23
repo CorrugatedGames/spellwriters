@@ -109,7 +109,7 @@ export function handleEntireSpellcastSequence(opts: {
 
   const { character, x, y, card, turnOrder } = opts;
 
-  const spellData = getSpellById(card.id);
+  const spellData = getSpellById(card.spellId);
   if (!spellData) return;
 
   const targetTiles = getTargettableSpacesForSpellAroundPosition({

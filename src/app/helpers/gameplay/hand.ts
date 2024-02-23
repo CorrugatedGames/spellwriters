@@ -1,7 +1,7 @@
 import { type ActivePlayer, type PlayableCard } from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
 import { manaCostForSpell } from './stats';
-import { getListOfTargetableTilesForCard } from './targetting';
+import { getListOfTargetableTilesForSpell } from './targetting';
 
 export function loseCardInHand(opts: {
   player: ActivePlayer;
@@ -19,11 +19,13 @@ export function playableCardsInHand(opts: {
   const { player } = opts;
 
   return player.hand.filter((card) => {
-    const playableTiles = getListOfTargetableTilesForCard({ card });
+    const spell = getSpellById(card.spellId);
+    if (!spell) return false;
+
+    const playableTiles = getListOfTargetableTilesForSpell({ spell });
     return (
       playableTiles.length > 0 &&
-      manaCostForSpell({ character: player, spell: getSpellById(card.id)! }) <=
-        player.mana
+      manaCostForSpell({ character: player, spell }) <= player.mana
     );
   });
 }

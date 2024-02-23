@@ -1,10 +1,10 @@
 <div class="hand-card-container">
-  @for(card of hand(); track $index + card.id) {
+  @for(card of hand(); track card.instanceId) {
   <div class="hand-card-position" [style.--card-index]="$index" (mouseenter)="focusHandCard($index)"
     (mouseleave)="unfocusHandCard()" (contextmenu)="unselectCardFromHand($index); $event.preventDefault()"
     (click)="selectCard.emit({ card, index: $index })" (keyup.enter)="selectCard.emit({ card, index: $index })"
     [tabindex]="$index">
-    @if(getSpellById(card.id); as spell) {
+    @if(getSpellById(card.spellId); as spell) {
     <sw-spell-card class="hand-card" [class.selected]="selectedCard()?.index === $index" [spell]="spell"
       [isSmall]="hoveringSpellIndex !== $index" [isGlowing]="
         selectedCard()?.index === $index ||

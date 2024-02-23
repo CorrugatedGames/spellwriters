@@ -1,16 +1,16 @@
-import { TurnOrder, type PlayableCard } from '../../interfaces';
+import { TurnOrder, type Spell } from '../../interfaces';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getSpellById } from '../lookup/spells';
 import { gamestate } from './gamestate';
 
-export function getTargetableTilesForCard(opts: {
+export function getTargetableTilesForSpell(opts: {
   turn: TurnOrder;
-  card: PlayableCard;
+  spell: Spell;
 }): Record<number, Record<number, boolean>> {
-  const { turn, card } = opts;
+  const { turn, spell } = opts;
   const { field } = gamestate();
 
-  const spellData = getSpellById(card.id);
+  const spellData = getSpellById(spell.id);
   if (!spellData) return {};
 
   const { depthMin, depthMax } = spellData;
@@ -47,14 +47,14 @@ export function getTargetableTilesForCard(opts: {
   return targetableTiles;
 }
 
-export function getAllTargettableTilesForCard(opts: {
-  card: PlayableCard;
+export function getAllTargettableTilesForSpell(opts: {
+  spell: Spell;
 }): Array<{ x: number; y: number }> {
-  const { card } = opts;
+  const { spell } = opts;
 
-  const targetableTiles = getTargetableTilesForCard({
+  const targetableTiles = getTargetableTilesForSpell({
     turn: TurnOrder.Opponent,
-    card,
+    spell,
   });
 
   const tiles: Array<{ x: number; y: number }> = [];
@@ -69,14 +69,13 @@ export function getAllTargettableTilesForCard(opts: {
   return tiles;
 }
 
-export function getListOfSuggestedTargetableTilesForCard(opts: {
-  card: PlayableCard;
+export function getListOfSuggestedTargetableTilesForSpell(opts: {
+  spell: Spell;
 }): Array<{ x: number; y: number }> {
-  const { card } = opts;
-  const spell = getSpellById(card.id);
+  const { spell } = opts;
   if (!spell) return [];
 
-  const allTiles = getAllTargettableTilesForCard(opts);
+  const allTiles = getAllTargettableTilesForSpell(opts);
 
   const pattern = getSpellPatternImpl(spell.pattern);
   if (!pattern) return allTiles;
@@ -88,13 +87,13 @@ export function getListOfSuggestedTargetableTilesForCard(opts: {
   return suggestedTiles.length > 0 ? suggestedTiles : allTiles;
 }
 
-export function getListOfTargetableTilesForCard(opts: {
-  card: PlayableCard;
+export function getListOfTargetableTilesForSpell(opts: {
+  spell: Spell;
   alwaysReturnAllTiles?: boolean;
 }): Array<{ x: number; y: number }> {
-  const allTiles = getAllTargettableTilesForCard(opts);
+  const allTiles = getAllTargettableTilesForSpell(opts);
   if (opts.alwaysReturnAllTiles) return allTiles;
 
-  const suggestedTiles = getListOfSuggestedTargetableTilesForCard(opts);
+  const suggestedTiles = getListOfSuggestedTargetableTilesForSpell(opts);
   return suggestedTiles.length > 0 ? suggestedTiles : allTiles;
 }

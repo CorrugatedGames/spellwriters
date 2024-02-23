@@ -15,7 +15,7 @@ import {
   getSpaceFromField,
   getSpellById,
   getStatusEffectById,
-  getTargetableTilesForCard,
+  getTargetableTilesForSpell,
   getTargettableSpacesForSpellAroundPosition,
   handleEntireSpellcastSequence,
   healthCostForDraw,
@@ -101,7 +101,7 @@ export class PlayComponent {
   public get activeSpell(): Spell | undefined {
     if (!this.activeCardData) return undefined;
 
-    return getSpellById(this.activeCardData.card.id);
+    return getSpellById(this.activeCardData.card.spellId);
   }
 
   private parseRelics() {
@@ -136,7 +136,7 @@ export class PlayComponent {
       return;
     }
 
-    const spell = getSpellById($event.card.id);
+    const spell = getSpellById($event.card.spellId);
     if (!spell) return;
 
     if (
@@ -150,9 +150,9 @@ export class PlayComponent {
 
     this.activeCardData = $event;
 
-    this.selectableTiles = getTargetableTilesForCard({
+    this.selectableTiles = getTargetableTilesForSpell({
       turn: this.gamestate.currentTurn,
-      card: spell,
+      spell: spell,
     });
   }
 
@@ -171,7 +171,7 @@ export class PlayComponent {
   public showTargettableSpacesForTile(y: number, x: number): void {
     if (!this.activeCardData) return;
 
-    const spell = getSpellById(this.activeCardData.card.id);
+    const spell = getSpellById(this.activeCardData.card.spellId);
     if (!spell) return;
 
     this.targetTiles = getTargettableSpacesForSpellAroundPosition({
@@ -192,7 +192,7 @@ export class PlayComponent {
     if (!this.activeCardData) return;
     if (!this.canSelectTile(y, x)) return;
 
-    const spell = getSpellById(this.activeCardData.card.id);
+    const spell = getSpellById(this.activeCardData.card.spellId);
     if (!spell) return;
 
     if (spell.cost > this.player.mana) {
