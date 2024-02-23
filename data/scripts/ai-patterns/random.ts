@@ -10,10 +10,14 @@ function makeDecision(opts: AIOpts): void {
   const chosen = window.api.randomChoice(playableCards);
   if (!chosen) return;
 
-  const validTiles = window.api.getListOfTargetableTilesForCard({
-    card: chosen,
+  const chosenSpell = window.api.getSpellById(chosen.spellId);
+  if (!chosenSpell) return;
+
+  const validTiles = window.api.getListOfTargetableTilesForSpell({
+    spell: chosenSpell,
   });
   const chosenTile = window.api.randomChoice(validTiles);
+  if (!chosenTile) return;
 
   window.api.handleEntireSpellcastSequence({
     x: chosenTile.x,

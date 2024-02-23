@@ -12,14 +12,17 @@ function makeDecision(opts: AIOpts): void {
   const { gamestate, playableCards } = opts;
 
   const spells = window.api.sortArray(playableCards, [
-    (card) => -(window.api.getSpellById(card.id)?.damage ?? 0),
+    (card) => -(window.api.getSpellById(card.spellId)?.damage ?? 0),
   ]);
 
   const chosen = spells[0];
   if (!chosen) return;
 
-  const validTiles = window.api.getListOfTargetableTilesForCard({
-    card: chosen,
+  const chosenSpell = window.api.getSpellById(chosen.spellId);
+  if (!chosenSpell) return;
+
+  const validTiles = window.api.getListOfTargetableTilesForSpell({
+    spell: chosenSpell,
   });
   const allSpellsOnField = window.api.findSpellsOnField();
 
