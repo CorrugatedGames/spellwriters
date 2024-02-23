@@ -13,6 +13,8 @@
   .play-grid {
     flex: 1;
     flex-grow: 1;
+
+    transform: rotate(90deg);
   }
 
   .pause {
@@ -237,6 +239,8 @@
       }
 
       .grid-space {
+        transform: rotate(-90deg);
+
         width: var(--play-grid-size);
         height: var(--play-grid-size);
         border: 2px solid #fff;

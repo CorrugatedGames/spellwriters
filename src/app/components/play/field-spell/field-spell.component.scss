@@ -23,17 +23,17 @@
   &.origin-player {
     .direction {
       border: 5px solid var(--color-player);
-      border-bottom: none;
+      border-left: none;
     }
   }
 
   &.origin-opponent {
     .info-container {
-      flex-direction: column-reverse;
+      flex-direction: row;
 
       .direction {
         border: 5px solid var(--color-opponent);
-        border-top: none;
+        border-right: none;
       }
     }
   }
@@ -43,12 +43,12 @@
     height: 100%;
     position: absolute;
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
     justify-content: space-between;
 
     .direction {
-      height: 50%;
-      width: 100%;
+      height: 100%;
+      width: 50%;
       position: relative;
 
       .effect {
@@ -61,7 +61,7 @@
 
     .stats {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
       justify-content: space-between;
       padding: 8px;
