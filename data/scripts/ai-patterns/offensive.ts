@@ -25,7 +25,7 @@ function makeDecision(opts: AIOpts): void {
     spell: chosenSpell,
     turn: 1,
   });
-  const allSpellsOnField = window.api.findSpellsOnField();
+  const allSpellsOnField = window.api.findKnownSpellsOnField();
 
   const sortedSpellsByColumn = window.api.groupArray(
     allSpellsOnField,

@@ -43,6 +43,18 @@ export function findSpellsOnField(): Array<{
   return ret;
 }
 
+export function findKnownSpellsOnField(): Array<{
+  x: number;
+  y: number;
+  spell: FieldSpell;
+}> {
+  const { field } = gamestate();
+  const allSpells = findSpellsOnField();
+  return allSpells.filter(
+    (tile) => tile.y !== 0 && tile.y !== field.length - 1,
+  );
+}
+
 export function getFieldSpaces(): Array<{
   x: number;
   y: number;

@@ -24,8 +24,9 @@ function makeDecision(opts: AIOpts): void {
     spell: chosenSpell,
     turn: 1,
   });
+
   const allPlayerSpellsOnField = window.api
-    .findSpellsOnField()
+    .findKnownSpellsOnField()
     .filter((tile) => tile.spell.caster === 0);
 
   const sortedSpellsByColumn = window.api.groupArray(
