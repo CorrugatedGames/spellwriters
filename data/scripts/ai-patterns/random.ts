@@ -15,6 +15,7 @@ function makeDecision(opts: AIOpts): void {
 
   const validTiles = window.api.getListOfTargetableTilesForSpell({
     spell: chosenSpell,
+    turn: 1,
   });
   const chosenTile = window.api.randomChoice(validTiles);
   if (!chosenTile) return;

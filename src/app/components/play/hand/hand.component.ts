@@ -1,6 +1,14 @@
 import { Component, EventEmitter, Output, input } from '@angular/core';
-import { getSpellById } from '../../../helpers';
-import { type PlayableCard, type SelectedCard } from '../../../interfaces';
+import {
+  getListOfTargetableTilesForSpellBasedOnPattern,
+  getSpellById,
+} from '../../../helpers';
+import {
+  TurnOrder,
+  type PlayableCard,
+  type SelectedCard,
+  type Spell,
+} from '../../../interfaces';
 
 @Component({
   selector: 'sw-hand',
@@ -31,5 +39,22 @@ export class HandComponent {
   public unselectCardFromHand(index: number) {
     if (this.selectedCard()?.index !== index) return;
     this.unselectCard.emit();
+  }
+
+  public shouldGlow(spell: Spell, index: number) {
+    if (this.selectedCard()?.index === index) return true;
+
+    const targettableTiles = getListOfTargetableTilesForSpellBasedOnPattern({
+      spell,
+      turn: TurnOrder.Player,
+    });
+
+    if (targettableTiles.length === 0) return false;
+
+    if (this.highlightCastableCardCost() > 0) {
+      return spell.cost <= this.highlightCastableCardCost();
+    }
+
+    return false;
   }
 }

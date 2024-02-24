@@ -22,7 +22,10 @@ export function playableCardsInHand(opts: {
     const spell = getSpellById(card.spellId);
     if (!spell) return false;
 
-    const playableTiles = getListOfTargetableTilesForSpell({ spell });
+    const playableTiles = getListOfTargetableTilesForSpell({
+      spell,
+      turn: player.turnOrder,
+    });
     return (
       playableTiles.length > 0 &&
       manaCostForSpell({ character: player, spell }) <= player.mana

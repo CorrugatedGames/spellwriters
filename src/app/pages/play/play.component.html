@@ -33,7 +33,7 @@
           (mouseenter)="getHoverInfoForTile(gridRow, gridCol); showTargettableSpacesForTile(gridRow, gridCol)"
           (mouseleave)="resetHoverInfoForTile(); resetTargettableSpaces()" tabindex="0">
 
-          @if(activeCardData && canSelectTile(gridRow, gridCol) && targetTiles[gridRow]?.[gridCol]) {
+          @if(activeCardData && targetTiles[gridRow]?.[gridCol]) {
           @if(targetTiles[gridRow]?.[gridCol]; as targetTile) {
           <sw-sprite class="grid-item cast-sprite" [spritable]="targetTile"></sw-sprite>
           }

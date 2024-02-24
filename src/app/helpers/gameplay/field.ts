@@ -146,6 +146,7 @@ export function getTargettableSpacesForSpellAroundPosition(opts: {
       x,
       y,
     }) ?? [];
+
   allTiles.forEach((tile) => {
     const canPlaceHere = (
       callRitualGlobalFunction({

@@ -11,11 +11,11 @@ import {
   endTurnAndPassPhase,
   gamestate,
   gamestateInitOptions,
+  getListOfTargetableTilesForSpellBasedOnPattern,
   getRelicById,
   getSpaceFromField,
   getSpellById,
   getStatusEffectById,
-  getTargetableTilesForSpell,
   getTargettableSpacesForSpellAroundPosition,
   handleEntireSpellcastSequence,
   healthCostForDraw,
@@ -148,11 +148,25 @@ export class PlayComponent {
       return;
     }
 
+    const targettableTilesList = getListOfTargetableTilesForSpellBasedOnPattern(
+      {
+        spell,
+        turn: TurnOrder.Player,
+      },
+    );
+    if (targettableTilesList.length === 0) {
+      setIngameErrorMessage({
+        message: `No targetable tiles for ${spell.name}!`,
+      });
+      return;
+    }
+
     this.activeCardData = $event;
 
-    this.selectableTiles = getTargetableTilesForSpell({
-      turn: this.gamestate.currentTurn,
-      spell: spell,
+    this.selectableTiles = {};
+    targettableTilesList.forEach((tile) => {
+      this.selectableTiles![tile.y] = this.selectableTiles![tile.y] || {};
+      this.selectableTiles![tile.y]![tile.x] = true;
     });
   }
 
@@ -173,6 +187,8 @@ export class PlayComponent {
 
     const spell = getSpellById(this.activeCardData.card.spellId);
     if (!spell) return;
+
+    if (!this.selectableTiles?.[y]?.[x]) return;
 
     this.targetTiles = getTargettableSpacesForSpellAroundPosition({
       spell,

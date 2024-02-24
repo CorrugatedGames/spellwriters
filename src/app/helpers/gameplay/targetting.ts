@@ -3,9 +3,32 @@ import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getSpellById } from '../lookup/spells';
 import { gamestate } from './gamestate';
 
-export function getTargetableTilesForSpell(opts: {
-  turn: TurnOrder;
+function getListOfTargettableTilesForSpell(opts: {
   spell: Spell;
+  turn: TurnOrder;
+}): Array<{ x: number; y: number }> {
+  const { spell, turn } = opts;
+
+  const targetableTiles = getRawTargettableTilesForSpell({
+    turn,
+    spell,
+  });
+
+  const tiles: Array<{ x: number; y: number }> = [];
+
+  Object.keys(targetableTiles).forEach((y) => {
+    Object.keys(targetableTiles[+y]).forEach((x) => {
+      if (!targetableTiles[+y][+x]) return;
+      tiles.push({ x: +x, y: +y });
+    });
+  });
+
+  return tiles;
+}
+
+function getRawTargettableTilesForSpell(opts: {
+  spell: Spell;
+  turn: TurnOrder;
 }): Record<number, Record<number, boolean>> {
   const { turn, spell } = opts;
   const { field } = gamestate();
@@ -17,7 +40,6 @@ export function getTargetableTilesForSpell(opts: {
   const height = field.length - 1;
 
   const targetableTiles: Record<number, Record<number, boolean>> = {};
-
   field.forEach((row, y) => {
     targetableTiles[y] = targetableTiles[y] || {};
 
@@ -47,35 +69,14 @@ export function getTargetableTilesForSpell(opts: {
   return targetableTiles;
 }
 
-export function getAllTargettableTilesForSpell(opts: {
+export function getListOfTargetableTilesForSpellBasedOnPattern(opts: {
   spell: Spell;
-}): Array<{ x: number; y: number }> {
-  const { spell } = opts;
-
-  const targetableTiles = getTargetableTilesForSpell({
-    turn: TurnOrder.Opponent,
-    spell,
-  });
-
-  const tiles: Array<{ x: number; y: number }> = [];
-
-  Object.keys(targetableTiles).forEach((y) => {
-    Object.keys(targetableTiles[+y]).forEach((x) => {
-      if (!targetableTiles[+y][+x]) return;
-      tiles.push({ x: +x, y: +y });
-    });
-  });
-
-  return tiles;
-}
-
-export function getListOfSuggestedTargetableTilesForSpell(opts: {
-  spell: Spell;
+  turn: TurnOrder;
 }): Array<{ x: number; y: number }> {
   const { spell } = opts;
   if (!spell) return [];
 
-  const allTiles = getAllTargettableTilesForSpell(opts);
+  const allTiles = getListOfTargettableTilesForSpell(opts);
 
   const pattern = getSpellPatternImpl(spell.pattern);
   if (!pattern) return allTiles;
@@ -84,16 +85,14 @@ export function getListOfSuggestedTargetableTilesForSpell(opts: {
     allTargettableNodes: allTiles,
   });
 
-  return suggestedTiles.length > 0 ? suggestedTiles : allTiles;
+  return suggestedTiles;
 }
 
 export function getListOfTargetableTilesForSpell(opts: {
   spell: Spell;
-  alwaysReturnAllTiles?: boolean;
+  turn: TurnOrder;
 }): Array<{ x: number; y: number }> {
-  const allTiles = getAllTargettableTilesForSpell(opts);
-  if (opts.alwaysReturnAllTiles) return allTiles;
-
-  const suggestedTiles = getListOfSuggestedTargetableTilesForSpell(opts);
+  const allTiles = getListOfTargettableTilesForSpell(opts);
+  const suggestedTiles = getListOfTargetableTilesForSpellBasedOnPattern(opts);
   return suggestedTiles.length > 0 ? suggestedTiles : allTiles;
 }

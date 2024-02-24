@@ -23,6 +23,7 @@ function makeDecision(opts: AIOpts): void {
 
   const validTiles = window.api.getListOfTargetableTilesForSpell({
     spell: chosenSpell,
+    turn: 1,
   });
   const allSpellsOnField = window.api.findSpellsOnField();
 
