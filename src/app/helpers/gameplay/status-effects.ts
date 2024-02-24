@@ -2,6 +2,14 @@ import type { ActivePlayer } from '../../interfaces';
 import { getStatusEffectByKey } from '../lookup/status-effect';
 import { triggerGamestateUpdate } from './gamestate';
 
+/**
+ * Add a status effect to a player. Will stack it if it already exists.
+ *
+ * @category Status Effects
+ * @param opts.player The player to add the status effect to.
+ * @param opts.statusEffectKey The key of the status effect to add.
+ * @param opts.value The value to add to the status effect.
+ */
 export function addStatusEffectToPlayer(opts: {
   player: ActivePlayer;
   statusEffectKey: string;
@@ -22,6 +30,14 @@ export function addStatusEffectToPlayer(opts: {
   triggerGamestateUpdate();
 }
 
+/**
+ * Remove a status effect from a player. Will remove the status effect if it reaches 0.
+ *
+ * @category Status Effects
+ * @param opts.player The player to remove the status effect from.
+ * @param opts.statusEffectKey The key of the status effect to remove.
+ * @param opts.value The value to remove from the status effect.
+ */
 export function removeStatusEffectFromPlayer(opts: {
   player: ActivePlayer;
   statusEffectKey: string;
@@ -31,6 +47,14 @@ export function removeStatusEffectFromPlayer(opts: {
   addStatusEffectToPlayer({ player, statusEffectKey, value: -value });
 }
 
+/**
+ * Get the number of stacks of a status effect on a player.
+ *
+ * @category Status Effects
+ * @param opts.player The player to check the status effect on.
+ * @param opts.statusEffectKey The key of the status effect to check.
+ * @returns the number of stacks of the status effect.
+ */
 export function statusEffectStacks(opts: {
   player: ActivePlayer;
   statusEffectKey: string;
@@ -43,6 +67,14 @@ export function statusEffectStacks(opts: {
   return player.statusEffects[statusEffectId];
 }
 
+/**
+ * Whether or not a player has a status effect.
+ *
+ * @category Status Effects
+ * @param opts.player The player to check the status effect on.
+ * @param opts.statusEffectKey The key of the status effect to check.
+ * @returns whether or not the player has the status effect.
+ */
 export function hasStatusEffect(opts: {
   player: ActivePlayer;
   statusEffectKey: string;

@@ -13,6 +13,13 @@ import { seededrng, weighted } from '../static/rng';
 import { DEFAULT_DELAY, delay } from '../static/time';
 import { canPlayCardsInHand, playableCardsInHand } from './hand';
 
+/**
+ * Get the current AI setup.
+ *
+ * @internal
+ * @category AI
+ * @returns AI options for the current game state.
+ */
 export function getAIOpts(): AIOpts {
   const state = gamestate();
 
@@ -25,31 +32,7 @@ export function getAIOpts(): AIOpts {
   };
 }
 
-export async function aiAttemptAction(): Promise<void> {
-  const state = gamestate();
-
-  if (state.currentTurn === TurnOrder.Player) return;
-
-  const aiPlayer = state.players[TurnOrder.Opponent];
-
-  switch (state.currentPhase) {
-    case GamePhase.Draw:
-      await aiDrawPhase({ character: aiPlayer });
-      break;
-
-    case GamePhase.Turn:
-      await aiSpendPhase({ character: aiPlayer });
-      break;
-
-    case GamePhase.End:
-      await aiEndPhase();
-      break;
-  }
-}
-
-export async function aiDrawPhase(opts: {
-  character: ActivePlayer;
-}): Promise<void> {
+async function aiDrawPhase(opts: { character: ActivePlayer }): Promise<void> {
   const { character } = opts;
 
   drawCard({ character });
@@ -57,9 +40,7 @@ export async function aiDrawPhase(opts: {
   await nextPhase();
 }
 
-export async function aiSpendPhase(opts: {
-  character: ActivePlayer;
-}): Promise<void> {
+async function aiSpendPhase(opts: { character: ActivePlayer }): Promise<void> {
   const { character } = opts;
 
   const validBehaviors = Object.keys(character.behaviors).filter((b) =>
@@ -100,7 +81,36 @@ export async function aiSpendPhase(opts: {
   await nextPhase();
 }
 
-export async function aiEndPhase(): Promise<void> {
+async function aiEndPhase(): Promise<void> {
   await delay(DEFAULT_DELAY);
   await nextPhase();
+}
+
+/**
+ * Make the AI attempt to take an action based on the current game phase.
+ *
+ * @internal
+ * @category AI
+ * @returns A promise that resolves when the AI action is complete.
+ */
+export async function aiAttemptAction(): Promise<void> {
+  const state = gamestate();
+
+  if (state.currentTurn === TurnOrder.Player) return;
+
+  const aiPlayer = state.players[TurnOrder.Opponent];
+
+  switch (state.currentPhase) {
+    case GamePhase.Draw:
+      await aiDrawPhase({ character: aiPlayer });
+      break;
+
+    case GamePhase.Turn:
+      await aiSpendPhase({ character: aiPlayer });
+      break;
+
+    case GamePhase.End:
+      await aiEndPhase();
+      break;
+  }
 }

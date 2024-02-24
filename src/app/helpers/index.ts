@@ -1,3 +1,7 @@
+/**
+ * @module Helpers
+ */
+
 import * as Electron from './electron/in-electron';
 
 import * as GameplayAI from './gameplay/ai';
@@ -43,6 +47,11 @@ import * as StaticSprite from './static/sprite';
 import * as StaticTime from './static/time';
 import * as StaticUUID from './static/uuid';
 
+/**
+ * @group Internal
+ * @internal
+ * @ignore
+ */
 export const AllHelpers = {
   ...Electron,
   ...GameplayAI,

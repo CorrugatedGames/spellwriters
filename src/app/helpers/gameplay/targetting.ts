@@ -69,6 +69,14 @@ function getRawTargettableTilesForSpell(opts: {
   return targetableTiles;
 }
 
+/**
+ * Get a list of valid target tiles for a spell based on the spell's pattern.
+ *
+ * @category Gameplay
+ * @param opts.spell The spell to get valid target tiles for.
+ * @param opts.turn The person to get the target tiles for.
+ * @returns A list of valid target tiles for the spell.
+ */
 export function getListOfTargetableTilesForSpellBasedOnPattern(opts: {
   spell: Spell;
   turn: TurnOrder;
@@ -88,6 +96,14 @@ export function getListOfTargetableTilesForSpellBasedOnPattern(opts: {
   return suggestedTiles;
 }
 
+/**
+ * Get a list of valid target tiles for a spell. Will return all possible tiles if there are none suggested by the pattern.
+ *
+ * @category Gameplay
+ * @param opts.spell The spell to get valid target tiles for.
+ * @param opts.turn The person to get the target tiles for.
+ * @returns A list of valid target tiles for the spell.
+ */
 export function getListOfTargetableTilesForSpell(opts: {
   spell: Spell;
   turn: TurnOrder;

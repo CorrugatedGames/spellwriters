@@ -34,5 +34,25 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
+  },
+  "typedocOptions": {
+    "navigation": {
+      "includeFolders": false,
+      "includeCategories": true,
+      "includeGroups": true
+    },
+    "entryPoints": ["src/app/helpers/index.ts", "src/app/interfaces/index.ts"],
+    "out": "src/assets/docs",
+    "readme": "README.api.md",
+    "includeVersion": true,
+    "categorizeByGroup": true,
+    "cacheBust": true,
+    "cleanOutputDir": true,
+    "hideGenerator": true,
+    "excludeInternal": true,
+    "name": "Spellwriters API",
+    "plugin": ["typedoc-plugin-merge-modules"],
+    "mergeModulesRenameDefaults": true,
+    "mergeModulesMergeMode": "project"
   }
 }

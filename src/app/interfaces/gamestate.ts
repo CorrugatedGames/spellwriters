@@ -4,17 +4,27 @@ import { type FieldSpell } from './spell';
 import { type Spritable } from './sprite';
 import type { FieldStatus } from './tile';
 
+/**
+ * @category Gameplay
+ * @category Field
+ */
 export interface FieldNode {
   containedSpell?: FieldSpell;
   containedElement?: FieldElement;
   containedStatus?: FieldStatus;
 }
 
+/**
+ * @category Gameplay
+ */
 export interface PlayableCard {
   spellId: string;
   instanceId: string;
 }
 
+/**
+ * @category Gameplay
+ */
 export interface ActivePlayer extends Spritable {
   id: string;
 
@@ -38,11 +48,17 @@ export interface ActivePlayer extends Spritable {
   statusEffects: Record<string, number>;
 }
 
+/**
+ * @category Gameplay
+ */
 export enum GamePlayer {
   Player = 'Player',
   Opponent = 'Opponent',
 }
 
+/**
+ * @category Gameplay
+ */
 export enum GamePhase {
   Start = 'Start',
   Draw = 'Draw',
@@ -52,13 +68,22 @@ export enum GamePhase {
   Victory = 'Victory',
 }
 
+/**
+ * @category Gameplay
+ */
 export type CurrentPhase = Record<`${GamePlayer}${GamePhase}`, boolean>;
 
+/**
+ * @category Gameplay
+ */
 export enum TurnOrder {
   Player = 0,
   Opponent = 1,
 }
 
+/**
+ * @category Gameplay
+ */
 export interface GameState {
   id: string;
   rng: number;
@@ -76,6 +101,9 @@ export interface GameState {
   spellQueue: string[];
 }
 
+/**
+ * @internal
+ */
 export interface GameStateInitOpts {
   fieldWidth: number;
   fieldHeight: number;
@@ -83,6 +111,9 @@ export interface GameStateInitOpts {
   enemyCharacter: Character;
 }
 
+/**
+ * @category Gameplay
+ */
 export interface SelectedCard {
   card: PlayableCard;
   index: number;

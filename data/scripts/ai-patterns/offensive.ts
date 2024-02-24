@@ -46,7 +46,6 @@ function makeDecision(opts: AIOpts): void {
     character: gamestate.players[gamestate.currentTurn],
     turnOrder: gamestate.currentTurn,
     card: chosen,
-    spellQueue: gamestate.spellQueue,
   });
 }
 

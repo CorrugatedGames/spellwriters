@@ -1,11 +1,19 @@
 import { type TurnOrder } from './gamestate';
 import { type Spritable } from './sprite';
 
+/**
+ * @category Spell
+ */
 export interface SpellElementInteraction {
   element: string;
   text: string;
 }
 
+/**
+ * @category Modding
+ * @category Spell
+ * @category Mod Data
+ */
 export interface SpellElement extends Spritable {
   name: string;
   key: string;
@@ -15,6 +23,10 @@ export interface SpellElement extends Spritable {
   interactions: SpellElementInteraction[];
 }
 
+/**
+ * @category Spell
+ * @category Field
+ */
 export interface FieldElement extends SpellElement {
   castId: string;
   caster: TurnOrder;

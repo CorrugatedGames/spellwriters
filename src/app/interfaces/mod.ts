@@ -9,10 +9,16 @@ import type { StatusEffect } from './statuseffect';
 import { type SpellTag } from './tag';
 import type { TileStatus } from './tile';
 
+/**
+ * @category Modding
+ */
 export interface ContentModSvg {
   name: string;
 }
 
+/**
+ * @category Modding
+ */
 export interface ContentModImage {
   name: string;
   spritesPerRow: number;
@@ -20,6 +26,9 @@ export interface ContentModImage {
   framesPerAnimation: number;
 }
 
+/**
+ * @internal
+ */
 export enum ContentModContentKey {
   Character = 'characters',
   Spell = 'spells',
@@ -33,6 +42,9 @@ export enum ContentModContentKey {
   StatusEffect = 'statusEffects',
 }
 
+/**
+ * @category Modding
+ */
 export interface ContentMod {
   name: string;
   description: string;

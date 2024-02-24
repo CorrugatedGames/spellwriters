@@ -1,5 +1,4 @@
 import {
-  SpellStatImpl,
   TurnOrder,
   type FieldNode,
   type FieldSpell,
@@ -21,9 +20,17 @@ import { callRitualGlobalFunction } from './ritual';
 import {
   defaultCollisionDamageReduction,
   isSpellDead,
-  setSpellStat,
+  lowerSpellTimer,
+  removeSpellFromQueue,
 } from './spell';
 
+/**
+ * Find all spells on the field, including those in secret zones.
+ *
+ * @category Field
+ * @category Spell
+ * @returns {Array<{ x: number; y: number; spell: FieldSpell }>}
+ */
 export function findSpellsOnField(): Array<{
   x: number;
   y: number;
@@ -43,6 +50,13 @@ export function findSpellsOnField(): Array<{
   return ret;
 }
 
+/**
+ * Find all known spells on the field, excluding those in secret zones.
+ *
+ * @category Field
+ * @category Spell
+ * @returns {Array<{ x: number; y: number; spell: FieldSpell }>}
+ */
 export function findKnownSpellsOnField(): Array<{
   x: number;
   y: number;
@@ -55,6 +69,12 @@ export function findKnownSpellsOnField(): Array<{
   );
 }
 
+/**
+ * Get a list of all field spaces.
+ *
+ * @category Field
+ * @returns {Array<{ x: number; y: number }>}
+ */
 export function getFieldSpaces(): Array<{
   x: number;
   y: number;
@@ -72,6 +92,13 @@ export function getFieldSpaces(): Array<{
   return ret;
 }
 
+/**
+ * Get a list of field spaces that can be targeted by spells.
+ *
+ * @category Field
+ * @category Spell
+ * @returns {Array<{ x: number; y: number }>}
+ */
 export function getTargettableFieldSpaces(): Array<{
   x: number;
   y: number;
@@ -84,6 +111,14 @@ export function getTargettableFieldSpaces(): Array<{
   );
 }
 
+/**
+ * Find a particular spell by its randomly generated ID (not content ID) on the field.
+ *
+ * @category Field
+ * @category Spell
+ * @param opts.spellId the spell ID to search for
+ * @returns {FieldSpell | undefined}
+ */
 export function findSpellOnField(opts: {
   spellId: string;
 }): FieldSpell | undefined {
@@ -101,6 +136,14 @@ export function findSpellOnField(opts: {
   return undefined;
 }
 
+/**
+ * Find the position of a particular spell on the field.
+ *
+ * @category Field
+ * @category Spell
+ * @param opts.spellId the spell ID to search for
+ * @returns {{ x: number; y: number } | undefined}
+ */
 export function findSpellPositionOnField(opts: {
   spellId: string;
 }): { x: number; y: number } | undefined {
@@ -118,6 +161,14 @@ export function findSpellPositionOnField(opts: {
   return undefined;
 }
 
+/**
+ * Get a specific space on the field.
+ *
+ * @category Field
+ * @param opts.x the x position of the space
+ * @param opts.y the y position of the space
+ * @returns {FieldNode | undefined}
+ */
 export function getSpaceFromField(opts: {
   x: number;
   y: number;
@@ -128,6 +179,14 @@ export function getSpaceFromField(opts: {
   return field[y]?.[x];
 }
 
+/**
+ * Check if a specific space on the field is empty.
+ *
+ * @category Field
+ * @param opts.x the x position of the space
+ * @param opts.y the y position of the space
+ * @returns {boolean}
+ */
 export function isFieldSpaceEmpty(opts: { x: number; y: number }): boolean {
   const { x, y } = opts;
 
@@ -137,6 +196,16 @@ export function isFieldSpaceEmpty(opts: { x: number; y: number }): boolean {
   return !node.containedSpell && !node.containedElement;
 }
 
+/**
+ * Get a list of targetable spaces for a spell, based on the pattern of the spell.
+ *
+ * @category Field
+ * @category Spell
+ * @param opts.spell the spell to check
+ * @param opts.x the x position of the spell
+ * @param opts.y the y position of the spell
+ * @returns {Record<number, Record<number, Spell>>}
+ */
 export function getTargettableSpacesForSpellAroundPosition(opts: {
   spell: Spell;
   x: number;
@@ -175,16 +244,14 @@ export function getTargettableSpacesForSpellAroundPosition(opts: {
   return targetField as Record<number, Record<number, Spell>>;
 }
 
-export function removeSpellFromQueue(opts: { spellId: string }): void {
-  const { spellId } = opts;
-  const { spellQueue } = gamestate();
-
-  const index = spellQueue.indexOf(spellId);
-  if (index !== -1) {
-    spellQueue.splice(index, 1);
-  }
-}
-
+/**
+ * Remove a spell from the field. This will stop it from interacting with the game.
+ *
+ * @category Field
+ * @category Spell
+ * @param opts.spellId the spell ID to remove
+ * @param opts.fullRemoval if true, the spell will also be removed from the action queue.
+ */
 export function removeSpellFromField(opts: {
   spellId: string;
   fullRemoval: boolean;
@@ -213,6 +280,18 @@ export function removeSpellFromField(opts: {
   }
 }
 
+/**
+ * Move a spell to a particular position. This will handle all collision and movement logic.
+ *
+ * @category Field
+ * @category Spell
+ * @param opts.spell the spell to move
+ * @param opts.currentX the current x position of the spell
+ * @param opts.currentY the current y position of the spell
+ * @param opts.nextX the next x position of the spell
+ * @param opts.nextY the next y position of the spell
+ * @param opts.disallowEntryIntoNextTile if true, the spell will not be allowed to move into the next tile
+ */
 export function moveSpellToPosition(opts: {
   spell: FieldSpell;
   currentX: number;
@@ -382,6 +461,13 @@ export function moveSpellToPosition(opts: {
   }
 }
 
+/**
+ * Move a spell exactly one step forward. Most spells utilize this to move.
+ *
+ * @category Field
+ * @category Spell
+ * @param opts.spell the spell to move
+ */
 export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
   const { spell } = opts;
 
@@ -401,16 +487,16 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
   });
 }
 
-export function lowerSpellTimer(opts: { spell: FieldSpell }): void {
-  const { spell } = opts;
-
-  setSpellStat({
-    spell,
-    stat: SpellStatImpl.CastTime,
-    value: Math.max(0, spell.castTime - 1),
-  });
-}
-
+/**
+ * Handle all spell movements. This is called at the end of every turn.
+ * This is one of very few `async` functions in the game, as it needs to handle spell movement in a way that doesn't block the game.
+ * It doesn't need to be called manually.
+ *
+ * @category Field
+ * @category Spell
+ * @internal
+ * @returns {Promise<void>}
+ */
 export async function handleEndOfTurnSpellActions(): Promise<void> {
   const { spellQueue, currentTurn } = gamestate();
 

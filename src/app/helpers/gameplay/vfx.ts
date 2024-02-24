@@ -1,7 +1,13 @@
-import { type WritableSignal, signal } from '@angular/core';
+import { signal, type WritableSignal } from '@angular/core';
 
+/**
+ * @internal
+ */
 export const phaseBannerString: WritableSignal<string> = signal('');
 
+/**
+ * @internal
+ */
 export function setPhaseBannerString(opts: {
   text: string;
   delay?: number;

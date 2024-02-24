@@ -6,10 +6,11 @@
     "art": "concurrently \"npm run art:build:*\"",
     "art:build:spritesheets": "ts-node scripts/generate-spritesheets",
     "blogpost:generate": "ts-node scripts/build-blog-version-notes",
-    "build": "npm run typescript:types && npm run lint && npm run gamedata && npm run validate && npm run build:versioninfo && npm run build:app",
+    "build": "npm run typescript:types && npm run lint && npm run gamedata && npm run validate && npm run build:versioninfo && npm run build:app && npm run build:docs",
     "build:app": "ng build --configuration production && npm run build:copypost",
     "build:copypost": "cpy CHANGELOG.md CHANGELOG-current.md dist/browser/assets",
     "build:dirtycheck": "ts-node scripts/build-dirtycheck",
+    "build:docs": "typedoc",
     "build:electron": "npm run build && npm run build:syncversion && npm run build:electron:package",
     "build:electron:package": "cd electron && npm run make",
     "build:reversion": "ts-node scripts/build-reversion",
@@ -143,6 +144,8 @@
     "recursive-readdir": "^2.2.3",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
+    "typedoc": "^0.25.8",
+    "typedoc-plugin-merge-modules": "^5.1.0",
     "typescript": "~5.2.2",
     "wait-on": "^7.2.0"
   }

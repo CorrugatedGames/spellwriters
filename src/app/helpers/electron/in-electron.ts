@@ -1,15 +1,34 @@
 import { type IDiscordPresenceOpts } from '../../interfaces';
 
-export function isInElectron() {
+/**
+ * Whether or not the game is running in an Electron environment.
+ *
+ * @category Native
+ * @returns boolean
+ */
+export function isInElectron(): boolean {
   return navigator.userAgent.toLowerCase().includes(' electron/');
 }
 
 let discordMainStatus = '';
-export function setMainDiscordStatus(status: string) {
+
+/**
+ * Set the main status for the Discord Rich Presence.
+ *
+ * @category Native
+ * @param status - The status to set.
+ */
+export function setMainDiscordStatus(status: string): void {
   discordMainStatus = status;
 }
 
-export function setDiscordStatus(status: IDiscordPresenceOpts) {
+/**
+ * Set the Discord Rich Presence status.
+ *
+ * @category Native
+ * @param status - The status to set.
+ */
+export function setDiscordStatus(status: IDiscordPresenceOpts): void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).discordRPCStatus = {
     ...status,

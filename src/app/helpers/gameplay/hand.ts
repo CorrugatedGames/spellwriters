@@ -3,6 +3,13 @@ import { getSpellById } from '../lookup/spells';
 import { manaCostForSpell } from './stats';
 import { getListOfTargetableTilesForSpell } from './targetting';
 
+/**
+ * Lose a hand card for a player. It will be added to the discard pile.
+ *
+ * @category Gameplay
+ * @param opts.player The player losing a card.
+ * @param opts.card The card to lose.
+ */
 export function loseCardInHand(opts: {
   player: ActivePlayer;
   card: PlayableCard;
@@ -13,6 +20,13 @@ export function loseCardInHand(opts: {
   player.discard.push(...lostCards);
 }
 
+/**
+ * Get the list of cards a player can play from their hand.
+ *
+ * @category Gameplay
+ * @param opts.player The player to get the playable cards for.
+ * @returns the list of playable cards.
+ */
 export function playableCardsInHand(opts: {
   player: ActivePlayer;
 }): PlayableCard[] {
@@ -33,6 +47,13 @@ export function playableCardsInHand(opts: {
   });
 }
 
+/**
+ * Check if a player can play any cards from their hand.
+ *
+ * @category Gameplay
+ * @param opts.player The player to check for playable cards.
+ * @returns true if the player can play cards from their hand.
+ */
 export function canPlayCardsInHand(opts: { player: ActivePlayer }): boolean {
   const { player } = opts;
   return playableCardsInHand({ player }).length > 0;

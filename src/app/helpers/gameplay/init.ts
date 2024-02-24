@@ -10,6 +10,9 @@ import { getId } from '../static/uuid';
 import { saveGamestate } from './gamestate';
 import { turnCharacterIntoActivePlayer } from './transform';
 
+/**
+ * @internal
+ */
 export function createBlankFieldRecord(opts: {
   width: number;
   height: number;
@@ -31,6 +34,9 @@ export function createBlankFieldRecord(opts: {
   return field;
 }
 
+/**
+ * @internal
+ */
 export function createBlankField(opts: {
   width: number;
   height: number;
@@ -51,6 +57,9 @@ export function createBlankField(opts: {
   return field;
 }
 
+/**
+ * @internal
+ */
 export function createBlankActivePlayer(): ActivePlayer {
   return {
     id: '',
@@ -78,6 +87,9 @@ export function createBlankActivePlayer(): ActivePlayer {
   };
 }
 
+/**
+ * @internal
+ */
 export function createBlankGameState(): GameState {
   return {
     id: '',
@@ -96,6 +108,9 @@ export function createBlankGameState(): GameState {
   };
 }
 
+/**
+ * @internal
+ */
 export function createFreshGameState(opts: {
   id: string;
   gamestateInitOpts: GameStateInitOpts;
@@ -126,6 +141,9 @@ export function createFreshGameState(opts: {
   };
 }
 
+/**
+ * @internal
+ */
 export function startCombat(opts: {
   gamestateInitOpts: GameStateInitOpts;
 }): void {

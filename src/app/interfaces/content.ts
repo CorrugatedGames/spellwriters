@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export type ContentType =
   | 'AIPattern'
   | 'ElementalCollision'
@@ -8,6 +11,9 @@ export type ContentType =
   | 'StatusEffect'
   | 'TileStatus';
 
+/**
+ * @internal
+ */
 export interface ContentItem {
   __contentType: ContentType;
 }

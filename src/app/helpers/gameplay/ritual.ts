@@ -72,6 +72,15 @@ function getAllTileStatuses(): RitualCurrentContextTileArgs['tileContext'][] {
     .filter(Boolean) as RitualCurrentContextTileArgs['tileContext'][];
 }
 
+/**
+ * Check if the current spell is the spell mentioned in the context.
+ * Used by Rituals to determine if a spell is the one being referred to.
+ *
+ * @category Ritual
+ * @param opts.funcOpts The default arguments for the Ritual function.
+ * @param opts.context The context to check against.
+ * @returns true if the `castId` of the current spell matches the `castId` of the context spell.
+ */
 export function isCurrentSpellContextSpell(opts: {
   funcOpts: RitualSpellDefaultArgs;
   context: RitualCurrentContextSpellArgs;
@@ -80,12 +89,27 @@ export function isCurrentSpellContextSpell(opts: {
   return funcOpts.spell.castId === context.spellContext.spell.castId;
 }
 
+/**
+ * Check if the given player is the current turn.
+ *
+ * @category Ritual
+ * @param opts.player The player to check.
+ * @returns true if the player is the current turn.
+ */
 export function isCurrentTurn(opts: { player: ActivePlayer }): boolean {
   const { player } = opts;
   const state = gamestate();
   return state.currentTurn === player.turnOrder;
 }
 
+/**
+ * Check if the given player owns a spell.
+ *
+ * @category Ritual
+ * @param opts.spell The spell to check.
+ * @param opts.player The player to check.
+ * @returns true if the player owns the spell.
+ */
 export function isSpellOwnedBy(opts: {
   spell: FieldSpell;
   owner: ActivePlayer;
@@ -94,8 +118,78 @@ export function isSpellOwnedBy(opts: {
   return spell.caster === owner.turnOrder;
 }
 
+/**
+ * @internal
+ */
 type RitualImplGeneric = keyof RitualImpl;
 
+function callRitualSpellFunction<T extends RitualImplGeneric>(opts: {
+  func: T;
+  funcOpts: Parameters<RitualImpl[T]>[0];
+  context: RitualCurrentContextSpellArgs;
+}): undefined | boolean[] {
+  const { func, funcOpts, context } = opts;
+  const spell = context.spellContext.spell;
+  const allTags = getSpellTags({ spell });
+
+  const returnVals = [
+    getSpellImpl(spell.id)?.[func]?.(funcOpts as never, context),
+
+    allTags.map((tag) =>
+      getSpellTagImpl(tag.id)?.[func]?.(funcOpts as never, {
+        ...freeze(context),
+        spellTagContext: freeze(tag),
+      }),
+    ),
+  ]
+    .flat(Infinity)
+    .filter(Boolean) as boolean[];
+
+  const returnValsTF = returnVals.filter(isTF);
+  return returnValsTF.length > 0 ? returnValsTF : undefined;
+}
+
+function callRitualRelicFunction<T extends RitualImplGeneric>(opts: {
+  func: T;
+  funcOpts: Parameters<RitualImpl[T]>[0];
+  context: RitualCurrentContextRelicArgs;
+}): undefined | boolean {
+  const { func, funcOpts, context } = opts;
+
+  const relicImpl = getRelicImpl(context.relicContext.id);
+  return relicImpl?.[func]?.(funcOpts as never, context) ?? undefined;
+}
+
+function callRitualStatusEffectFunction<T extends RitualImplGeneric>(opts: {
+  func: T;
+  funcOpts: Parameters<RitualImpl[T]>[0];
+  context: RitualCurrentContextStatusEffectArgs;
+}): undefined | boolean {
+  const { func, funcOpts, context } = opts;
+
+  const statusEffectImpl = getStatusEffectImpl(context.statusEffectContext.id);
+  return statusEffectImpl?.[func]?.(funcOpts as never, context) ?? undefined;
+}
+
+function callRitualTileFunction<T extends RitualImplGeneric>(opts: {
+  func: T;
+  funcOpts: Parameters<RitualImpl[T]>[0];
+  context: RitualCurrentContextTileArgs;
+}): undefined | boolean {
+  const { func, funcOpts, context } = opts;
+
+  const tileStatusImpl = getTileStatusImpl(context.tileContext.id);
+  return tileStatusImpl?.[func]?.(funcOpts as never, context) ?? undefined;
+}
+
+/**
+ * Call a Ritual function on all spells, relics, tiles, and status effects.
+ *
+ * @category Ritual
+ * @param opts.func The function to call. Is type checked to ensure it exists.
+ * @param opts.funcOpts The default arguments for the Ritual function. Type checked to ensure they match the function.
+ * @returns whatever the Ritual function returns. If it returns a boolean, it will return an array of booleans. If it returns undefined, it will return undefined.
+ */
 export function callRitualGlobalFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
@@ -140,65 +234,4 @@ export function callRitualGlobalFunction<T extends RitualImplGeneric>(opts: {
 
   const returnValsTF = returnVals.filter(isTF);
   return returnValsTF.length > 0 ? returnValsTF : undefined;
-}
-
-export function callRitualSpellFunction<T extends RitualImplGeneric>(opts: {
-  func: T;
-  funcOpts: Parameters<RitualImpl[T]>[0];
-  context: RitualCurrentContextSpellArgs;
-}): undefined | boolean[] {
-  const { func, funcOpts, context } = opts;
-  const spell = context.spellContext.spell;
-  const allTags = getSpellTags({ spell });
-
-  const returnVals = [
-    getSpellImpl(spell.id)?.[func]?.(funcOpts as never, context),
-
-    allTags.map((tag) =>
-      getSpellTagImpl(tag.id)?.[func]?.(funcOpts as never, {
-        ...freeze(context),
-        spellTagContext: freeze(tag),
-      }),
-    ),
-  ]
-    .flat(Infinity)
-    .filter(Boolean) as boolean[];
-
-  const returnValsTF = returnVals.filter(isTF);
-  return returnValsTF.length > 0 ? returnValsTF : undefined;
-}
-
-export function callRitualRelicFunction<T extends RitualImplGeneric>(opts: {
-  func: T;
-  funcOpts: Parameters<RitualImpl[T]>[0];
-  context: RitualCurrentContextRelicArgs;
-}): undefined | boolean {
-  const { func, funcOpts, context } = opts;
-
-  const relicImpl = getRelicImpl(context.relicContext.id);
-  return relicImpl?.[func]?.(funcOpts as never, context) ?? undefined;
-}
-
-export function callRitualStatusEffectFunction<
-  T extends RitualImplGeneric,
->(opts: {
-  func: T;
-  funcOpts: Parameters<RitualImpl[T]>[0];
-  context: RitualCurrentContextStatusEffectArgs;
-}): undefined | boolean {
-  const { func, funcOpts, context } = opts;
-
-  const statusEffectImpl = getStatusEffectImpl(context.statusEffectContext.id);
-  return statusEffectImpl?.[func]?.(funcOpts as never, context) ?? undefined;
-}
-
-export function callRitualTileFunction<T extends RitualImplGeneric>(opts: {
-  func: T;
-  funcOpts: Parameters<RitualImpl[T]>[0];
-  context: RitualCurrentContextTileArgs;
-}): undefined | boolean {
-  const { func, funcOpts, context } = opts;
-
-  const tileStatusImpl = getTileStatusImpl(context.tileContext.id);
-  return tileStatusImpl?.[func]?.(funcOpts as never, context) ?? undefined;
 }

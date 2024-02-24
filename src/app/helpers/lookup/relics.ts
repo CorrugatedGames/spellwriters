@@ -4,16 +4,28 @@ import { clone } from '../static/object';
 
 const AllRelics: Record<string, RitualImpl> = {};
 
+/**
+ * @internal
+ */
 export const relicData: WritableSignal<Record<string, Relic>> = signal({});
 
+/**
+ * @internal
+ */
 export function allRelics() {
   return clone(Object.values(relicData()));
 }
 
+/**
+ * @internal
+ */
 export function addRelicImpl(key: string, relic: RitualImpl) {
   AllRelics[key] = relic;
 }
 
+/**
+ * @internal
+ */
 export function getRelicById(id: string): Relic | undefined {
   const data = relicData();
   const ref = data[id];
@@ -21,10 +33,16 @@ export function getRelicById(id: string): Relic | undefined {
   return ref ? clone(ref) : undefined;
 }
 
+/**
+ * @internal
+ */
 export function getRelicKey(id: string): string | undefined {
   return getRelicById(id)?.key;
 }
 
+/**
+ * @internal
+ */
 export function getRelicByName(name: string): Relic | undefined {
   const data = relicData();
   const id = Object.values(data).find((relic) => relic.name === name)?.id;
@@ -33,6 +51,9 @@ export function getRelicByName(name: string): Relic | undefined {
   return getRelicById(id);
 }
 
+/**
+ * @internal
+ */
 export function getRelicImpl(id: string): RitualImpl | undefined {
   if (!id) return undefined;
 

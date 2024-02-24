@@ -11,6 +11,9 @@ import {
 import { getId } from '../static/uuid';
 import { drawCard, shuffleDeck } from './turn';
 
+/**
+ * @internal
+ */
 export function createBlankStateMachineMap(): CurrentPhase {
   const keys: Partial<CurrentPhase> = {};
 
@@ -23,6 +26,9 @@ export function createBlankStateMachineMap(): CurrentPhase {
   return keys as CurrentPhase;
 }
 
+/**
+ * @internal
+ */
 export function phaseObjectFromGameState(opts: { state: GameState }): {
   turn: string;
   phase: GamePhase;
@@ -34,6 +40,9 @@ export function phaseObjectFromGameState(opts: { state: GameState }): {
   };
 }
 
+/**
+ * @internal
+ */
 export function phaseNameFromGameState(opts: { state: GameState }): string {
   const { state } = opts;
   const { turn, phase } = phaseObjectFromGameState({ state });
@@ -41,6 +50,9 @@ export function phaseNameFromGameState(opts: { state: GameState }): string {
   return `${turn} ${phase}`;
 }
 
+/**
+ * @internal
+ */
 export function stateMachineMapFromGameState(opts: {
   state: GameState;
 }): CurrentPhase {
@@ -53,11 +65,17 @@ export function stateMachineMapFromGameState(opts: {
   };
 }
 
+/**
+ * @internal
+ */
 export function turnCardIntoPlayableCard(opts: { id: string }): PlayableCard {
   const { id } = opts;
   return { spellId: id, instanceId: getId() };
 }
 
+/**
+ * @internal
+ */
 export function turnCharacterIntoActivePlayer(opts: {
   character: Character;
   turnOrder: TurnOrder;

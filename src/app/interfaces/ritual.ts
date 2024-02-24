@@ -2,98 +2,161 @@ import { type ActivePlayer, type GamePhase, type TurnOrder } from './gamestate';
 import { type FieldSpell, type Spell, type SpellStatImpl } from './spell';
 import type { FieldStatus } from './tile';
 
+/**
+ * @category Ritual
+ */
 export interface RitualDefaultArgs {}
 
+/**
+ * @category Ritual
+ */
 export interface RitualRelicDefaultArgs extends RitualDefaultArgs {
   relicId: string;
   stacks: number;
   owner: ActivePlayer;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellPlaceCheckArgs {
   spell: Spell;
   x: number;
   y: number;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellDefaultArgs extends RitualDefaultArgs {
   spell: FieldSpell;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellTagSpaceArgs extends RitualSpellDefaultArgs {
   x: number;
   y: number;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellTagSpacePlacementArgs
   extends RitualSpellTagSpaceArgs {
   placeNum: number;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellTagCollisionArgs extends RitualSpellDefaultArgs {
   collidedWith: FieldSpell;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellTagCollisionSpaceArgs
   extends RitualSpellTagCollisionArgs {
   collisionX: number;
   collisionY: number;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualCharacterArgs extends RitualDefaultArgs {
   character: ActivePlayer;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualCharacterManaArgs extends RitualCharacterArgs {
   mana: number;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualCharacterHealthArgs extends RitualCharacterArgs {
   health: number;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellCancelArgs extends RitualSpellDefaultArgs {
   canceledSpell: FieldSpell;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellCanceledArgs extends RitualSpellDefaultArgs {
   canceledBySpell: FieldSpell;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellDestroyArgs extends RitualSpellDefaultArgs {
   destroyedSpell: FieldSpell;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellDestroyedArgs extends RitualSpellDefaultArgs {
   destroyedBySpell: FieldSpell;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellDamageArgs extends RitualSpellDefaultArgs {
   damage: number;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellTagChangeArgs extends RitualSpellDefaultArgs {
   tag: string;
   newValue: number;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualSpellStatChangeArgs extends RitualSpellDefaultArgs {
   stat: SpellStatImpl;
   oldValue: string | number;
   newValue: string | number;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualPhaseChangeArgs extends RitualDefaultArgs {
   newPhase: GamePhase;
   newTurn: TurnOrder;
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualCurrentContextSpellArgs {
   spellContext: {
     spell: FieldSpell;
   };
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualCurrentContextSpellTagArgs {
   spellTagContext: {
     id: string;
@@ -102,6 +165,9 @@ export interface RitualCurrentContextSpellTagArgs {
   };
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualCurrentContextRelicArgs {
   relicContext: {
     id: string;
@@ -111,6 +177,9 @@ export interface RitualCurrentContextRelicArgs {
   };
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualCurrentContextStatusEffectArgs {
   statusEffectContext: {
     id: string;
@@ -120,6 +189,9 @@ export interface RitualCurrentContextStatusEffectArgs {
   };
 }
 
+/**
+ * @category Ritual
+ */
 export interface RitualCurrentContextTileArgs {
   tileContext: {
     id: string;
@@ -130,6 +202,9 @@ export interface RitualCurrentContextTileArgs {
   };
 }
 
+/**
+ * @category Ritual
+ */
 export type RitualCurrentContextArgs =
   | RitualCurrentContextSpellArgs
   | RitualCurrentContextSpellTagArgs
@@ -137,6 +212,10 @@ export type RitualCurrentContextArgs =
   | RitualCurrentContextStatusEffectArgs
   | RitualCurrentContextTileArgs;
 
+/**
+ * @category Ritual
+ * @category Modding
+ */
 export interface RitualImpl {
   // fired when figuring out valid spell placement locations
   // ✅ implemented in getTargettableSpacesForSpellAroundPosition

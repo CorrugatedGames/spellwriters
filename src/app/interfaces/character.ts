@@ -1,5 +1,10 @@
 import { type Spritable } from './sprite';
 
+/**
+ * @category Modding
+ * @category Character
+ * @category Mod Data
+ */
 export interface Character extends Spritable {
   name: string;
   id: string;
@@ -13,6 +18,9 @@ export interface Character extends Spritable {
   relics: Record<string, number>;
 }
 
+/**
+ * @category Character
+ */
 export interface Deck {
   name: string;
   spells: string[];

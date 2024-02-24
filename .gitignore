@@ -52,3 +52,6 @@ electron/node_modules
 electron/icons
 electron/out
 electron/browser
+
+docs/
+src/assets/docs

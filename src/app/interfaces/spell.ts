@@ -1,6 +1,9 @@
 import { type TurnOrder } from './gamestate';
 import { type Spritable } from './sprite';
 
+/**
+ * @category Spell
+ */
 export enum SpellStat {
   Damage = 'damage',
   Speed = 'speed',
@@ -10,6 +13,9 @@ export enum SpellStat {
   Pattern = 'pattern',
 }
 
+/**
+ * @category Spell
+ */
 export enum SpellStatImpl {
   Damage = 'damage',
   Speed = 'speed',
@@ -20,6 +26,11 @@ export enum SpellStatImpl {
   Pattern = 'pattern',
 }
 
+/**
+ * @category Spell
+ * @category Modding
+ * @category Mod Data
+ */
 export interface Spell extends Spritable {
   name: string;
   id: string;
@@ -40,6 +51,10 @@ export interface Spell extends Spritable {
   tags: Record<string, number>;
 }
 
+/**
+ * @category Spell
+ * @category Field
+ */
 export interface FieldSpell extends Spell {
   caster: TurnOrder;
   castId: string;

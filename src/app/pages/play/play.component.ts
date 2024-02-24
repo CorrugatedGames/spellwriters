@@ -220,7 +220,6 @@ export class PlayComponent {
 
     handleEntireSpellcastSequence({
       character: this.player,
-      spellQueue: this.gamestate.spellQueue,
       x,
       y,
       turnOrder: this.gamestate.currentTurn,

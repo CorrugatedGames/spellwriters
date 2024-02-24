@@ -1,3 +1,7 @@
+/**
+ * @module Helpers
+ */
+
 export * from './ai';
 export * from './character';
 export * from './collision';

@@ -5,10 +5,12 @@ import { gainMana } from './stats';
 import { reshuffleDeck } from './turn';
 import { setPhaseBannerString } from './vfx';
 
-/*
+/**
  * This function is marked async, but it doesn't actually do anything asynchronous.
  * The entire purpose is to wait for moveAllSpellsForward() which may have delays in it
  * for the animations.
+ *
+ * @internal
  */
 export async function nextPhase(): Promise<void> {
   const state = gamestate();
@@ -100,6 +102,9 @@ export async function nextPhase(): Promise<void> {
   }
 }
 
+/**
+ * @internal
+ */
 export function hasAnyoneWon(): boolean {
   const { players } = gamestate();
   if (players.length < 2) return false;
@@ -107,6 +112,9 @@ export function hasAnyoneWon(): boolean {
   return players.some((player) => player.health === 0);
 }
 
+/**
+ * @internal
+ */
 export function declareVictory(): void {
   const state = gamestate();
 

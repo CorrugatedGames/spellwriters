@@ -3,6 +3,12 @@ import {
   type ElementalCollisionImpl,
 } from '../../../interfaces';
 
+/**
+ * The default Elemental Collision.
+ *
+ * @category Elemental Collision
+ * @category Content Item
+ */
 export const plainElementalCollision: ElementalCollisionImpl & ContentItem = {
   __contentType: 'ElementalCollision',
   collide: () => {},
@@ -12,6 +18,14 @@ export const plainElementalCollision: ElementalCollisionImpl & ContentItem = {
   onSpellExit: () => {},
 };
 
+/**
+ * The default Elemental Collision.
+ *
+ * @category Elemental Collision
+ * @category Content Item
+ *
+ * @returns The default Elemental Collision.
+ */
 export const defaultElementalCollision: () => ElementalCollisionImpl = () => ({
   ...plainElementalCollision,
 });

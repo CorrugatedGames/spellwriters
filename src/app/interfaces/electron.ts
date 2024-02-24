@@ -1,3 +1,6 @@
+/**
+ * @category Native
+ */
 export interface IDiscordPresenceOpts {
   state?: string;
   details?: string;

@@ -2,6 +2,14 @@ import type { FieldSpell, Spell, TurnOrder } from '../../interfaces';
 import { getId } from '../static/uuid';
 import { gamestate } from './gamestate';
 
+/**
+ * Get the extra data for a field spell.
+ *
+ * @category Field Spell
+ * @param opts.spell - The spell to get the extra data for
+ * @param opts.key - The key to get from the extra data
+ * @returns {unknown}
+ */
 export function getExtraDataForFieldSpell(opts: {
   spell: FieldSpell;
   key: string;
@@ -11,6 +19,14 @@ export function getExtraDataForFieldSpell(opts: {
   return spell.extraData[key];
 }
 
+/**
+ * Set the extra data for a field spell.
+ *
+ * @category Field Spell
+ * @param opts.spell - The spell to set the extra data for
+ * @param opts.key - The key to set in the extra data
+ * @param opts.value - The value to set in the extra data
+ */
 export function setExtraDataForFieldSpell(opts: {
   spell: FieldSpell;
   key: string;
@@ -21,6 +37,15 @@ export function setExtraDataForFieldSpell(opts: {
   spell.extraData[key] = value;
 }
 
+/**
+ * Convert a spell to a field spell.
+ *
+ * @category Field Spell
+ * @param opts.spell - The spell to convert
+ * @param opts.caster - The caster of the spell
+ * @param opts.extraData - Extra data to add to the field spell
+ * @returns {FieldSpell} the new field spell
+ */
 export function spellToFieldSpell(opts: {
   spell: Spell;
   caster: TurnOrder;
@@ -36,10 +61,25 @@ export function spellToFieldSpell(opts: {
   };
 }
 
+/**
+ * Clear the field spell from a given tile.
+ *
+ * @category Field Spell
+ * @param opts.x - The x position to clear
+ * @param opts.y - The y position to clear
+ */
 export function clearFieldSpell(opts: { x: number; y: number }): void {
   setFieldSpell({ x: opts.x, y: opts.y, spell: undefined });
 }
 
+/**
+ * Set the field spell at a given position.
+ *
+ * @category Field Spell
+ * @param opts.x - The x position to set
+ * @param opts.y - The y position to set
+ * @param opts.spell - The spell to set. Can be undefined, which will clear the field spell.
+ */
 export function setFieldSpell(opts: {
   x: number;
   y: number;

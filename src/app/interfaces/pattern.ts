@@ -1,11 +1,20 @@
 import type { ContentItem } from './content';
 
+/**
+ * @category Modding
+ * @category Spell
+ * @category Mod Data
+ */
 export interface SpellPattern {
   name: string;
   id: string;
   key: string;
 }
 
+/**
+ * @category Modding
+ * @category Spell
+ */
 export interface SpellPatternImpl extends ContentItem {
   chooseTargetableTiles(opts: {
     allTargettableNodes: Array<{ x: number; y: number }>;

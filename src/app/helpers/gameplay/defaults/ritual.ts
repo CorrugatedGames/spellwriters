@@ -41,6 +41,13 @@ function debugLog(func: string, opts: { args: unknown; context: unknown }) {
   console.info(`[${owner}-${type}:${contentType}]`, func, { args, context });
 }
 
+/**
+ * The debug Ritual. Will output all events to the console.
+ *
+ * @category Ritual
+ * @category Debug
+ * @category Content Item
+ */
 export const debugRitual: RitualImpl = {
   onSpellPlace: (args, context) => {
     debugLog('onSpellPlace', { args, context });
@@ -105,6 +112,12 @@ export const debugRitual: RitualImpl = {
     debugLog('onPlayerLoseMana', { args, context }),
 };
 
+/**
+ * The default Ritual.
+ *
+ * @category Ritual
+ * @category Content Item
+ */
 export const plainRitual: RitualImpl = {
   onSpellPlace: () => true,
   onSpellPlaced: () => {},
@@ -142,27 +155,62 @@ const defaultRitual: () => RitualImpl = () => ({
   ...plainRitual,
 });
 
+/**
+ * The default Ritual as a relic.
+ *
+ * @category Ritual
+ * @category Content Item
+ * @returns The default Ritual for Relics.
+ */
 export const defaultRitualRelic: () => RitualImpl & ContentItem = () => ({
   __contentType: 'Relic',
   ...defaultRitual(),
 });
 
+/**
+ * The default Ritual as a spell.
+ *
+ * @category Ritual
+ * @category Content Item
+ * @returns The default Ritual for Spells.
+ */
 export const defaultRitualSpell: () => RitualImpl & ContentItem = () => ({
   __contentType: 'Spell',
   ...defaultRitual(),
 });
 
+/**
+ * The default Ritual as a spell tag.
+ *
+ * @category Ritual
+ * @category Content Item
+ * @returns The default Ritual for Spell Tags.
+ */
 export const defaultRitualSpellTag: () => RitualImpl & ContentItem = () => ({
   __contentType: 'SpellTag',
   ...defaultRitual(),
 });
 
+/**
+ * The default Ritual as a status effect.
+ *
+ * @category Ritual
+ * @category Content Item
+ * @returns The default Ritual for Status Effects.
+ */
 export const defaultRitualStatusEffect: () => RitualImpl &
   ContentItem = () => ({
   __contentType: 'StatusEffect',
   ...defaultRitual(),
 });
 
+/**
+ * The default Ritual as a tile status.
+ *
+ * @category Ritual
+ * @category Content Item
+ * @returns The default Ritual for Tile Statuses.
+ */
 export const defaultRitualTileStatus: () => RitualImpl & ContentItem = () => ({
   __contentType: 'TileStatus',
   ...defaultRitual(),
