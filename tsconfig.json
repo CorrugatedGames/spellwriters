@@ -51,7 +51,8 @@
     "hideGenerator": true,
     "excludeInternal": true,
     "name": "Spellwriters API",
-    "plugin": ["typedoc-plugin-merge-modules"],
+    "plugin": ["typedoc-plugin-merge-modules", "typedoc-material-theme"],
+    "themeColor": "#6750a4",
     "mergeModulesRenameDefaults": true,
     "mergeModulesMergeMode": "project"
   }

@@ -6,7 +6,7 @@
     "art": "concurrently \"npm run art:build:*\"",
     "art:build:spritesheets": "ts-node scripts/generate-spritesheets",
     "blogpost:generate": "ts-node scripts/build-blog-version-notes",
-    "build": "npm run typescript:types && npm run lint && npm run gamedata && npm run validate && npm run build:versioninfo && npm run build:app && npm run build:docs",
+    "build": "npm run typescript:types && npm run lint && npm run gamedata && npm run validate && npm run build:versioninfo && npm run build:docs && npm run build:app",
     "build:app": "ng build --configuration production && npm run build:copypost",
     "build:copypost": "cpy CHANGELOG.md CHANGELOG-current.md dist/browser/assets",
     "build:dirtycheck": "ts-node scripts/build-dirtycheck",
@@ -145,6 +145,7 @@
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.8",
+    "typedoc-material-theme": "^1.0.2",
     "typedoc-plugin-merge-modules": "^5.1.0",
     "typescript": "~5.2.2",
     "wait-on": "^7.2.0"
