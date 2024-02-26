@@ -74,8 +74,12 @@ function getRawTargettableTilesForSpell(opts: {
 /**
  * Check whether or not a spell can be placed on a particular tile.
  *
- * @param opts
- * @returns
+ * @category Spell
+ * @category Field
+ * @param opts.spell The spell to check.
+ * @param opts.x The x position of the spell.
+ * @param opts.y The y position of the spell.
+ * @returns true if the spell can be placed on the tile, false otherwise.
  */
 export function canPlaceSpellOnTile(opts: {
   spell: Spell;
@@ -100,7 +104,8 @@ export function canPlaceSpellOnTile(opts: {
 /**
  * Get a list of valid target tiles for a spell based on the spell's pattern.
  *
- * @category Gameplay
+ * @category Spell
+ * @category Field
  * @param opts.spell The spell to get valid target tiles for.
  * @param opts.turn The person to get the target tiles for.
  * @returns A list of valid target tiles for the spell.
@@ -128,7 +133,8 @@ export function getListOfTargetableTilesForSpellBasedOnPattern(opts: {
 /**
  * Get a list of valid target tiles for a spell. Will return all possible tiles if there are none suggested by the pattern.
  *
- * @category Gameplay
+ * @category Spell
+ * @category Field
  * @param opts.spell The spell to get valid target tiles for.
  * @param opts.turn The person to get the target tiles for.
  * @returns A list of valid target tiles for the spell.
