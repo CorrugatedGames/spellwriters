@@ -6,7 +6,10 @@ import {
 } from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
 import { seededrng } from '../static/rng';
-import { getTargettableSpacesForSpellAroundPosition } from './field';
+import {
+  getTargettableSpacesForSpellAroundPosition,
+  removeSpellFromField,
+} from './field';
 import { setFieldSpell, spellToFieldSpell } from './field-spell';
 import { gamestate } from './gamestate';
 import { loseCardInHand } from './hand';
@@ -210,6 +213,13 @@ export function handleEntireSpellcastSequence(opts: {
         func: 'onSpellPlaced',
         funcOpts: { spell: newlyCastSpell, x, y, placeNum: placeNum++ },
       });
+
+      if (spellData.instant) {
+        removeSpellFromField({
+          spellId: newlyCastSpell.castId,
+          fullRemoval: true,
+        });
+      }
     }
   }
 

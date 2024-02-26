@@ -69,6 +69,9 @@
         <div class="col-12">
           <div class="text-container">
             <div class="description">
+              @if(spellData.instant) {
+              <sw-icon category="stat" name="instant" [size]="16" ngbTooltip="This spell is instant."></sw-icon>
+              }
               {{ spellData.description }}
             </div>
 

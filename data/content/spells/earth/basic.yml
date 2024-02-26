@@ -54,3 +54,22 @@
 
   tags:
     oily: 1
+
+- name: Earthsong
+  key: earthconvert1
+  id: 4237648f-2d1d-4f3f-9b74-e2d2451283bf
+  description: Convert all Devastated tiles to Fertile tiles.
+  sprite: 28
+
+  element: earth
+  rarity: uncommon
+
+  instant: true
+
+  damage: 0
+  speed: 0
+  cost: 3
+  castTime: 0
+  depthMin: 1
+  depthMax: 1
+  pattern: double

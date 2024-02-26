@@ -7,6 +7,7 @@ import {
   type RitualCurrentContextTileArgs,
   type RitualImpl,
   type RitualSpellDefaultArgs,
+  type RitualSpellTagSpacePlacementArgs,
 } from '../../interfaces';
 import { getRelicImpl, getRelicKey } from '../lookup/relics';
 import { getSpellTagImpl } from '../lookup/spell-tags';
@@ -87,6 +88,22 @@ export function isCurrentSpellContextSpell(opts: {
 }): boolean {
   const { funcOpts, context } = opts;
   return funcOpts.spell.castId === context.spellContext.spell.castId;
+}
+
+/**
+ * Check if the current invocation is the first invocation of a spell placement.
+ * Ordinarily, a spell will call a function for each space it is placed on.
+ * This function will return true if it is the first invocation of the spell.
+ *
+ * @category Ritual
+ * @param opts.funcOpts The funcOpts for spell placement.
+ * @returns true if this is the first placement of the spell
+ */
+export function isFirstInvocationOfPlacedSpell(opts: {
+  funcOpts: RitualSpellTagSpacePlacementArgs;
+}): boolean {
+  const { funcOpts } = opts;
+  return funcOpts.placeNum === 0;
 }
 
 /**

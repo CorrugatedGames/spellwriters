@@ -40,6 +40,8 @@ export interface Spell extends Spritable {
   element: string;
   rarity: string;
 
+  instant?: boolean;
+
   [SpellStatImpl.Damage]: number;
   [SpellStatImpl.Speed]: number;
   [SpellStatImpl.Cost]: number;

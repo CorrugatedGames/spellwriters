@@ -43,6 +43,9 @@
 - name: stat-depth
   color: '#4adde7'
 
+- name: stat-instant
+  color: '#fff'
+
 - name: stat-pattern
   color: '#d3e68e'
 
