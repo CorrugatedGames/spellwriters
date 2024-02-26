@@ -1,4 +1,5 @@
 import type { ContentItem } from './content';
+import type { Spell } from './spell';
 
 /**
  * @category Modding
@@ -17,6 +18,7 @@ export interface SpellPattern {
  */
 export interface SpellPatternImpl extends ContentItem {
   chooseTargetableTiles(opts: {
+    spell: Spell;
     allTargettableNodes: Array<{ x: number; y: number }>;
   }): Array<{ x: number; y: number }>;
 

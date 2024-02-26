@@ -1,7 +1,9 @@
 import { TurnOrder, type Spell } from '../../interfaces';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getSpellById } from '../lookup/spells';
+import { getSpaceFromField } from './field';
 import { gamestate } from './gamestate';
+import { callRitualGlobalFunction } from './ritual';
 
 function getListOfTargettableTilesForSpell(opts: {
   spell: Spell;
@@ -70,6 +72,32 @@ function getRawTargettableTilesForSpell(opts: {
 }
 
 /**
+ * Check whether or not a spell can be placed on a particular tile.
+ *
+ * @param opts
+ * @returns
+ */
+export function canPlaceSpellOnTile(opts: {
+  spell: Spell;
+  x: number;
+  y: number;
+}): boolean {
+  const { spell, x, y } = opts;
+
+  const tileData = getSpaceFromField({ x, y });
+  if (!tileData) return false;
+
+  if (tileData.containedSpell) return false;
+
+  return (
+    callRitualGlobalFunction({
+      func: 'onSpellPlace',
+      funcOpts: { spell, x, y },
+    }) as boolean[]
+  ).every(Boolean);
+}
+
+/**
  * Get a list of valid target tiles for a spell based on the spell's pattern.
  *
  * @category Gameplay
@@ -90,6 +118,7 @@ export function getListOfTargetableTilesForSpellBasedOnPattern(opts: {
   if (!pattern) return allTiles;
 
   const suggestedTiles = pattern.chooseTargetableTiles({
+    spell,
     allTargettableNodes: allTiles,
   });
 

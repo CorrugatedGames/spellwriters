@@ -23,6 +23,7 @@ import {
   lowerSpellTimer,
   removeSpellFromQueue,
 } from './spell';
+import { canPlaceSpellOnTile } from './targetting';
 
 /**
  * Find all spells on the field, including those in secret zones.
@@ -229,13 +230,7 @@ export function getTargettableSpacesForSpellAroundPosition(opts: {
     }) ?? [];
 
   allTiles.forEach((tile) => {
-    const canPlaceHere = (
-      callRitualGlobalFunction({
-        func: 'onSpellPlace',
-        funcOpts: { spell, x: tile.x, y: tile.y },
-      }) as boolean[]
-    ).every(Boolean);
-
+    const canPlaceHere = canPlaceSpellOnTile({ spell, x: tile.x, y: tile.y });
     if (!canPlaceHere) return;
 
     setInTargetField(tile.x, tile.y);

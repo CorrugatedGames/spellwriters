@@ -1,17 +1,15 @@
-import type { SpellPatternImpl } from '../../../typings/interfaces';
+import type { Spell, SpellPatternImpl } from '../../../typings/interfaces';
 
 function chooseTargetableTiles(opts: {
+  spell: Spell;
   allTargettableNodes: Array<{ x: number; y: number }>;
 }) {
-  const { allTargettableNodes } = opts;
+  const { allTargettableNodes, spell } = opts;
   return allTargettableNodes.filter((node) => {
-    const rightNode = window.api.getSpaceFromField({
-      x: node.x + 1,
-      y: node.y,
-    });
-    if (!rightNode) return false;
-
-    return !rightNode.containedSpell;
+    return (
+      window.api.canPlaceSpellOnTile({ spell, x: node.x, y: node.y }) &&
+      window.api.canPlaceSpellOnTile({ spell, x: node.x + 1, y: node.y })
+    );
   });
 }
 
