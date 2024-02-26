@@ -18,11 +18,6 @@ export const elementData: WritableSignal<Record<string, SpellElement>> = signal(
 /**
  * @internal
  */
-export const elementKeyIds: WritableSignal<Record<string, string>> = signal({});
-
-/**
- * @internal
- */
 export function addElementalCollisionImpl(
   key: string,
   collision: ElementalCollisionImpl,
@@ -77,7 +72,11 @@ export function getElementKey(id: string): string | undefined {
  * @internal
  */
 export function getElementIdByKey(key: string): string | undefined {
-  return elementKeyIds()[key];
+  const data = elementData();
+  const id = Object.values(data).find((element) => element.key === key)?.id;
+  if (!id) return undefined;
+
+  return getElementById(id)?.id;
 }
 
 /**
