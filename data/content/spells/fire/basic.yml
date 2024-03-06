@@ -54,3 +54,23 @@
 
   tags:
     steamy: 1
+
+- name: Kiss of Fire
+  key: fire4
+  id: 657bb8bd-d5e5-425b-aea9-139aba685286
+  description: A stationary wall of fire that can hold the line in an emergency.
+  sprite: 2
+
+  element: fire
+  rarity: common
+
+  damage: 2
+  speed: 0
+  cost: 2
+  castTime: 0
+  depthMin: 1
+  depthMax: 2
+  pattern: single
+
+  tags:
+    stationary: 1

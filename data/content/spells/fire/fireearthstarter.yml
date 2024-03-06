@@ -1,0 +1,36 @@
+- name: Black Wings
+  key: fireoil
+  id: 212e67e2-d595-471e-b90f-9113ca22a2a8
+  description: Spills oil onto every tile it passes through.
+  sprite: 42
+
+  element: earth
+  rarity: uncommon
+
+  damage: 0
+  speed: 2
+  cost: 2
+  castTime: 0
+  depthMin: 1
+  depthMax: 1
+  pattern: single
+
+  tags:
+    oily: 7
+
+- name: Wasteland
+  key: firedeva
+  id: a6ba1fba-08e5-416f-9f29-cb994e75dc00
+  description: Increases the duration of all Devastated tiles by 1. Gets +1 power for each Devastated tile on the board.
+  sprite: 18
+
+  element: earth
+  rarity: uncommon
+
+  damage: 1
+  speed: 1
+  cost: 3
+  castTime: 0
+  depthMin: 1
+  depthMax: 1
+  pattern: single

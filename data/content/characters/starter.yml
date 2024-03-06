@@ -1,6 +1,6 @@
 - name: Torriy
   id: 89341c54-fbe0-4a8f-90bd-9415d6526d11
-  description: An antipodal magus, specializing in both fire and water. Somewhat offensive and defensive.
+  description: A hotheaded magus, bringing devastation to the spell board.
   sprite: 1
 
   maxHealth: 25
@@ -11,13 +11,13 @@
       - Pale Fire
       - Pale Fire
       - Pale Fire
-      - Aquarell
-      - Aquarell
-      - Aquarell
       - Fireball
-      - Water's Edge
+      - Fireball
       - Fireflies
-      - Rain
+      - Kiss of Fire
+      - Kiss of Fire
+      - Black Wings
+      - Wasteland
 
   behaviors:
     random: 1
@@ -25,7 +25,7 @@
     defensive: 3
 
   relics:
-    firefingers: 1
+    bandofheat: 1
 
 - name: Bomgar
   id: 017e4765-9a84-494f-adc0-60a4b3ef8968
@@ -63,7 +63,7 @@
   maxHealth: 25
 
   deck:
-    name: Einser Starter
+    name: Dewbert Starter
     spells:
       - Terra
       - Terra
@@ -91,7 +91,7 @@
   maxHealth: 25
 
   deck:
-    name: Dewey Starter
+    name: Eineroo Starter
     spells:
       - Electricity
       - Electricity
