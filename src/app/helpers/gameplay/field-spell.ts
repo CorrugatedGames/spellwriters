@@ -10,13 +10,13 @@ import { gamestate } from './gamestate';
  * @param opts.key - The key to get from the extra data
  * @returns {unknown}
  */
-export function getExtraDataForFieldSpell(opts: {
+export function getExtraDataForFieldSpell<T>(opts: {
   spell: FieldSpell;
   key: string;
-}): unknown {
+}): T {
   const { spell, key } = opts;
 
-  return spell.extraData[key];
+  return spell.extraData[key] as T;
 }
 
 /**

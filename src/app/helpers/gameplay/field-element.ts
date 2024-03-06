@@ -56,13 +56,13 @@ export function elementKeyToFieldElement(opts: {
  * @param opts.element The field element to get the data from.
  * @returns {unknown} The data associated with the field element.
  */
-export function getExtraDataForFieldElement(opts: {
+export function getExtraDataForFieldElement<T>(opts: {
   element: FieldElement;
   key: string;
-}): unknown {
+}): T {
   const { element, key } = opts;
 
-  return element.extraData[key];
+  return element.extraData[key] as T;
 }
 
 /**

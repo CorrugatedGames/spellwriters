@@ -11,13 +11,13 @@ import { gamestate } from './gamestate';
  * @param opts.key the key to get from the extra data
  * @returns {unknown}
  */
-export function getExtraDataForFieldStatus(opts: {
+export function getExtraDataForFieldStatus<T>(opts: {
   status: FieldStatus;
   key: string;
-}): unknown {
+}): T {
   const { status, key } = opts;
 
-  return status.extraData[key];
+  return status.extraData[key] as T;
 }
 
 /**

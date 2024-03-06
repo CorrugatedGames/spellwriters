@@ -24,10 +24,11 @@ export const firedeva: RitualImpl = {
       const tileStatus = fieldSpace?.containedStatus;
       if (tileStatus?.key !== 'devastated') return;
 
-      const devastatedTurns = (window.api.getExtraDataForFieldStatus({
-        status: tileStatus,
-        key: 'turnsDevastated',
-      }) ?? 2) as number;
+      const devastatedTurns =
+        window.api.getExtraDataForFieldStatus<number>({
+          status: tileStatus,
+          key: 'turnsDevastated',
+        }) ?? 2;
 
       window.api.setExtraDataForFieldStatus({
         status: tileStatus,
