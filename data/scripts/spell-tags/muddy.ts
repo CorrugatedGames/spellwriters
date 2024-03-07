@@ -29,13 +29,14 @@ export const muddy: RitualImpl = {
       }),
     });
 
-    const tag = window.api.getSpellTagByKey('muddy')?.id;
-    if (!tag) return;
-
-    const muddyDuration = spell.tags[tag] ?? 1;
-    window.api.setSpellTag({
+    const muddyDuration = window.api.getSpellTagValueByKey({
       spell,
-      tag,
+      tag: 'muddy',
+    });
+
+    window.api.setSpellTagByKey({
+      spell,
+      tag: 'muddy',
       value: Math.max(0, muddyDuration - 1),
     });
   },

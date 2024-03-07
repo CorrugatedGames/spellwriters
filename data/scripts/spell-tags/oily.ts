@@ -29,13 +29,14 @@ export const oily: RitualImpl = {
       }),
     });
 
-    const tag = window.api.getSpellTagByKey('oily')?.id;
-    if (!tag) return;
-
-    const oilyDuration = spell.tags[tag] ?? 1;
-    window.api.setSpellTag({
+    const oilyDuration = window.api.getSpellTagValueByKey({
       spell,
-      tag,
+      tag: 'oily',
+    });
+
+    window.api.setSpellTagByKey({
+      spell,
+      tag: 'oily',
       value: Math.max(0, oilyDuration - 1),
     });
   },

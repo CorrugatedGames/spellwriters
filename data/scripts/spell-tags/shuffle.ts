@@ -20,10 +20,10 @@ export const shuffle: RitualImpl = {
       spellContext: { spell },
     } = context;
 
-    const tag = window.api.getSpellTagByKey('shuffle')?.id;
-    if (!tag) return;
-
-    const shuffleValue = spell.tags[tag] ?? 1;
+    const shuffleValue = window.api.getSpellTagValueByKey({
+      spell,
+      tag: 'shuffle',
+    });
 
     const allPossibleSetValues = [];
     for (let i = 0; i <= shuffleValue; i++) {

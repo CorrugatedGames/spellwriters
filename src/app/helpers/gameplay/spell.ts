@@ -1,6 +1,6 @@
 import { SpellStatImpl, type FieldSpell } from '../../interfaces';
 import { getElementKey } from '../lookup/elements';
-import { getSpellTagKey } from '../lookup/spell-tags';
+import { getSpellTagByKey, getSpellTagKey } from '../lookup/spell-tags';
 import { removeSpellFromField } from './field';
 import { gamestate } from './gamestate';
 import { callRitualGlobalFunction } from './ritual';
@@ -98,8 +98,29 @@ export function setSpellDamage(opts: {
 }
 
 /**
+ * Get the value of a spell tag for a given spell.
+ *
+ * @category Spell
+ * @param opts.spell the spell to get the tag from
+ * @param opts.tag the tag to get the value for
+ * @returns the value of the tag for the spell
+ */
+export function getSpellTagValueByKey(opts: {
+  spell: FieldSpell;
+  tag: string;
+}): number {
+  const { spell, tag } = opts;
+
+  const tagId = getSpellTagByKey(tag)?.id;
+  if (!tagId) return 0;
+
+  return spell.tags[tagId] ?? 0;
+}
+
+/**
  * Set the spell tag value for a spell.
  *
+ * @internal
  * @category Spell
  * @param opts.spell the spell to set the tag for
  * @param opts.tag the tag to set
@@ -123,6 +144,27 @@ export function setSpellTag(opts: {
   }
 
   spell.tags[tag] = Math.floor(value);
+}
+
+/**
+ * Set the spell tag value for a spell (by the tag key).
+ *
+ * @category Spell
+ * @param opts.spell the spell to set the tag for
+ * @param opts.tag the tag to set
+ * @param opts.value the value to set the tag to
+ */
+export function setSpellTagByKey(opts: {
+  spell: FieldSpell;
+  tag: string;
+  value: number;
+}): void {
+  const { spell, tag, value } = opts;
+
+  const tagId = getSpellTagByKey(tag)?.id;
+  if (!tagId) return;
+
+  setSpellTag({ spell, tag: tagId, value });
 }
 
 /**
