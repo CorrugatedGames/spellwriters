@@ -64,7 +64,7 @@ export function statusEffectStacks(opts: {
   const statusEffectId = getStatusEffectByKey(statusEffectKey)?.id;
   if (!statusEffectId) return -1;
 
-  return player.statusEffects[statusEffectId];
+  return player.statusEffects[statusEffectId] ?? 0;
 }
 
 /**

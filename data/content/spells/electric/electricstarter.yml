@@ -34,3 +34,20 @@
   depthMin: 0
   depthMax: 1
   pattern: single
+
+- name: Hyper Beam
+  key: electricboost
+  id: 2a0315ab-a2b3-4f89-99d4-cb384bfe6836
+  description: Gain one Damage per Overcharge stack. Discharge entire Overchage stack.
+  sprite: 86
+
+  element: electric
+  rarity: rare
+
+  damage: 0
+  speed: 3
+  cost: 5
+  castTime: 2
+  depthMin: 1
+  depthMax: 1
+  pattern: single
