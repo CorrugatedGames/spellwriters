@@ -19,6 +19,7 @@ export const overcharge: RitualImpl = {
 
     const { spell } = opts;
 
+    if (spell.instant) return;
     if (!window.api.isSpellOwnedBy({ spell, owner })) return;
     if (!window.api.isSpellElement({ spell, element: 'electric' })) return;
 

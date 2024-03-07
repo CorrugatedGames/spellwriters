@@ -1,11 +1,10 @@
 import {
-  SpellStatImpl,
   type RitualCurrentContextSpellArgs,
   type RitualImpl,
   type RitualSpellTagSpacePlacementArgs,
 } from '../../../typings/interfaces';
 
-export const electricboost: RitualImpl = {
+export const electricread: RitualImpl = {
   ...window.api.defaultRitualSpell(),
 
   onSpellPlaced: (
@@ -21,25 +20,16 @@ export const electricboost: RitualImpl = {
       spellContext: { spell },
     } = context;
 
-    const player = window.api.getActivePlayerByTurnOrder({
-      turnOrder: spell.caster,
-    });
+    const allFieldSpellsCount = window.api
+      .findSpellsOnField()
+      .filter((node) => !node.spell.instant).length;
 
-    const stacks = window.api.statusEffectStacks({
-      player,
+    window.api.addStatusEffectToPlayer({
+      player: window.api.getActivePlayerByTurnOrder({
+        turnOrder: spell.caster,
+      }),
       statusEffectKey: 'overcharge',
-    });
-
-    window.api.setSpellStat({
-      spell,
-      stat: 'damage' as SpellStatImpl,
-      value: spell.damage + stacks,
-    });
-
-    window.api.removeStatusEffectFromPlayer({
-      player,
-      statusEffectKey: 'overcharge',
-      value: stacks,
+      value: allFieldSpellsCount,
     });
   },
 };
