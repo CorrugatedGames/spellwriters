@@ -27,6 +27,35 @@
   relics:
     bandofheat: 1
 
+- name: Ored
+  id: d8e509e2-4baf-4662-9398-e3c26739307d
+  description: A shocking magus, utilizing electricity to shock her opponents.
+  sprite: 8
+
+  maxHealth: 25
+
+  deck:
+    name: Ored Starter
+    spells:
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - Electricity
+      - AC/DC
+      - AC/DC
+
+  behaviors:
+    random: 1
+    offensive: 3
+    defensive: 1
+
+  relics:
+    staticnecklace: 1
+
 - name: Bomgar
   id: 017e4765-9a84-494f-adc0-60a4b3ef8968
   description: Bomgar go boom.

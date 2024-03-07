@@ -1,0 +1,19 @@
+- name: AC/DC
+  key: electric5
+  id: 52e018db-1c15-4472-8713-30a790f3c70e
+  description: An attack that varies wildly in execution.
+  sprite: 87
+
+  element: electric
+  rarity: uncommon
+
+  damage: 0
+  speed: 0
+  cost: 2
+  castTime: 1
+  depthMin: 1
+  depthMax: 1
+  pattern: single
+
+  tags:
+    shuffle: 5
