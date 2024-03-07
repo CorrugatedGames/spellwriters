@@ -17,3 +17,20 @@
 
   tags:
     shuffle: 5
+
+- name: Chargewiz
+  key: electriccharge
+  id: 32b9c725-568d-4b02-a40d-7b19e7688395
+  description: Gain one Overcharge when casting this spell.
+  sprite: 124
+
+  element: electric
+  rarity: uncommon
+
+  damage: 2
+  speed: 2
+  cost: 2
+  castTime: 2
+  depthMin: 0
+  depthMax: 1
+  pattern: single

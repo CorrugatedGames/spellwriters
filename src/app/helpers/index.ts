@@ -14,6 +14,7 @@ import * as GameplayGamestate from './gameplay/gamestate';
 import * as GameplayHand from './gameplay/hand';
 import * as GameplayInit from './gameplay/init';
 import * as GameplayMeta from './gameplay/meta';
+import * as GameplayPlayer from './gameplay/player';
 import * as GameplayRitual from './gameplay/ritual';
 import * as GameplaySpell from './gameplay/spell';
 import * as GameplayStats from './gameplay/stats';
@@ -62,6 +63,7 @@ export const AllHelpers = {
   ...GameplayField,
   ...GameplayHand,
   ...GameplayInit,
+  ...GameplayPlayer,
   ...GameplayMeta,
   ...GameplayRitual,
   ...GameplayGamestate,
@@ -110,6 +112,7 @@ export * from './gameplay/gamestate';
 export * from './gameplay/hand';
 export * from './gameplay/init';
 export * from './gameplay/meta';
+export * from './gameplay/player';
 export * from './gameplay/ritual';
 export * from './gameplay/spell';
 export * from './gameplay/stats';
