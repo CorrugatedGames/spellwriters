@@ -6,6 +6,9 @@ import {
   type RitualCurrentContextStatusEffectArgs,
   type RitualCurrentContextTileArgs,
   type RitualImpl,
+  type RitualPickableTile,
+  type RitualReturn,
+  type RitualReturnMulti,
   type RitualSpellDefaultArgs,
   type RitualSpellTagSpacePlacementArgs,
 } from '../../interfaces';
@@ -24,6 +27,21 @@ import { getSpellTags } from './spell';
 
 function isTF(t: boolean | undefined): boolean {
   return t === true || t === false;
+}
+
+function hasArrSize(t: unknown[]): boolean {
+  return t?.length > 0;
+}
+function isPickableTile(
+  t: RitualPickableTile | undefined,
+): t is RitualPickableTile {
+  if (!t) return false;
+
+  return t.nextX >= 0 && t.nextY >= 0;
+}
+
+function hasNestedPickableTile(tiles: RitualPickableTile[][]): boolean {
+  return tiles?.some((subTiles) => subTiles?.some((t) => isPickableTile(t)));
 }
 
 function getAllFieldSpells(): FieldSpell[] {
@@ -144,7 +162,7 @@ function callRitualSpellFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
   context: RitualCurrentContextSpellArgs;
-}): undefined | boolean[] {
+}): RitualReturnMulti {
   const { func, funcOpts, context } = opts;
   const spell = context.spellContext.spell;
   const allTags = getSpellTags({ spell });
@@ -159,18 +177,25 @@ function callRitualSpellFunction<T extends RitualImplGeneric>(opts: {
       }),
     ),
   ]
-    .flat(Infinity)
-    .filter(Boolean) as boolean[];
+    .flat(1)
+    .filter(Boolean) as boolean[] | RitualPickableTile[][];
 
-  const returnValsTF = returnVals.filter(isTF);
-  return returnValsTF.length > 0 ? returnValsTF : undefined;
+  if (isTF(returnVals[0] as boolean)) {
+    const returnValsTF = (returnVals as boolean[]).filter(isTF);
+    return returnValsTF.length > 0 ? returnValsTF : undefined;
+  }
+
+  const nestedPickables = returnVals as RitualPickableTile[][];
+  if (hasNestedPickableTile(nestedPickables)) {
+    return nestedPickables;
+  }
 }
 
 function callRitualRelicFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
   context: RitualCurrentContextRelicArgs;
-}): undefined | boolean {
+}): RitualReturn {
   const { func, funcOpts, context } = opts;
 
   const relicImpl = getRelicImpl(context.relicContext.id);
@@ -181,7 +206,7 @@ function callRitualStatusEffectFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
   context: RitualCurrentContextStatusEffectArgs;
-}): undefined | boolean {
+}): RitualReturn {
   const { func, funcOpts, context } = opts;
 
   const statusEffectImpl = getStatusEffectImpl(context.statusEffectContext.id);
@@ -192,7 +217,7 @@ function callRitualTileFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
   context: RitualCurrentContextTileArgs;
-}): undefined | boolean {
+}): RitualReturn {
   const { func, funcOpts, context } = opts;
 
   const tileStatusImpl = getTileStatusImpl(context.tileContext.id);
@@ -210,7 +235,7 @@ function callRitualTileFunction<T extends RitualImplGeneric>(opts: {
 export function callRitualGlobalFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
-}): undefined | boolean[] {
+}): RitualReturnMulti {
   const { func, funcOpts } = opts;
 
   const allSpells = getAllFieldSpells();
@@ -247,8 +272,15 @@ export function callRitualGlobalFunction<T extends RitualImplGeneric>(opts: {
         context: { statusEffectContext: freeze(statusEffect) },
       }),
     ),
-  ].flat(Infinity) as boolean[];
+  ].flat(1) as boolean[] | RitualPickableTile[][][];
 
-  const returnValsTF = returnVals.filter(isTF);
-  return returnValsTF.length > 0 ? returnValsTF : undefined;
+  if (isTF(returnVals[0] as boolean)) {
+    const returnValsTF = (returnVals as boolean[]).filter(isTF);
+    return returnValsTF.length > 0 ? returnValsTF : undefined;
+  }
+
+  const nestedPickables = returnVals.flat(1) as RitualPickableTile[][];
+  if (hasNestedPickableTile(nestedPickables)) {
+    return nestedPickables.filter(hasArrSize);
+  }
 }

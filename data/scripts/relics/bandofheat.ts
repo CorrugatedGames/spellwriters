@@ -2,7 +2,7 @@ import type {
   ActivePlayer,
   RitualCurrentContextRelicArgs,
   RitualImpl,
-  RitualSpellTagSpaceArgs,
+  RitualSpellSpaceArgs,
 } from '../../../typings/interfaces';
 
 const makeSpaceWarm = (x: number, y: number, owner: ActivePlayer) => {
@@ -25,7 +25,7 @@ export const bandofheat: RitualImpl = {
   ...window.api.defaultRitualRelic(),
 
   onSpellPlaced(
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context: RitualCurrentContextRelicArgs,
   ) {
     if (!context) return;
@@ -42,7 +42,7 @@ export const bandofheat: RitualImpl = {
   },
 
   onSpellSpaceEntered: (
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context: RitualCurrentContextRelicArgs,
   ) => {
     const {

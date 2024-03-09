@@ -2,6 +2,7 @@ import {
   TurnOrder,
   type FieldNode,
   type FieldSpell,
+  type RitualPickableTile,
   type Spell,
 } from '../../interfaces';
 import { delay } from '../static/time';
@@ -12,6 +13,7 @@ import {
   getElementCollisionImplByKey,
 } from '../lookup/elements';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
+import { randomChoice } from '../static/rng';
 import { setFieldSpell } from './field-spell';
 import { gamestate } from './gamestate';
 import { createBlankFieldRecord } from './init';
@@ -473,12 +475,28 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
   const nextY = position.y + yDelta;
   const nextX = position.x;
 
+  const validTiles = [{ nextX, nextY }];
+
+  const possibleNewTiles = callRitualGlobalFunction({
+    func: 'onSpellPickMovementTiles',
+    funcOpts: { spell, x: position.x, y: position.y, validTiles },
+  }) as RitualPickableTile[][];
+
+  const tileList: RitualPickableTile[] = randomChoice(
+    possibleNewTiles ?? [validTiles],
+  );
+  const validNextTiles = tileList.filter((t) =>
+    getSpaceFromField({ x: t.nextX, y: t.nextY }),
+  );
+  const nextTile =
+    validNextTiles.length > 0 ? randomChoice(validNextTiles) : validTiles[0];
+
   moveSpellToPosition({
     spell,
     currentX: position.x,
     currentY: position.y,
-    nextX,
-    nextY,
+    nextX: nextTile.nextX,
+    nextY: nextTile.nextY,
   });
 }
 

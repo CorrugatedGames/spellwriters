@@ -2,14 +2,14 @@ import {
   SpellStatImpl,
   type RitualCurrentContextStatusEffectArgs,
   type RitualImpl,
-  type RitualSpellTagSpaceArgs,
+  type RitualSpellSpaceArgs,
 } from '../../../typings/interfaces';
 
 export const overcharge: RitualImpl = {
   ...window.api.defaultRitualStatusEffect(),
 
   onSpellPlaced(
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context: RitualCurrentContextStatusEffectArgs,
   ) {
     if (!context) return;

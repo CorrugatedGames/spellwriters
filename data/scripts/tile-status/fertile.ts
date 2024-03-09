@@ -3,7 +3,7 @@ import {
   type RitualCurrentContextTileArgs,
   type RitualImpl,
   type RitualPhaseChangeArgs,
-  type RitualSpellTagSpaceArgs,
+  type RitualSpellSpaceArgs,
 } from '../../../typings/interfaces';
 
 export const fertile: RitualImpl = {
@@ -35,7 +35,7 @@ export const fertile: RitualImpl = {
   },
 
   onSpellSpaceEntered: (
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context: RitualCurrentContextTileArgs,
   ) => {
     const { spell, x, y } = opts;

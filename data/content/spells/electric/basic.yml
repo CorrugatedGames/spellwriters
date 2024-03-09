@@ -15,6 +15,9 @@
   depthMax: 1
   pattern: single
 
+  tags:
+    wander: 1
+
 - name: Tin Star
   key: electric2
   id: f2d8af51-90aa-4fe1-a348-dfc54352c70d

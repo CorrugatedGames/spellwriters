@@ -35,7 +35,7 @@ export interface RitualSpellDefaultArgs extends RitualDefaultArgs {
 /**
  * @category Ritual
  */
-export interface RitualSpellTagSpaceArgs extends RitualSpellDefaultArgs {
+export interface RitualSpellSpaceArgs extends RitualSpellDefaultArgs {
   x: number;
   y: number;
 }
@@ -43,8 +43,14 @@ export interface RitualSpellTagSpaceArgs extends RitualSpellDefaultArgs {
 /**
  * @category Ritual
  */
-export interface RitualSpellTagSpacePlacementArgs
-  extends RitualSpellTagSpaceArgs {
+export interface RitualSpellSpacePickArgs extends RitualSpellSpaceArgs {
+  validTiles: RitualPickableTile[];
+}
+
+/**
+ * @category Ritual
+ */
+export interface RitualSpellTagSpacePlacementArgs extends RitualSpellSpaceArgs {
   placeNum: number;
 }
 
@@ -212,6 +218,10 @@ export type RitualCurrentContextArgs =
   | RitualCurrentContextStatusEffectArgs
   | RitualCurrentContextTileArgs;
 
+export type RitualPickableTile = { nextX: number; nextY: number };
+export type RitualReturn = void | boolean | RitualPickableTile[];
+export type RitualReturnMulti = void | boolean[] | RitualPickableTile[][];
+
 /**
  * @category Ritual
  * @category Modding
@@ -273,18 +283,27 @@ export interface RitualImpl {
     context?: RitualCurrentContextArgs,
   ): void;
 
+  // additional spaces to consider for spell movement
+  // OF NOTE: if a function returns anything, one of those tiles will be chosen
+  // if multiple functions return arrays of tiles, one array will be chosen, then one tile from that array
+  // ✅ implemented in moveSpellForwardOneStep
+  onSpellPickMovementTiles(
+    opts: RitualSpellSpacePickArgs,
+    context?: RitualCurrentContextArgs,
+  ): RitualPickableTile[];
+
   // whether or not a space can be entered
   // if any tag, spell, or relic returns false, the space cannot be entered
   // ✅ implemented in moveSpellToPosition
   onSpellSpaceEnter(
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): boolean;
 
   // called after entering a space
   // ✅ implemented in moveSpellToPosition
   onSpellSpaceEntered(
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
@@ -292,14 +311,14 @@ export interface RitualImpl {
   // if any tag, spell, or relic returns false, the space cannot be exited
   // ✅ implemented in moveSpellToPosition
   onSpellSpaceExit(
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): boolean;
 
   // called after exiting a space
   // ✅ implemented in moveSpellToPosition
   onSpellSpaceExited(
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 

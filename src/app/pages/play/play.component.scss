@@ -262,6 +262,10 @@
           justify-content: center;
           align-items: center;
 
+          &.coords {
+            opacity: 0.5;
+          }
+
           &.status {
             z-index: 8;
 

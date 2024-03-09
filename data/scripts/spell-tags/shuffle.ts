@@ -1,7 +1,7 @@
 import type {
   RitualCurrentContextSpellArgs,
   RitualImpl,
-  RitualSpellTagSpaceArgs,
+  RitualSpellSpaceArgs,
   SpellStatImpl,
 } from '../../../typings/interfaces';
 
@@ -9,7 +9,7 @@ export const shuffle: RitualImpl = {
   ...window.api.defaultRitualSpellTag(),
 
   onSpellPlaced: (
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context: RitualCurrentContextSpellArgs,
   ) => {
     if (!context) return;

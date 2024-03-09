@@ -68,6 +68,10 @@ export const debugRitual: RitualImpl = {
   onSpellDealDamage: (args, context) =>
     debugLog('onSpellDealDamage', { args, context }),
 
+  onSpellPickMovementTiles: (args, context) => {
+    debugLog('onSpellPickMovementTiles', { args, context });
+    return [];
+  },
   onSpellSpaceEnter: (args, context) => {
     debugLog('onSpellSpaceEnter', { args, context });
     return true;
@@ -128,6 +132,7 @@ export const plainRitual: RitualImpl = {
   onSpellDestroyed: () => {},
   onSpellDealDamage: () => {},
 
+  onSpellPickMovementTiles: () => [],
   onSpellSpaceEnter: () => true,
   onSpellSpaceEntered: () => {},
   onSpellSpaceExit: () => true,

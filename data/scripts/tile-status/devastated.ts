@@ -3,7 +3,7 @@ import {
   type RitualImpl,
   type RitualPhaseChangeArgs,
   type RitualSpellPlaceCheckArgs,
-  type RitualSpellTagSpaceArgs,
+  type RitualSpellSpaceArgs,
 } from '../../../typings/interfaces';
 
 export const devastated: RitualImpl = {
@@ -23,7 +23,7 @@ export const devastated: RitualImpl = {
   },
 
   onSpellSpaceEnter(
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context: RitualCurrentContextTileArgs,
   ) {
     const { x, y } = opts;

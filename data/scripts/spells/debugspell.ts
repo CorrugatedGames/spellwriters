@@ -1,7 +1,7 @@
 import {
   type RitualCurrentContextSpellArgs,
   type RitualImpl,
-  type RitualSpellTagSpaceArgs,
+  type RitualSpellSpaceArgs,
   type SpellStatImpl,
 } from '../../../typings/interfaces';
 
@@ -9,7 +9,7 @@ export const debugspell: RitualImpl = {
   ...window.api.defaultRitualSpell(),
 
   onSpellPlaced: (
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context: RitualCurrentContextSpellArgs,
   ) => {
     if (!context) return;

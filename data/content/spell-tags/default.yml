@@ -21,3 +21,7 @@
 - name: Shuffle
   id: 62fa7038-eadc-4c96-9654-58bb70eadd30
   key: shuffle
+
+- name: Wander
+  id: 7ad2117f-027f-49be-8b1d-8e7f66d4c58f
+  key: wander

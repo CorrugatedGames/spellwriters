@@ -1,14 +1,14 @@
 import type {
   RitualCurrentContextSpellArgs,
   RitualImpl,
-  RitualSpellTagSpaceArgs,
+  RitualSpellSpaceArgs,
 } from '../../../typings/interfaces';
 
 export const muddy: RitualImpl = {
   ...window.api.defaultRitualSpellTag(),
 
   onSpellSpaceExited: (
-    opts: RitualSpellTagSpaceArgs,
+    opts: RitualSpellSpaceArgs,
     context: RitualCurrentContextSpellArgs,
   ) => {
     if (!context) return;
