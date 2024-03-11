@@ -1,5 +1,4 @@
 import {
-  SpellStatImpl,
   type RitualCurrentContextStatusEffectArgs,
   type RitualImpl,
   type RitualSpellSpaceArgs,
@@ -31,7 +30,7 @@ export const overcharge: RitualImpl = {
 
     window.api.setSpellStat({
       spell,
-      stat: 'damage' as SpellStatImpl,
+      stat: 'damage',
       value: spell.damage + 2,
     });
 

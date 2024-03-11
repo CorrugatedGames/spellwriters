@@ -1,5 +1,5 @@
 import { type ActivePlayer, type GamePhase, type TurnOrder } from './gamestate';
-import { type FieldSpell, type Spell, type SpellStatImpl } from './spell';
+import { type FieldSpell, type Spell, type SpellStatType } from './spell';
 import type { FieldStatus } from './tile';
 
 /**
@@ -138,7 +138,7 @@ export interface RitualSpellTagChangeArgs extends RitualSpellDefaultArgs {
  * @category Ritual
  */
 export interface RitualSpellStatChangeArgs extends RitualSpellDefaultArgs {
-  stat: SpellStatImpl;
+  stat: SpellStatType;
   oldValue: string | number;
   newValue: string | number;
 }

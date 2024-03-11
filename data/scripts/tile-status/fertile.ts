@@ -1,5 +1,4 @@
 import {
-  SpellStatImpl,
   type RitualCurrentContextTileArgs,
   type RitualImpl,
   type RitualPhaseChangeArgs,
@@ -49,7 +48,7 @@ export const fertile: RitualImpl = {
 
     window.api.setSpellStat({
       spell,
-      stat: 'damage' as SpellStatImpl,
+      stat: 'damage',
       value: spell.damage + 1,
     });
   },

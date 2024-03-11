@@ -2,7 +2,6 @@ import type {
   RitualCurrentContextSpellArgs,
   RitualImpl,
   RitualSpellStatChangeArgs,
-  SpellStatImpl,
 } from '../../../typings/interfaces';
 
 export const stationary: RitualImpl = {
@@ -26,7 +25,7 @@ export const stationary: RitualImpl = {
 
     window.api.setSpellStat({
       spell,
-      stat: 'speed' as SpellStatImpl,
+      stat: 'speed',
       value: 0,
     });
   },

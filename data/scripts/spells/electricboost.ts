@@ -1,5 +1,4 @@
 import {
-  SpellStatImpl,
   type RitualCurrentContextSpellArgs,
   type RitualImpl,
   type RitualSpellTagSpacePlacementArgs,
@@ -32,7 +31,7 @@ export const electricboost: RitualImpl = {
 
     window.api.setSpellStat({
       spell,
-      stat: 'damage' as SpellStatImpl,
+      stat: 'damage',
       value: spell.damage + stacks,
     });
 

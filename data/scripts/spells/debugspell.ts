@@ -2,7 +2,6 @@ import {
   type RitualCurrentContextSpellArgs,
   type RitualImpl,
   type RitualSpellSpaceArgs,
-  type SpellStatImpl,
 } from '../../../typings/interfaces';
 
 export const debugspell: RitualImpl = {
@@ -22,7 +21,7 @@ export const debugspell: RitualImpl = {
 
     window.api.setSpellStat({
       spell,
-      stat: 'damage' as SpellStatImpl,
+      stat: 'damage',
       value: spell.damage + 3,
     });
   },

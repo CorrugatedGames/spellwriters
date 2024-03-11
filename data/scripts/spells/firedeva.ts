@@ -1,5 +1,4 @@
 import {
-  SpellStatImpl,
   type RitualCurrentContextSpellArgs,
   type RitualImpl,
   type RitualSpellTagSpacePlacementArgs,
@@ -38,7 +37,7 @@ export const firedeva: RitualImpl = {
 
       window.api.setSpellStat({
         spell,
-        stat: 'damage' as SpellStatImpl,
+        stat: 'damage',
         value: spell.damage + 1,
       });
     });

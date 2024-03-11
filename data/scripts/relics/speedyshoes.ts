@@ -2,7 +2,6 @@ import type {
   RitualCurrentContextRelicArgs,
   RitualImpl,
   RitualSpellDefaultArgs,
-  SpellStatImpl,
 } from '../../../typings/interfaces';
 
 export const speedyshoes: RitualImpl = {
@@ -25,7 +24,7 @@ export const speedyshoes: RitualImpl = {
 
     window.api.setSpellStat({
       spell,
-      stat: 'speed' as SpellStatImpl,
+      stat: 'speed',
       value: Math.max(0, currentSpeed + 1),
     });
   },

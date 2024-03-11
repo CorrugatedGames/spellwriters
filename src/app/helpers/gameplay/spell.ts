@@ -1,4 +1,4 @@
-import { SpellStatImpl, type FieldSpell } from '../../interfaces';
+import { type FieldSpell, type SpellStatType } from '../../interfaces';
 import { getElementKey } from '../lookup/elements';
 import { getSpellTagByKey, getSpellTagKey } from '../lookup/spell-tags';
 import { removeSpellFromField } from './field';
@@ -53,17 +53,15 @@ export function isSpellElement(opts: {
  * @param opts.stat the stat to set
  * @param opts.value the value to set the stat to
  */
-export function setSpellStat<T extends SpellStatImpl>(opts: {
+export function setSpellStat(opts: {
   spell: FieldSpell;
-  stat: keyof Pick<FieldSpell, T>;
-  value: FieldSpell[T];
+  stat: SpellStatType;
+  value: number;
 }): void {
   const { spell, stat, value } = opts;
 
   const oldValue = spell[stat];
-  const newValue: FieldSpell[T] = (
-    typeof value === 'number' ? Math.floor(value) : value
-  ) as FieldSpell[T];
+  const newValue = Math.floor(value);
 
   spell[stat] = newValue;
 
@@ -88,7 +86,7 @@ export function setSpellDamage(opts: {
 
   setSpellStat({
     spell,
-    stat: SpellStatImpl.Damage,
+    stat: 'damage',
     value: Math.max(0, power),
   });
 
@@ -358,7 +356,7 @@ export function lowerSpellTimer(opts: { spell: FieldSpell }): void {
 
   setSpellStat({
     spell,
-    stat: SpellStatImpl.CastTime,
+    stat: 'castTime',
     value: Math.max(0, spell.castTime - 1),
   });
 }

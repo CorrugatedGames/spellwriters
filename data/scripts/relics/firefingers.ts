@@ -2,7 +2,6 @@ import type {
   RitualCurrentContextRelicArgs,
   RitualImpl,
   RitualSpellDefaultArgs,
-  SpellStatImpl,
 } from '../../../typings/interfaces';
 
 export const firefingers: RitualImpl = {
@@ -28,7 +27,7 @@ export const firefingers: RitualImpl = {
 
     window.api.setSpellStat({
       spell,
-      stat: 'damage' as SpellStatImpl,
+      stat: 'damage',
       value: spell.damage + stacks,
     });
   },

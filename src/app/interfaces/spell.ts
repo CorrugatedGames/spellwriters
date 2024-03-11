@@ -13,25 +13,36 @@ export enum SpellStat {
   Pattern = 'pattern',
 }
 
-/**
- * @category Spell
- */
-export enum SpellStatImpl {
+enum SpellStatImpl {
   Damage = 'damage',
   Speed = 'speed',
   Cost = 'cost',
   CastTime = 'castTime',
   DepthMin = 'depthMin',
   DepthMax = 'depthMax',
-  Pattern = 'pattern',
 }
+
+/**
+ * @category Spell
+ */
+export type SpellStatType = `${SpellStatImpl}`;
+
+/**
+ * @category Spell
+ */
+export type HasStats = Record<SpellStatImpl, number>;
+
+/**
+ * @category Spell
+ */
+export type HasStatsAndSprites = HasStats & Spritable;
 
 /**
  * @category Spell
  * @category Modding
  * @category Mod Data
  */
-export interface Spell extends Spritable {
+export interface Spell extends HasStatsAndSprites {
   name: string;
   id: string;
   key: string;
@@ -48,7 +59,7 @@ export interface Spell extends Spritable {
   [SpellStatImpl.CastTime]: number;
   [SpellStatImpl.DepthMin]: number;
   [SpellStatImpl.DepthMax]: number;
-  [SpellStatImpl.Pattern]: string;
+  pattern: string;
 
   tags: Record<string, number>;
 }

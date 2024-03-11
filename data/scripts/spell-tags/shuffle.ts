@@ -2,7 +2,6 @@ import type {
   RitualCurrentContextSpellArgs,
   RitualImpl,
   RitualSpellSpaceArgs,
-  SpellStatImpl,
 } from '../../../typings/interfaces';
 
 export const shuffle: RitualImpl = {
@@ -37,13 +36,13 @@ export const shuffle: RitualImpl = {
 
     window.api.setSpellStat({
       spell,
-      stat: 'speed' as SpellStatImpl,
+      stat: 'speed',
       value: chosenSetValue.speed,
     });
 
     window.api.setSpellStat({
       spell,
-      stat: 'damage' as SpellStatImpl,
+      stat: 'damage',
       value: chosenSetValue.damage,
     });
   },
