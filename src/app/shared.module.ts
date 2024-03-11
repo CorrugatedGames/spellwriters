@@ -37,8 +37,8 @@ import { HoverClassDirective } from './directives/_shared/hover-class.directive'
 const components = [
   HoverClassDirective,
   AnalyticsClickDirective,
-  FitTextComponent,
 
+  FitTextComponent,
   SpriteComponent,
   SpellCardComponent,
   ElementCardComponent,

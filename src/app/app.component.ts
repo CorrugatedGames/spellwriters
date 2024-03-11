@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   selector: 'sw-root',
   template: `
     <router-outlet></router-outlet>
+    <sw-debug-panel></sw-debug-panel>
   `,
   styles: [],
 })

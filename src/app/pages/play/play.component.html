@@ -33,7 +33,7 @@
           (mouseenter)="getHoverInfoForTile(gridRow, gridCol); showTargettableSpacesForTile(gridRow, gridCol)"
           (mouseleave)="resetHoverInfoForTile(); resetTargettableSpaces()" tabindex="0">
 
-          <span class="grid-item coords">{{ gridCol }},{{ gridRow }}</span>
+          <span class="grid-item coords" *ngIf="debugService.isTilePositionsVisible">{{ gridCol }},{{ gridRow }}</span>
 
           @if(activeCardData && targetTiles[gridRow]?.[gridCol]) {
           @if(targetTiles[gridRow]?.[gridCol]; as targetTile) {

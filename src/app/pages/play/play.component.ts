@@ -42,6 +42,7 @@ import {
   type StatusEffect,
 } from '../../interfaces';
 import { ContentService } from '../../services/content.service';
+import { DebugService } from '../../services/debug.service';
 
 @Component({
   selector: 'sw-play',
@@ -52,6 +53,7 @@ export class PlayComponent {
   private router = inject(Router);
   private modalService = inject(NgbModal);
   public contentService = inject(ContentService);
+  public debugService = inject(DebugService);
 
   public gamestate: GameState = createBlankGameState();
   public gamephase: CurrentPhase = createBlankStateMachineMap();

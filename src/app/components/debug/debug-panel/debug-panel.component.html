@@ -1,0 +1,41 @@
+<div *ngIf="debugService.isDebugPanelVisible" class="debug-panel">
+  <div class="card card-dark text-light version-info rounded-0">
+    <div class="card-body">
+      <h5 class="card-title">
+        Debug Panel
+
+        <span class="float-end">
+          <button class="btn btn-light btn-sm" (click)="debugService.toggleDebugPanel()">
+            &times;
+          </button>
+        </span>
+      </h5>
+
+      <div class="card-text">
+        <div class="row mt-1">
+          <div class="col">
+            <button class="btn btn-light btn-sm" (click)="debugService.toggleTilePositions()">
+              Toggle Tile Positions
+            </button>
+          </div>
+        </div>
+
+        <div class="row mt-1">
+
+          @if(api.debugGamestate(); as debugState) {
+          <div class="col">
+            <button class="btn btn-sm" [class.btn-warning]="debugState.id" [class.btn-light]="!debugState.id"
+              (click)="api.storeCurrentStateAsDebugState()">
+              Save DState
+            </button>
+
+            <button class="btn btn-warning btn-sm ms-1" *ngIf="debugState.id" (click)="api.resetDebugGamestate()">
+              Reset DState
+            </button>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

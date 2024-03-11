@@ -24,6 +24,10 @@ A roguelite deckbuilder.
 
 1. `npm run gamedata`
 
+### Useful Hotkeys:
+
+- `Ctrl + Shift + X` - Open the Debug Panel
+
 ### Creating Content
 
 #### Raw Data

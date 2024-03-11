@@ -4,11 +4,14 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { HotkeyModule } from 'angular2-hotkeys';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DebugPanelComponent } from './components/debug/debug-panel/debug-panel.component';
 import { AnalyticsService } from './services/analytics.service';
 import { ContentService } from './services/content.service';
 import { GameStateService } from './services/game-state.service';
+import { KeymapService } from './services/hotkeys.service';
 import { MetaService } from './services/meta.service';
 import { ModAPIService } from './services/modapi.service';
 import {
@@ -17,7 +20,7 @@ import {
 } from './services/rollbar.service';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DebugPanelComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,6 +29,7 @@ import {
       prefix: 'spellwriters',
     }),
     AngularSvgIconModule.forRoot(),
+    HotkeyModule.forRoot(),
   ],
   providers: [
     {
@@ -38,6 +42,7 @@ import {
         ModAPIService,
         ContentService,
         GameStateService,
+        KeymapService,
       ],
       useFactory:
         (
@@ -47,6 +52,7 @@ import {
           modApiService: ModAPIService,
           contentService: ContentService,
           gameStateService: GameStateService,
+          hotkeysService: KeymapService,
         ) =>
         async () => {
           await metaService.init();
@@ -55,6 +61,7 @@ import {
           await modApiService.init();
           await contentService.init();
           await gameStateService.init();
+          await hotkeysService.init();
         },
     },
 
