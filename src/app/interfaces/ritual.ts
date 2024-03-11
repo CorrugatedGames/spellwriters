@@ -227,179 +227,326 @@ export type RitualReturnMulti = void | boolean[] | RitualPickableTile[][];
  * @category Modding
  */
 export interface RitualImpl {
-  // fired when figuring out valid spell placement locations
-  // ✅ implemented in getTargettableSpacesForSpellAroundPosition
+  /**
+   * Fired before placing a spell on the field.
+   *
+   * @remarks implemented in `getTargettableSpacesForSpellAroundPosition`
+   * @param opts
+   * @param context
+   */
   onSpellPlace(
     opts: RitualSpellPlaceCheckArgs,
     context?: RitualCurrentContextArgs,
   ): boolean;
 
-  // fired once per space the spell is placed in (for example, wider spells)
-  // ✅ implemented in handleEntireSpellcastSequence
+  /**
+   * Fired once per space the spell is placed in (for example, wider spells)
+   *
+   * @remarks implemented in `handleEntireSpellcastSequence`
+   * @param opts
+   * @param context
+   */
   onSpellPlaced(
     opts: RitualSpellTagSpacePlacementArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // fired when the spell is removed
-  // ✅ implemented in removeSpellFromField
+  /**
+   * Fired when a spell is removed from the field.
+   *
+   * @remarks implemented in `removeSpellFromField`
+   * @param opts
+   * @param context
+   */
   onSpellRemoved(
     opts: RitualSpellDefaultArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // fired if the spell cancels the casting of another spell
-  // ✅ implemented in defaultCollisionDamageReduction
+  /**
+   * Fired if the spell cancels the casting of another spell.
+   *
+   * @remarks implemented in `defaultCollisionDamageReduction`
+   * @param opts
+   * @param context
+   */
   onSpellCancel(
     opts: RitualSpellCancelArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // fired if the spell is canceled while casting
-  // ✅ implemented in defaultCollisionDamageReduction
+  /**
+   * Fired if the spell is canceled while casting.
+   *
+   * @remarks implemented in `defaultCollisionDamageReduction`
+   * @param opts
+   * @param context
+   */
   onSpellCanceled(
     opts: RitualSpellCanceledArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // fired when the attached spell destroys another spell
-  // ✅ implemented in defaultCollisionDamageReduction
+  /**
+   * Fired when the attached spell destroys another spell
+   *
+   * @remarks implemented in `defaultCollisionDamageReduction`
+   * @param opts
+   * @param context
+   */
   onSpellDestroy(
     opts: RitualSpellDestroyArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // fired once per spell instance destroyed
-  // ✅ implemented in defaultCollisionDamageReduction
+  /**
+   * Fired once per spell instance destroyed
+   *
+   * @remarks implemented in `defaultCollisionDamageReduction`
+   * @param opts
+   * @param context
+   */
   onSpellDestroyed(
     opts: RitualSpellDestroyedArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // fired once per spell dealing damage to the opponent
-  // ✅ implemented in moveSpellToPosition
+  /**
+   * Fired once per spell dealing damage to the opponent.
+   *
+   * @remarks implemented in `moveSpellToPosition`
+   * @param opts
+   * @param context
+   */
   onSpellDealDamage(
     opts: RitualSpellDamageArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // additional spaces to consider for spell movement
-  // OF NOTE: if a function returns anything, one of those tiles will be chosen
-  // if multiple functions return arrays of tiles, one array will be chosen, then one tile from that array
-  // ✅ implemented in moveSpellForwardOneStep
+  /**
+   * Fired when attempting to pick spaces for a spell to move to.
+   * This function returns a unique array per spell for *each* possible tile that the spell can move to.
+   * If a function returns an array of items (length 0 does not count), one of those arrays will be chosen, and further one of the tiles from that chosen array will be chosen to move to.
+   *
+   * @remarks implemented in `moveSpellForwardOneStep`
+   * @param opts
+   * @param context
+   * @returns {RitualPickableTile[]} the tiles that the spell can move to
+   */
   onSpellPickMovementTiles(
     opts: RitualSpellSpacePickArgs,
     context?: RitualCurrentContextArgs,
   ): RitualPickableTile[];
 
-  // whether or not a space can be entered
-  // if any tag, spell, or relic returns false, the space cannot be entered
-  // ✅ implemented in moveSpellToPosition
+  /**
+   * Fired when attempting to enter a new space.
+   * If anything returns false, the spell cannot enter the space.
+   *
+   * @remarks implemented in `moveSpellToPosition`
+   * @param opts
+   * @param context
+   * @returns {boolean} whether or not the spell can enter the space
+   */
   onSpellSpaceEnter(
     opts: RitualSpellSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): boolean;
 
-  // called after entering a space
-  // ✅ implemented in moveSpellToPosition
+  /**
+   * Fired when a spell has entirely entered a space.
+   *
+   * @remarks implemented in `moveSpellToPosition`
+   * @param opts
+   * @param context
+   */
   onSpellSpaceEntered(
     opts: RitualSpellSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // whether or not a space can be exited
-  // if any tag, spell, or relic returns false, the space cannot be exited
-  // ✅ implemented in moveSpellToPosition
+  /**
+   * Fired when attempting to leave the current space.
+   * If anything returns false, the spell cannot leave the space.
+   *
+   * @remarks implemented in `moveSpellToPosition`
+   * @param opts
+   * @param context
+   * @returns {boolean} whether or not the spell can leave the space
+   */
   onSpellSpaceExit(
     opts: RitualSpellSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): boolean;
 
-  // called after exiting a space
-  // ✅ implemented in moveSpellToPosition
+  /**
+   * Fired when a spell has entirely left a space.
+   *
+   * @remarks implemented in `moveSpellToPosition`
+   * @param opts
+   * @param context
+   */
   onSpellSpaceExited(
     opts: RitualSpellSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // called before the real collision happens
-  // ✅ implemented in moveSpellToPosition
+  /**
+   * Fired when before a collision between two spells happens.
+   *
+   * @remarks implemented in `moveSpellToPosition`
+   * @param opts
+   * @param context
+   */
   onSpellCollision(
     opts: RitualSpellTagCollisionSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // ✅ implemented in defaultCollisionWinner
+  /**
+   * Fired when a spell wins a collision with another spell.
+   *
+   * @remarks implemented in `defaultCollisionWinner`
+   * @param opts
+   * @param context
+   */
   onSpellCollisionWin(
     opts: RitualSpellTagCollisionArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // ✅ implemented in defaultCollisionWinner
+  /**
+   * Fired when a spell loses a collision with another spell.
+   *
+   * @remarks implemented in `defaultCollisionWinner`
+   * @param opts
+   * @param context
+   */
   onSpellCollisionLose(
     opts: RitualSpellTagCollisionArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // ✅ implemented in defaultCollisionWinner
+  // ✅ implemented in
+
+  /**
+   * Fired when a spell ties a collision with another spell.
+   *
+   * @remarks implemented in `defaultCollisionWinner`
+   * @param opts
+   * @param context
+   */
   onSpellCollisionTie(
     opts: RitualSpellTagCollisionArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // ✅ implemented in setSpellStat
+  /**
+   * Fired when a spells stat changes.
+   *
+   * @remarks implemented in `setSpellStat`
+   * @param opts
+   * @param context
+   */
   onSpellStatChange(
     opts: RitualSpellStatChangeArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // ✅ implemented in setSpellTag
+  // ✅ implemented in
+
+  /**
+   * Fired when a spell tag changes in value.
+   *
+   * @remarks implemented in `setSpellTag`
+   * @param opts
+   * @param context
+   */
   onSpellTagChange(
     opts: RitualSpellTagChangeArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // ✅ implemented in nextPhase
+  /**
+   * Fired when combat starts.
+   * This is a nice wrapper around the `onCombatPhaseChange` function.
+   *
+   * @remarks implemented in `nextPhase`
+   * @param opts
+   * @param context
+   */
   onCombatStart(
     opts: RitualDefaultArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // ✅ implemented in nextPhase
+  /**
+   * Fired when combat ends.
+   * This is a nice wrapper around the `onCombatPhaseChange` function.
+   *
+   * @remarks implemented in `nextPhase`
+   * @param opts
+   * @param context
+   */
   onCombatFinish(
     opts: RitualDefaultArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // ✅ implemented in nextPhase
+  /**
+   * Fired when the combat phase changes.
+   *
+   * @remarks implemented in `nextPhase`
+   * @param opts
+   * @param context
+   */
   onCombatPhaseChange(
     opts: RitualPhaseChangeArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // called on all spells any time any player gains mana
-  // ✅ implemented in gainMana
+  /**
+   * Fired when any player gains any mana.
+   *
+   * @remarks implemented in `gainMana`
+   * @param opts
+   * @param context
+   */
   onPlayerGainMana(
     opts: RitualCharacterManaArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // called on all spells any time any player loses mana
-  // ✅ implemented in loseMana
+  /**
+   * Fired when any player loses any mana (including spending it).
+   *
+   * @remarks implemented in `loseMana`
+   * @param opts
+   * @param context
+   */
   onPlayerLoseMana(
     opts: RitualCharacterManaArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // called on all spells any time any player gains health
-  // ✅ implemented in gainHealth
+  /**
+   * Fired when any player gains any health.
+   *
+   * @remarks implemented in `gainHealth`
+   * @param opts
+   * @param context
+   */
   onPlayerGainHealth(
     opts: RitualCharacterHealthArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
-  // called on all spells any time any player loses health
-  // ✅ implemented in loseHealth
+  /**
+   * Fired when any player loses any health.
+   *
+   * @remarks implemented in `loseHealth`
+   * @param opts
+   * @param context
+   */
   onPlayerLoseHealth(
     opts: RitualCharacterHealthArgs,
     context?: RitualCurrentContextArgs,
