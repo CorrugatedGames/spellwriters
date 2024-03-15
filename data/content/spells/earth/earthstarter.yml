@@ -1,0 +1,115 @@
+- name: Landslide
+  key: earthpush
+  id: a8c3cdbb-49f4-434f-b6e5-551b95fe447d
+  description: All Stationary spells you control move forward 1 cell.
+  sprite: 74
+
+  element: earth
+  rarity: rare
+  instant: true
+
+  damage: 0
+  speed: 0
+  cost: 3
+  castTime: 0
+  depthMin: 1
+  depthMax: 1
+  pattern: double
+
+- name: Reaping Stone
+  key: earthcounter
+  id: 93aa06ee-bfb5-46ca-918c-7ccb337e98b7
+  description: Whenever this spell is collided with and survives, it shoots a Earthen Pellet spell at the enemy.
+  sprite: 126
+
+  element: earth
+  rarity: uncommon
+
+  damage: 6
+  speed: 0
+  cost: 4
+  castTime: 0
+  depthMin: 1
+  depthMax: 1
+  pattern: single
+
+  tags:
+    stationary: 1
+
+- name: Mushroom Wall
+  key: earthcrumble
+  id: 897512b6-ebe4-46fe-98eb-3d9da730fa27
+  description: When this spell is destroyed, it creates a Ruined Wall where it was.
+  sprite: 30
+
+  element: earth
+  rarity: uncommon
+
+  damage: 3
+  speed: 0
+  cost: 2
+  castTime: 1
+  depthMin: 1
+  depthMax: 1
+  pattern: single
+
+  tags:
+    stationary: 1
+
+- name: Dust Devil
+  key: earthrecycle
+  id: f3fee401-8c52-4358-8c01-ed1824b3161c
+  description: When this spell deals direct damage to the opponent, it returns to your hand.
+  sprite: 76
+
+  element: earth
+  rarity: common
+
+  damage: 2
+  speed: 2
+  cost: 1
+  castTime: 0
+  depthMin: 0
+  depthMax: 1
+  pattern: single
+
+  tags:
+    recycle: 1
+
+- name: Twisted Tendrils
+  key: earth4
+  id: 2ca92375-a3f1-473a-801c-0404ce6fdb6a
+  description: Tendrils move towards your opponent, leaving Mud in their path.
+  sprite: 31
+
+  element: earth
+  rarity: uncommon
+
+  damage: 2
+  speed: 1
+  cost: 3
+  castTime: 1
+  depthMin: 1
+  depthMax: 1
+  pattern: single
+
+  tags:
+    muddy: 1
+
+- name: Stalwart
+  key: earthreinforce
+  id: e535ce58-b522-479e-a27d-cbb40db1c45c
+  description: Your Stationary spells increase in power by the number of Stationary spells you have.
+  sprite: 91
+
+  element: earth
+  rarity: rare
+  instant: true
+
+  damage: 0
+  speed: 0
+  cost: 3
+  castTime: 0
+  depthMin: 1
+  depthMax: 1
+  pattern: double

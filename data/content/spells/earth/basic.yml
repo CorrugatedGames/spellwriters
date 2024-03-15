@@ -15,11 +15,11 @@
   depthMax: 1
   pattern: single
 
-- name: Mushroom Wall
+- name: Earth Cage
   key: earth2
   id: 5346e122-4f6f-409d-9366-758b066869aa
   description: Put up a wide defensive earth shield to slow down your opponents attacks.
-  sprite: 30
+  sprite: 127
 
   element: earth
   rarity: uncommon

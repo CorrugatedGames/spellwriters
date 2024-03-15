@@ -46,3 +46,11 @@
   rarity: rare
 
   sprite: 1
+
+- name: Earthen Cape
+  key: earthencape
+  id: b0c4ec8a-8da0-4b37-863f-f3393e54b60b
+  description: Return to the earth. When a Stationary spell you control is destroyed, gain 1 health (if possible).
+  rarity: rare
+
+  sprite: 3

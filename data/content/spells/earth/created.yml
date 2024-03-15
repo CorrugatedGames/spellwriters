@@ -1,0 +1,36 @@
+- name: Ruined Wall
+  key: earthspawned1
+  id: 8fe2b1f3-c666-4178-8b70-b7f44daccb4d
+  description: An unmovable, breakable wall.
+  sprite: 17
+
+  element: earth
+  rarity: common
+
+  damage: 1
+  speed: 0
+  cost: 0
+  castTime: 0
+  depthMin: 0
+  depthMax: 1
+  pattern: single
+
+  tags:
+    stationary: 1
+
+- name: Earthen Pellet
+  key: earthspawned2
+  id: 08c02b46-6f84-456c-ae40-e08f0799e473
+  description: A pellet let loose by a turret.
+  sprite: 19
+
+  element: earth
+  rarity: common
+
+  damage: 1
+  speed: 1
+  cost: 0
+  castTime: 0
+  depthMin: 0
+  depthMax: 0
+  pattern: single

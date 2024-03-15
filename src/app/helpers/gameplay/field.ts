@@ -313,7 +313,9 @@ export function moveSpellToPosition(opts: {
 
   // check if we have a next tile
   const nextTile = getSpaceFromField({ x: nextX, y: nextY });
-  if (!nextTile || nextY === 0 || nextY === field.length - 1) {
+  if (!nextTile) return;
+
+  if (nextY === 0 || nextY === field.length - 1) {
     const opponentRef =
       spell.caster === TurnOrder.Player
         ? players[TurnOrder.Opponent]
@@ -371,13 +373,19 @@ export function moveSpellToPosition(opts: {
       shouldMoveToNextTile = false;
     }
 
-    getAllElementalCollisionImpls().forEach((collision) => {
-      if (collision.hasCollisionReaction(collisionArgs)) {
-        collision.collide(collisionArgs);
+    // if, on the off chance, a new spell is placed here, we don't allow movement
+    // we don't want weird conditions to arise
+    if (nextTile.containedSpell) {
+      shouldMoveToNextTile = false;
+    }
 
-        if (collision.collisionWinner(collisionArgs) !== spell) {
-          shouldMoveToNextTile = false;
-        }
+    getAllElementalCollisionImpls().forEach((collision) => {
+      if (!collision.hasCollisionReaction(collisionArgs)) return;
+
+      collision.collide(collisionArgs);
+
+      if (collision.collisionWinner(collisionArgs) !== spell) {
+        shouldMoveToNextTile = false;
       }
     });
   }

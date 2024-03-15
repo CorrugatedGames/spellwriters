@@ -4,6 +4,7 @@ import {
   HostBinding,
   Output,
   input,
+  type OnChanges,
 } from '@angular/core';
 import { getSpellById } from '../../../helpers';
 import { type PlayableCard } from '../../../interfaces';
@@ -13,6 +14,7 @@ import { type PlayableCard } from '../../../interfaces';
   template: `
     <div
       class="deck-card-container"
+      [class.glowing]="shouldGlow"
       (click)="drawCard.next()"
       (keyup.enter)="drawCard.next()"
       tabindex="0"
@@ -32,17 +34,18 @@ import { type PlayableCard } from '../../../interfaces';
   `,
   styleUrls: ['./deck.component.scss'],
 })
-export class DeckComponent {
+export class DeckComponent implements OnChanges {
   getSpellById = getSpellById;
 
   public deck = input.required<PlayableCard[]>();
   public isGlowing = input<boolean>(false);
 
+  public shouldGlow = false;
+
   @Output() public drawCard = new EventEmitter<void>();
 
-  @HostBinding('class.glowing')
-  public get shouldGlow(): boolean {
-    return this.deck().length === 0 ? false : this.isGlowing();
+  ngOnChanges() {
+    this.shouldGlow = this.deck().length === 0 ? false : this.isGlowing();
   }
 
   @HostBinding('style.--cards-in-deck')

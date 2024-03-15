@@ -158,7 +158,7 @@ export function isSpellOwnedBy(opts: {
  */
 type RitualImplGeneric = keyof RitualImpl;
 
-function callRitualSpellFunction<T extends RitualImplGeneric>(opts: {
+export function callRitualSpellFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
   context: RitualCurrentContextSpellArgs;
@@ -191,7 +191,7 @@ function callRitualSpellFunction<T extends RitualImplGeneric>(opts: {
   }
 }
 
-function callRitualRelicFunction<T extends RitualImplGeneric>(opts: {
+export function callRitualRelicFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
   context: RitualCurrentContextRelicArgs;
@@ -202,7 +202,9 @@ function callRitualRelicFunction<T extends RitualImplGeneric>(opts: {
   return relicImpl?.[func]?.(funcOpts as never, context) ?? undefined;
 }
 
-function callRitualStatusEffectFunction<T extends RitualImplGeneric>(opts: {
+export function callRitualStatusEffectFunction<
+  T extends RitualImplGeneric,
+>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
   context: RitualCurrentContextStatusEffectArgs;
@@ -213,7 +215,7 @@ function callRitualStatusEffectFunction<T extends RitualImplGeneric>(opts: {
   return statusEffectImpl?.[func]?.(funcOpts as never, context) ?? undefined;
 }
 
-function callRitualTileFunction<T extends RitualImplGeneric>(opts: {
+export function callRitualTileFunction<T extends RitualImplGeneric>(opts: {
   func: T;
   funcOpts: Parameters<RitualImpl[T]>[0];
   context: RitualCurrentContextTileArgs;

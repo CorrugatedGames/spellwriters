@@ -33,34 +33,45 @@ export class SpellCardComponent {
     return this.isUpsideDown() ? '' : getRarityKey(this.spell()?.rarity);
   }
 
+  public get isInstant() {
+    return this.spell().instant;
+  }
+
   public get spellStatsAndValues(): {
     stat: SpellStat;
     value: string | number;
+    visible: boolean;
   }[] {
     return [
       {
-        stat: SpellStat.Damage,
-        value: this.spell().damage,
-      },
-      {
         stat: SpellStat.Cost,
         value: this.spell().cost + this.extraCost(),
+        visible: true,
+      },
+      {
+        stat: SpellStat.Damage,
+        value: this.spell().damage,
+        visible: !this.isInstant,
       },
       {
         stat: SpellStat.CastTime,
         value: this.spell().castTime,
+        visible: !this.isInstant,
       },
       {
         stat: SpellStat.Speed,
         value: this.spell().speed,
+        visible: !this.isInstant,
       },
       {
         stat: SpellStat.Depth,
         value: `${this.spell().depthMin}-${this.spell().depthMax}`,
+        visible: true,
       },
       {
         stat: SpellStat.Pattern,
         value: getSpellPatternById(this.spell().pattern)?.name ?? 'Unknown',
+        visible: true,
       },
     ];
   }

@@ -49,14 +49,18 @@ export function setExtraDataForFieldSpell(opts: {
 export function spellToFieldSpell(opts: {
   spell: Spell;
   caster: TurnOrder;
+  x: number;
+  y: number;
   extraData?: Record<string, unknown>;
 }): FieldSpell {
-  const { spell, caster, extraData } = opts;
+  const { spell, caster, extraData, x, y } = opts;
 
   return {
     ...spell,
     castId: getId(),
     caster,
+    x,
+    y,
     extraData: extraData ?? {},
   };
 }
@@ -89,4 +93,9 @@ export function setFieldSpell(opts: {
   const { field } = gamestate();
 
   field[y][x].containedSpell = spell;
+
+  if (spell) {
+    spell.x = x;
+    spell.y = y;
+  }
 }

@@ -34,6 +34,13 @@
       .direction {
         border: 5px solid var(--color-opponent);
         border-right: none;
+
+        .effect {
+          position: absolute;
+          left: -4px;
+          top: -28px;
+          transform: scale(0.5);
+        }
       }
     }
   }
@@ -53,8 +60,8 @@
 
       .effect {
         position: absolute;
-        right: -24px;
-        top: 0;
+        right: -8px;
+        top: -28px;
         transform: scale(0.5);
       }
     }

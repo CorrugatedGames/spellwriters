@@ -6,7 +6,7 @@
     [tabindex]="$index">
     @if(getSpellById(card.spellId); as spell) {
     <sw-spell-card class="hand-card" [class.selected]="selectedCard()?.index === $index" [spell]="spell"
-      [isSmall]="hoveringSpellIndex !== $index" [isGlowing]="shouldGlow(spell, $index)
+      [isSmall]="hoveringSpellIndex !== $index" [isGlowing]="shouldGlow[$index]
       " [extraCost]="extraCost()"></sw-spell-card>
     }
   </div>

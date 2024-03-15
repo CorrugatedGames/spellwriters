@@ -34,6 +34,8 @@ function collide(opts: CollideOpts): void {
         element: elementRef.id,
       },
       caster: collider.caster,
+      x,
+      y,
     });
 
     window.api.moveSpellToPosition({

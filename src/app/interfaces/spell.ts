@@ -72,5 +72,21 @@ export interface FieldSpell extends Spell {
   caster: TurnOrder;
   castId: string;
 
+  /**
+   * The current x position of the spell. Is not used anywhere except in read-only contexts.
+   * Modifying this field will not do anything.
+   *
+   * @readonly
+   */
+  x: number;
+
+  /**
+   * The current y position of the spell. Is not used anywhere except in read-only contexts.
+   * Modifying this field will not do anything.
+   *
+   * @readonly
+   */
+  y: number;
+
   extraData: Record<string, unknown>;
 }

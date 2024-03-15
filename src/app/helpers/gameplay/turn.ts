@@ -10,12 +10,12 @@ import {
   getTargettableSpacesForSpellAroundPosition,
   removeSpellFromField,
 } from './field';
-import { setFieldSpell, spellToFieldSpell } from './field-spell';
+import { spellToFieldSpell } from './field-spell';
 import { gamestate } from './gamestate';
 import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
 import { callRitualGlobalFunction } from './ritual';
-import { addSpellToQueue } from './spell';
+import { addSpellAtPosition } from './spell';
 import {
   healthCostForDraw,
   loseHealth,
@@ -49,6 +49,23 @@ export function reshuffleDeck(opts: { character: ActivePlayer }): void {
   character.discard = [];
 
   shuffleDeck({ character });
+}
+
+/**
+ * Remove a card from a player's discard pile. This will not add it back to hand or deck, it will simply remove it.
+ *
+ * @category Gameplay
+ * @param opts.character The player whose discard pile is being modified.
+ * @param opts.card The card being removed from the discard pile.
+ */
+export function removeCardFromDiscard(opts: {
+  character: ActivePlayer;
+  card: PlayableCard;
+}): void {
+  const { character, card } = opts;
+  character.discard = character.discard.filter(
+    (c) => c.instanceId !== card.instanceId,
+  );
 }
 
 /**
@@ -96,8 +113,24 @@ export function drawCard(opts: { character: ActivePlayer }): void {
   const card = character.deck.pop();
 
   if (card) {
-    character.hand.push(card);
+    addCardToHand({ character, card });
   }
+}
+
+/**
+ * Add a card to a player's hand.
+ *
+ * @category Gameplay
+ * @param opts.character The player adding the card to their hand.
+ * @param opts.card The card being added to the player's hand.
+ */
+export function addCardToHand(opts: {
+  character: ActivePlayer;
+  card: PlayableCard;
+}): void {
+  const { character, card } = opts;
+
+  character.hand.push(card);
 }
 
 /**
@@ -204,10 +237,15 @@ export function handleEntireSpellcastSequence(opts: {
       const newlyCastSpell = spellToFieldSpell({
         spell: spellData,
         caster: turnOrder,
+        x,
+        y,
       });
 
-      addSpellToQueue({ spell: newlyCastSpell });
-      setFieldSpell({ x, y, spell: newlyCastSpell });
+      addSpellAtPosition({
+        spell: newlyCastSpell,
+        x,
+        y,
+      });
 
       callRitualGlobalFunction({
         func: 'onSpellPlaced',

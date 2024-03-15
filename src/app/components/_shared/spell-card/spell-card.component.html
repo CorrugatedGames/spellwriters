@@ -46,6 +46,7 @@
 
         <div class="col-6 right-side">
           @for(spellStat of spellStatsAndValues; track $index) {
+          @if(spellStat.visible) {
           <div class="row stat-row">
             <div class="col-3">
               <sw-icon-stat [stat]="spellStat.stat"></sw-icon-stat>
@@ -61,6 +62,7 @@
               }
             </div>
           </div>
+          }
           }
         </div>
       </div>

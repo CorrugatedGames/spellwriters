@@ -300,7 +300,7 @@ export interface RitualImpl {
   ): void;
 
   /**
-   * Fired once per spell instance destroyed
+   * Fired once per spell instance destroyed.
    *
    * @remarks implemented in `defaultCollisionDamageReduction`
    * @param opts
@@ -425,8 +425,6 @@ export interface RitualImpl {
     opts: RitualSpellTagCollisionArgs,
     context?: RitualCurrentContextArgs,
   ): void;
-
-  // ✅ implemented in
 
   /**
    * Fired when a spell ties a collision with another spell.

@@ -30,6 +30,8 @@ export const explodes: RitualImpl = {
           element: spell.element,
         },
         caster: spell.caster,
+        x,
+        y,
       });
 
       window.api.moveSpellToPosition({
@@ -41,6 +43,17 @@ export const explodes: RitualImpl = {
         disallowEntryIntoNextTile: true,
       });
     };
+
+    const explodeTimes = window.api.getSpellTagValueByKey({
+      spell,
+      tag: 'explodes',
+    });
+
+    window.api.setSpellTagByKey({
+      spell,
+      tag: 'explodes',
+      value: Math.max(0, explodeTimes - 1),
+    });
 
     hitNearbyTile(collisionX - 1, collisionY);
     hitNearbyTile(collisionX + 1, collisionY);

@@ -49,12 +49,16 @@ export class DebugComponentsComponent implements OnInit {
     {
       ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       caster: 0,
+      x: 0,
+      y: 0,
       castId: '',
       extraData: {},
     },
     {
       ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       castTime: 2,
+      x: 0,
+      y: 0,
       caster: 0,
       castId: '',
       extraData: {},
@@ -62,6 +66,8 @@ export class DebugComponentsComponent implements OnInit {
     {
       ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       damage: 3,
+      x: 0,
+      y: 0,
       caster: 1,
       castId: '',
       extraData: {},
@@ -69,6 +75,8 @@ export class DebugComponentsComponent implements OnInit {
     {
       ...getSpellById('95ddca50-58dc-44c6-8c0c-9cc08b492920')!,
       castTime: 7,
+      x: 0,
+      y: 0,
       caster: 1,
       castId: '',
       extraData: {},

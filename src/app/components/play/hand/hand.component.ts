@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output, input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  input,
+  type OnChanges,
+} from '@angular/core';
 import {
   getListOfTargetableTilesForSpellBasedOnPattern,
   getSpellById,
@@ -15,13 +21,15 @@ import {
   templateUrl: './hand.component.html',
   styleUrls: ['./hand.component.scss'],
 })
-export class HandComponent {
+export class HandComponent implements OnChanges {
   getSpellById = getSpellById;
 
   public hand = input.required<PlayableCard[]>();
   public selectedCard = input<SelectedCard>();
   public extraCost = input<number>(0);
   public highlightCastableCardCost = input<number>(0);
+
+  public shouldGlow: boolean[] = [];
 
   @Output() public selectCard = new EventEmitter<SelectedCard>();
   @Output() public unselectCard = new EventEmitter<SelectedCard>();
@@ -41,9 +49,7 @@ export class HandComponent {
     this.unselectCard.emit();
   }
 
-  public shouldGlow(spell: Spell, index: number) {
-    if (this.selectedCard()?.index === index) return true;
-
+  public calcShouldGlow(spell: Spell) {
     const targettableTiles = getListOfTargetableTilesForSpellBasedOnPattern({
       spell,
       turn: TurnOrder.Player,
@@ -56,5 +62,14 @@ export class HandComponent {
     }
 
     return false;
+  }
+
+  ngOnChanges() {
+    this.shouldGlow = this.hand().map((card) => {
+      const spell = getSpellById(card.spellId);
+      if (!spell) return false;
+
+      return this.calcShouldGlow(spell);
+    });
   }
 }

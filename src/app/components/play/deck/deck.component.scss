@@ -1,12 +1,4 @@
 :host {
-  &.glowing {
-    animation: glow 1s infinite alternate;
-
-    .deck-card-container {
-      cursor: pointer;
-    }
-  }
-
   display: block;
   position: relative;
   height: calc(
@@ -18,6 +10,14 @@
 
 .deck-card-container {
   cursor: not-allowed;
+
+  &.glowing {
+    animation: glow 1s infinite alternate;
+
+    .deck-card-container {
+      cursor: pointer;
+    }
+  }
 
   .deck-card {
     pointer-events: none;

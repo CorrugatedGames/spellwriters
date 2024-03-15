@@ -1,9 +1,30 @@
 import { type FieldSpell, type SpellStatType } from '../../interfaces';
 import { getElementKey } from '../lookup/elements';
 import { getSpellTagByKey, getSpellTagKey } from '../lookup/spell-tags';
+import { freeze } from '../static/object';
 import { removeSpellFromField } from './field';
+import { setFieldSpell } from './field-spell';
 import { gamestate } from './gamestate';
-import { callRitualGlobalFunction } from './ritual';
+import { callRitualGlobalFunction, callRitualSpellFunction } from './ritual';
+
+/**
+ * Add a spell at a certain position on the field.
+ *
+ * @category Spell
+ * @param opts.spell the spell to add
+ * @param opts.x the x position to add the spell at
+ * @param opts.y the y position to add the spell at
+ */
+export function addSpellAtPosition(opts: {
+  spell: FieldSpell;
+  x: number;
+  y: number;
+}): void {
+  const { spell, x, y } = opts;
+
+  addSpellToQueue({ spell });
+  setFieldSpell({ x, y, spell });
+}
 
 /**
  * @internal
@@ -290,6 +311,15 @@ export function defaultCollisionDamageReduction(opts: {
         func: 'onSpellCanceled',
         funcOpts: { spell: collider, canceledBySpell: collidee },
       });
+
+      // call for the canceled spell since it's removed
+      if (isSpellDead({ spell: collider })) {
+        callRitualSpellFunction({
+          func: 'onSpellCanceled',
+          funcOpts: { spell: collider, canceledBySpell: collidee },
+          context: { spellContext: freeze({ spell: collider }) },
+        });
+      }
     } else {
       callRitualGlobalFunction({
         func: 'onSpellDestroy',
@@ -300,6 +330,15 @@ export function defaultCollisionDamageReduction(opts: {
         func: 'onSpellDestroyed',
         funcOpts: { spell: collider, destroyedBySpell: collidee },
       });
+
+      // call for the destroyed spell since it's removed
+      if (isSpellDead({ spell: collider })) {
+        callRitualSpellFunction({
+          func: 'onSpellDestroyed',
+          funcOpts: { spell: collider, destroyedBySpell: collidee },
+          context: { spellContext: freeze({ spell: collider }) },
+        });
+      }
     }
   }
 
@@ -314,6 +353,15 @@ export function defaultCollisionDamageReduction(opts: {
         func: 'onSpellCanceled',
         funcOpts: { spell: collidee, canceledBySpell: collider },
       });
+
+      // call for the canceled spell since it's removed
+      if (isSpellDead({ spell: collider })) {
+        callRitualSpellFunction({
+          func: 'onSpellCanceled',
+          funcOpts: { spell: collidee, canceledBySpell: collider },
+          context: { spellContext: freeze({ spell: collidee }) },
+        });
+      }
     } else {
       callRitualGlobalFunction({
         func: 'onSpellDestroy',
@@ -324,6 +372,15 @@ export function defaultCollisionDamageReduction(opts: {
         func: 'onSpellDestroyed',
         funcOpts: { spell: collidee, destroyedBySpell: collider },
       });
+
+      // call for the destroyed spell since it's removed
+      if (isSpellDead({ spell: collider })) {
+        callRitualSpellFunction({
+          func: 'onSpellDestroyed',
+          funcOpts: { spell: collidee, destroyedBySpell: collider },
+          context: { spellContext: freeze({ spell: collidee }) },
+        });
+      }
     }
   }
 }

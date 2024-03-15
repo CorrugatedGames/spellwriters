@@ -56,6 +56,35 @@
   relics:
     staticnecklace: 1
 
+- name: Roy
+  id: 5f245b32-926d-4c55-a2a5-cb479f678c71
+  description: An earthly magus, utilizing defense in an offensive way.
+  sprite: 19
+
+  maxHealth: 25
+
+  deck:
+    name: Roy Starter
+    spells:
+      - Stalwart
+      - Twisted Tendrils
+      - Dust Devil
+      - Dust Devil
+      - Dust Devil
+      - Mushroom Wall
+      - Reaping Stone
+      - Reaping Stone
+      - Landslide
+      - Landslide
+
+  behaviors:
+    random: 1
+    offensive: 1
+    defensive: 3
+
+  relics:
+    earthencape: 1
+
 - name: Bomgar
   id: 017e4765-9a84-494f-adc0-60a4b3ef8968
   description: Bomgar go boom.
