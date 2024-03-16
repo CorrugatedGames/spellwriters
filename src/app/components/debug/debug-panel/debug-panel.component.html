@@ -35,6 +35,54 @@
           </div>
           }
         </div>
+
+        <div class="row mt-1">
+          <div class="col">
+            <button class="btn btn-health btn-sm"
+              (click)="api.gainHealth({ character: api.getActivePlayerByTurnOrder({ turnOrder: 0 }), amount: -1 })">
+              Pl.HP-
+            </button>
+
+            <button class="btn btn-health btn-sm ms-1"
+              (click)="api.gainHealth({ character: api.getActivePlayerByTurnOrder({ turnOrder: 0 }), amount: 1 })">
+              Pl.HP+
+            </button>
+
+            <button class="btn btn-mana btn-sm ms-1"
+              (click)="api.gainMana({ character: api.getActivePlayerByTurnOrder({ turnOrder: 0 }), amount: -1 })">
+              Pl.MP-
+            </button>
+
+            <button class="btn btn-mana btn-sm ms-1"
+              (click)="api.gainMana({ character: api.getActivePlayerByTurnOrder({ turnOrder: 0 }), amount: 1 })">
+              Pl.MP+
+            </button>
+          </div>
+        </div>
+
+        <div class="row mt-1">
+          <div class="col">
+            <button class="btn btn-health btn-sm"
+              (click)="api.gainHealth({ character: api.getActivePlayerByTurnOrder({ turnOrder: 1 }), amount: -1 })">
+              AI.HP-
+            </button>
+
+            <button class="btn btn-health btn-sm ms-1"
+              (click)="api.gainHealth({ character: api.getActivePlayerByTurnOrder({ turnOrder: 1 }), amount: 1 })">
+              AI.HP+
+            </button>
+
+            <button class="btn btn-mana btn-sm ms-1"
+              (click)="api.gainMana({ character: api.getActivePlayerByTurnOrder({ turnOrder: 1 }), amount: -1 })">
+              AI.MP-
+            </button>
+
+            <button class="btn btn-mana btn-sm ms-1"
+              (click)="api.gainMana({ character: api.getActivePlayerByTurnOrder({ turnOrder: 1 }), amount: 1 })">
+              AI.MP+
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
