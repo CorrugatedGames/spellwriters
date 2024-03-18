@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'sw-pausegame',
@@ -17,7 +17,7 @@ import { Component, EventEmitter, Output, input } from '@angular/core';
 })
 export class PauseGameComponent {
   isDisabled = input<boolean>(false);
-  @Output() pauseGame = new EventEmitter<void>();
+  pauseGame = output<void>();
 
   doPauseGame() {
     if (this.isDisabled()) return;

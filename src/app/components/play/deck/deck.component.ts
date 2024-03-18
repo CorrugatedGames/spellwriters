@@ -1,10 +1,9 @@
 import {
   Component,
-  EventEmitter,
   HostBinding,
-  Output,
   input,
-  type OnChanges,
+  output,
+  type OnChanges
 } from '@angular/core';
 import { getSpellById } from '../../../helpers';
 import { type PlayableCard } from '../../../interfaces';
@@ -15,8 +14,8 @@ import { type PlayableCard } from '../../../interfaces';
     <div
       class="deck-card-container"
       [class.glowing]="shouldGlow"
-      (click)="drawCard.next()"
-      (keyup.enter)="drawCard.next()"
+      (click)="drawCard.emit()"
+      (keyup.enter)="drawCard.emit()"
       tabindex="0"
     >
       @for (deckSize of [0, 1, 2]; track $index) {
@@ -39,10 +38,10 @@ export class DeckComponent implements OnChanges {
 
   public deck = input.required<PlayableCard[]>();
   public isGlowing = input<boolean>(false);
+  public drawCard = output<void>();
 
   public shouldGlow = false;
 
-  @Output() public drawCard = new EventEmitter<void>();
 
   ngOnChanges() {
     this.shouldGlow = this.deck().length === 0 ? false : this.isGlowing();

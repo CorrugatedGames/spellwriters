@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'sw-nextturn',
@@ -19,7 +19,7 @@ import { Component, EventEmitter, Output, input } from '@angular/core';
 export class NextTurnComponent {
   isDisabled = input<boolean>(false);
   isGlowing = input<boolean>(false);
-  @Output() nextTurn = new EventEmitter<void>();
+  nextTurn = output<void>();
 
   doNextTurn() {
     if (this.isDisabled()) return;

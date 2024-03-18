@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'sw-extradraw',
@@ -17,7 +17,7 @@ import { Component, EventEmitter, Output, input } from '@angular/core';
 })
 export class ExtraDrawComponent {
   isDisabled = input<boolean>(false);
-  @Output() extraDraw = new EventEmitter<void>();
+  extraDraw = output<void>();
 
   doExtraDraw() {
     if (this.isDisabled()) return;

@@ -1,9 +1,8 @@
 import {
   Component,
-  EventEmitter,
-  Output,
   input,
-  type OnChanges,
+  output,
+  type OnChanges
 } from '@angular/core';
 import {
   getListOfTargetableTilesForSpellBasedOnPattern,
@@ -31,8 +30,8 @@ export class HandComponent implements OnChanges {
 
   public shouldGlow: boolean[] = [];
 
-  @Output() public selectCard = new EventEmitter<SelectedCard>();
-  @Output() public unselectCard = new EventEmitter<SelectedCard>();
+  public selectCard = output<SelectedCard>();
+  public unselectCard = output<void>();
 
   public hoveringSpellIndex = -1;
 
