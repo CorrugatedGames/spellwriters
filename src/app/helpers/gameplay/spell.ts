@@ -97,23 +97,43 @@ export function setSpellStat(opts: {
  *
  * @category Spell
  * @param opts.spell the spell to set the damage for
- * @param opts.power the power to set the damage to
+ * @param opts.damage the power to set the damage to
  */
 export function setSpellDamage(opts: {
   spell: FieldSpell;
-  power: number;
+  damage: number;
 }): void {
-  const { spell, power } = opts;
+  const { spell, damage } = opts;
 
   setSpellStat({
     spell,
     stat: 'damage',
-    value: Math.max(0, power),
+    value: Math.max(0, damage),
   });
 
   if (spell.damage === 0) {
     removeSpellFromField({ spellId: spell.castId, fullRemoval: true });
   }
+}
+
+/**
+ * Set the speed of a spell
+ *
+ * @category Spell
+ * @param opts.spell the spell to set the damage for
+ * @param opts.power the power to set the damage to
+ */
+export function setSpellSpeed(opts: {
+  spell: FieldSpell;
+  speed: number;
+}): void {
+  const { spell, speed } = opts;
+
+  setSpellStat({
+    spell,
+    stat: 'speed',
+    value: Math.max(0, speed),
+  });
 }
 
 /**
@@ -284,11 +304,11 @@ export function defaultShouldFieldElementBeCreated(opts: {
  * This function reduces the damage of the collider by the damage of the collidee, and the damage of the collidee by the damage of the collider.
  * If the damage of a spell is 0, it will be removed from the field.
  *
- * @category Elemental Collision
+ * @category Spell
  * @param opts.collider the spell that is colliding
  * @param opts.collidee the spell that is being collided with
  */
-export function defaultCollisionDamageReduction(opts: {
+export function spellCollisionDamageReduction(opts: {
   collider: FieldSpell;
   collidee: FieldSpell;
 }): void {
@@ -297,8 +317,8 @@ export function defaultCollisionDamageReduction(opts: {
   const colliderDamage = collider.castTime > 0 ? 0 : collider.damage;
   const collideeDamage = collidee.castTime > 0 ? 0 : collidee.damage;
 
-  setSpellDamage({ spell: collider, power: colliderDamage - collideeDamage });
-  setSpellDamage({ spell: collidee, power: collideeDamage - colliderDamage });
+  setSpellDamage({ spell: collider, damage: colliderDamage - collideeDamage });
+  setSpellDamage({ spell: collidee, damage: collideeDamage - colliderDamage });
 
   if (collider.damage === 0) {
     if (collider.castTime > 0) {

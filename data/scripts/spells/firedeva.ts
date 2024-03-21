@@ -35,10 +35,9 @@ export const firedeva: RitualImpl = {
         value: devastatedTurns + 1,
       });
 
-      window.api.setSpellStat({
+      window.api.setSpellDamage({
         spell,
-        stat: 'damage',
-        value: spell.damage + 1,
+        damage: spell.damage + 1,
       });
     });
   },

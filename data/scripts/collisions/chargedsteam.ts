@@ -10,7 +10,7 @@ function onSpellEnter(opts: OnSpellEnterOpts): void {
   }
 
   if (window.api.isSpellElement({ spell, element: 'electric' })) {
-    window.api.setSpellDamage({ spell, power: spell.damage + 1 });
+    window.api.setSpellDamage({ spell, damage: spell.damage + 1 });
   }
 
   if (window.api.isSpellElement({ spell, element: 'earth' })) {
@@ -27,7 +27,7 @@ function onSpellEnter(opts: OnSpellEnterOpts): void {
     window.api.clearFieldElement({ ...currentTile });
 
     spell.element = window.api.getElementIdByKey('electric') ?? spell.element;
-    window.api.setSpellDamage({ spell, power: spell.damage + 1 });
+    window.api.setSpellDamage({ spell, damage: spell.damage + 1 });
   }
 }
 

@@ -20,10 +20,10 @@ import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
 import { callRitualGlobalFunction } from './ritual';
 import {
-  defaultCollisionDamageReduction,
   isSpellDead,
   lowerSpellTimer,
   removeSpellFromQueue,
+  spellCollisionDamageReduction,
 } from './spell';
 import { canPlaceSpellOnTile } from './targetting';
 
@@ -364,7 +364,7 @@ export function moveSpellToPosition(opts: {
       },
     });
 
-    defaultCollisionDamageReduction({
+    spellCollisionDamageReduction({
       collider: spell,
       collidee: containedSpell,
     });

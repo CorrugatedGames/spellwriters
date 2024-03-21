@@ -1,14 +1,14 @@
 import {
   type RitualCurrentContextSpellArgs,
   type RitualImpl,
-  type RitualSpellTagCollisionSpaceArgs,
+  type RitualSpellCollisionSpaceArgs,
 } from '../../../typings/interfaces';
 
 export const earthcounter: RitualImpl = {
   ...window.api.defaultRitualSpell(),
 
   onSpellCollisionWin: (
-    opts: RitualSpellTagCollisionSpaceArgs,
+    opts: RitualSpellCollisionSpaceArgs,
     context: RitualCurrentContextSpellArgs,
   ) => {
     if (!context) return;

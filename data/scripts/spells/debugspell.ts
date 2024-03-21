@@ -19,10 +19,9 @@ export const debugspell: RitualImpl = {
       spellContext: { spell },
     } = context;
 
-    window.api.setSpellStat({
+    window.api.setSpellDamage({
       spell,
-      stat: 'damage',
-      value: spell.damage + 3,
+      damage: spell.damage + 3,
     });
   },
 };

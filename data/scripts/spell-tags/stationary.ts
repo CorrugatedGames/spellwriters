@@ -23,10 +23,9 @@ export const stationary: RitualImpl = {
       spellContext: { spell },
     } = context;
 
-    window.api.setSpellStat({
+    window.api.setSpellSpeed({
       spell,
-      stat: 'speed',
-      value: 0,
+      speed: 0,
     });
   },
 };

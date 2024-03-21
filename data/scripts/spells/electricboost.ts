@@ -29,10 +29,9 @@ export const electricboost: RitualImpl = {
       statusEffectKey: 'overcharge',
     });
 
-    window.api.setSpellStat({
+    window.api.setSpellDamage({
       spell,
-      stat: 'damage',
-      value: spell.damage + stacks,
+      damage: spell.damage + stacks,
     });
 
     window.api.removeStatusEffectFromPlayer({

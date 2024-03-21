@@ -8,20 +8,18 @@ import type {
 const increaseSpeed = (spell: FieldSpell) => {
   const stacks = window.api.getSpellTagValueByKey({ spell, tag: 'streamline' });
 
-  window.api.setSpellStat({
+  window.api.setSpellSpeed({
     spell,
-    stat: 'speed',
-    value: spell.speed + stacks,
+    speed: spell.speed + stacks,
   });
 };
 
 const decreaseSpeed = (spell: FieldSpell) => {
   const stacks = window.api.getSpellTagValueByKey({ spell, tag: 'streamline' });
 
-  window.api.setSpellStat({
+  window.api.setSpellSpeed({
     spell,
-    stat: 'speed',
-    value: spell.speed - stacks,
+    speed: spell.speed - stacks,
   });
 
   window.api.setSpellTagByKey({ spell, tag: 'streamline', value: 0 });

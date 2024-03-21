@@ -22,10 +22,9 @@ export const speedyshoes: RitualImpl = {
 
     const currentSpeed = spell.speed;
 
-    window.api.setSpellStat({
+    window.api.setSpellSpeed({
       spell,
-      stat: 'speed',
-      value: Math.max(0, currentSpeed + 1),
+      speed: Math.max(0, currentSpeed + 1),
     });
   },
 };

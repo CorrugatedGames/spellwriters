@@ -57,15 +57,15 @@ export interface RitualSpellTagSpacePlacementArgs extends RitualSpellSpaceArgs {
 /**
  * @category Ritual
  */
-export interface RitualSpellTagCollisionArgs extends RitualSpellDefaultArgs {
+export interface RitualSpellCollisionArgs extends RitualSpellDefaultArgs {
   collidedWith: FieldSpell;
 }
 
 /**
  * @category Ritual
  */
-export interface RitualSpellTagCollisionSpaceArgs
-  extends RitualSpellTagCollisionArgs {
+export interface RitualSpellCollisionSpaceArgs
+  extends RitualSpellCollisionArgs {
   collisionX: number;
   collisionY: number;
 }
@@ -267,7 +267,7 @@ export interface RitualImpl {
   /**
    * Fired if the spell cancels the casting of another spell.
    *
-   * @remarks implemented in `defaultCollisionDamageReduction`
+   * @remarks implemented in `spellCollisionDamageReduction`
    * @param opts
    * @param context
    */
@@ -279,7 +279,7 @@ export interface RitualImpl {
   /**
    * Fired if the spell is canceled while casting.
    *
-   * @remarks implemented in `defaultCollisionDamageReduction`
+   * @remarks implemented in `spellCollisionDamageReduction`
    * @param opts
    * @param context
    */
@@ -291,7 +291,7 @@ export interface RitualImpl {
   /**
    * Fired when the attached spell destroys another spell
    *
-   * @remarks implemented in `defaultCollisionDamageReduction`
+   * @remarks implemented in `spellCollisionDamageReduction`
    * @param opts
    * @param context
    */
@@ -303,7 +303,7 @@ export interface RitualImpl {
   /**
    * Fired once per spell instance destroyed.
    *
-   * @remarks implemented in `defaultCollisionDamageReduction`
+   * @remarks implemented in `spellCollisionDamageReduction`
    * @param opts
    * @param context
    */
@@ -399,7 +399,7 @@ export interface RitualImpl {
    * @param context
    */
   onSpellCollision(
-    opts: RitualSpellTagCollisionSpaceArgs,
+    opts: RitualSpellCollisionSpaceArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
@@ -411,7 +411,7 @@ export interface RitualImpl {
    * @param context
    */
   onSpellCollisionWin(
-    opts: RitualSpellTagCollisionArgs,
+    opts: RitualSpellCollisionArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
@@ -423,7 +423,7 @@ export interface RitualImpl {
    * @param context
    */
   onSpellCollisionLose(
-    opts: RitualSpellTagCollisionArgs,
+    opts: RitualSpellCollisionArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 
@@ -435,7 +435,7 @@ export interface RitualImpl {
    * @param context
    */
   onSpellCollisionTie(
-    opts: RitualSpellTagCollisionArgs,
+    opts: RitualSpellCollisionArgs,
     context?: RitualCurrentContextArgs,
   ): void;
 

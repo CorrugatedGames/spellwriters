@@ -28,10 +28,9 @@ export const overcharge: RitualImpl = {
     });
     if (stacks < 3) return;
 
-    window.api.setSpellStat({
+    window.api.setSpellDamage({
       spell,
-      stat: 'damage',
-      value: spell.damage + 2,
+      damage: spell.damage + 2,
     });
 
     window.api.removeStatusEffectFromPlayer({

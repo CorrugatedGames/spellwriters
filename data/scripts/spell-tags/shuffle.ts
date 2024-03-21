@@ -34,16 +34,14 @@ export const shuffle: RitualImpl = {
 
     const chosenSetValue = window.api.randomChoice(allPossibleSetValues);
 
-    window.api.setSpellStat({
+    window.api.setSpellSpeed({
       spell,
-      stat: 'speed',
-      value: chosenSetValue.speed,
+      speed: chosenSetValue.speed,
     });
 
-    window.api.setSpellStat({
+    window.api.setSpellDamage({
       spell,
-      stat: 'damage',
-      value: chosenSetValue.damage,
+      damage: chosenSetValue.damage,
     });
   },
 };

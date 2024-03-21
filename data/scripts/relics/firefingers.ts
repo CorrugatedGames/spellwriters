@@ -25,10 +25,9 @@ export const firefingers: RitualImpl = {
       relicContext: { stacks },
     } = context;
 
-    window.api.setSpellStat({
+    window.api.setSpellDamage({
       spell,
-      stat: 'damage',
-      value: spell.damage + stacks,
+      damage: spell.damage + stacks,
     });
   },
 };

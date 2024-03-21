@@ -20,7 +20,7 @@ function onSpellEnter(opts: OnSpellEnterOpts): void {
   }
 
   if (window.api.isSpellElement({ spell, element: 'fire' })) {
-    window.api.setSpellDamage({ spell, power: spell.damage + 1 });
+    window.api.setSpellDamage({ spell, damage: spell.damage + 1 });
   }
 }
 

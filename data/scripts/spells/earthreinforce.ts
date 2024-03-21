@@ -35,10 +35,9 @@ export const earthreinforce: RitualImpl = {
     });
 
     myStationarySpells.forEach((spell) => {
-      window.api.setSpellStat({
+      window.api.setSpellDamage({
         spell: spell,
-        stat: 'damage',
-        value: spell.damage + myStationarySpells.length,
+        damage: spell.damage + myStationarySpells.length,
       });
     });
   },

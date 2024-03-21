@@ -46,10 +46,9 @@ export const fertile: RitualImpl = {
     if (!window.api.isSpellElement({ spell, element: 'fire' })) return;
     if (x !== tileX || y !== tileY) return;
 
-    window.api.setSpellStat({
+    window.api.setSpellDamage({
       spell,
-      stat: 'damage',
-      value: spell.damage + 1,
+      damage: spell.damage + 1,
     });
   },
 };
