@@ -22,6 +22,10 @@
   id: c8361fa6-a435-499d-ab50-c87c0e15c3d1
   key: stationary
 
+- name: Streamline
+  id: b35a08f9-bdf0-4143-8e34-2f716611cf57
+  key: streamline
+
 - name: Shuffle
   id: 62fa7038-eadc-4c96-9654-58bb70eadd30
   key: shuffle

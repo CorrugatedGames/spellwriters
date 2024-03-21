@@ -13,10 +13,7 @@
 
   &.glowing {
     animation: glow 1s infinite alternate;
-
-    .deck-card-container {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 
   .deck-card {

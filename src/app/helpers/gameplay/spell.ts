@@ -84,7 +84,7 @@ export function setSpellStat(opts: {
   const oldValue = spell[stat];
   const newValue = Math.floor(value);
 
-  spell[stat] = newValue;
+  spell[stat] = Math.max(0, newValue);
 
   callRitualGlobalFunction({
     func: 'onSpellStatChange',

@@ -85,6 +85,35 @@
   relics:
     earthencape: 1
 
+- name: Luna
+  id: 2c8c6b14-cb2e-4573-bb3e-0accfa227696
+  description: A hydrology magus, adept in techniques that make a splash.
+  sprite: 103
+
+  maxHealth: 25
+
+  deck:
+    name: Roy Starter
+    spells:
+      - Crimson Wave
+      - Crimson Wave
+      - Wavebreaker
+      - Wavebreaker
+      - Steam Lance
+      - Steam Lance
+      - Tides of Time
+      - Tides of Time
+      - Aquarell
+      - Aquarell
+
+  behaviors:
+    random: 1
+    offensive: 2
+    defensive: 1
+
+  relics:
+    mooncap: 1
+
 - name: Bomgar
   id: 017e4765-9a84-494f-adc0-60a4b3ef8968
   description: Bomgar go boom.

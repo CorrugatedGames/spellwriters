@@ -14,3 +14,7 @@
   depthMin: 0
   depthMax: 1
   pattern: single
+
+  tags:
+    muddy: 1
+    explodes: 1

@@ -147,6 +147,7 @@ export interface RitualSpellStatChangeArgs extends RitualSpellDefaultArgs {
  * @category Ritual
  */
 export interface RitualPhaseChangeArgs extends RitualDefaultArgs {
+  oldPhase: GamePhase;
   newPhase: GamePhase;
   newTurn: TurnOrder;
 }

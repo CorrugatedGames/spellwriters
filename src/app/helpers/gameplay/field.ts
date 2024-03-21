@@ -542,9 +542,14 @@ export async function handleEndOfTurnSpellActions(): Promise<void> {
       }
 
       const numSteps = spell.speed;
+      if (numSteps <= 0) return;
+
       await Promise.all(
         [...Array(numSteps)].map(async (_, i) => {
           await delay(75 * i);
+
+          const spell = findSpellOnField({ spellId });
+          if (!spell) return;
 
           moveSpellForwardOneStep({ spell });
         }),

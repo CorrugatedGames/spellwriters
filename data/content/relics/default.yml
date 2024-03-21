@@ -54,3 +54,11 @@
   rarity: rare
 
   sprite: 3
+
+- name: Moon Cap
+  key: mooncap
+  id: 986a63e9-3ef1-4f4c-8d3b-894c264c2b6e
+  description: The flow giveth and the flow taketh. All of your Water spells in the same column as another Water spell gain Streamline.
+  rarity: rare
+
+  sprite: 6

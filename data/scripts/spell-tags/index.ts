@@ -5,4 +5,5 @@ export * from './recycle';
 export * from './shuffle';
 export * from './stationary';
 export * from './steamy';
+export * from './streamline';
 export * from './wander';

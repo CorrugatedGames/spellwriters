@@ -1,0 +1,71 @@
+- name: Crimson Wave
+  key: waterfire
+  id: 82678fef-5eef-4855-9cbb-96157cbd684e
+  description: A heated spell that gives all water spells adjacent to it +1 Streamline.
+  sprite: 59
+
+  element: fire
+  rarity: uncommon
+
+  damage: 2
+  speed: 1
+  cost: 2
+  castTime: 1
+  depthMin: 0
+  depthMax: 1
+  pattern: double
+
+- name: Wavebreaker
+  key: waterabsorb
+  id: a5b6a053-b47e-4e6f-905d-3dac54067c0c
+  description: A water spell that absorbs the power of all water spells owned by this caster as they crash into it.
+  sprite: 6
+
+  element: water
+  rarity: common
+
+  damage: 0
+  speed: 1
+  cost: 3
+  castTime: 0
+  depthMin: 1
+  depthMax: 2
+  pattern: single
+
+- name: Steam Lance
+  key: waterspill
+  id: 3cbe9f04-021e-4b36-b7ad-fea9223e98a1
+  description: A water spell that constantly creates Steam.
+  sprite: 121
+
+  element: water
+  rarity: common
+
+  damage: 0
+  speed: 2
+  cost: 1
+  castTime: 0
+  depthMin: 1
+  depthMax: 1
+  pattern: single
+
+  tags:
+    steamy: 7
+
+- name: Tides of Time
+  key: watertides
+  id: b0e2a6f4-5c22-4aee-8b0d-2498cfe50159
+  description: A water spell that pushes all of your water spells forward one space.
+  sprite: 107
+
+  element: water
+  rarity: uncommon
+
+  instant: true
+  damage: 0
+  speed: 0
+  cost: 3
+  castTime: 0
+  depthMin: 1
+  depthMax: 1
+  pattern: double

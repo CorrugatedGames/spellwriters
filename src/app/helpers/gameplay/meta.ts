@@ -15,6 +15,8 @@ import { setPhaseBannerString } from './vfx';
 export async function nextPhase(): Promise<void> {
   const state = gamestate();
 
+  const oldPhase: GamePhase = state.currentPhase;
+
   let newPhase: GamePhase = state.currentPhase;
   let newTurn: TurnOrder = state.currentTurn;
   let newRound: number = state.currentRound;
@@ -84,7 +86,7 @@ export async function nextPhase(): Promise<void> {
 
   callRitualGlobalFunction({
     func: 'onCombatPhaseChange',
-    funcOpts: { newPhase, newTurn },
+    funcOpts: { oldPhase, newPhase, newTurn },
   });
 
   if (state.currentPhase === GamePhase.Start) {

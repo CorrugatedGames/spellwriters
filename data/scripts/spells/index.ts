@@ -8,3 +8,6 @@ export * from './electricboost';
 export * from './electriccharge';
 export * from './electricread';
 export * from './firedeva';
+export * from './waterabsorb';
+export * from './waterfire';
+export * from './watertides';
