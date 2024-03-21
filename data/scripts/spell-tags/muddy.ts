@@ -29,15 +29,10 @@ export const muddy: RitualImpl = {
       }),
     });
 
-    const muddyDuration = window.api.getSpellTagValueByKey({
+    window.api.increaseSpellTagByKey({
       spell,
       tag: 'muddy',
-    });
-
-    window.api.setSpellTagByKey({
-      spell,
-      tag: 'muddy',
-      value: Math.max(0, muddyDuration - 1),
+      value: -1,
     });
   },
 };

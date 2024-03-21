@@ -24,6 +24,7 @@ export const mooncap: RitualImpl = {
       .findSpellsOnField()
       .filter(({ y, spell }) => {
         if (spell.caster !== owner.turnOrder) return;
+        if (!window.api.isSpellElement({ spell, element: 'water' })) return;
 
         const spellsInY = window.api
           .findSpellsOnField()
@@ -36,17 +37,10 @@ export const mooncap: RitualImpl = {
       });
 
     myStreamlineSpells.forEach(({ spell }) => {
-      if (spell.caster !== owner.turnOrder) return;
-      if (!window.api.isSpellElement({ spell, element: 'water' })) return;
-
-      const existingStreamline = window.api.getSpellTagValueByKey({
+      window.api.increaseSpellTagByKey({
         spell,
         tag: 'streamline',
-      });
-      window.api.setSpellTagByKey({
-        spell,
-        tag: 'streamline',
-        value: existingStreamline + 1,
+        value: 1,
       });
     });
   },

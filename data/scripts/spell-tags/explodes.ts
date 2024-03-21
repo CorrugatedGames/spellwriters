@@ -44,15 +44,10 @@ export const explodes: RitualImpl = {
       });
     };
 
-    const explodeTimes = window.api.getSpellTagValueByKey({
+    window.api.increaseSpellTagByKey({
       spell,
       tag: 'explodes',
-    });
-
-    window.api.setSpellTagByKey({
-      spell,
-      tag: 'explodes',
-      value: Math.max(0, explodeTimes - 1),
+      value: -1,
     });
 
     hitNearbyTile(collisionX - 1, collisionY);

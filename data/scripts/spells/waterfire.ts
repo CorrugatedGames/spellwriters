@@ -32,14 +32,10 @@ export const waterfire: RitualImpl = {
       });
 
     myStreamlineSpells.forEach(({ spell }) => {
-      const existingStreamline = window.api.getSpellTagValueByKey({
+      window.api.increaseSpellTagByKey({
         spell,
         tag: 'streamline',
-      });
-      window.api.setSpellTagByKey({
-        spell,
-        tag: 'streamline',
-        value: existingStreamline + 1,
+        value: 1,
       });
     });
   },

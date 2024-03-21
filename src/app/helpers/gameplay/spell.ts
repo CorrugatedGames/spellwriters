@@ -186,6 +186,26 @@ export function setSpellTag(opts: {
 }
 
 /**
+ * Increase the spell tag value for a spell by a specified amount.
+ *
+ * @internal
+ * @category Spell
+ * @param opts.spell the spell to increase the tag for
+ * @param opts.tag the tag to increase
+ * @param opts.value the value to increase the tag by
+ */
+export function increaseSpellTagByKey(opts: {
+  spell: FieldSpell;
+  tag: string;
+  value: number;
+}): void {
+  const { spell, tag, value } = opts;
+
+  const currentValue = getSpellTagValueByKey({ spell, tag });
+  setSpellTagByKey({ spell, tag, value: Math.max(0, currentValue + value) });
+}
+
+/**
  * Set the spell tag value for a spell (by the tag key).
  *
  * @category Spell

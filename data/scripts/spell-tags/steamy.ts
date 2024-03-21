@@ -29,15 +29,10 @@ export const steamy: RitualImpl = {
       }),
     });
 
-    const steamyDuration = window.api.getSpellTagValueByKey({
+    window.api.increaseSpellTagByKey({
       spell,
       tag: 'steamy',
-    });
-
-    window.api.setSpellTagByKey({
-      spell,
-      tag: 'steamy',
-      value: Math.max(0, steamyDuration - 1),
+      value: -1,
     });
   },
 };
