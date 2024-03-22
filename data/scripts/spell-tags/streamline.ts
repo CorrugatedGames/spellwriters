@@ -36,11 +36,11 @@ export const streamline: RitualImpl = {
 
     if (newTurn !== context.spellContext.spell.caster) return;
 
-    if (newPhase === 'SpellMove') {
+    if (newPhase === 'PreSpellMove') {
       increaseSpeed(context.spellContext.spell);
     }
 
-    if (oldPhase === 'SpellMove') {
+    if (newPhase === 'PostSpellMove') {
       decreaseSpeed(context.spellContext.spell);
     }
   },

@@ -17,7 +17,7 @@ export const mooncap: RitualImpl = {
       relicContext: { owner },
     } = context;
 
-    if (newPhase !== 'SpellMove') return;
+    if (newPhase !== 'PostTurn') return;
     if (newTurn !== owner.turnOrder) return;
 
     const myStreamlineSpells = window.api

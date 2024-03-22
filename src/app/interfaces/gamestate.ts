@@ -61,10 +61,21 @@ export enum GamePlayer {
  */
 export enum GamePhase {
   Start = 'Start',
+
+  PreDraw = 'PreDraw',
   Draw = 'Draw',
+  PostDraw = 'PostDraw',
+
+  PreTurn = 'PreTurn',
   Turn = 'Turn',
+  PostTurn = 'PostTurn',
+
+  PreSpellMove = 'PreSpellMove',
   SpellMove = 'SpellMove',
+  PostSpellMove = 'PostSpellMove',
+
   End = 'End',
+
   Victory = 'Victory',
 }
 

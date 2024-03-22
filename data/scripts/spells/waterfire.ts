@@ -19,7 +19,7 @@ export const waterfire: RitualImpl = {
       },
     } = context;
 
-    if (newPhase !== 'SpellMove') return;
+    if (newPhase !== 'PostTurn') return;
     if (newTurn !== caster) return;
 
     const myStreamlineSpells = window.api

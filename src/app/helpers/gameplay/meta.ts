@@ -5,6 +5,37 @@ import { gainMana } from './stats';
 import { reshuffleDeck } from './turn';
 import { setPhaseBannerString } from './vfx';
 
+const phaseAutoTransition: Record<GamePhase, boolean> = {
+  [GamePhase.Start]: false,
+  [GamePhase.PreDraw]: true,
+  [GamePhase.Draw]: false,
+  [GamePhase.PostDraw]: true,
+  [GamePhase.PreTurn]: true,
+  [GamePhase.Turn]: false,
+  [GamePhase.PostTurn]: true,
+  [GamePhase.PreSpellMove]: true,
+  [GamePhase.SpellMove]: false,
+  [GamePhase.PostSpellMove]: true,
+  [GamePhase.End]: false,
+  [GamePhase.Victory]: false,
+};
+
+const phaseNextPhase: Record<GamePhase, GamePhase> = {
+  [GamePhase.Start]: GamePhase.PreDraw,
+  [GamePhase.PreDraw]: GamePhase.Draw,
+  [GamePhase.Draw]: GamePhase.PostDraw,
+  [GamePhase.PostDraw]: GamePhase.PreTurn,
+  [GamePhase.PreTurn]: GamePhase.Turn,
+  [GamePhase.Turn]: GamePhase.PostTurn,
+  [GamePhase.PostTurn]: GamePhase.PreSpellMove,
+  [GamePhase.PreSpellMove]: GamePhase.SpellMove,
+  [GamePhase.SpellMove]: GamePhase.PostSpellMove,
+  [GamePhase.PostSpellMove]: GamePhase.End,
+  [GamePhase.End]: GamePhase.PreDraw,
+
+  [GamePhase.Victory]: GamePhase.Victory,
+};
+
 /**
  * This function is marked async, but it doesn't actually do anything asynchronous.
  * The entire purpose is to wait for moveAllSpellsForward() which may have delays in it
@@ -16,8 +47,8 @@ export async function nextPhase(): Promise<void> {
   const state = gamestate();
 
   const oldPhase: GamePhase = state.currentPhase;
+  const newPhase: GamePhase = phaseNextPhase[state.currentPhase];
 
-  let newPhase: GamePhase = state.currentPhase;
   let newTurn: TurnOrder = state.currentTurn;
   let newRound: number = state.currentRound;
   let newPlayer: ActivePlayer;
@@ -27,31 +58,31 @@ export async function nextPhase(): Promise<void> {
   const otherPlayerString =
     state.currentTurn === TurnOrder.Player ? 'Opponent' : 'Your';
 
-  switch (state.currentPhase) {
-    case GamePhase.Start: {
+  const phaseActions: Record<GamePhase, () => void> = {
+    [GamePhase.Start]: () => {
       setPhaseBannerString({ text: `${playerString} Draw Phase` });
-      newPhase = GamePhase.Draw;
-      break;
-    }
+    },
 
-    case GamePhase.Draw:
+    [GamePhase.PreDraw]: () => {},
+    [GamePhase.Draw]: () => {
       setPhaseBannerString({ text: `${playerString} Spend Phase` });
-      newPhase = GamePhase.Turn;
-      break;
+    },
+    [GamePhase.PostDraw]: () => {},
 
-    case GamePhase.Turn:
+    [GamePhase.PreTurn]: () => {},
+    [GamePhase.Turn]: () => {
       setPhaseBannerString({ text: `${playerString} Spell Move Phase` });
-      newPhase = GamePhase.SpellMove;
-      break;
+    },
+    [GamePhase.PostTurn]: () => {},
 
-    case GamePhase.SpellMove:
+    [GamePhase.PreSpellMove]: () => {},
+    [GamePhase.SpellMove]: () => {
       setPhaseBannerString({ text: `${playerString} End Phase` });
-      newPhase = GamePhase.End;
-      break;
+    },
+    [GamePhase.PostSpellMove]: () => {},
 
-    case GamePhase.End:
+    [GamePhase.End]: () => {
       setPhaseBannerString({ text: `${otherPlayerString} Draw Phase` });
-      newPhase = GamePhase.Draw;
 
       newTurn =
         state.currentTurn === TurnOrder.Player
@@ -71,9 +102,12 @@ export async function nextPhase(): Promise<void> {
       gainMana({ character: newPlayer, amount: state.currentRound + 1 });
       newPlayer.spellsCastThisTurn = 0;
       newPlayer.cardsDrawnThisTurn = 0;
+    },
 
-      break;
-  }
+    [GamePhase.Victory]: () => {},
+  };
+
+  phaseActions[state.currentPhase]();
 
   saveGamestate({
     state: {
@@ -101,6 +135,10 @@ export async function nextPhase(): Promise<void> {
       func: 'onCombatFinish',
       funcOpts: {},
     });
+  }
+
+  if (phaseAutoTransition[newPhase]) {
+    await nextPhase();
   }
 }
 
