@@ -27,6 +27,8 @@ A roguelite deckbuilder.
 ### Useful Hotkeys:
 
 - `Ctrl + Shift + X` - Open the Debug Panel
+- `Ctrl + Shift + D` - Go to the Debug Test Runner Page
+- `Ctrl + Shift + C` - Go to the Debug Components Page
 
 ### Creating Content
 
