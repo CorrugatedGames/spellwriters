@@ -15,8 +15,23 @@
         <div class="row mt-1">
           <div class="col">
             <button class="btn btn-light btn-sm" (click)="debugService.toggleTilePositions()">
-              Toggle Tile Positions
+              {{ debugService.isTilePositionsVisible ? '☑' : '☐' }} Toggle Tile Positions
             </button>
+          </div>
+        </div>
+
+        <div class="row mt-1">
+          <div class="col">
+            <button class="btn btn-light btn-sm" (click)="debugService.exportGameState()">
+              Export GState
+            </button>
+
+            <button class="btn btn-light btn-sm ms-1" (click)="stateImporter.click()">
+              Import GState
+            </button>
+
+            <input type="file" #stateImporter class="hidden" accept=".sw"
+              (change)="debugService.importGameState($event)" />
           </div>
         </div>
 

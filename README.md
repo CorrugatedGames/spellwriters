@@ -18,13 +18,13 @@ A roguelite deckbuilder.
 
 ### Running Code
 
-1. `npm start`
+1. `npm start` (will reload content on the fly, but it can be slow and inaccurate with massive changes)
 
 ### Reloading Content
 
-1. `npm run gamedata`
+1. `npm run gamedata` (will reload _all_ game content)
 
-### Useful Hotkeys:
+### Useful Hotkeys
 
 - `Ctrl + Shift + X` - Open the Debug Panel
 - `Ctrl + Shift + D` - Go to the Debug Test Runner Page
