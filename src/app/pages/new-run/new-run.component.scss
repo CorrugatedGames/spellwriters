@@ -1,0 +1,74 @@
+.card {
+  margin-top: 32px;
+  margin-bottom: 32px;
+
+  .card-title {
+    margin-bottom: 16px;
+
+    &:not(:first-child) {
+      margin-top: 16px;
+    }
+  }
+}
+
+h1 {
+  text-align: center;
+}
+
+.sprite-container {
+  display: flex;
+  flex-direction: row;
+
+  flex-wrap: wrap;
+
+  .sprite {
+    margin: 4px;
+    width: 128px;
+    height: 128px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    &.selected {
+      outline: 2px solid #fff;
+    }
+  }
+}
+
+.character {
+  .name {
+    font-size: 2rem;
+  }
+
+  .health {
+    font-style: italic;
+  }
+
+  .description {
+    font-style: italic;
+  }
+
+  .deck {
+    margin-top: 2em;
+    font-weight: bold;
+  }
+
+  .cards {
+    .spell-row {
+      display: flex;
+      flex-direction: row;
+
+      flex-wrap: wrap;
+
+      .spell {
+        padding: 4px;
+      }
+    }
+  }
+}
+
+.subheader {
+  font-size: 1.5rem;
+}

@@ -9,6 +9,7 @@ export interface Character extends Spritable {
   name: string;
   id: string;
   description: string;
+  pickable: boolean;
 
   maxHealth: number;
 

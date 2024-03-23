@@ -54,6 +54,16 @@ export function getRelicByName(name: string): Relic | undefined {
 /**
  * @internal
  */
+export function getRelicByKey(key: string): Relic | undefined {
+  const data = relicData();
+  const id = Object.values(data).find((relic) => relic.key === key)?.id;
+
+  return id ? getRelicById(id) : undefined;
+}
+
+/**
+ * @internal
+ */
 export function getRelicImpl(id: string): RitualImpl | undefined {
   if (!id) return undefined;
 

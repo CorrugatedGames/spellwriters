@@ -2,6 +2,7 @@
   id: 89341c54-fbe0-4a8f-90bd-9415d6526d11
   description: A hotheaded magus, bringing devastation to the spell board.
   sprite: 1
+  pickable: true
 
   maxHealth: 25
 
@@ -31,6 +32,7 @@
   id: d8e509e2-4baf-4662-9398-e3c26739307d
   description: A shocking magus, utilizing electricity to shock her opponents.
   sprite: 8
+  pickable: true
 
   maxHealth: 25
 
@@ -60,6 +62,7 @@
   id: 5f245b32-926d-4c55-a2a5-cb479f678c71
   description: An earthly magus, utilizing defense in an offensive way.
   sprite: 19
+  pickable: true
 
   maxHealth: 25
 
@@ -89,6 +92,7 @@
   id: 2c8c6b14-cb2e-4573-bb3e-0accfa227696
   description: A hydrology magus, adept in techniques that make a splash.
   sprite: 103
+  pickable: true
 
   maxHealth: 25
 
