@@ -100,12 +100,7 @@ export enum TurnOrder {
 /**
  * @category Gameplay
  */
-export interface CombatGameState {}
-
-/**
- * @category Gameplay
- */
-export interface GameState {
+export interface CombatState {
   id: string;
   rng: number;
 
@@ -125,7 +120,7 @@ export interface GameState {
 /**
  * @internal
  */
-export interface GameStateInitOpts {
+export interface CombatStateInitOpts {
   fieldWidth: number;
   fieldHeight: number;
   playerCharacter: Character;

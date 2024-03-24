@@ -11,7 +11,7 @@ import {
   removeSpellFromField,
 } from './field';
 import { spellToFieldSpell } from './field-spell';
-import { gamestate } from './gamestate';
+import { combatstate } from './gamestate';
 import { loseCardInHand } from './hand';
 import { nextPhase } from './meta';
 import { callRitualGlobalFunction } from './ritual';
@@ -76,7 +76,7 @@ export function removeCardFromDiscard(opts: {
  */
 export function canDrawCard(opts: { character: ActivePlayer }): boolean {
   const { character } = opts;
-  const state = gamestate();
+  const state = combatstate();
 
   return (
     [GamePhase.Start, GamePhase.Draw].includes(state.currentPhase) &&
@@ -93,7 +93,7 @@ export function canDrawCard(opts: { character: ActivePlayer }): boolean {
  */
 export function canDrawExtraCard(opts: { character: ActivePlayer }): boolean {
   const { character } = opts;
-  const state = gamestate();
+  const state = combatstate();
 
   return (
     [GamePhase.Turn].includes(state.currentPhase) &&
@@ -216,7 +216,7 @@ export function handleEntireSpellcastSequence(opts: {
   card: PlayableCard;
   turnOrder: TurnOrder;
 }): void {
-  const { field } = gamestate();
+  const { field } = combatstate();
 
   const { character, x, y, card, turnOrder } = opts;
 

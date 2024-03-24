@@ -2,12 +2,12 @@ import {
   GamePhase,
   TurnOrder,
   type ActivePlayer,
+  type CombatState,
+  type CombatStateInitOpts,
   type FieldNode,
-  type GameState,
-  type GameStateInitOpts,
 } from '../../interfaces';
 import { getId } from '../static/uuid';
-import { saveGamestate } from './gamestate';
+import { saveCombatstate } from './gamestate';
 import { turnCharacterIntoActivePlayer } from './transform';
 
 /**
@@ -90,7 +90,7 @@ export function createBlankActivePlayer(): ActivePlayer {
 /**
  * @internal
  */
-export function createBlankGameState(): GameState {
+export function createBlankCombatState(): CombatState {
   return {
     id: '',
     rng: 0,
@@ -111,14 +111,14 @@ export function createBlankGameState(): GameState {
 /**
  * @internal
  */
-export function createFreshGameState(opts: {
+export function createFreshCombatState(opts: {
   id: string;
-  gamestateInitOpts: GameStateInitOpts;
-}): GameState {
+  gamestateInitOpts: CombatStateInitOpts;
+}): CombatState {
   const { id, gamestateInitOpts } = opts;
 
   return {
-    ...createBlankGameState(),
+    ...createBlankCombatState(),
     id,
 
     players: [
@@ -145,16 +145,16 @@ export function createFreshGameState(opts: {
  * @internal
  */
 export function startCombat(opts: {
-  gamestateInitOpts: GameStateInitOpts;
+  gamestateInitOpts: CombatStateInitOpts;
 }): void {
   const { gamestateInitOpts } = opts;
 
   const id = getId();
 
-  const blankState = createBlankGameState();
+  const blankState = createBlankCombatState();
   blankState.id = id;
-  saveGamestate({ state: blankState });
+  saveCombatstate({ state: blankState });
 
-  const freshState = createFreshGameState({ id, gamestateInitOpts });
-  saveGamestate({ state: freshState });
+  const freshState = createFreshCombatState({ id, gamestateInitOpts });
+  saveCombatstate({ state: freshState });
 }

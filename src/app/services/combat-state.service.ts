@@ -4,31 +4,31 @@ import { interval } from 'rxjs';
 import {
   DEFAULT_DELAY,
   aiAttemptAction,
-  createBlankGameState,
-  debugGamestate,
+  combatstate,
+  combatstateInitOptions,
+  createBlankCombatState,
+  debugCombatstate,
   declareVictory,
-  gamestate,
-  gamestateInitOptions,
   handleEndOfTurnSpellActions,
   hasAnyoneWon,
   nextPhase,
-  saveDebugGamestate,
-  saveGamestate,
+  saveCombatstate,
+  saveDebugCombatstate,
   setPhaseBannerString,
 } from '../helpers';
 import { spriteIterationCount } from '../helpers/static/sprite';
 import { delay } from '../helpers/static/time';
-import { GamePhase, TurnOrder, type GameState } from '../interfaces';
+import { GamePhase, TurnOrder, type CombatState } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
-export class GameStateService {
+export class CombatStateService {
   private localStorage = inject(LocalStorageService);
 
   private hasLoaded = signal<boolean>(false);
 
-  private state: GameState = createBlankGameState();
+  private state: CombatState = createBlankCombatState();
   private previousPhase!: GamePhase;
   private movingSpells = false;
 
@@ -36,7 +36,7 @@ export class GameStateService {
     effect(() => {
       if (!this.hasLoaded()) return;
 
-      this.state = gamestate();
+      this.state = combatstate();
       console.info('[State Update]', this.state);
       this.saveGamestate(this.state);
     });
@@ -44,14 +44,14 @@ export class GameStateService {
     effect(() => {
       if (!this.hasLoaded()) return;
 
-      const debugState = debugGamestate();
-      this.localStorage.store('debuggamestate', debugState);
+      const debugState = debugCombatstate();
+      this.localStorage.store('debugcombatstate', debugState);
     });
 
     effect(() => {
       if (!this.hasLoaded()) return;
 
-      const initOpts = gamestateInitOptions();
+      const initOpts = combatstateInitOptions();
       if (initOpts) {
         this.localStorage.store('initopts', initOpts);
       }
@@ -65,31 +65,31 @@ export class GameStateService {
   }
 
   load() {
-    const state = this.localStorage.retrieve('gamestate');
+    const state = this.localStorage.retrieve('combatstate');
     if (state) {
-      saveGamestate({ state });
+      saveCombatstate({ state });
     }
 
-    const debugstate = this.localStorage.retrieve('debuggamestate');
+    const debugstate = this.localStorage.retrieve('debugcombatstate');
     if (debugstate?.id) {
-      saveGamestate({ state: debugstate });
-      saveDebugGamestate({ state: debugstate });
+      saveCombatstate({ state: debugstate });
+      saveDebugCombatstate({ state: debugstate });
     }
 
     const initOpts = this.localStorage.retrieve('initopts');
     if (initOpts) {
-      gamestateInitOptions.set(initOpts);
+      combatstateInitOptions.set(initOpts);
     }
 
     this.hasLoaded.set(true);
   }
 
-  saveGamestate(saveState: GameState) {
-    this.localStorage.store('gamestate', saveState);
+  saveGamestate(saveState: CombatState) {
+    this.localStorage.store('combatstate', saveState);
   }
 
-  saveDebugGamestate(saveState: GameState) {
-    this.localStorage.store('debuggamestate', saveState);
+  saveDebugGamestate(saveState: CombatState) {
+    this.localStorage.store('debugcombatstate', saveState);
   }
 
   handleSpriteLoop() {

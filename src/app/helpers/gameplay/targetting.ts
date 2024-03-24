@@ -2,7 +2,7 @@ import { TurnOrder, type Spell } from '../../interfaces';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getSpellById } from '../lookup/spells';
 import { getSpaceFromField } from './field';
-import { gamestate } from './gamestate';
+import { combatstate } from './gamestate';
 import { callRitualGlobalFunction } from './ritual';
 
 function getListOfTargettableTilesForSpell(opts: {
@@ -33,7 +33,7 @@ function getRawTargettableTilesForSpell(opts: {
   turn: TurnOrder;
 }): Record<number, Record<number, boolean>> {
   const { turn, spell } = opts;
-  const { field } = gamestate();
+  const { field } = combatstate();
 
   const spellData = getSpellById(spell.id);
   if (!spellData) return {};

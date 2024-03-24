@@ -1,5 +1,5 @@
 import { GamePhase, TurnOrder, type ActivePlayer } from '../../interfaces';
-import { gamestate, saveGamestate } from './gamestate';
+import { combatstate, saveCombatstate } from './gamestate';
 import { callRitualGlobalFunction } from './ritual';
 import { gainMana } from './stats';
 import { reshuffleDeck } from './turn';
@@ -44,7 +44,7 @@ const phaseNextPhase: Record<GamePhase, GamePhase> = {
  * @internal
  */
 export async function nextPhase(): Promise<void> {
-  const state = gamestate();
+  const state = combatstate();
 
   const oldPhase: GamePhase = state.currentPhase;
   const newPhase: GamePhase = phaseNextPhase[state.currentPhase];
@@ -109,7 +109,7 @@ export async function nextPhase(): Promise<void> {
 
   phaseActions[state.currentPhase]();
 
-  saveGamestate({
+  saveCombatstate({
     state: {
       ...state,
       currentPhase: newPhase,
@@ -146,7 +146,7 @@ export async function nextPhase(): Promise<void> {
  * @internal
  */
 export function hasAnyoneWon(): boolean {
-  const { players } = gamestate();
+  const { players } = combatstate();
   if (players.length < 2) return false;
 
   return players.some((player) => player.health === 0);
@@ -156,7 +156,7 @@ export function hasAnyoneWon(): boolean {
  * @internal
  */
 export function declareVictory(): void {
-  const state = gamestate();
+  const state = combatstate();
 
   if (!hasAnyoneWon()) return;
 
@@ -177,7 +177,7 @@ export function declareVictory(): void {
     return;
   }
 
-  saveGamestate({
+  saveCombatstate({
     state: {
       ...state,
       currentTurn: winner,

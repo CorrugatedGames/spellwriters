@@ -37,7 +37,7 @@
 
         <div class="row mt-1">
 
-          @if(api.debugGamestate(); as debugState) {
+          @if(api.debugCombatstate(); as debugState) {
           <div class="col">
             <button class="btn btn-sm" [class.btn-warning]="debugState.id" [class.btn-light]="!debugState.id"
               (click)="api.storeCurrentStateAsDebugState()">

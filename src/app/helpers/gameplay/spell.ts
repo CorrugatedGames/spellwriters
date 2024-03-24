@@ -4,7 +4,7 @@ import { getSpellTagByKey, getSpellTagKey } from '../lookup/spell-tags';
 import { freeze } from '../static/object';
 import { removeSpellFromField } from './field';
 import { setFieldSpell } from './field-spell';
-import { gamestate } from './gamestate';
+import { combatstate } from './gamestate';
 import { callRitualGlobalFunction, callRitualSpellFunction } from './ritual';
 
 /**
@@ -31,7 +31,7 @@ export function addSpellAtPosition(opts: {
  */
 export function addSpellToQueue(opts: { spell: FieldSpell }): void {
   const { spell } = opts;
-  const { spellQueue } = gamestate();
+  const { spellQueue } = combatstate();
 
   spellQueue.push(spell.castId);
 }
@@ -434,7 +434,7 @@ export function spellCollisionDamageReduction(opts: {
  */
 export function removeSpellFromQueue(opts: { spellId: string }): void {
   const { spellId } = opts;
-  const { spellQueue } = gamestate();
+  const { spellQueue } = combatstate();
 
   const index = spellQueue.indexOf(spellId);
   if (index !== -1) {

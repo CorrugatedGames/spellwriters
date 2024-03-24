@@ -4,13 +4,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPauseComponent } from '../../../components/play/modal-pause/modal-pause.component';
 import {
   canDrawExtraCard,
-  createBlankGameState,
+  combatstate,
+  combatstateInitOptions,
+  createBlankCombatState,
   createBlankStateMachineMap,
   doExtraCardDraw,
   drawCardAndPassPhase,
   endTurnAndPassPhase,
-  gamestate,
-  gamestateInitOptions,
   getListOfTargetableTilesForSpellBasedOnPattern,
   getRelicById,
   getSpaceFromField,
@@ -23,7 +23,7 @@ import {
   isFieldSpaceEmpty,
   manaCostForSpell,
   phaseBannerString,
-  resetGamestate,
+  resetCombatstate,
   setIngameErrorMessage,
   setPhaseBannerString,
   startCombat,
@@ -32,10 +32,10 @@ import {
 import {
   GamePhase,
   TurnOrder,
+  type CombatState,
+  type CombatStateInitOpts,
   type CurrentPhase,
   type FieldNode,
-  type GameState,
-  type GameStateInitOpts,
   type Relic,
   type SelectedCard,
   type Spell,
@@ -55,7 +55,7 @@ export class CombatComponent {
   public contentService = inject(ContentService);
   public debugService = inject(DebugService);
 
-  public gamestate: GameState = createBlankGameState();
+  public gamestate: CombatState = createBlankCombatState();
   public gamephase: CurrentPhase = createBlankStateMachineMap();
 
   public hoveringTile?: FieldNode;
@@ -75,7 +75,7 @@ export class CombatComponent {
   public readonly errorMessageString = ingameErrorMessage.asReadonly();
 
   public readonly trackState = effect(() => {
-    this.gamestate = gamestate();
+    this.gamestate = combatstate();
     this.gamephase = stateMachineMapFromGameState({ state: this.gamestate });
 
     this.parseRelics();
@@ -251,15 +251,15 @@ export class CombatComponent {
         text: 'Start Over',
         action: () => {
           setPhaseBannerString({ text: '' });
-          resetGamestate();
+          resetCombatstate();
 
-          const oldOpts = gamestateInitOptions();
+          const oldOpts = combatstateInitOptions();
           if (!oldOpts) {
             this.router.navigate(['/new-run']);
             return;
           }
 
-          startCombat({ gamestateInitOpts: oldOpts as GameStateInitOpts });
+          startCombat({ gamestateInitOpts: oldOpts as CombatStateInitOpts });
           this.router.navigate(['/play']);
           return;
         },
@@ -268,7 +268,7 @@ export class CombatComponent {
         text: 'New Run',
         action: () => {
           setPhaseBannerString({ text: '' });
-          resetGamestate();
+          resetCombatstate();
           this.router.navigate(['/new-run']);
         },
       },
@@ -276,7 +276,7 @@ export class CombatComponent {
         text: 'Main Menu',
         action: () => {
           setPhaseBannerString({ text: '' });
-          resetGamestate();
+          resetCombatstate();
           this.router.navigate(['/']);
         },
       },

@@ -1,5 +1,5 @@
 import type { ActivePlayer, TurnOrder } from '../../interfaces';
-import { gamestate } from './gamestate';
+import { combatstate } from './gamestate';
 
 /**
  * Get an ActivePlayer reference by their position in the turn order.
@@ -11,7 +11,7 @@ import { gamestate } from './gamestate';
 export function getActivePlayerByTurnOrder(opts: {
   turnOrder: TurnOrder;
 }): ActivePlayer {
-  const state = gamestate();
+  const state = combatstate();
   const { turnOrder } = opts;
 
   return state.players[turnOrder];

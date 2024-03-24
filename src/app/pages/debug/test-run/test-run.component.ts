@@ -5,7 +5,7 @@ import {
   allCharacters,
   allRelics,
   clone,
-  gamestateInitOptions,
+  combatstateInitOptions,
   getCharacterById,
   getElementById,
   getSpellById,
@@ -14,11 +14,11 @@ import {
 import { getRarityById } from '../../../helpers/lookup/rarities';
 import {
   type Character,
-  type GameStateInitOpts,
+  type CombatStateInitOpts,
   type Relic,
 } from '../../../interfaces';
+import { CombatStateService } from '../../../services/combat-state.service';
 import { ContentService } from '../../../services/content.service';
-import { GameStateService } from '../../../services/game-state.service';
 
 @Component({
   selector: 'sw-test-run',
@@ -28,7 +28,7 @@ import { GameStateService } from '../../../services/game-state.service';
 export class DebugTestRunComponent implements OnInit {
   private router = inject(Router);
   public contentService = inject(ContentService);
-  public gamestateService = inject(GameStateService);
+  public gamestateService = inject(CombatStateService);
 
   getCharacterById = getCharacterById;
   getSpellById = getSpellById;
@@ -67,7 +67,7 @@ export class DebugTestRunComponent implements OnInit {
       return;
     }
 
-    const opts: GameStateInitOpts = {
+    const opts: CombatStateInitOpts = {
       enemyCharacter: {
         ...enemy,
         relics: this.enemyRelics,
@@ -80,7 +80,7 @@ export class DebugTestRunComponent implements OnInit {
       fieldHeight: 5,
     };
 
-    gamestateInitOptions.set(opts);
+    combatstateInitOptions.set(opts);
 
     startCombat({ gamestateInitOpts: opts });
 

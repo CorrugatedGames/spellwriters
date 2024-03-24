@@ -9,8 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DebugPanelComponent } from './components/debug/debug-panel/debug-panel.component';
 import { AnalyticsService } from './services/analytics.service';
+import { CombatStateService } from './services/combat-state.service';
 import { ContentService } from './services/content.service';
-import { GameStateService } from './services/game-state.service';
 import { KeymapService } from './services/hotkeys.service';
 import { MetaService } from './services/meta.service';
 import { ModAPIService } from './services/modapi.service';
@@ -41,7 +41,7 @@ import {
         RollbarService,
         ModAPIService,
         ContentService,
-        GameStateService,
+        CombatStateService,
         KeymapService,
       ],
       useFactory:
@@ -51,7 +51,7 @@ import {
           rollbarService: RollbarService,
           modApiService: ModAPIService,
           contentService: ContentService,
-          gameStateService: GameStateService,
+          gameStateService: CombatStateService,
           hotkeysService: KeymapService,
         ) =>
         async () => {

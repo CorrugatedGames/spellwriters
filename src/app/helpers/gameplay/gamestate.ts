@@ -1,28 +1,31 @@
 import { signal, type Signal, type WritableSignal } from '@angular/core';
-import { type GameState, type GameStateInitOpts } from '../../interfaces';
-import { createBlankGameState } from './init';
+import { type CombatState, type CombatStateInitOpts } from '../../interfaces';
+import { createBlankCombatState } from './init';
 
-const _gamestate: WritableSignal<GameState> = signal(createBlankGameState());
-
-/**
- * @internal
- */
-export const gamestate: Signal<GameState> = _gamestate.asReadonly();
-
-const _debugGamestate: WritableSignal<GameState> = signal(
-  createBlankGameState(),
+const _combatstate: WritableSignal<CombatState> = signal(
+  createBlankCombatState(),
 );
 
 /**
  * @internal
  */
-export const debugGamestate: Signal<GameState> = _debugGamestate.asReadonly();
+export const combatstate: Signal<CombatState> = _combatstate.asReadonly();
+
+const _debugCombatstate: WritableSignal<CombatState> = signal(
+  createBlankCombatState(),
+);
 
 /**
  * @internal
  */
-export const gamestateInitOptions: WritableSignal<
-  GameStateInitOpts | undefined
+export const debugCombatstate: Signal<CombatState> =
+  _debugCombatstate.asReadonly();
+
+/**
+ * @internal
+ */
+export const combatstateInitOptions: WritableSignal<
+  CombatStateInitOpts | undefined
 > = signal(undefined);
 
 /**
@@ -31,9 +34,9 @@ export const gamestateInitOptions: WritableSignal<
  *
  * @category Game State
  */
-export function saveGamestate(opts: { state: GameState }): void {
+export function saveCombatstate(opts: { state: CombatState }): void {
   const { state } = opts;
-  _gamestate.set(state);
+  _combatstate.set(state);
 }
 
 /**
@@ -43,9 +46,9 @@ export function saveGamestate(opts: { state: GameState }): void {
  *
  * @category Game State
  */
-export function triggerGamestateUpdate(): void {
-  const currentState = gamestate();
-  saveGamestate({ state: { ...currentState } });
+export function triggerCombatstateUpdate(): void {
+  const currentState = combatstate();
+  saveCombatstate({ state: { ...currentState } });
 }
 
 /**
@@ -53,8 +56,8 @@ export function triggerGamestateUpdate(): void {
  *
  * @category Game State
  */
-export function resetGamestate(): void {
-  _gamestate.set(createBlankGameState());
+export function resetCombatstate(): void {
+  _combatstate.set(createBlankCombatState());
 }
 
 /**
@@ -65,9 +68,9 @@ export function resetGamestate(): void {
  * @category Debug
  * @param opts.state The state to save as the debug state.
  */
-export function saveDebugGamestate(opts: { state: GameState }): void {
+export function saveDebugCombatstate(opts: { state: CombatState }): void {
   const { state } = opts;
-  _debugGamestate.set(state);
+  _debugCombatstate.set(state);
 }
 
 /**
@@ -76,8 +79,8 @@ export function saveDebugGamestate(opts: { state: GameState }): void {
  * @category Game State
  * @category Debug
  */
-export function resetDebugGamestate(): void {
-  _debugGamestate.set(createBlankGameState());
+export function resetDebugCombatstate(): void {
+  _debugCombatstate.set(createBlankCombatState());
 }
 
 /**
@@ -86,6 +89,6 @@ export function resetDebugGamestate(): void {
  * @category Game State
  * @category Debug
  */
-export function storeCurrentStateAsDebugState(): void {
-  saveDebugGamestate({ state: gamestate() });
+export function storeCurrentCombatStateAsDebugState(): void {
+  saveDebugCombatstate({ state: combatstate() });
 }

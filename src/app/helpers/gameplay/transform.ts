@@ -4,8 +4,8 @@ import {
   TurnOrder,
   type ActivePlayer,
   type Character,
+  type CombatState,
   type CurrentPhase,
-  type GameState,
   type PlayableCard,
 } from '../../interfaces';
 import { getId } from '../static/uuid';
@@ -29,7 +29,7 @@ export function createBlankStateMachineMap(): CurrentPhase {
 /**
  * @internal
  */
-export function phaseObjectFromGameState(opts: { state: GameState }): {
+export function phaseObjectFromGameState(opts: { state: CombatState }): {
   turn: string;
   phase: GamePhase;
 } {
@@ -43,7 +43,7 @@ export function phaseObjectFromGameState(opts: { state: GameState }): {
 /**
  * @internal
  */
-export function phaseNameFromGameState(opts: { state: GameState }): string {
+export function phaseNameFromGameState(opts: { state: CombatState }): string {
   const { state } = opts;
   const { turn, phase } = phaseObjectFromGameState({ state });
 
@@ -54,7 +54,7 @@ export function phaseNameFromGameState(opts: { state: GameState }): string {
  * @internal
  */
 export function stateMachineMapFromGameState(opts: {
-  state: GameState;
+  state: CombatState;
 }): CurrentPhase {
   const { state } = opts;
   const { turn, phase } = phaseObjectFromGameState({ state });
