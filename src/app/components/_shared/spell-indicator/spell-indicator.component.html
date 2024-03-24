@@ -1,0 +1,12 @@
+@if(spell(); as spellData) {
+<div class="relic-indicator-container" [style.--rarity-color]="'var(--rarity-' + rarity() + ')'"
+  [ngbTooltip]="relicTooltip" tooltipClass="tooltip-normalize tooltip-relic">
+  <div class="relic-sprite">
+    <sw-sprite [spritable]="spellData"></sw-sprite>
+  </div>
+</div>
+}
+
+<ng-template #relicTooltip>
+  <sw-spell-card [spell]="spell()"></sw-spell-card>
+</ng-template>

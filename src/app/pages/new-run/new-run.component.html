@@ -55,7 +55,7 @@
                   @for(spellId of character.deck.spells; track $index) {
                   <div class="spell-container me-3 mb-3">
                     @if(getSpellById(spellId); as spell) {
-                    <sw-sprite [spritable]="spell"></sw-sprite>
+                    <sw-spell-indicator [spell]="spell"></sw-spell-indicator>
                     }
                   </div>
                   }

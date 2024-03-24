@@ -212,6 +212,16 @@
     }
   </div>
 
+  <h1 id="spellindicators"><a [routerLink]="['/debug/components']" fragment="spellindicators">Spell Indicators</a></h1>
+
+  <div class="sprite-container">
+    @for(spell of spellList; track spell) {
+    <div class="sprite">
+      <sw-spell-indicator [spell]="spell"></sw-spell-indicator>
+    </div>
+    }
+  </div>
+
   <h1 id="spellcards"><a [routerLink]="['/debug/components']" fragment="spellcards">Spell Cards</a></h1>
 
   <div class="sprite-container">

@@ -15,6 +15,7 @@ import { IconComponent } from './components/_shared/icon/icon.component';
 import { RelicCardComponent } from './components/_shared/relic-card/relic-card.component';
 import { RelicIndicatorComponent } from './components/_shared/relic-indicator/relic-indicator.component';
 import { SpellCardComponent } from './components/_shared/spell-card/spell-card.component';
+import { SpellIndicatorComponent } from './components/_shared/spell-indicator/spell-indicator.component';
 import { SpriteComponent } from './components/_shared/sprite/sprite.component';
 import { StatusEffectCardComponent } from './components/_shared/status-effect-card/status-effect-card.component';
 import { StatusEffectIndicatorComponent } from './components/_shared/status-effect-indicator/status-effect-indicator.component';
@@ -41,6 +42,7 @@ const components = [
   FitTextComponent,
   SpriteComponent,
   SpellCardComponent,
+  SpellIndicatorComponent,
   ElementCardComponent,
   IconStatComponent,
   IconComponent,

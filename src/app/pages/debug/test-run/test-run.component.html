@@ -95,76 +95,6 @@
   </div>
 </div>
 
-<ng-template #spellInfo let-spell="spell">
-  <strong>{{ spell.name }}</strong>
-  <br>
-  <em>{{ rarityName(spell.rarity) }} {{ elementName(spell.element) }} spell</em>
-
-  <br>
-  <p>{{ spell.description }}</p>
-
-  <br>
-  <div class="row">
-    <div class="col-6">
-      Damage
-    </div>
-
-    <div class="col-6">
-      {{ spell.damage }}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-6">
-      Speed
-    </div>
-
-    <div class="col-6">
-      {{ spell.speed }}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-6">
-      Mana
-    </div>
-
-    <div class="col-6">
-      {{ spell.cost }}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-6">
-      Cast Time
-    </div>
-
-    <div class="col-6">
-      {{ spell.castTime }}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-6">
-      Depth
-    </div>
-
-    <div class="col-6">
-      {{ spell.depthMin }}-{{ spell.depthMax }}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-6">
-      Pattern
-    </div>
-
-    <div class="col-6">
-      Single
-    </div>
-  </div>
-</ng-template>
-
 <ng-template #characterDebugInfo let-character="character">
   <div class="character">
     <div class="row">
@@ -183,8 +113,8 @@
           @for(spellId of character.deck.spells; track $index) {
           <div class="spell-container">
             @if(getSpellById(spellId); as spell) {
-            <div class="spell" [ngbTooltip]="spellInfo" [tooltipContext]="{ spell: spell }">
-              <sw-sprite [spritable]="spell"></sw-sprite>
+            <div class="spell">
+              <sw-spell-indicator [spell]="spell"></sw-spell-indicator>
             </div>
             }
           </div>
