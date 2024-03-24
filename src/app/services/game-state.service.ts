@@ -1,7 +1,8 @@
 import { Injectable, effect, inject, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { combatState, createBlankGameState, saveCombatState } from '../helpers';
-import { type CombatState, type GameState } from '../interfaces';
+import { createBlankGameState } from '../helpers';
+import { gameState, saveGameState } from '../helpers/gameplay/gamestate';
+import { type GameState } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class GameStateService {
     effect(() => {
       if (!this.hasLoaded()) return;
 
-      this.state = combatState();
+      this.state = gameState();
       console.info('[State Update]', this.state);
       this.saveGamestate(this.state);
     });
@@ -30,13 +31,13 @@ export class GameStateService {
   load() {
     const state = this.localStorage.retrieve('gamestate');
     if (state) {
-      saveCombatState({ state });
+      saveGameState({ state });
     }
 
     this.hasLoaded.set(true);
   }
 
-  saveGamestate(saveState: CombatState) {
+  saveGamestate(saveState: GameState) {
     this.localStorage.store('gamestate', saveState);
   }
 }

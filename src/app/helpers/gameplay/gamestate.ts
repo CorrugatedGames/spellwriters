@@ -7,7 +7,7 @@ const _gamestate: WritableSignal<GameState> = signal(createBlankGameState());
 /**
  * @internal
  */
-export const gamestate: Signal<GameState> = _gamestate.asReadonly();
+export const gameState: Signal<GameState> = _gamestate.asReadonly();
 
 /**
  * Save a state as the current game state.
