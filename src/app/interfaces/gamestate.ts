@@ -48,6 +48,11 @@ export interface ActivePlayer extends Spritable {
   statusEffects: Record<string, number>;
 }
 
+export enum CurrentGameFeature {
+  Combat = 'combat',
+  StarSpace = 'starspace',
+}
+
 /**
  * @category Gameplay
  */
@@ -91,6 +96,11 @@ export enum TurnOrder {
   Player = 0,
   Opponent = 1,
 }
+
+/**
+ * @category Gameplay
+ */
+export interface CombatGameState {}
 
 /**
  * @category Gameplay
