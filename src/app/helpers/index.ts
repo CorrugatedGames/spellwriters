@@ -5,12 +5,12 @@
 import * as Electron from './electron/in-electron';
 
 import * as GameplayAI from './gameplay/ai';
+import * as GameplayGamestate from './gameplay/combatstate';
 import * as GameplayError from './gameplay/error';
 import * as GameplayField from './gameplay/field';
 import * as GameplayFieldElement from './gameplay/field-element';
 import * as GameplayFieldSpell from './gameplay/field-spell';
 import * as GameplayFieldStatus from './gameplay/field-status';
-import * as GameplayGamestate from './gameplay/gamestate';
 import * as GameplayHand from './gameplay/hand';
 import * as GameplayInit from './gameplay/init';
 import * as GameplayMeta from './gameplay/meta';
@@ -99,6 +99,7 @@ export const AllHelpers = {
 
 export * from './electron/in-electron';
 export * from './gameplay/ai';
+export * from './gameplay/combatstate';
 export * from './gameplay/defaults/ai-patterns';
 export * from './gameplay/defaults/collisions';
 export * from './gameplay/defaults/ritual';
@@ -108,7 +109,6 @@ export * from './gameplay/field';
 export * from './gameplay/field-element';
 export * from './gameplay/field-spell';
 export * from './gameplay/field-status';
-export * from './gameplay/gamestate';
 export * from './gameplay/hand';
 export * from './gameplay/init';
 export * from './gameplay/meta';

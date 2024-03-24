@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPauseComponent } from '../../../components/play/modal-pause/modal-pause.component';
 import {
   canDrawExtraCard,
-  combatstate,
+  combatState,
   combatstateInitOptions,
   createBlankCombatState,
   createBlankStateMachineMap,
@@ -23,7 +23,7 @@ import {
   isFieldSpaceEmpty,
   manaCostForSpell,
   phaseBannerString,
-  resetCombatstate,
+  resetCombatState,
   setIngameErrorMessage,
   setPhaseBannerString,
   startCombat,
@@ -75,7 +75,7 @@ export class CombatComponent {
   public readonly errorMessageString = ingameErrorMessage.asReadonly();
 
   public readonly trackState = effect(() => {
-    this.gamestate = combatstate();
+    this.gamestate = combatState();
     this.gamephase = stateMachineMapFromGameState({ state: this.gamestate });
 
     this.parseRelics();
@@ -251,7 +251,7 @@ export class CombatComponent {
         text: 'Start Over',
         action: () => {
           setPhaseBannerString({ text: '' });
-          resetCombatstate();
+          resetCombatState();
 
           const oldOpts = combatstateInitOptions();
           if (!oldOpts) {
@@ -268,7 +268,7 @@ export class CombatComponent {
         text: 'New Run',
         action: () => {
           setPhaseBannerString({ text: '' });
-          resetCombatstate();
+          resetCombatState();
           this.router.navigate(['/new-run']);
         },
       },
@@ -276,7 +276,7 @@ export class CombatComponent {
         text: 'Main Menu',
         action: () => {
           setPhaseBannerString({ text: '' });
-          resetCombatstate();
+          resetCombatState();
           this.router.navigate(['/']);
         },
       },

@@ -1,6 +1,6 @@
 import { Component, inject, type TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combatstate } from '../../helpers';
+import { combatState } from '../../helpers';
 import { MetaService } from '../../services/meta.service';
 
 @Component({
@@ -58,7 +58,7 @@ export class HomeComponent {
   ];
 
   public get hasRun(): boolean {
-    return !!combatstate().id;
+    return !!combatState().id;
   }
 
   public openChangelogs(template: TemplateRef<unknown>) {

@@ -1,7 +1,7 @@
 import type { FieldElement, SpellElement, TurnOrder } from '../../interfaces';
 import { getElementByKey } from '../lookup/elements';
 import { getId } from '../static/uuid';
-import { combatstate } from './gamestate';
+import { combatState } from './combatstate';
 
 /**
  * Convert an element to a field element.
@@ -109,7 +109,7 @@ export function setFieldElement(opts: {
   element: FieldElement | undefined;
 }): void {
   const { x, y, element } = opts;
-  const { field } = combatstate();
+  const { field } = combatState();
 
   if (!element) {
     field[y][x].containedElement = undefined;

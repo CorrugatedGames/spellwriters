@@ -21,8 +21,8 @@ import {
 } from '../lookup/status-effect';
 import { getTileStatusImpl } from '../lookup/tile-status';
 import { freeze } from '../static/object';
+import { combatState } from './combatstate';
 import { findSpellOnField } from './field';
-import { combatstate } from './gamestate';
 import { getSpellTags } from './spell';
 
 function isTF(t: boolean | undefined): boolean {
@@ -45,13 +45,13 @@ function hasNestedPickableTile(tiles: RitualPickableTile[][]): boolean {
 }
 
 function getAllFieldSpells(): FieldSpell[] {
-  return combatstate()
+  return combatState()
     .spellQueue.map((spellId) => findSpellOnField({ spellId }))
     .filter(Boolean) as FieldSpell[];
 }
 
 function getAllRelics(): RitualCurrentContextRelicArgs['relicContext'][] {
-  return combatstate().players.flatMap((player) =>
+  return combatState().players.flatMap((player) =>
     Object.keys(player.relics ?? {}).map((relicId) => ({
       id: relicId,
       key: getRelicKey(relicId),
@@ -62,7 +62,7 @@ function getAllRelics(): RitualCurrentContextRelicArgs['relicContext'][] {
 }
 
 function getAllStatusEffects(): RitualCurrentContextStatusEffectArgs['statusEffectContext'][] {
-  return combatstate().players.flatMap((player) =>
+  return combatState().players.flatMap((player) =>
     Object.keys(player.statusEffects ?? {}).map((statusEffectId) => ({
       id: statusEffectId,
       key: getStatusEffectKey(statusEffectId),
@@ -73,7 +73,7 @@ function getAllStatusEffects(): RitualCurrentContextStatusEffectArgs['statusEffe
 }
 
 function getAllTileStatuses(): RitualCurrentContextTileArgs['tileContext'][] {
-  return combatstate()
+  return combatState()
     .field.flatMap((row, y) =>
       row.map((tile, x) => {
         const status = tile.containedStatus;
@@ -133,7 +133,7 @@ export function isFirstInvocationOfPlacedSpell(opts: {
  */
 export function isCurrentTurn(opts: { player: ActivePlayer }): boolean {
   const { player } = opts;
-  const state = combatstate();
+  const state = combatState();
   return state.currentTurn === player.turnOrder;
 }
 

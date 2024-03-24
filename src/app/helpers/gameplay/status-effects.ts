@@ -1,6 +1,6 @@
 import type { ActivePlayer } from '../../interfaces';
 import { getStatusEffectByKey } from '../lookup/status-effect';
-import { triggerCombatstateUpdate } from './gamestate';
+import { triggerCombatStateUpdate } from './combatstate';
 
 /**
  * Add a status effect to a player. Will stack it if it already exists.
@@ -27,7 +27,7 @@ export function addStatusEffectToPlayer(opts: {
     delete player.statusEffects[statusEffectId];
   }
 
-  triggerCombatstateUpdate();
+  triggerCombatStateUpdate();
 }
 
 /**

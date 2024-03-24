@@ -4,7 +4,7 @@ import {
   type AIOpts,
   type ActivePlayer,
 } from '../../interfaces';
-import { combatstate } from './gamestate';
+import { combatState } from './combatstate';
 import { nextPhase } from './meta';
 import { drawCard } from './turn';
 
@@ -21,7 +21,7 @@ import { canPlayCardsInHand, playableCardsInHand } from './hand';
  * @returns AI options for the current game state.
  */
 export function getAIOpts(): AIOpts {
-  const state = combatstate();
+  const state = combatState();
 
   return {
     combatstate: state,
@@ -94,7 +94,7 @@ async function aiEndPhase(): Promise<void> {
  * @returns A promise that resolves when the AI action is complete.
  */
 export async function aiAttemptAction(): Promise<void> {
-  const state = combatstate();
+  const state = combatState();
 
   if (state.currentTurn === TurnOrder.Player) return;
 

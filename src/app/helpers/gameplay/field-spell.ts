@@ -1,6 +1,6 @@
 import type { FieldSpell, Spell, TurnOrder } from '../../interfaces';
 import { getId } from '../static/uuid';
-import { combatstate } from './gamestate';
+import { combatState } from './combatstate';
 
 /**
  * Get the extra data for a field spell.
@@ -90,7 +90,7 @@ export function setFieldSpell(opts: {
   spell: FieldSpell | undefined;
 }): void {
   const { x, y, spell } = opts;
-  const { field } = combatstate();
+  const { field } = combatState();
 
   field[y][x].containedSpell = spell;
 

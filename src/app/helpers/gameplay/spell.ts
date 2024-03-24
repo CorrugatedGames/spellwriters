@@ -2,9 +2,9 @@ import { type FieldSpell, type SpellStatType } from '../../interfaces';
 import { getElementKey } from '../lookup/elements';
 import { getSpellTagByKey, getSpellTagKey } from '../lookup/spell-tags';
 import { freeze } from '../static/object';
+import { combatState } from './combatstate';
 import { removeSpellFromField } from './field';
 import { setFieldSpell } from './field-spell';
-import { combatstate } from './gamestate';
 import { callRitualGlobalFunction, callRitualSpellFunction } from './ritual';
 
 /**
@@ -31,7 +31,7 @@ export function addSpellAtPosition(opts: {
  */
 export function addSpellToQueue(opts: { spell: FieldSpell }): void {
   const { spell } = opts;
-  const { spellQueue } = combatstate();
+  const { spellQueue } = combatState();
 
   spellQueue.push(spell.castId);
 }
@@ -434,7 +434,7 @@ export function spellCollisionDamageReduction(opts: {
  */
 export function removeSpellFromQueue(opts: { spellId: string }): void {
   const { spellId } = opts;
-  const { spellQueue } = combatstate();
+  const { spellQueue } = combatState();
 
   const index = spellQueue.indexOf(spellId);
   if (index !== -1) {

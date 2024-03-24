@@ -1,13 +1,15 @@
 import {
+  CurrentGameFeature,
   GamePhase,
   TurnOrder,
   type ActivePlayer,
   type CombatState,
   type CombatStateInitOpts,
   type FieldNode,
+  type GameState,
 } from '../../interfaces';
 import { getId } from '../static/uuid';
-import { saveCombatstate } from './gamestate';
+import { saveCombatState } from './combatstate';
 import { turnCharacterIntoActivePlayer } from './transform';
 
 /**
@@ -111,6 +113,15 @@ export function createBlankCombatState(): CombatState {
 /**
  * @internal
  */
+export function createBlankGameState(): GameState {
+  return {
+    currentFeature: CurrentGameFeature.StarSpace,
+  };
+}
+
+/**
+ * @internal
+ */
 export function createFreshCombatState(opts: {
   id: string;
   gamestateInitOpts: CombatStateInitOpts;
@@ -153,8 +164,8 @@ export function startCombat(opts: {
 
   const blankState = createBlankCombatState();
   blankState.id = id;
-  saveCombatstate({ state: blankState });
+  saveCombatState({ state: blankState });
 
   const freshState = createFreshCombatState({ id, gamestateInitOpts });
-  saveCombatstate({ state: freshState });
+  saveCombatState({ state: freshState });
 }

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { resetCombatstate } from '../../../helpers';
+import { resetCombatState } from '../../../helpers';
 
 @Component({
   selector: 'sw-modal-pause',
@@ -22,7 +22,7 @@ export class ModalPauseComponent {
 
   newRun() {
     this.closeModal();
-    resetCombatstate();
+    resetCombatState();
     this.router.navigate(['/new-run']);
   }
 

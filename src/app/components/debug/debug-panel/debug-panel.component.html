@@ -37,14 +37,14 @@
 
         <div class="row mt-1">
 
-          @if(api.debugCombatstate(); as debugState) {
+          @if(api.debugCombatState(); as debugState) {
           <div class="col">
             <button class="btn btn-sm" [class.btn-warning]="debugState.id" [class.btn-light]="!debugState.id"
-              (click)="api.storeCurrentStateAsDebugState()">
+              (click)="api.storeCurrentCombatStateAsDebugState()">
               Save DState
             </button>
 
-            <button class="btn btn-warning btn-sm ms-1" *ngIf="debugState.id" (click)="api.resetDebugGamestate()">
+            <button class="btn btn-warning btn-sm ms-1" *ngIf="debugState.id" (click)="api.resetDebugCombatState()">
               Reset DState
             </button>
           </div>

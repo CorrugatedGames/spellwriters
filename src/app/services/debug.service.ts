@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
-import { combatstate, saveCombatstate } from '../helpers';
+import { combatState, saveCombatState } from '../helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +31,7 @@ export class DebugService {
   }
 
   exportGameState() {
-    const state = combatstate();
+    const state = combatState();
 
     const fileName = `${state.players[0].name}-${state.id}-${Date.now()}.sw`;
     const dataStr =
@@ -57,7 +57,7 @@ export class DebugService {
         (ev.target as FileReader).result as string,
       );
 
-      saveCombatstate({ state: gamestateFile });
+      saveCombatState({ state: gamestateFile });
 
       const finish = () => {
         (e.target as HTMLInputElement).value = '';

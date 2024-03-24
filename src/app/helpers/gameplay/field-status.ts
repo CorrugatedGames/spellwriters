@@ -1,7 +1,7 @@
 import type { FieldStatus, TileStatus, TurnOrder } from '../../interfaces';
 import { getTileStatusByKey } from '../lookup/tile-status';
 import { getId } from '../static/uuid';
-import { combatstate } from './gamestate';
+import { combatState } from './combatstate';
 
 /**
  * Get the extra data for a field status.
@@ -63,7 +63,7 @@ export function setFieldStatus(opts: {
   status: FieldStatus | undefined;
 }): void {
   const { x, y, status } = opts;
-  const { field } = combatstate();
+  const { field } = combatState();
 
   if (!status) {
     field[y][x].containedStatus = undefined;

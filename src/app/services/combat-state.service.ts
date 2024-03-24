@@ -4,16 +4,16 @@ import { interval } from 'rxjs';
 import {
   DEFAULT_DELAY,
   aiAttemptAction,
-  combatstate,
+  combatState,
   combatstateInitOptions,
   createBlankCombatState,
-  debugCombatstate,
+  debugCombatState,
   declareVictory,
   handleEndOfTurnSpellActions,
   hasAnyoneWon,
   nextPhase,
-  saveCombatstate,
-  saveDebugCombatstate,
+  saveCombatState,
+  saveDebugCombatState,
   setPhaseBannerString,
 } from '../helpers';
 import { spriteIterationCount } from '../helpers/static/sprite';
@@ -36,7 +36,7 @@ export class CombatStateService {
     effect(() => {
       if (!this.hasLoaded()) return;
 
-      this.state = combatstate();
+      this.state = combatState();
       console.info('[State Update]', this.state);
       this.saveGamestate(this.state);
     });
@@ -44,7 +44,7 @@ export class CombatStateService {
     effect(() => {
       if (!this.hasLoaded()) return;
 
-      const debugState = debugCombatstate();
+      const debugState = debugCombatState();
       this.localStorage.store('debugcombatstate', debugState);
     });
 
@@ -67,13 +67,13 @@ export class CombatStateService {
   load() {
     const state = this.localStorage.retrieve('combatstate');
     if (state) {
-      saveCombatstate({ state });
+      saveCombatState({ state });
     }
 
     const debugstate = this.localStorage.retrieve('debugcombatstate');
     if (debugstate?.id) {
-      saveCombatstate({ state: debugstate });
-      saveDebugCombatstate({ state: debugstate });
+      saveCombatState({ state: debugstate });
+      saveDebugCombatState({ state: debugstate });
     }
 
     const initOpts = this.localStorage.retrieve('initopts');

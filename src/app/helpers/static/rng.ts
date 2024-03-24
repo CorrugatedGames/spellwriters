@@ -1,5 +1,5 @@
 import seedrandom, { type PRNG } from 'seedrandom';
-import { combatstate } from '../gameplay/gamestate';
+import { combatState } from '../gameplay/combatstate';
 
 /**
  * Get a seeded RNG instance. Seed is based on the current gamestate.
@@ -8,7 +8,7 @@ import { combatstate } from '../gameplay/gamestate';
  * @returns a PRNG instance
  */
 export function seededrng(): PRNG {
-  const state = combatstate();
+  const state = combatState();
   state.rng++;
 
   return seedrandom(state.id + state.rng);

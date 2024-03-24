@@ -14,8 +14,8 @@ import {
 } from '../lookup/elements';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { randomChoice } from '../static/rng';
+import { combatState } from './combatstate';
 import { setFieldSpell } from './field-spell';
-import { combatstate } from './gamestate';
 import { createBlankFieldRecord } from './init';
 import { hasAnyoneWon } from './meta';
 import { callRitualGlobalFunction } from './ritual';
@@ -39,7 +39,7 @@ export function findSpellsOnField(): Array<{
   y: number;
   spell: FieldSpell;
 }> {
-  const { field } = combatstate();
+  const { field } = combatState();
 
   const ret: Array<{ x: number; y: number; spell: FieldSpell }> = [];
 
@@ -65,7 +65,7 @@ export function findKnownSpellsOnField(): Array<{
   y: number;
   spell: FieldSpell;
 }> {
-  const { field } = combatstate();
+  const { field } = combatState();
   const allSpells = findSpellsOnField();
   return allSpells.filter(
     (tile) => tile.y !== 0 && tile.y !== field.length - 1,
@@ -82,7 +82,7 @@ export function getFieldSpaces(): Array<{
   x: number;
   y: number;
 }> {
-  const { field } = combatstate();
+  const { field } = combatState();
 
   const ret: Array<{ x: number; y: number }> = [];
 
@@ -106,7 +106,7 @@ export function getTargettableFieldSpaces(): Array<{
   x: number;
   y: number;
 }> {
-  const { field } = combatstate();
+  const { field } = combatState();
   const allFieldSpaces = getFieldSpaces();
 
   return allFieldSpaces.filter(
@@ -126,7 +126,7 @@ export function findSpellOnField(opts: {
   spellId: string;
 }): FieldSpell | undefined {
   const { spellId } = opts;
-  const { field } = combatstate();
+  const { field } = combatState();
 
   for (const row of field) {
     for (const node of row) {
@@ -151,7 +151,7 @@ export function findSpellPositionOnField(opts: {
   spellId: string;
 }): { x: number; y: number } | undefined {
   const { spellId } = opts;
-  const { field } = combatstate();
+  const { field } = combatState();
 
   for (const [y, row] of field.entries()) {
     for (const [x, node] of row.entries()) {
@@ -176,7 +176,7 @@ export function getSpaceFromField(opts: {
   x: number;
   y: number;
 }): FieldNode | undefined {
-  const { field } = combatstate();
+  const { field } = combatState();
   const { x, y } = opts;
 
   return field[y]?.[x];
@@ -215,7 +215,7 @@ export function getTargettableSpacesForSpellAroundPosition(opts: {
   y: number;
 }): Record<number, Record<number, Spell>> {
   const { spell, x, y } = opts;
-  const { width, height } = combatstate();
+  const { width, height } = combatState();
 
   const targetField = createBlankFieldRecord({ width, height });
 
@@ -254,7 +254,7 @@ export function removeSpellFromField(opts: {
   fullRemoval: boolean;
 }): void {
   const { spellId, fullRemoval } = opts;
-  const { field } = combatstate();
+  const { field } = combatState();
 
   const fieldSpell = findSpellOnField({ spellId });
   if (!fieldSpell) return;
@@ -299,7 +299,7 @@ export function moveSpellToPosition(opts: {
 }): void {
   const { spell, nextX, nextY, currentX, currentY, disallowEntryIntoNextTile } =
     opts;
-  const { field, players } = combatstate();
+  const { field, players } = combatState();
 
   // get our current tile
   const currentTile = getSpaceFromField({ x: currentX, y: currentY });
@@ -519,7 +519,7 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
  * @returns {Promise<void>}
  */
 export async function handleEndOfTurnSpellActions(): Promise<void> {
-  const { spellQueue, currentTurn } = combatstate();
+  const { spellQueue, currentTurn } = combatState();
 
   await delay(200);
 

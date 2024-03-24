@@ -100,6 +100,18 @@ export enum TurnOrder {
 /**
  * @category Gameplay
  */
+export interface GameState {
+  currentFeature: CurrentGameFeature;
+}
+
+/**
+ * @category Gameplay
+ */
+export interface StarSpaceState {}
+
+/**
+ * @category Gameplay
+ */
 export interface CombatState {
   id: string;
   rng: number;
