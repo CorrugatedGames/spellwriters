@@ -56,15 +56,17 @@ h1 {
   }
 
   .cards {
-    .spell-row {
+    .spell-row,
+    .relic-row {
       display: flex;
       flex-direction: row;
 
       flex-wrap: wrap;
+    }
 
-      .spell {
-        padding: 4px;
-      }
+    .spell-container,
+    .relic-container {
+      max-width: 64px;
     }
   }
 }
