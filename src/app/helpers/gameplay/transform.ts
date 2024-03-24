@@ -1,12 +1,12 @@
 import {
-  GamePhase,
-  GamePlayer,
-  TurnOrder,
-  type ActivePlayer,
+  CombatPhase,
+  CombatPlayer,
+  CombatTurnOrder,
   type Character,
+  type CombatActivePlayer,
+  type CombatPlayableCard,
   type CombatState,
-  type CurrentPhase,
-  type PlayableCard,
+  type CurrentCombatPhase,
 } from '../../interfaces';
 import { getId } from '../static/uuid';
 import { drawCard, shuffleDeck } from './turn';
@@ -14,16 +14,16 @@ import { drawCard, shuffleDeck } from './turn';
 /**
  * @internal
  */
-export function createBlankStateMachineMap(): CurrentPhase {
-  const keys: Partial<CurrentPhase> = {};
+export function createBlankStateMachineMap(): CurrentCombatPhase {
+  const keys: Partial<CurrentCombatPhase> = {};
 
-  Object.keys(GamePlayer).forEach((player) => {
-    Object.keys(GamePhase).forEach((phase) => {
-      keys[`${player as GamePlayer}${phase as GamePhase}`] = false;
+  Object.keys(CombatPlayer).forEach((player) => {
+    Object.keys(CombatPhase).forEach((phase) => {
+      keys[`${player as CombatPlayer}${phase as CombatPhase}`] = false;
     });
   });
 
-  return keys as CurrentPhase;
+  return keys as CurrentCombatPhase;
 }
 
 /**
@@ -31,11 +31,11 @@ export function createBlankStateMachineMap(): CurrentPhase {
  */
 export function phaseObjectFromGameState(opts: { state: CombatState }): {
   turn: string;
-  phase: GamePhase;
+  phase: CombatPhase;
 } {
   const { state } = opts;
   return {
-    turn: state.currentTurn === TurnOrder.Player ? 'Player' : 'Opponent',
+    turn: state.currentTurn === CombatTurnOrder.Player ? 'Player' : 'Opponent',
     phase: state.currentPhase,
   };
 }
@@ -55,7 +55,7 @@ export function phaseNameFromGameState(opts: { state: CombatState }): string {
  */
 export function stateMachineMapFromGameState(opts: {
   state: CombatState;
-}): CurrentPhase {
+}): CurrentCombatPhase {
   const { state } = opts;
   const { turn, phase } = phaseObjectFromGameState({ state });
 
@@ -68,7 +68,9 @@ export function stateMachineMapFromGameState(opts: {
 /**
  * @internal
  */
-export function turnCardIntoPlayableCard(opts: { id: string }): PlayableCard {
+export function turnCardIntoPlayableCard(opts: {
+  id: string;
+}): CombatPlayableCard {
   const { id } = opts;
   return { spellId: id, instanceId: getId() };
 }
@@ -78,14 +80,14 @@ export function turnCardIntoPlayableCard(opts: { id: string }): PlayableCard {
  */
 export function turnCharacterIntoActivePlayer(opts: {
   character: Character;
-  turnOrder: TurnOrder;
-}): ActivePlayer {
+  turnOrder: CombatTurnOrder;
+}): CombatActivePlayer {
   const { character } = opts;
   const deck = character.deck.spells.map((id) =>
     turnCardIntoPlayableCard({ id }),
   );
 
-  const player: ActivePlayer = {
+  const player: CombatActivePlayer = {
     id: character.id,
     mod: character.mod,
     asset: character.asset,

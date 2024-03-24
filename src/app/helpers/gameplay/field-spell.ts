@@ -1,4 +1,4 @@
-import type { FieldSpell, Spell, TurnOrder } from '../../interfaces';
+import type { CombatTurnOrder, FieldSpell, Spell } from '../../interfaces';
 import { getId } from '../static/uuid';
 import { combatState } from './combatstate';
 
@@ -48,7 +48,7 @@ export function setExtraDataForFieldSpell(opts: {
  */
 export function spellToFieldSpell(opts: {
   spell: Spell;
-  caster: TurnOrder;
+  caster: CombatTurnOrder;
   x: number;
   y: number;
   extraData?: Record<string, unknown>;

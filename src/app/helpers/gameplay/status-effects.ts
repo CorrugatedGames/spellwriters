@@ -1,4 +1,4 @@
-import type { ActivePlayer } from '../../interfaces';
+import type { CombatActivePlayer } from '../../interfaces';
 import { getStatusEffectByKey } from '../lookup/status-effect';
 import { triggerCombatStateUpdate } from './combatstate';
 
@@ -11,7 +11,7 @@ import { triggerCombatStateUpdate } from './combatstate';
  * @param opts.value The value to add to the status effect.
  */
 export function addStatusEffectToPlayer(opts: {
-  player: ActivePlayer;
+  player: CombatActivePlayer;
   statusEffectKey: string;
   value: number;
 }): void {
@@ -39,7 +39,7 @@ export function addStatusEffectToPlayer(opts: {
  * @param opts.value The value to remove from the status effect.
  */
 export function removeStatusEffectFromPlayer(opts: {
-  player: ActivePlayer;
+  player: CombatActivePlayer;
   statusEffectKey: string;
   value: number;
 }): void {
@@ -56,7 +56,7 @@ export function removeStatusEffectFromPlayer(opts: {
  * @returns the number of stacks of the status effect.
  */
 export function statusEffectStacks(opts: {
-  player: ActivePlayer;
+  player: CombatActivePlayer;
   statusEffectKey: string;
 }): number {
   const { player, statusEffectKey } = opts;
@@ -76,7 +76,7 @@ export function statusEffectStacks(opts: {
  * @returns whether or not the player has the status effect.
  */
 export function hasStatusEffect(opts: {
-  player: ActivePlayer;
+  player: CombatActivePlayer;
   statusEffectKey: string;
 }): boolean {
   return statusEffectStacks(opts) > 0;

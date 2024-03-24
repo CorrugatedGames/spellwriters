@@ -1,4 +1,8 @@
-import type { FieldStatus, TileStatus, TurnOrder } from '../../interfaces';
+import type {
+  CombatTurnOrder,
+  FieldStatus,
+  TileStatus,
+} from '../../interfaces';
 import { getTileStatusByKey } from '../lookup/tile-status';
 import { getId } from '../static/uuid';
 import { combatState } from './combatstate';
@@ -84,7 +88,7 @@ export function setFieldStatus(opts: {
  */
 export function tileStatusToFieldStatus(opts: {
   tileStatus: TileStatus;
-  caster: TurnOrder;
+  caster: CombatTurnOrder;
   extraData?: Record<string, unknown>;
 }): FieldStatus {
   const { tileStatus, caster, extraData } = opts;
@@ -107,7 +111,7 @@ export function tileStatusToFieldStatus(opts: {
  */
 export function tileStatusKeyToTileStatus(opts: {
   tileStatusKey: string;
-  caster: TurnOrder;
+  caster: CombatTurnOrder;
   extraData?: Record<string, unknown>;
 }): FieldStatus {
   const { tileStatusKey, caster, extraData } = opts;

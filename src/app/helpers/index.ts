@@ -5,18 +5,20 @@
 import * as Electron from './electron/in-electron';
 
 import * as GameplayAI from './gameplay/ai';
-import * as GameplayGamestate from './gameplay/combatstate';
+import * as GameplayCombatState from './gameplay/combatstate';
 import * as GameplayError from './gameplay/error';
 import * as GameplayField from './gameplay/field';
 import * as GameplayFieldElement from './gameplay/field-element';
 import * as GameplayFieldSpell from './gameplay/field-spell';
 import * as GameplayFieldStatus from './gameplay/field-status';
+import * as GameplayGameState from './gameplay/gamestate';
 import * as GameplayHand from './gameplay/hand';
 import * as GameplayInit from './gameplay/init';
 import * as GameplayMeta from './gameplay/meta';
 import * as GameplayPlayer from './gameplay/player';
 import * as GameplayRitual from './gameplay/ritual';
 import * as GameplaySpell from './gameplay/spell';
+import * as GameplayStarspace from './gameplay/starspace';
 import * as GameplayStats from './gameplay/stats';
 import * as GameplayStatusEffects from './gameplay/status-effects';
 import * as GameplayTargetting from './gameplay/targetting';
@@ -61,13 +63,15 @@ export const AllHelpers = {
   ...GameplayFieldSpell,
   ...GameplayFieldStatus,
   ...GameplayField,
+  ...GameplayGameState,
   ...GameplayHand,
   ...GameplayInit,
   ...GameplayPlayer,
   ...GameplayMeta,
   ...GameplayRitual,
-  ...GameplayGamestate,
+  ...GameplayCombatState,
   ...GameplaySpell,
+  ...GameplayStarspace,
   ...GameplayStats,
   ...GameplayStatusEffects,
   ...GameplayTargetting,
@@ -109,12 +113,14 @@ export * from './gameplay/field';
 export * from './gameplay/field-element';
 export * from './gameplay/field-spell';
 export * from './gameplay/field-status';
+export * from './gameplay/gamestate';
 export * from './gameplay/hand';
 export * from './gameplay/init';
 export * from './gameplay/meta';
 export * from './gameplay/player';
 export * from './gameplay/ritual';
 export * from './gameplay/spell';
+export * from './gameplay/starspace';
 export * from './gameplay/stats';
 export * from './gameplay/status-effects';
 export * from './gameplay/targetting';

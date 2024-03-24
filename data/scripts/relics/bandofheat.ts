@@ -1,11 +1,11 @@
 import type {
-  ActivePlayer,
+  CombatActivePlayer,
   RitualCurrentContextRelicArgs,
   RitualImpl,
   RitualSpellSpaceArgs,
 } from '../../../typings/interfaces';
 
-const makeSpaceWarm = (x: number, y: number, owner: ActivePlayer) => {
+const makeSpaceWarm = (x: number, y: number, owner: CombatActivePlayer) => {
   const fieldStatus = window.api.getSpaceFromField({ x, y });
   if (fieldStatus?.containedStatus) return;
 

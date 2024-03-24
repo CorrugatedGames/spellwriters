@@ -1,8 +1,8 @@
 import {
-  GamePhase,
-  TurnOrder,
+  CombatPhase,
+  CombatTurnOrder,
   type AIOpts,
-  type ActivePlayer,
+  type CombatActivePlayer,
 } from '../../interfaces';
 import { combatState } from './combatstate';
 import { nextPhase } from './meta';
@@ -27,12 +27,14 @@ export function getAIOpts(): AIOpts {
     combatstate: state,
     rng: seededrng(),
     playableCards: playableCardsInHand({
-      player: state.players[TurnOrder.Opponent],
+      player: state.players[CombatTurnOrder.Opponent],
     }),
   };
 }
 
-async function aiDrawPhase(opts: { character: ActivePlayer }): Promise<void> {
+async function aiDrawPhase(opts: {
+  character: CombatActivePlayer;
+}): Promise<void> {
   const { character } = opts;
 
   drawCard({ character });
@@ -40,7 +42,9 @@ async function aiDrawPhase(opts: { character: ActivePlayer }): Promise<void> {
   await nextPhase();
 }
 
-async function aiSpendPhase(opts: { character: ActivePlayer }): Promise<void> {
+async function aiSpendPhase(opts: {
+  character: CombatActivePlayer;
+}): Promise<void> {
   const { character } = opts;
 
   const validBehaviors = Object.keys(character.behaviors).filter((b) =>
@@ -96,20 +100,20 @@ async function aiEndPhase(): Promise<void> {
 export async function aiAttemptAction(): Promise<void> {
   const state = combatState();
 
-  if (state.currentTurn === TurnOrder.Player) return;
+  if (state.currentTurn === CombatTurnOrder.Player) return;
 
-  const aiPlayer = state.players[TurnOrder.Opponent];
+  const aiPlayer = state.players[CombatTurnOrder.Opponent];
 
   switch (state.currentPhase) {
-    case GamePhase.Draw:
+    case CombatPhase.Draw:
       await aiDrawPhase({ character: aiPlayer });
       break;
 
-    case GamePhase.Turn:
+    case CombatPhase.Turn:
       await aiSpendPhase({ character: aiPlayer });
       break;
 
-    case GamePhase.End:
+    case CombatPhase.End:
       await aiEndPhase();
       break;
   }

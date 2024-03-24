@@ -1,4 +1,8 @@
-import { type ActivePlayer, type GamePhase, type TurnOrder } from './gamestate';
+import {
+  type CombatActivePlayer,
+  type CombatPhase,
+  type CombatTurnOrder,
+} from './gamestate';
 import { type FieldSpell, type Spell, type SpellStatType } from './spell';
 import type { FieldStatus } from './tile';
 
@@ -13,7 +17,7 @@ export interface RitualDefaultArgs {}
 export interface RitualRelicDefaultArgs extends RitualDefaultArgs {
   relicId: string;
   stacks: number;
-  owner: ActivePlayer;
+  owner: CombatActivePlayer;
 }
 
 /**
@@ -74,7 +78,7 @@ export interface RitualSpellCollisionSpaceArgs
  * @category Ritual
  */
 export interface RitualCharacterArgs extends RitualDefaultArgs {
-  character: ActivePlayer;
+  character: CombatActivePlayer;
 }
 
 /**
@@ -147,9 +151,9 @@ export interface RitualSpellStatChangeArgs extends RitualSpellDefaultArgs {
  * @category Ritual
  */
 export interface RitualPhaseChangeArgs extends RitualDefaultArgs {
-  oldPhase: GamePhase;
-  newPhase: GamePhase;
-  newTurn: TurnOrder;
+  oldPhase: CombatPhase;
+  newPhase: CombatPhase;
+  newTurn: CombatTurnOrder;
 }
 
 /**
@@ -180,7 +184,7 @@ export interface RitualCurrentContextRelicArgs {
     id: string;
     key: string | undefined;
     stacks: number;
-    owner: ActivePlayer;
+    owner: CombatActivePlayer;
   };
 }
 
@@ -192,7 +196,7 @@ export interface RitualCurrentContextStatusEffectArgs {
     id: string;
     key: string | undefined;
     stacks: number;
-    owner: ActivePlayer;
+    owner: CombatActivePlayer;
   };
 }
 

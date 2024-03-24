@@ -1,4 +1,4 @@
-import type { TurnOrder } from './gamestate';
+import type { CombatTurnOrder } from './gamestate';
 import type { Spritable } from './sprite';
 
 /**
@@ -19,7 +19,7 @@ export interface TileStatus extends Spritable {
  */
 export interface FieldStatus extends TileStatus {
   castId: string;
-  caster: TurnOrder;
+  caster: CombatTurnOrder;
 
   extraData: Record<string, unknown>;
 }

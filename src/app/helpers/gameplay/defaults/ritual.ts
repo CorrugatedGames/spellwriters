@@ -1,5 +1,5 @@
 import {
-  TurnOrder,
+  CombatTurnOrder,
   type ContentItem,
   type RitualCurrentContextArgs,
   type RitualImpl,
@@ -13,12 +13,12 @@ function debugLog(func: string, opts: { args: unknown; context: unknown }) {
   let owner = 'UNKNOWN';
   if ('spellContext' in ritualContext)
     owner =
-      ritualContext.spellContext.spell.caster === TurnOrder.Player
+      ritualContext.spellContext.spell.caster === CombatTurnOrder.Player
         ? 'PLAYER'
         : 'ENEMY';
   if ('relicContext' in ritualContext)
     owner =
-      ritualContext.relicContext.owner.turnOrder === TurnOrder.Player
+      ritualContext.relicContext.owner.turnOrder === CombatTurnOrder.Player
         ? 'PLAYER'
         : 'ENEMY';
 

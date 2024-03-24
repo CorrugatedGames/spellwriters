@@ -1,5 +1,5 @@
 import {
-  type ActivePlayer,
+  type CombatActivePlayer,
   type FieldSpell,
   type RitualCurrentContextRelicArgs,
   type RitualCurrentContextSpellArgs,
@@ -131,7 +131,7 @@ export function isFirstInvocationOfPlacedSpell(opts: {
  * @param opts.player The player to check.
  * @returns true if the player is the current turn.
  */
-export function isCurrentTurn(opts: { player: ActivePlayer }): boolean {
+export function isCurrentTurn(opts: { player: CombatActivePlayer }): boolean {
   const { player } = opts;
   const state = combatState();
   return state.currentTurn === player.turnOrder;
@@ -147,7 +147,7 @@ export function isCurrentTurn(opts: { player: ActivePlayer }): boolean {
  */
 export function isSpellOwnedBy(opts: {
   spell: FieldSpell;
-  owner: ActivePlayer;
+  owner: CombatActivePlayer;
 }): boolean {
   const { spell, owner } = opts;
   return spell.caster === owner.turnOrder;

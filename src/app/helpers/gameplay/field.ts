@@ -1,5 +1,5 @@
 import {
-  TurnOrder,
+  CombatTurnOrder,
   type FieldNode,
   type FieldSpell,
   type RitualPickableTile,
@@ -317,9 +317,9 @@ export function moveSpellToPosition(opts: {
 
   if (nextY === 0 || nextY === field.length - 1) {
     const opponentRef =
-      spell.caster === TurnOrder.Player
-        ? players[TurnOrder.Opponent]
-        : players[TurnOrder.Player];
+      spell.caster === CombatTurnOrder.Player
+        ? players[CombatTurnOrder.Opponent]
+        : players[CombatTurnOrder.Player];
 
     loseHealth({ character: opponentRef, amount: spell.damage });
 
@@ -479,7 +479,7 @@ export function moveSpellForwardOneStep(opts: { spell: FieldSpell }): void {
   const position = findSpellPositionOnField({ spellId: spell.castId });
   if (!position) return;
 
-  const yDelta = spell.caster === TurnOrder.Player ? -1 : 1;
+  const yDelta = spell.caster === CombatTurnOrder.Player ? -1 : 1;
   const nextY = position.y + yDelta;
   const nextX = position.x;
 

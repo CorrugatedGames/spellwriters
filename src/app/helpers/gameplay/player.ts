@@ -1,4 +1,4 @@
-import type { ActivePlayer, TurnOrder } from '../../interfaces';
+import type { CombatActivePlayer, CombatTurnOrder } from '../../interfaces';
 import { combatState } from './combatstate';
 
 /**
@@ -9,8 +9,8 @@ import { combatState } from './combatstate';
  * @returns the active player reference
  */
 export function getActivePlayerByTurnOrder(opts: {
-  turnOrder: TurnOrder;
-}): ActivePlayer {
+  turnOrder: CombatTurnOrder;
+}): CombatActivePlayer {
   const state = combatState();
   const { turnOrder } = opts;
 

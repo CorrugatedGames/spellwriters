@@ -1,4 +1,7 @@
-import { type ActivePlayer, type PlayableCard } from '../../interfaces';
+import {
+  type CombatActivePlayer,
+  type CombatPlayableCard,
+} from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
 import { manaCostForSpell } from './stats';
 import { getListOfTargetableTilesForSpell } from './targetting';
@@ -11,8 +14,8 @@ import { getListOfTargetableTilesForSpell } from './targetting';
  * @param opts.card The card to lose.
  */
 export function loseCardInHand(opts: {
-  player: ActivePlayer;
-  card: PlayableCard;
+  player: CombatActivePlayer;
+  card: CombatPlayableCard;
 }): void {
   const { player, card } = opts;
 
@@ -28,8 +31,8 @@ export function loseCardInHand(opts: {
  * @returns the list of playable cards.
  */
 export function playableCardsInHand(opts: {
-  player: ActivePlayer;
-}): PlayableCard[] {
+  player: CombatActivePlayer;
+}): CombatPlayableCard[] {
   const { player } = opts;
 
   return player.hand.filter((card) => {
@@ -54,7 +57,9 @@ export function playableCardsInHand(opts: {
  * @param opts.player The player to check for playable cards.
  * @returns true if the player can play cards from their hand.
  */
-export function canPlayCardsInHand(opts: { player: ActivePlayer }): boolean {
+export function canPlayCardsInHand(opts: {
+  player: CombatActivePlayer;
+}): boolean {
   const { player } = opts;
   return playableCardsInHand({ player }).length > 0;
 }

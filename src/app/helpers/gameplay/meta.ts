@@ -1,39 +1,43 @@
-import { GamePhase, TurnOrder, type ActivePlayer } from '../../interfaces';
+import {
+  CombatPhase,
+  CombatTurnOrder,
+  type CombatActivePlayer,
+} from '../../interfaces';
 import { combatState, saveCombatState } from './combatstate';
 import { callRitualGlobalFunction } from './ritual';
 import { gainMana } from './stats';
 import { reshuffleDeck } from './turn';
 import { setPhaseBannerString } from './vfx';
 
-const phaseAutoTransition: Record<GamePhase, boolean> = {
-  [GamePhase.Start]: false,
-  [GamePhase.PreDraw]: true,
-  [GamePhase.Draw]: false,
-  [GamePhase.PostDraw]: true,
-  [GamePhase.PreTurn]: true,
-  [GamePhase.Turn]: false,
-  [GamePhase.PostTurn]: true,
-  [GamePhase.PreSpellMove]: true,
-  [GamePhase.SpellMove]: false,
-  [GamePhase.PostSpellMove]: true,
-  [GamePhase.End]: false,
-  [GamePhase.Victory]: false,
+const phaseAutoTransition: Record<CombatPhase, boolean> = {
+  [CombatPhase.Start]: false,
+  [CombatPhase.PreDraw]: true,
+  [CombatPhase.Draw]: false,
+  [CombatPhase.PostDraw]: true,
+  [CombatPhase.PreTurn]: true,
+  [CombatPhase.Turn]: false,
+  [CombatPhase.PostTurn]: true,
+  [CombatPhase.PreSpellMove]: true,
+  [CombatPhase.SpellMove]: false,
+  [CombatPhase.PostSpellMove]: true,
+  [CombatPhase.End]: false,
+  [CombatPhase.Victory]: false,
 };
 
-const phaseNextPhase: Record<GamePhase, GamePhase> = {
-  [GamePhase.Start]: GamePhase.PreDraw,
-  [GamePhase.PreDraw]: GamePhase.Draw,
-  [GamePhase.Draw]: GamePhase.PostDraw,
-  [GamePhase.PostDraw]: GamePhase.PreTurn,
-  [GamePhase.PreTurn]: GamePhase.Turn,
-  [GamePhase.Turn]: GamePhase.PostTurn,
-  [GamePhase.PostTurn]: GamePhase.PreSpellMove,
-  [GamePhase.PreSpellMove]: GamePhase.SpellMove,
-  [GamePhase.SpellMove]: GamePhase.PostSpellMove,
-  [GamePhase.PostSpellMove]: GamePhase.End,
-  [GamePhase.End]: GamePhase.PreDraw,
+const phaseNextPhase: Record<CombatPhase, CombatPhase> = {
+  [CombatPhase.Start]: CombatPhase.PreDraw,
+  [CombatPhase.PreDraw]: CombatPhase.Draw,
+  [CombatPhase.Draw]: CombatPhase.PostDraw,
+  [CombatPhase.PostDraw]: CombatPhase.PreTurn,
+  [CombatPhase.PreTurn]: CombatPhase.Turn,
+  [CombatPhase.Turn]: CombatPhase.PostTurn,
+  [CombatPhase.PostTurn]: CombatPhase.PreSpellMove,
+  [CombatPhase.PreSpellMove]: CombatPhase.SpellMove,
+  [CombatPhase.SpellMove]: CombatPhase.PostSpellMove,
+  [CombatPhase.PostSpellMove]: CombatPhase.End,
+  [CombatPhase.End]: CombatPhase.PreDraw,
 
-  [GamePhase.Victory]: GamePhase.Victory,
+  [CombatPhase.Victory]: CombatPhase.Victory,
 };
 
 /**
@@ -46,50 +50,50 @@ const phaseNextPhase: Record<GamePhase, GamePhase> = {
 export async function nextPhase(): Promise<void> {
   const state = combatState();
 
-  const oldPhase: GamePhase = state.currentPhase;
-  const newPhase: GamePhase = phaseNextPhase[state.currentPhase];
+  const oldPhase: CombatPhase = state.currentPhase;
+  const newPhase: CombatPhase = phaseNextPhase[state.currentPhase];
 
-  let newTurn: TurnOrder = state.currentTurn;
+  let newTurn: CombatTurnOrder = state.currentTurn;
   let newRound: number = state.currentRound;
-  let newPlayer: ActivePlayer;
+  let newPlayer: CombatActivePlayer;
 
   const playerString =
-    state.currentTurn === TurnOrder.Player ? 'Your' : 'Opponent';
+    state.currentTurn === CombatTurnOrder.Player ? 'Your' : 'Opponent';
   const otherPlayerString =
-    state.currentTurn === TurnOrder.Player ? 'Opponent' : 'Your';
+    state.currentTurn === CombatTurnOrder.Player ? 'Opponent' : 'Your';
 
-  const phaseActions: Record<GamePhase, () => void> = {
-    [GamePhase.Start]: () => {
+  const phaseActions: Record<CombatPhase, () => void> = {
+    [CombatPhase.Start]: () => {
       setPhaseBannerString({ text: `${playerString} Draw Phase` });
     },
 
-    [GamePhase.PreDraw]: () => {},
-    [GamePhase.Draw]: () => {
+    [CombatPhase.PreDraw]: () => {},
+    [CombatPhase.Draw]: () => {
       setPhaseBannerString({ text: `${playerString} Spend Phase` });
     },
-    [GamePhase.PostDraw]: () => {},
+    [CombatPhase.PostDraw]: () => {},
 
-    [GamePhase.PreTurn]: () => {},
-    [GamePhase.Turn]: () => {
+    [CombatPhase.PreTurn]: () => {},
+    [CombatPhase.Turn]: () => {
       setPhaseBannerString({ text: `${playerString} Spell Move Phase` });
     },
-    [GamePhase.PostTurn]: () => {},
+    [CombatPhase.PostTurn]: () => {},
 
-    [GamePhase.PreSpellMove]: () => {},
-    [GamePhase.SpellMove]: () => {
+    [CombatPhase.PreSpellMove]: () => {},
+    [CombatPhase.SpellMove]: () => {
       setPhaseBannerString({ text: `${playerString} End Phase` });
     },
-    [GamePhase.PostSpellMove]: () => {},
+    [CombatPhase.PostSpellMove]: () => {},
 
-    [GamePhase.End]: () => {
+    [CombatPhase.End]: () => {
       setPhaseBannerString({ text: `${otherPlayerString} Draw Phase` });
 
       newTurn =
-        state.currentTurn === TurnOrder.Player
-          ? TurnOrder.Opponent
-          : TurnOrder.Player;
+        state.currentTurn === CombatTurnOrder.Player
+          ? CombatTurnOrder.Opponent
+          : CombatTurnOrder.Player;
 
-      if (state.currentTurn === TurnOrder.Player) {
+      if (state.currentTurn === CombatTurnOrder.Player) {
         newRound = state.currentRound + 1;
       }
 
@@ -104,7 +108,7 @@ export async function nextPhase(): Promise<void> {
       newPlayer.cardsDrawnThisTurn = 0;
     },
 
-    [GamePhase.Victory]: () => {},
+    [CombatPhase.Victory]: () => {},
   };
 
   phaseActions[state.currentPhase]();
@@ -123,14 +127,14 @@ export async function nextPhase(): Promise<void> {
     funcOpts: { oldPhase, newPhase, newTurn },
   });
 
-  if (state.currentPhase === GamePhase.Start) {
+  if (state.currentPhase === CombatPhase.Start) {
     callRitualGlobalFunction({
       func: 'onCombatStart',
       funcOpts: {},
     });
   }
 
-  if (state.currentPhase === GamePhase.Victory) {
+  if (state.currentPhase === CombatPhase.Victory) {
     callRitualGlobalFunction({
       func: 'onCombatFinish',
       funcOpts: {},
@@ -160,20 +164,23 @@ export function declareVictory(): void {
 
   if (!hasAnyoneWon()) return;
 
-  const playerHealth = state.players[TurnOrder.Player].health;
-  const opponentHealth = state.players[TurnOrder.Opponent].health;
+  const playerHealth = state.players[CombatTurnOrder.Player].health;
+  const opponentHealth = state.players[CombatTurnOrder.Opponent].health;
 
-  let winner: TurnOrder;
+  let winner: CombatTurnOrder;
 
   if (playerHealth === 0) {
-    winner = TurnOrder.Opponent;
+    winner = CombatTurnOrder.Opponent;
   }
 
   if (opponentHealth === 0) {
-    winner = TurnOrder.Player;
+    winner = CombatTurnOrder.Player;
   }
 
-  if (winner! !== TurnOrder.Player && winner! !== TurnOrder.Opponent) {
+  if (
+    winner! !== CombatTurnOrder.Player &&
+    winner! !== CombatTurnOrder.Opponent
+  ) {
     return;
   }
 
@@ -181,7 +188,7 @@ export function declareVictory(): void {
     state: {
       ...state,
       currentTurn: winner,
-      currentPhase: GamePhase.Victory,
+      currentPhase: CombatPhase.Victory,
     },
   });
 }

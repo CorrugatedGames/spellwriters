@@ -5,7 +5,7 @@ function canMakeDecision(): boolean {
 }
 
 function makeDecision(opts: AIOpts): void {
-  const { gamestate, playableCards } = opts;
+  const { combatstate, playableCards } = opts;
 
   const chosen = window.api.randomChoice(playableCards);
   if (!chosen) return;
@@ -23,8 +23,8 @@ function makeDecision(opts: AIOpts): void {
   window.api.handleEntireSpellcastSequence({
     x: chosenTile.x,
     y: chosenTile.y,
-    character: gamestate.players[gamestate.currentTurn],
-    turnOrder: gamestate.currentTurn,
+    character: combatstate.players[combatstate.currentTurn],
+    turnOrder: combatstate.currentTurn,
     card: chosen,
   });
 }

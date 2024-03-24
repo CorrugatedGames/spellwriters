@@ -2,14 +2,14 @@ import { type AIOpts, type AIPatternImpl } from '../../../typings/interfaces';
 
 function canMakeDecision(opts: AIOpts): boolean {
   return (
-    opts.gamestate.spellQueue.filter(
+    opts.combatstate.spellQueue.filter(
       (spell) => window.api.findSpellOnField({ spellId: spell })?.caster === 0,
     ).length > 0
   );
 }
 
 function makeDecision(opts: AIOpts): void {
-  const { gamestate, playableCards } = opts;
+  const { combatstate, playableCards } = opts;
 
   const spells = window.api.sortArray(playableCards, [
     (card) => -(window.api.getSpellById(card.spellId)?.damage ?? 0),
@@ -43,8 +43,8 @@ function makeDecision(opts: AIOpts): void {
   window.api.handleEntireSpellcastSequence({
     x: chosenTile.x,
     y: chosenTile.y,
-    character: gamestate.players[gamestate.currentTurn],
-    turnOrder: gamestate.currentTurn,
+    character: combatstate.players[combatstate.currentTurn],
+    turnOrder: combatstate.currentTurn,
     card: chosen,
   });
 }

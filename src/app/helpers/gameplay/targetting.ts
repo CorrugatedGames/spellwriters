@@ -1,4 +1,4 @@
-import { TurnOrder, type Spell } from '../../interfaces';
+import { CombatTurnOrder, type Spell } from '../../interfaces';
 import { getSpellPatternImpl } from '../lookup/spell-patterns';
 import { getSpellById } from '../lookup/spells';
 import { combatState } from './combatstate';
@@ -7,7 +7,7 @@ import { callRitualGlobalFunction } from './ritual';
 
 function getListOfTargettableTilesForSpell(opts: {
   spell: Spell;
-  turn: TurnOrder;
+  turn: CombatTurnOrder;
 }): Array<{ x: number; y: number }> {
   const { spell, turn } = opts;
 
@@ -30,7 +30,7 @@ function getListOfTargettableTilesForSpell(opts: {
 
 function getRawTargettableTilesForSpell(opts: {
   spell: Spell;
-  turn: TurnOrder;
+  turn: CombatTurnOrder;
 }): Record<number, Record<number, boolean>> {
   const { turn, spell } = opts;
   const { field } = combatState();
@@ -54,12 +54,12 @@ function getRawTargettableTilesForSpell(opts: {
         return;
       }
 
-      if (turn === TurnOrder.Opponent) {
+      if (turn === CombatTurnOrder.Opponent) {
         if (y < depthMin) return;
         if (y > depthMax) return;
       }
 
-      if (turn === TurnOrder.Player) {
+      if (turn === CombatTurnOrder.Player) {
         if (y < height - depthMax) return;
         if (y > height - depthMin) return;
       }
@@ -112,7 +112,7 @@ export function canPlaceSpellOnTile(opts: {
  */
 export function getListOfTargetableTilesForSpellBasedOnPattern(opts: {
   spell: Spell;
-  turn: TurnOrder;
+  turn: CombatTurnOrder;
 }): Array<{ x: number; y: number }> {
   const { spell } = opts;
   if (!spell) return [];
@@ -141,7 +141,7 @@ export function getListOfTargetableTilesForSpellBasedOnPattern(opts: {
  */
 export function getListOfTargetableTilesForSpell(opts: {
   spell: Spell;
-  turn: TurnOrder;
+  turn: CombatTurnOrder;
 }): Array<{ x: number; y: number }> {
   const allTiles = getListOfTargettableTilesForSpell(opts);
   const suggestedTiles = getListOfTargetableTilesForSpellBasedOnPattern(opts);

@@ -47,6 +47,8 @@ export class NewRunComponent {
       return;
     }
 
+    // TODO: send to starspace first
+
     /*
     const opts: GameStateInitOpts = {
       enemyCharacter: {

@@ -3,10 +3,10 @@ import {
   HostBinding,
   input,
   output,
-  type OnChanges
+  type OnChanges,
 } from '@angular/core';
 import { getSpellById } from '../../../helpers';
-import { type PlayableCard } from '../../../interfaces';
+import { type CombatPlayableCard } from '../../../interfaces';
 
 @Component({
   selector: 'sw-deck',
@@ -36,12 +36,11 @@ import { type PlayableCard } from '../../../interfaces';
 export class DeckComponent implements OnChanges {
   getSpellById = getSpellById;
 
-  public deck = input.required<PlayableCard[]>();
+  public deck = input.required<CombatPlayableCard[]>();
   public isGlowing = input<boolean>(false);
   public drawCard = output<void>();
 
   public shouldGlow = false;
-
 
   ngOnChanges() {
     this.shouldGlow = this.deck().length === 0 ? false : this.isGlowing();

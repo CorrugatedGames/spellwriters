@@ -1,4 +1,4 @@
-import { type TurnOrder } from './gamestate';
+import { type CombatTurnOrder } from './gamestate';
 import { type Spritable } from './sprite';
 
 /**
@@ -29,7 +29,7 @@ export interface SpellElement extends Spritable {
  */
 export interface FieldElement extends SpellElement {
   castId: string;
-  caster: TurnOrder;
+  caster: CombatTurnOrder;
 
   extraData: Record<string, unknown>;
 }

@@ -1,5 +1,5 @@
 import { type PRNG } from 'seedrandom';
-import { type CombatState, type PlayableCard } from './gamestate';
+import { type CombatPlayableCard, type CombatState } from './gamestate';
 
 /**
  * @category Modding
@@ -27,5 +27,5 @@ export interface AIPattern {
 export interface AIOpts {
   combatstate: CombatState;
   rng: PRNG;
-  playableCards: PlayableCard[];
+  playableCards: CombatPlayableCard[];
 }

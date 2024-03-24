@@ -1,4 +1,4 @@
-import { type TurnOrder } from './gamestate';
+import { type CombatTurnOrder } from './gamestate';
 import { type Spritable } from './sprite';
 
 /**
@@ -69,7 +69,7 @@ export interface Spell extends HasStatsAndSprites {
  * @category Field
  */
 export interface FieldSpell extends Spell {
-  caster: TurnOrder;
+  caster: CombatTurnOrder;
   castId: string;
 
   /**

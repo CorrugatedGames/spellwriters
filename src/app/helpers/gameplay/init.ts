@@ -1,8 +1,8 @@
 import {
-  CurrentGameFeature,
-  GamePhase,
-  TurnOrder,
-  type ActivePlayer,
+  CombatPhase,
+  CombatTurnOrder,
+  GameFeature,
+  type CombatActivePlayer,
   type CombatState,
   type CombatStateInitOpts,
   type FieldNode,
@@ -62,13 +62,13 @@ export function createBlankField(opts: {
 /**
  * @internal
  */
-export function createBlankActivePlayer(): ActivePlayer {
+export function createBlankActivePlayer(): CombatActivePlayer {
   return {
     id: '',
     mod: 'default',
     asset: 'characters.webp',
     sprite: 0,
-    turnOrder: TurnOrder.Player,
+    turnOrder: CombatTurnOrder.Player,
 
     name: '',
     health: 1,
@@ -97,8 +97,8 @@ export function createBlankCombatState(): CombatState {
     id: '',
     rng: 0,
     currentRound: 0,
-    currentTurn: TurnOrder.Player,
-    currentPhase: GamePhase.Start,
+    currentTurn: CombatTurnOrder.Player,
+    currentPhase: CombatPhase.Start,
 
     players: [createBlankActivePlayer(), createBlankActivePlayer()],
 
@@ -115,7 +115,9 @@ export function createBlankCombatState(): CombatState {
  */
 export function createBlankGameState(): GameState {
   return {
-    currentFeature: CurrentGameFeature.StarSpace,
+    currentAct: 0,
+    currentStage: 0,
+    currentFeature: GameFeature.StarSpace,
   };
 }
 
@@ -135,11 +137,11 @@ export function createFreshCombatState(opts: {
     players: [
       turnCharacterIntoActivePlayer({
         character: gamestateInitOpts.playerCharacter,
-        turnOrder: TurnOrder.Player,
+        turnOrder: CombatTurnOrder.Player,
       }),
       turnCharacterIntoActivePlayer({
         character: gamestateInitOpts.enemyCharacter,
-        turnOrder: TurnOrder.Opponent,
+        turnOrder: CombatTurnOrder.Opponent,
       }),
     ],
 

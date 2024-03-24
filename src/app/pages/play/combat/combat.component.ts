@@ -30,14 +30,14 @@ import {
   stateMachineMapFromGameState,
 } from '../../../helpers';
 import {
-  GamePhase,
-  TurnOrder,
+  CombatPhase,
+  CombatTurnOrder,
+  type CombatSelectedCard,
   type CombatState,
   type CombatStateInitOpts,
-  type CurrentPhase,
+  type CurrentCombatPhase,
   type FieldNode,
   type Relic,
-  type SelectedCard,
   type Spell,
   type StatusEffect,
 } from '../../../interfaces';
@@ -56,10 +56,10 @@ export class CombatComponent {
   public debugService = inject(DebugService);
 
   public gamestate: CombatState = createBlankCombatState();
-  public gamephase: CurrentPhase = createBlankStateMachineMap();
+  public gamephase: CurrentCombatPhase = createBlankStateMachineMap();
 
   public hoveringTile?: FieldNode;
-  public activeCardData?: SelectedCard;
+  public activeCardData?: CombatSelectedCard;
   public selectableTiles:
     | Record<number, Record<number, boolean | undefined> | undefined>
     | undefined;
@@ -81,7 +81,7 @@ export class CombatComponent {
     this.parseRelics();
     this.parseStatusEffects();
 
-    if (this.gamestate.currentPhase === GamePhase.Victory) {
+    if (this.gamestate.currentPhase === CombatPhase.Victory) {
       this.createVictoryActions();
     } else {
       this.victoryActions = [];
@@ -93,11 +93,11 @@ export class CombatComponent {
   });
 
   public get player() {
-    return this.gamestate.players[TurnOrder.Player];
+    return this.gamestate.players[CombatTurnOrder.Player];
   }
 
   public get opponent() {
-    return this.gamestate.players[TurnOrder.Opponent];
+    return this.gamestate.players[CombatTurnOrder.Opponent];
   }
 
   public get activeSpell(): Spell | undefined {
@@ -107,7 +107,7 @@ export class CombatComponent {
   }
 
   private parseRelics() {
-    const player = this.gamestate.players[TurnOrder.Player];
+    const player = this.gamestate.players[CombatTurnOrder.Player];
     const relicHash = player.relics;
 
     this.relics = Object.keys(relicHash).map((relicId) => {
@@ -117,7 +117,7 @@ export class CombatComponent {
   }
 
   private parseStatusEffects() {
-    const player = this.gamestate.players[TurnOrder.Player];
+    const player = this.gamestate.players[CombatTurnOrder.Player];
     const statusEffectHash = player.statusEffects;
 
     this.statusEffects = Object.keys(statusEffectHash).map((statusEffectId) => {
@@ -130,7 +130,7 @@ export class CombatComponent {
     drawCardAndPassPhase({ character: this.player });
   }
 
-  public selectCard($event: SelectedCard | undefined) {
+  public selectCard($event: CombatSelectedCard | undefined) {
     if (!this.gamephase.PlayerTurn) return;
 
     if (!$event) {
@@ -153,7 +153,7 @@ export class CombatComponent {
     const targettableTilesList = getListOfTargetableTilesForSpellBasedOnPattern(
       {
         spell,
-        turn: TurnOrder.Player,
+        turn: CombatTurnOrder.Player,
       },
     );
     if (targettableTilesList.length === 0) {

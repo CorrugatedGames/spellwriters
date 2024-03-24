@@ -1,4 +1,4 @@
-import { type ActivePlayer, type Spell } from '../../interfaces';
+import { type CombatActivePlayer, type Spell } from '../../interfaces';
 import { callRitualGlobalFunction } from './ritual';
 
 /**
@@ -10,7 +10,7 @@ import { callRitualGlobalFunction } from './ritual';
  * @param opts.amount The amount of mana to set.
  */
 export function setMana(opts: {
-  character: ActivePlayer;
+  character: CombatActivePlayer;
   amount: number;
 }): void {
   const { character, amount } = opts;
@@ -26,7 +26,7 @@ export function setMana(opts: {
  * @param opts.amount The amount of mana to gain.
  */
 export function gainMana(opts: {
-  character: ActivePlayer;
+  character: CombatActivePlayer;
   amount: number;
 }): void {
   const { character, amount } = opts;
@@ -46,7 +46,7 @@ export function gainMana(opts: {
  * @param opts.amount The amount of mana to spend.
  */
 export function spendMana(opts: {
-  character: ActivePlayer;
+  character: CombatActivePlayer;
   amount: number;
 }): void {
   const { character, amount } = opts;
@@ -65,7 +65,9 @@ export function spendMana(opts: {
  * @param opts.character The player to get the cost for.
  * @returns the cost of drawing a card.
  */
-export function healthCostForDraw(opts: { character: ActivePlayer }): number {
+export function healthCostForDraw(opts: {
+  character: CombatActivePlayer;
+}): number {
   const { character } = opts;
   return character.cardsDrawnThisTurn + 1;
 }
@@ -79,7 +81,7 @@ export function healthCostForDraw(opts: { character: ActivePlayer }): number {
  * @returns the cost of casting a spell.
  */
 export function manaCostForSpell(opts: {
-  character: ActivePlayer;
+  character: CombatActivePlayer;
   spell: Spell;
 }): number {
   const { character, spell } = opts;
@@ -95,7 +97,7 @@ export function manaCostForSpell(opts: {
  * @param opts.amount The amount of health to set.
  */
 export function setHealth(opts: {
-  character: ActivePlayer;
+  character: CombatActivePlayer;
   amount: number;
 }): void {
   const { character, amount } = opts;
@@ -111,7 +113,7 @@ export function setHealth(opts: {
  * @param opts.amount The amount of health to gain.
  */
 export function gainHealth(opts: {
-  character: ActivePlayer;
+  character: CombatActivePlayer;
   amount: number;
 }): void {
   const { character, amount } = opts;
@@ -131,7 +133,7 @@ export function gainHealth(opts: {
  * @param opts.amount The amount of health to lose.
  */
 export function loseHealth(opts: {
-  character: ActivePlayer;
+  character: CombatActivePlayer;
   amount: number;
 }): void {
   const { character, amount } = opts;

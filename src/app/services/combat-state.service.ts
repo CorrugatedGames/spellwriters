@@ -18,7 +18,7 @@ import {
 } from '../helpers';
 import { spriteIterationCount } from '../helpers/static/sprite';
 import { delay } from '../helpers/static/time';
-import { GamePhase, TurnOrder, type CombatState } from '../interfaces';
+import { CombatPhase, CombatTurnOrder, type CombatState } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +29,7 @@ export class CombatStateService {
   private hasLoaded = signal<boolean>(false);
 
   private state: CombatState = createBlankCombatState();
-  private previousPhase!: GamePhase;
+  private previousPhase!: CombatPhase;
   private movingSpells = false;
 
   constructor() {
@@ -112,31 +112,34 @@ export class CombatStateService {
 
       this.previousPhase = currentPhase;
 
-      if (currentPhase === GamePhase.Start) {
+      if (currentPhase === CombatPhase.Start) {
         await nextPhase();
         return runGameloop();
       }
 
-      if (currentPhase === GamePhase.Victory) {
+      if (currentPhase === CombatPhase.Victory) {
         const message =
-          this.state.currentTurn === TurnOrder.Player
+          this.state.currentTurn === CombatTurnOrder.Player
             ? 'You win!'
             : 'You lose!';
         setPhaseBannerString({ text: message, delay: -1 });
         return runGameloop();
       }
 
-      if (hasAnyoneWon() && this.previousPhase !== GamePhase.Victory) {
+      if (hasAnyoneWon() && this.previousPhase !== CombatPhase.Victory) {
         declareVictory();
         return runGameloop();
       }
 
-      if (currentPhase === GamePhase.Draw && currentPlayer.deck.length === 0) {
+      if (
+        currentPhase === CombatPhase.Draw &&
+        currentPlayer.deck.length === 0
+      ) {
         await nextPhase();
         return runGameloop();
       }
 
-      if (currentPhase === GamePhase.SpellMove && !this.movingSpells) {
+      if (currentPhase === CombatPhase.SpellMove && !this.movingSpells) {
         this.movingSpells = true;
 
         await delay(DEFAULT_DELAY);
@@ -148,13 +151,13 @@ export class CombatStateService {
         return runGameloop();
       }
 
-      if (currentPhase === GamePhase.End) {
+      if (currentPhase === CombatPhase.End) {
         await delay(DEFAULT_DELAY);
         await nextPhase();
         return runGameloop();
       }
 
-      if (currentTurn === TurnOrder.Opponent) {
+      if (currentTurn === CombatTurnOrder.Opponent) {
         await aiAttemptAction();
         return runGameloop();
       }

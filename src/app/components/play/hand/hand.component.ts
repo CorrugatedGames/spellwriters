@@ -1,17 +1,12 @@
-import {
-  Component,
-  input,
-  output,
-  type OnChanges
-} from '@angular/core';
+import { Component, input, output, type OnChanges } from '@angular/core';
 import {
   getListOfTargetableTilesForSpellBasedOnPattern,
   getSpellById,
 } from '../../../helpers';
 import {
-  TurnOrder,
-  type PlayableCard,
-  type SelectedCard,
+  CombatTurnOrder,
+  type CombatPlayableCard,
+  type CombatSelectedCard,
   type Spell,
 } from '../../../interfaces';
 
@@ -23,14 +18,14 @@ import {
 export class HandComponent implements OnChanges {
   getSpellById = getSpellById;
 
-  public hand = input.required<PlayableCard[]>();
-  public selectedCard = input<SelectedCard>();
+  public hand = input.required<CombatPlayableCard[]>();
+  public selectedCard = input<CombatSelectedCard>();
   public extraCost = input<number>(0);
   public highlightCastableCardCost = input<number>(0);
 
   public shouldGlow: boolean[] = [];
 
-  public selectCard = output<SelectedCard>();
+  public selectCard = output<CombatSelectedCard>();
   public unselectCard = output<void>();
 
   public hoveringSpellIndex = -1;
@@ -51,7 +46,7 @@ export class HandComponent implements OnChanges {
   public calcShouldGlow(spell: Spell) {
     const targettableTiles = getListOfTargetableTilesForSpellBasedOnPattern({
       spell,
-      turn: TurnOrder.Player,
+      turn: CombatTurnOrder.Player,
     });
 
     if (targettableTiles.length === 0) return false;

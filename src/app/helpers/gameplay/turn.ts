@@ -1,8 +1,8 @@
 import {
-  GamePhase,
-  type ActivePlayer,
-  type PlayableCard,
-  type TurnOrder,
+  CombatPhase,
+  type CombatActivePlayer,
+  type CombatPlayableCard,
+  type CombatTurnOrder,
 } from '../../interfaces';
 import { getSpellById } from '../lookup/spells';
 import { seededrng } from '../static/rng';
@@ -29,7 +29,7 @@ import {
  * @category Gameplay
  * @param opts.character The player whose deck is getting shuffled.
  */
-export function shuffleDeck(opts: { character: ActivePlayer }): void {
+export function shuffleDeck(opts: { character: CombatActivePlayer }): void {
   const { character } = opts;
   const rng = seededrng();
 
@@ -42,7 +42,7 @@ export function shuffleDeck(opts: { character: ActivePlayer }): void {
  * @category Gameplay
  * @param opts.character The player whose deck is getting reshuffled.
  */
-export function reshuffleDeck(opts: { character: ActivePlayer }): void {
+export function reshuffleDeck(opts: { character: CombatActivePlayer }): void {
   const { character } = opts;
 
   character.deck.push(...character.discard);
@@ -59,8 +59,8 @@ export function reshuffleDeck(opts: { character: ActivePlayer }): void {
  * @param opts.card The card being removed from the discard pile.
  */
 export function removeCardFromDiscard(opts: {
-  character: ActivePlayer;
-  card: PlayableCard;
+  character: CombatActivePlayer;
+  card: CombatPlayableCard;
 }): void {
   const { character, card } = opts;
   character.discard = character.discard.filter(
@@ -74,12 +74,12 @@ export function removeCardFromDiscard(opts: {
  * @category Gameplay
  * @param opts.character The player drawing the card.
  */
-export function canDrawCard(opts: { character: ActivePlayer }): boolean {
+export function canDrawCard(opts: { character: CombatActivePlayer }): boolean {
   const { character } = opts;
   const state = combatState();
 
   return (
-    [GamePhase.Start, GamePhase.Draw].includes(state.currentPhase) &&
+    [CombatPhase.Start, CombatPhase.Draw].includes(state.currentPhase) &&
     character.deck.length > 0
   );
 }
@@ -91,12 +91,14 @@ export function canDrawCard(opts: { character: ActivePlayer }): boolean {
  * @category Gameplay
  * @param opts.character The player drawing the card.
  */
-export function canDrawExtraCard(opts: { character: ActivePlayer }): boolean {
+export function canDrawExtraCard(opts: {
+  character: CombatActivePlayer;
+}): boolean {
   const { character } = opts;
   const state = combatState();
 
   return (
-    [GamePhase.Turn].includes(state.currentPhase) &&
+    [CombatPhase.Turn].includes(state.currentPhase) &&
     character.deck.length > 0 &&
     character.health > healthCostForDraw({ character })
   );
@@ -108,7 +110,7 @@ export function canDrawExtraCard(opts: { character: ActivePlayer }): boolean {
  * @category Gameplay
  * @param opts.character The player drawing the card.
  */
-export function drawCard(opts: { character: ActivePlayer }): void {
+export function drawCard(opts: { character: CombatActivePlayer }): void {
   const { character } = opts;
   const card = character.deck.pop();
 
@@ -125,8 +127,8 @@ export function drawCard(opts: { character: ActivePlayer }): void {
  * @param opts.card The card being added to the player's hand.
  */
 export function addCardToHand(opts: {
-  character: ActivePlayer;
-  card: PlayableCard;
+  character: CombatActivePlayer;
+  card: CombatPlayableCard;
 }): void {
   const { character, card } = opts;
 
@@ -140,7 +142,9 @@ export function addCardToHand(opts: {
  * @category Gameplay
  * @param opts.character The player drawing the card.
  */
-export function drawCardAndPassPhase(opts: { character: ActivePlayer }): void {
+export function drawCardAndPassPhase(opts: {
+  character: CombatActivePlayer;
+}): void {
   const { character } = opts;
   if (!canDrawCard({ character })) return;
 
@@ -155,7 +159,7 @@ export function drawCardAndPassPhase(opts: { character: ActivePlayer }): void {
  * @category Gameplay
  * @param opts.character The player drawing the card.
  */
-export function doExtraCardDraw(opts: { character: ActivePlayer }): void {
+export function doExtraCardDraw(opts: { character: CombatActivePlayer }): void {
   const { character } = opts;
   if (!canDrawExtraCard({ character })) return;
 
@@ -181,7 +185,7 @@ export function endTurnAndPassPhase(): void {
  * @internal
  * @param opts.character The player casting the spell.
  */
-export function addSpellCast(opts: { character: ActivePlayer }): void {
+export function addSpellCast(opts: { character: CombatActivePlayer }): void {
   const { character } = opts;
   character.spellsCastThisTurn++;
 }
@@ -193,7 +197,7 @@ export function addSpellCast(opts: { character: ActivePlayer }): void {
  * @internal
  * @param opts.character The player drawing the card.
  */
-export function addCardDraw(opts: { character: ActivePlayer }): void {
+export function addCardDraw(opts: { character: CombatActivePlayer }): void {
   const { character } = opts;
   character.cardsDrawnThisTurn++;
 }
@@ -210,11 +214,11 @@ export function addCardDraw(opts: { character: ActivePlayer }): void {
  * @param opts.turnOrder The current turn order.
  */
 export function handleEntireSpellcastSequence(opts: {
-  character: ActivePlayer;
+  character: CombatActivePlayer;
   x: number;
   y: number;
-  card: PlayableCard;
-  turnOrder: TurnOrder;
+  card: CombatPlayableCard;
+  turnOrder: CombatTurnOrder;
 }): void {
   const { field } = combatState();
 

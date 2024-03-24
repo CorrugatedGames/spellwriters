@@ -17,7 +17,7 @@ export interface FieldNode {
 /**
  * @category Gameplay
  */
-export interface PlayableCard {
+export interface CombatPlayableCard {
   spellId: string;
   instanceId: string;
 }
@@ -25,10 +25,10 @@ export interface PlayableCard {
 /**
  * @category Gameplay
  */
-export interface ActivePlayer extends Spritable {
+export interface CombatActivePlayer extends Spritable {
   id: string;
 
-  turnOrder: TurnOrder;
+  turnOrder: CombatTurnOrder;
 
   name: string;
   health: number;
@@ -36,9 +36,9 @@ export interface ActivePlayer extends Spritable {
   mana: number;
   maxMana: number;
 
-  hand: PlayableCard[];
-  deck: PlayableCard[];
-  discard: PlayableCard[];
+  hand: CombatPlayableCard[];
+  deck: CombatPlayableCard[];
+  discard: CombatPlayableCard[];
 
   spellsCastThisTurn: number;
   cardsDrawnThisTurn: number;
@@ -48,7 +48,10 @@ export interface ActivePlayer extends Spritable {
   statusEffects: Record<string, number>;
 }
 
-export enum CurrentGameFeature {
+/**
+ * @category Gameplay
+ */
+export enum GameFeature {
   Combat = 'combat',
   StarSpace = 'starspace',
 }
@@ -56,7 +59,7 @@ export enum CurrentGameFeature {
 /**
  * @category Gameplay
  */
-export enum GamePlayer {
+export enum CombatPlayer {
   Player = 'Player',
   Opponent = 'Opponent',
 }
@@ -64,7 +67,7 @@ export enum GamePlayer {
 /**
  * @category Gameplay
  */
-export enum GamePhase {
+export enum CombatPhase {
   Start = 'Start',
 
   PreDraw = 'PreDraw',
@@ -87,12 +90,15 @@ export enum GamePhase {
 /**
  * @category Gameplay
  */
-export type CurrentPhase = Record<`${GamePlayer}${GamePhase}`, boolean>;
+export type CurrentCombatPhase = Record<
+  `${CombatPlayer}${CombatPhase}`,
+  boolean
+>;
 
 /**
  * @category Gameplay
  */
-export enum TurnOrder {
+export enum CombatTurnOrder {
   Player = 0,
   Opponent = 1,
 }
@@ -101,7 +107,9 @@ export enum TurnOrder {
  * @category Gameplay
  */
 export interface GameState {
-  currentFeature: CurrentGameFeature;
+  currentAct: number;
+  currentStage: number;
+  currentFeature: GameFeature;
 }
 
 /**
@@ -117,10 +125,10 @@ export interface CombatState {
   rng: number;
 
   currentRound: number;
-  currentTurn: TurnOrder;
-  currentPhase: GamePhase;
+  currentTurn: CombatTurnOrder;
+  currentPhase: CombatPhase;
 
-  players: ActivePlayer[];
+  players: CombatActivePlayer[];
 
   width: number;
   height: number;
@@ -142,7 +150,7 @@ export interface CombatStateInitOpts {
 /**
  * @category Gameplay
  */
-export interface SelectedCard {
-  card: PlayableCard;
+export interface CombatSelectedCard {
+  card: CombatPlayableCard;
   index: number;
 }

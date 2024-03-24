@@ -1,4 +1,8 @@
-import type { FieldElement, SpellElement, TurnOrder } from '../../interfaces';
+import type {
+  CombatTurnOrder,
+  FieldElement,
+  SpellElement,
+} from '../../interfaces';
 import { getElementByKey } from '../lookup/elements';
 import { getId } from '../static/uuid';
 import { combatState } from './combatstate';
@@ -14,7 +18,7 @@ import { combatState } from './combatstate';
  */
 export function elementToFieldElement(opts: {
   element: SpellElement;
-  caster: TurnOrder;
+  caster: CombatTurnOrder;
   extraData?: Record<string, unknown>;
 }): FieldElement {
   const { element, caster, extraData } = opts;
@@ -38,7 +42,7 @@ export function elementToFieldElement(opts: {
  */
 export function elementKeyToFieldElement(opts: {
   elementKey: string;
-  caster: TurnOrder;
+  caster: CombatTurnOrder;
   extraData?: Record<string, unknown>;
 }): FieldElement {
   const { elementKey, caster, extraData } = opts;
